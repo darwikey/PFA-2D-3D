@@ -1,0 +1,69 @@
+LANGUE : ANGLAIS
+
+----------------------------------------------------------------------------------------------------------
+
+COMMENTAIRE : ANGLAIS
+
+----------------------------------------------------------------------------------------------------------
+
+DOCUMENTATION : DOXYGEN dans le header
+
+//! \class MyClass
+//! \brief A brief explanation
+//! \param myParam : explanation
+//! \return explanation
+
+#ifndef EXAMPLE_HPP
+#define EXAMPLE_HPP
+#include <stdio>
+
+//! \class Example
+//! \brief blabla...
+
+class Example {
+	public:
+	//! \brief...
+	//! \param...
+	//! \return...
+
+----------------------------------------------------------------------------------------------------------
+
+COMPILATION : CMAKE
+
+----------------------------------------------------------------------------------------------------------
+
+Classe : MyClass
+
+Méthode Publique : int getTrue() {
+		   ...
+		   }
+
+Méthode Privée / Protégée : int _myMethod() {
+			    ...
+		            }
+
+Méthode Test : void testMyMethod() {
+	       ...
+	       }
+
+Méthode Getter / Setter : int getTrue() / void setTrue(int true)
+
+----------------------------------------------------------------------------------------------------------
+
+Variable locale : myVariable
+
+Variable statique : sMyVariable
+
+Argument fonction : fMyVariable
+
+Attribut objet : mMyVariable
+
+Constante (non argument de méthode) : MY_CONSTANT
+
+/!\ Eviter : #define PI 3.14; /!\ Privilégie : const static float PI; /!\
+
+----------------------------------------------------------------------------------------------------------
+
+Indentation : 4 spaces
+
+Espace avant et après opérateurs  =, +, -, &&, ... Sauf opérateurs unaires : *, &, ...
