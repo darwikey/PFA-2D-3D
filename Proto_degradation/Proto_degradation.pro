@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui opengl
-
+CONFIG += c++11
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Model_Loader
@@ -18,13 +18,14 @@ SOURCES += main.cpp\
     myglwidget.cpp \
     obj_loader.cpp \
     Point.cpp \
-    loader.cpp
+    loader.cpp \
+    Mesh.cpp
 
 HEADERS  += mywindow.h \
     model.h \
     myglwidget.h \
     obj_loader.h \
     Point.h \
-    loader.h
+    loader.h \
+    Mesh.h
 
-FORMS    += mywindow.ui
