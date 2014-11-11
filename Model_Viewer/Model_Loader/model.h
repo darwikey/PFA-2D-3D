@@ -3,6 +3,7 @@
 
 #include <QString>
 #include "obj_loader.h"
+#include "ply_loader.h"
 #include "Point.h"
 
 class Model

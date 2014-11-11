@@ -4,7 +4,7 @@ Loader::Loader()
 {
 }
 
-Model Loader::model = Model("cube.obj");
+Model Loader::model = Model("dragon_vrip_res2.ply");
 
 void Loader::setModel(string path){
 

@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     myglwidget.cpp \
     obj_loader.cpp \
     Point.cpp \
-    loader.cpp
+    loader.cpp \
+    ply_loader.cpp
 
 HEADERS  += mywindow.h \
     model.h \
     myglwidget.h \
     obj_loader.h \
     Point.h \
-    loader.h
+    loader.h \
+    ply_loader.h
 
 FORMS    += mywindow.ui
