@@ -2,7 +2,7 @@
 
 Loader::Loader()
 {
-    mModels["cube1"] = new Model("happy.ply");
+    mModels["cube1"] = new Model("bunny.ply");
 }
 
 

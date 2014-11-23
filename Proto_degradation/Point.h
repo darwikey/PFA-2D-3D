@@ -9,10 +9,10 @@ using namespace std;
 class Coordinate2d {
         
     public:
-		GLfloat x, y;
+		float x, y;
 
         Coordinate2d(){}
-        Coordinate2d(GLfloat x_value, GLfloat y_value);
+        Coordinate2d(float x_value, float y_value);
 		~Coordinate2d() {}
 };
 
@@ -20,49 +20,26 @@ class Coordinate2d {
 class Vec3 {
 
     public:
-		GLfloat x, y, z;
+		float x, y, z;
 
 		Vec3(){}
-        Vec3(GLfloat x_value, GLfloat y_value, GLfloat z_value);
-		~Vec3(){}
+        Vec3(float x_value, float y_value, float z_value);
 
-		GLfloat distance(const Vec3& fPoint) const;
-		GLfloat dotProduct(const Vec3& fPoint) const;
+		float length() const;
+		void normalise();
+		float distance(const Vec3& fPoint) const;
+		float dotProduct(const Vec3& fPoint) const;
+		Vec3 crossProduct(const Vec3& fPoint) const;
+
+		Vec3 operator + (const Vec3& rkVector) const;
+		Vec3 operator - (const Vec3& rkVector) const;
+		Vec3 operator * (const float fScalar) const;
+		Vec3 operator * (const Vec3& rhs) const;
+		Vec3 operator / (const float fScalar) const;
+		Vec3 operator - () const;
+
+		
 };
-
-
-class Triangle;
-
-class Vertex {
-
-public:
-	Vec3 position; // location of this point
-	std::set<Vertex *> neighbor; // adjacent vertices
-	std::vector<Triangle *> face; // adjacent triangles
-	float cost; // cached cost of collapsing edge
-	Vertex* collapse; // candidate vertex for collapse
-
-	Vertex(Vec3 fPosition);
-	~Vertex() {}
-
-};
-
-
-class Triangle {
-
-public:
-
-	Triangle(Vertex* vertex1, Vertex* vertex2, Vertex* vertex3, Vec3 faceNormal);
-	~Triangle() {}
-
-	bool hasVertex(Vertex* v);
-	void replaceVertex(Vertex* fOldVertex, Vertex* fNewVertex);
-
-	Vertex* vertices[3];
-	Vec3 normal;
-};
-
-
 
 
 

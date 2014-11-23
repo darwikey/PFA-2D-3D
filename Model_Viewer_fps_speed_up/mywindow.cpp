@@ -1,6 +1,6 @@
 #include "myWindow.h"
 #include"loader.h"
-#include "glut/include/GL/glut.h"
+//#include "glut/include/GL/glut.h"
 
 #define GL_GLEXT_PROTOTYPES
 
@@ -83,7 +83,7 @@ void myWindow::resizeGL(int width, int height)
     glOrtho(left, right, bottom, top, zNear, zFar);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt (0., 0., 2*(_model->BoundingBox.z_max-_model->BoundingBox.z_min), (_model->BoundingBox.x_max+_model->BoundingBox.x_min)/2, (_model->BoundingBox.y_max+_model->BoundingBox.y_min)/2, (_model->BoundingBox.z_max+_model->BoundingBox.z_min)/2, 0.0, 1.0, 0.0);
+    //gluLookAt (0., 0., 2*(_model->BoundingBox.z_max-_model->BoundingBox.z_min), (_model->BoundingBox.x_max+_model->BoundingBox.x_min)/2, (_model->BoundingBox.y_max+_model->BoundingBox.y_min)/2, (_model->BoundingBox.z_max+_model->BoundingBox.z_min)/2, 0.0, 1.0, 0.0);
 }
 
 void myWindow::paintGL()

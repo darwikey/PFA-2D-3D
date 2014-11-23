@@ -62,8 +62,9 @@ bool loadOBJ(std::string fPath, Model* fModel){
             //std::string vertex1, vertex2, vertex3;
 			Model::StructTriangle tri;
             //unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-            int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &tri.vertices[0], &tri.uvs[0], &tri.normals[0], &tri.vertices[1], &tri.uvs[1], &tri.normals[1], &tri.vertices[2], &tri.uvs[2], &tri.normals[2] );
-            if (matches != 9){
+            //int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &tri.vertices[0], &tri.uvs[0], &tri.normals[0], &tri.vertices[1], &tri.uvs[1], &tri.normals[1], &tri.vertices[2], &tri.uvs[2], &tri.normals[2] );
+			int matches = fscanf(file, "%d %d %d\n", &tri.vertices[0], &tri.vertices[1], &tri.vertices[2]);
+			if (matches <= 0 ){
                 printf("File can't be read by our simple parser :-( Try exporting with other options\n");
                 return false;
             }

@@ -3,11 +3,11 @@
 
 Loader::Loader()
 {
-	mModels["cube1"] = new Model("../data/cube.obj");
+	mModels["cube1"] = new Model("../data/bunny0.obj");
 
 	// Reduce the polygon count
 	Mesh _mesh(mModels["cube1"]);
-	_mesh.polygonReduction(6);
+	_mesh.polygonReduction(65000);
 	mModels["cube2"] =_mesh.convertToModel();
 }
 

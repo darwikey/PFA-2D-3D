@@ -1,11 +1,42 @@
 #pragma once
 
 #include "Point.h"
-
 class Model;
 
 class Mesh
 {
+
+	class Vertex
+	{
+
+	public:
+		Vec3 position; 
+
+		Vertex(Vec3 fPosition);
+		~Vertex(){}
+
+	};
+
+
+	class Triangle
+	{
+
+	public:
+
+		Triangle(Vertex* vertex1, Vertex* vertex2, Vertex* vertex3, Vec3 faceNormal);
+		~Triangle()	{}
+
+		bool isDegenerate();
+		void computeCost();
+
+		Vertex* vertices[3];
+		Vec3 normal;
+		float cost; // cost of collapsing triangle
+
+		static bool compareCost(Triangle* u, Triangle* v);
+	};
+
+
 public:
 	Mesh(Model* fModel);
 	~Mesh();
@@ -14,15 +45,12 @@ public:
 	Model* convertToModel();
 
 private:
-	float computeEdgeCollapseCost(Vertex* u, Vertex* v);
-	void computeEdgeCostAtVertex(Vertex *v);
-	void collapse(Vertex *u, Vertex *v);
-	void delete_vertex(Vertex* v);
-	
-	static bool compareCost(Vertex* u, Vertex* v);
+	Vertex* findVertexByIndex(size_t fIndex);
+	void collapseTriangle(Triangle* fTriangle);
 	
 
-	vector<Vertex*> mVertices;
-	vector<Triangle*> mTriangles;
+	std::vector<Vertex*> mVertices;
+	std::vector<Triangle*> mTriangles;
+
 };
 

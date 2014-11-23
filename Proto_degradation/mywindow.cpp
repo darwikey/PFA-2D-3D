@@ -62,7 +62,7 @@ void myWindow::paintGL()
 				if (_face.vertices[i]-1 >= 0 && _face.vertices[i]-1 < _model->vertices.size()){
 					Vec3 _v = _model->vertices[_face.vertices[i] - 1];
 					glVertex3f(_v.x, _v.y, _v.z);
-					glColor3f(_color, _color, _color);
+					glColor3f(_color, fmod(7.f * _color, 1.f), fmod(13.f * _color, 1.f));
 				}
 			}
 			_color += 1.f / _model->triangles.size();
@@ -81,8 +81,8 @@ void myWindow::paintGL()
 			{
 				if (_face.vertices[i]-1 >= 0 && _face.vertices[i]-1 < _model->vertices.size()){
 					Vec3 _v = _model->vertices[_face.vertices[i] - 1];
-					glVertex3f(_v.x + 3.f, _v.y, _v.z);
-					glColor3f(_color, _color, _color);
+					glVertex3f(_v.x + 13.f, _v.y, _v.z);
+					glColor3f(_color, fmod(7.f * _color, 1.f), fmod(13.f * _color, 1.f));
 				}
 			}
 			_color += 1.f / _model->triangles.size();
