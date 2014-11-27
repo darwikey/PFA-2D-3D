@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:complexType name="coordinates">
+    <xsd:sequence>
+      <xsd:element name="x" type="xsd:float" />
+      <xsd:element name="y" type="xsd:float" />
+      <xsd:element name="z" type="xsd:float" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="translation">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element name="vector" type="coordinates" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="scale">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element name="factor" type="coordinates" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="rotation">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element name="angle" type="coordinates" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="rotation_vec">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:extension base="coordinates">
+	  <xsd:element name="angle" type="xsd:float" />
+	</xsd:extension>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="color">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element name="R" type="xsd:float" />
+	<xsd:element name="G" type="xsd:float" />
+	<xsd:element name="B" type="xsd:float" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="object" maxOccurs="unbounded">
+    <xsd:complexType>
+      <xsd:attribute name="type" type="xsd:string" />
+      <xsd:attribute name="src" type="xsd:anyURI" use="required" />
+      <xsd:element ref="scale" />
+      <xsd:element ref="translation" />
+      <xsd:element ref="rotation_vec" />
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="light" maxOccurs="1">
+    <xsd:complexType>
+      <xsd:attribute name="type" type="xsd:string" />
+      <xsd:sequence>	      
+	<xsd:element ref="color" />
+	<xsd:element ref="translation" />	      
+	<xsd:element name="angle" type="xsd:float" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="camera" maxOccurs="1">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element ref="translation" />
+	<xsd:element ref="rotation" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="scene" use="required">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element ref="object" />
+	<xsd:element ref="light" />
+	<xsd:element ref="camera" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

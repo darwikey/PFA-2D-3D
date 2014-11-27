@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<scene>
+
+  <!-- Object and light can be used more than once. -->
+
+  <object type=".obj|.stl|.ply" src="dir/to/object/file">
+    <scale>
+      <xfactor> GLfloat </xfactor>
+      <yfactor> GLfloat </yfactor>
+      <zfactor> GLfloat </zfactor>
+    </scale>
+
+    <translation>
+      <vx> GLfloat </vx>
+      <vy> GLfloat </vy>
+      <vz> GLfloat </vz>
+    </translation>
+
+    <rotation>
+      <angle> GLfloat </angle>
+      <vx> GLfloat </vx>
+      <vy> GLfloat </vy>
+      <vz> GLfloat </vz>
+    </rotation>
+  </object>
+
+  <light type="directional|ponctual">
+    
+    <color>
+      <R> [0-255] </R>
+      <G> [0-255] </G>
+      <B> [0-255] </B>
+    </color>
+
+    <translation>
+      <vx> GLfloat </vx>
+      <vy> GLfloat </vy>
+      <vz> GLfloat </vz>
+    </translation>
+
+    <angle> GLfloat </angle>
+  </light>
+
+  <camera>
+    <translation>
+      <vx> GLfloat </vx>
+      <vy> GLfloat </vy>
+      <vz> GLfloat </vz>
+    </translation>
+
+    <rotation>
+      <ax> GLfloat </ax>
+      <ay> GLfloat </ay>
+      <az> GLfloat </az>
+    </rotation>
+  </camera>
+
+</scene>
