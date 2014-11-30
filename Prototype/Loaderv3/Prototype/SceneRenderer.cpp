@@ -108,25 +108,32 @@ void SceneRenderer::render()
 
     matrix = QMatrix4x4();
 
-    GLdouble left = (_model->BoundingBox.x_max+_model->BoundingBox.x_min)/2 - (_model->BoundingBox.z_max-_model->BoundingBox.z_min);
-    GLdouble right = (_model->BoundingBox.x_max+_model->BoundingBox.x_min)/2 + (_model->BoundingBox.z_max-_model->BoundingBox.z_min);
-    GLdouble bottom = (_model->BoundingBox.y_max+_model->BoundingBox.y_min)/2 - (_model->BoundingBox.z_max-_model->BoundingBox.z_min);
-    GLdouble top = (_model->BoundingBox.y_max+_model->BoundingBox.y_min)/2 + (_model->BoundingBox.z_max-_model->BoundingBox.z_min);
-    GLfloat zNear = 0.01;
-    GLfloat zFar = zNear + 100.0f;
-    QVector3D eye = QVector3D(0., 0., 2*(_model->BoundingBox.z_max-_model->BoundingBox.z_min));
-    QVector3D center = QVector3D((_model->BoundingBox.x_max+_model->BoundingBox.x_min)/2, (_model->BoundingBox.y_max+_model->BoundingBox.y_min)/2, (_model->BoundingBox.z_max+_model->BoundingBox.z_min)/2);
+    GLdouble centerx = (_model->BoundingBox.x_max+_model->BoundingBox.x_min)/2;
+    GLdouble centery = (_model->BoundingBox.y_max+_model->BoundingBox.y_min)/2;
+    GLdouble centerz = (_model->BoundingBox.z_max+_model->BoundingBox.z_min)/2;
+    GLdouble r = sqrt(((centerx - _model->BoundingBox.x_max)*(centerx - _model->BoundingBox.x_max))+((centery - _model->BoundingBox.y_max)*(centery - _model->BoundingBox.y_max))+((centerz - _model->BoundingBox.z_max)*(centerz - _model->BoundingBox.z_max)));
+
+    GLfloat fDistance = r / 0.57735f; // where 0.57735f is tan(30 degrees)
+
+    GLfloat zNear = fDistance - r;
+    GLfloat zFar = fDistance + r;
+
+    //printf("bounding box : x -- %f, %f, y -- %f, %f, z -- %f, %f\n",_model->BoundingBox.x_max,_model->BoundingBox.x_min,_model->BoundingBox.y_max,_model->BoundingBox.y_min,_model->BoundingBox.z_max,_model->BoundingBox.z_min);
+    //printf("center : %lf, %lf, %lf\n", centerx, centery, centerz);
+    //printf("r : %lf, dist : %f, zNear : %f, zFar : %f\n",r, fDistance, zNear, zFar);
+    QVector3D eye = QVector3D(0., 0., fDistance);
+    QVector3D center = QVector3D(0., 0., 0.);
     QVector3D up = QVector3D(0.0, 1.0, 0.0);
-    matrix.ortho(left, right, bottom, top, zNear, zFar);
+
+
+    matrix.frustum(-r, +r, -r, +r, zNear, zFar);
     matrix.lookAt(eye, center, up);
+    matrix.translate(-centerx, -centery, -centerz);
     matrix.translate(fMoveLeftRight, fMoveUpDown, fMoveInOut);
     matrix.rotate(fRotationX, 1.0f, 0.0f, 0.0f);
     matrix.rotate(fRotationY, 0.0f, 1.0f, 0.0f);
     matrix.rotate(fRotationZ, 0.0f, 0.0f, 1.0f);
 
-//    matrix.perspective(60.0f, 4.0f/3.0f, 0.1f, 100.0f);
-//    matrix.translate(0, 0, -5);
-//    matrix.rotate(100.0f * m_frame / screen()->refreshRate(), 0, 1, 0);
 
 
     m_program->setUniformValue(m_matrixUniform, matrix);

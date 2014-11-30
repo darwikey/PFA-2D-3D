@@ -8,7 +8,13 @@
 #include <QtGui/QPainter>
 
 MyGLWidget::MyGLWidget(QWindow *parent)
-    : QWindow(parent)
+    : QWindow(parent),
+      fRotationX(0.0f),
+      fRotationY(0.0f),
+      fRotationZ(0.0f),
+      fMoveUpDown(0.0f),
+      fMoveLeftRight(0.0f),
+      fMoveInOut(0.0f)
     , m_update_pending(false)
     , m_animating(false)
     , m_context(0)
