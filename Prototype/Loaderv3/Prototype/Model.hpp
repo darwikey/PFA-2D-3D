@@ -19,6 +19,8 @@ public:
     Model() ;
     Model(string filePath);
 
+	void computeBoundingBox();
+
     std::vector<Vec3> vertices;
     std::vector<Vec2> uvs;
     std::vector<Vec3> normals;

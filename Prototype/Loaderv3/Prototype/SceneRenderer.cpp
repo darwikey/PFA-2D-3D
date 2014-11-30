@@ -2,9 +2,7 @@
 #include"Chargeur.hpp"
 #include <iostream>
 
-extern "C"{
-    #include <unistd.h>
-}
+
 
 static const char *vertexShaderSource =
         "#version 330 core\n"
