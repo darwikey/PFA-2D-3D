@@ -1,6 +1,12 @@
 #include "Model.hpp"
 #include "PlyLoader.hpp"
 
+Model::Model():vboStatus(0)
+{
+
+
+}
+
 Model::Model(string filePath) : vboStatus(0),
 m_fileName(filePath) {
 
