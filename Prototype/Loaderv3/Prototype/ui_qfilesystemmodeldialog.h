@@ -74,8 +74,6 @@ public:
 
 
         retranslateUi(QFileSystemModelDialog);
-        QObject::connect(treeView, SIGNAL(clicked(QModelIndex)), QFileSystemModelDialog, SLOT(accept()));
-        QObject::connect(listView, SIGNAL(clicked(QModelIndex)), QFileSystemModelDialog, SLOT(accept()));
         QObject::connect(listView, SIGNAL(clicked(QModelIndex)), QFileSystemModelDialog, SLOT(on_listView_clicked(QModelIndex)));
         QObject::connect(treeView, SIGNAL(clicked(QModelIndex)), QFileSystemModelDialog, SLOT(on_treeView_clicked(QModelIndex)));
         QObject::connect(buttonBox, SIGNAL(accepted()), QFileSystemModelDialog, SLOT(button_ok_create_selected()));
