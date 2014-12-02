@@ -14,7 +14,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    obj_loader.cpp \
+    ObjLoader.cpp \
     PlyLoader.cpp \
     Point.cpp \
         MainWindow.cpp \
@@ -27,7 +27,7 @@ SOURCES += main.cpp\
     SceneRenderer.cpp
 
 HEADERS  += MainWindow.hpp \
-    obj_loader.h \
+    ObjLoader.h \
     PlyLoader.hpp \
     Point.hpp \
     QFileSystemModelDialog.hpp \
