@@ -38,10 +38,18 @@ bool PlyLoader::load(Model* fModel) {
 void PlyLoader::parseHeader() {
 	bool _endProperty = false;
 	vector<VerticesProperties> _verticesInfos;
-
+    unsigned int _line_begining=0;
 	// for each line
 	std::string _line;
+
 	while (std::getline(mFile, _line)){
+
+        _line_begining=0; //we eat unwanted caracters. A header line begins with a word, so digit or spaces
+        while(!((_line[_line_begining]>='A'&&_line[_line_begining]<='Z')||(_line[_line_begining]>='a'&&_line[_line_begining]<='z'))&&_line_begining<_line.size()){
+            _line_begining++;
+        }
+        _line=_line.substr (_line_begining);
+
 		std::istringstream _s (_line);
 
 		std::string _word;

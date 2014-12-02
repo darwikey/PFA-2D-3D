@@ -15,7 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QHBoxLayout>
+//#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QTreeView>
@@ -29,7 +30,9 @@ class Ui_QFileSystemModelDialog
 public:
     QVBoxLayout *verticalLayout;
     QWidget *widget;
-    QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout_2;
+    QSplitter *splitter;
+
     QTreeView *treeView;
     QListView *listView;
     QDialogButtonBox *buttonBox;
@@ -43,17 +46,21 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         widget = new QWidget(QFileSystemModelDialog);
         widget->setObjectName(QStringLiteral("widget"));
-        horizontalLayout = new QHBoxLayout(widget);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        treeView = new QTreeView(widget);
+        verticalLayout_2 = new QVBoxLayout(widget);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        splitter = new QSplitter(widget);
+
+        treeView = new QTreeView(splitter);
         treeView->setObjectName(QStringLiteral("treeView"));
 
-        horizontalLayout->addWidget(treeView);
+        splitter->addWidget(treeView);
 
-        listView = new QListView(widget);
+        listView = new QListView(splitter);
         listView->setObjectName(QStringLiteral("listView"));
 
-        horizontalLayout->addWidget(listView);
+        splitter->addWidget(listView);
+
+        verticalLayout_2->addWidget(splitter);
 
 
         verticalLayout->addWidget(widget);

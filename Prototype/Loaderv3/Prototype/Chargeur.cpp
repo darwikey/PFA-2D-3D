@@ -6,7 +6,7 @@
 Chargeur::Chargeur()
 {
     Scene* _scene = Scene::getInstance();
-    _scene->mModels["cube1"] = new Model("C://sources/3D/sphere.obj");
+    _scene->mModels["cube1"] = new Model();
 }
 
 void Chargeur::newModel(const std::string& fName)

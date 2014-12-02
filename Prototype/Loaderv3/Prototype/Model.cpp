@@ -2,19 +2,17 @@
 #include "PlyLoader.hpp"
 #include "ObjLoader.hpp"
 
+Model::Model():vboStatus(0)
+{
+
+
+}
+
 Model::Model(string filePath) : vboStatus(0),
 m_fileName(filePath) {
 
     ObjLoader _loader (filePath);
 	_loader.load(this);
-
-    //generating colors for better rendering
-    GLfloat _color = 0.f;
-    for(unsigned int i=0; i<vertices.size();i++) {
-        Vec3 colors(_color, _color, _color);
-        color.push_back(colors);
-        _color = (GLfloat) i/indices.size();
-    }
 
 }
 
