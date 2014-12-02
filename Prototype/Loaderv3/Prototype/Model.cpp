@@ -1,10 +1,11 @@
 #include "Model.hpp"
 #include "PlyLoader.hpp"
+#include "ObjLoader.hpp"
 
 Model::Model(string filePath) : vboStatus(0),
 m_fileName(filePath) {
 
-    PlyLoader _loader (filePath);
+    ObjLoader _loader (filePath);
 	_loader.load(this);
 
     //generating colors for better rendering
