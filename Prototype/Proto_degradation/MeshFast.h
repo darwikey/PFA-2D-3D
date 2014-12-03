@@ -5,8 +5,9 @@ class Model;
 
 class Mesh
 {
+	struct Triangle;
 
-	class Vertex
+	struct Vertex
 	{
 
 	public:
@@ -15,10 +16,12 @@ class Mesh
 		Vertex(Vec3 fPosition);
 		~Vertex(){}
 
+		std::vector<Triangle*> linkedTriangles;
+
 	};
 
 
-	class Triangle
+	struct Triangle
 	{
 
 	public:
@@ -26,6 +29,8 @@ class Mesh
 		Triangle(Vertex* vertex1, Vertex* vertex2, Vertex* vertex3, Vec3 faceNormal);
 		~Triangle()	{}
 
+		bool hasVertex(Vertex* v);
+		void replaceVertex(Vertex* fOldVertex, Vertex* fNewVertex);
 		bool isDegenerate();
 		void computeCost();
 
@@ -45,12 +50,12 @@ public:
 	Model* convertToModel();
 
 private:
-	Vertex* findVertexByIndex(size_t fIndex);
 	void collapseTriangle(Triangle* fTriangle);
-	
+	void deleteTriangle(Triangle* fTriangle);
 
 	std::vector<Vertex*> mVertices;
-	std::vector<Triangle*> mTriangles;
+	//std::vector<Triangle*> mTriangles;
+	std::multimap<float, Triangle*> mTrianglesByCost;
 
 };
 
