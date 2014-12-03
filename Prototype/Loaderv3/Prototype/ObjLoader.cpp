@@ -10,11 +10,6 @@ ObjLoader::ObjLoader(std::string fPath)
 
 	mFile.open(fPath);
 
-	if (!mFile)
-	{
-		std::cerr << "Impossible to open the file ! Are you in the right path ?" << std::endl;
-		exit(EXIT_FAILURE);
-	}
 }
 
 
@@ -26,6 +21,8 @@ ObjLoader::~ObjLoader()
 
 bool ObjLoader::load(Model* fModel)
 {
+    if (!mFile)
+        return false;
 	string _line;
 	size_t hashIndex = 0;
 
@@ -134,6 +131,10 @@ bool ObjLoader::load(Model* fModel)
 			}
 		}
 	}
+
+    if(fModel->vertices.size()== 0)
+        return false;
+
 
 	std::cout << "Finished extracting values from file" << endl
 		<< "Quick count check:" << endl
