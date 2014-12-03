@@ -2,7 +2,6 @@
 #define SCENERENDERER_HPP
 
 #include "MyGLWidget.hpp"
-#include "obj_loader.h"
 #include <QtGui/QGuiApplication>
 #include <QtGui/QMatrix4x4>
 #include <QtGui/QOpenGLShaderProgram>

@@ -5,9 +5,10 @@
 #include "Chargeur.hpp"
 
 QFileSystemModelDialog::QFileSystemModelDialog(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent,Qt::WindowStaysOnTopHint),
     ui(new Ui::QFileSystemModelDialog)
 {
+    setWindowModality (Qt::ApplicationModal);
     ui->setupUi(this);
 
     // Creates our new model and populate
@@ -71,6 +72,7 @@ void QFileSystemModelDialog::on_treeView_clicked(const QModelIndex &index)
 
 void QFileSystemModelDialog::button_ok_create_selected()
 {
+    hide();
 
     // Button ok pressed, we create the models
     QModelIndexList localList =ui->listView->selectionModel()->selectedIndexes();

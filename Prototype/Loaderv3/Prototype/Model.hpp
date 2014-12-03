@@ -18,6 +18,7 @@ public:
     Model(string filePath);
 
 	void computeBoundingBox();
+    void computeColors();
 
     std::vector<Vec3> vertices;
     std::vector<Vec2> uvs;

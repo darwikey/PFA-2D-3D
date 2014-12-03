@@ -3,7 +3,6 @@
 #include <iostream>
 
 
-
 static const char *vertexShaderSource =
         "#version 330 core\n"
         "layout(location = 0) in vec3 vertexPosition_modelspace;\n"
@@ -73,6 +72,7 @@ void SceneRenderer::initialize()
 
     glDepthFunc(GL_LESS);
     glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, width() * retinaScale, height() * retinaScale);
@@ -95,10 +95,9 @@ void SceneRenderer::render()
         glGenBuffers(1, &_model->elementbuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _model->elementbuffer);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, _model->indices.size() * sizeof(uint), &(_model->indices[0]), GL_STATIC_DRAW);
-
         _model->vboStatus = 1;
     }
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if ( !m_program->bind())
       {
@@ -137,7 +136,6 @@ void SceneRenderer::render()
 
 
     m_program->setUniformValue(m_matrixUniform, matrix);
-
 
     glEnableVertexAttribArray(0);
     // Index buffer
