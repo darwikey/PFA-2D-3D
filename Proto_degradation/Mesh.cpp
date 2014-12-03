@@ -1,7 +1,7 @@
 #include "Mesh.h"
 #include "model.h"
 #include <iostream>
-
+#include <chrono>
 
 Mesh::Vertex::Vertex(Vec3 fPosition) : position(fPosition) {
 }
@@ -84,17 +84,22 @@ Mesh::~Mesh()
 
 void Mesh::polygonReduction(size_t fPolygonDesired){
 	std::cout<<"Begin polygon reduction"<<endl;
+	std::cout << "number of triangles : " << mTriangles.size() << std::endl;
+	auto _start = std::chrono::system_clock::now();
 
 	while( mTriangles.size() > fPolygonDesired) {
 		//find the vertex with the lowest cost
 		Mesh::Triangle* _tri = *std::min_element(mTriangles.begin(), mTriangles.end(), &Triangle::compareCost);
 		collapseTriangle(_tri);
 
-		if (mTriangles.size()%10==0)
-			std::cout<<mTriangles.size()<<endl;
+		//if (mTriangles.size()%10==0)
+			//std::cout<<mTriangles.size()<<endl;
 	}
 
+	auto _end = std::chrono::system_clock::now();
+	std::cout<<"duration : " << std::chrono::duration<double>(_end-_start).count() << " s" << endl;
 	std::cout<<"End polygon reduction"<<endl;
+	std::cout << "number of triangles : " << mTriangles.size() << std::endl;
 }
 
 
