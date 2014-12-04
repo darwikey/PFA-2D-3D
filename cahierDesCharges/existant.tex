@@ -1,0 +1,82 @@
+\subsection{Logiciels existants}
+
+\paragraph{}
+	StereoPhoto Maker \footnote{StereoPhoto Maker : http://stereo.jpn.org/eng/stphmkr/} et Anaglyph Maker 3D \footnote{Anaglyph Maker 3D : http//www.stereoeye.jp/software/index\_e.html} sont des freewares permettant, entre autre, depuis deux photos d'obtenir l’anaglyphe rouge / cyan correspondant. La qualité de l'anaglyphe obtenu dépend du décalage entre les deux photos et de la qualité de la prise de vue. 
+	
+\paragraph{}
+	Enfin, de nombreux logiciels de création d'autostéréogrammes sont disponibles, comme Stereographic Suite  (\copyright IndaSoftware) et 3DMiracles(\copyright Urry Software Lab) qui permettent de créer des autostéréogrammes à partir d'une carte de profondeurs (image en deux dimensions en niveaux de gris).
+	
+\subsection{Projection vers deux dimensions}
+
+\paragraph{}
+	Le passage d’un objet en trois dimensions à une image en deux dimensions se fait par projection. Une caméra présente dans la scène est déterminée par sa position et le vecteur direction qui indique vers quel endroit elle regarde dans la scène [1]. La vue elle-même est obtenue par projection de la scène dans le repère de la caméra comme sur la figure  \ref{fig:projection}.
+	
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.7]{projection.png}
+		\caption{\label{fig:projection} Projection d’un objet en trois dimensions sur un support en deux dimensions \protect \footnotemark }
+\end{figure}
+	\footnotetext{OpenGL perspective projection : http://www.3dcpptutorials.sk/index.php?id=2}
+	
+\subsection{Les flipbooks}
+
+\paragraph{}
+	Le principe d’un flipbook, ou folioscope en français, est de créer une suite d’images successives d’une scène par rapport à une trajectoire. Il suffira ensuite de mettre toutes ces images dans l’ordre les unes derrière les autres, et de les faire défiler rapidement pour avoir l’impression d’un rendu en relief et en mouvement comme sur la figure 3. C’est également le principe des fichiers d’extension .GIF, qui font défiler une liste d’images.
+	
+\paragraph{}
+	La création d’un flipbook est possible en créant une animation à l’aide d’un logiciel de manipulation d’objets 3D et en ne capturant que certaines images, par exemple avec Blender. Ainsi l’impression de ces images successives permet de réaliser un flipbook (cf. figure \ref{fig:flipbook}). En combinant par exemple avec le logiciel Gimp (outil d’édition et de retouche d’image) l’animation peut être obtenue en GIF. 
+
+\begin{figure}[h]
+		\centering
+		\includegraphics[]{flipbook.png}
+		\caption{\label{fig:flipbook} Story-board d’un flipbook \protect \footnotemark }
+\end{figure}
+\footnotetext{http://tracieliu.blogspot.fr/2010/08/flipbook-storyboard.html}
+
+\subsection{Les autostéréogrammes}	
+
+\paragraph{}
+	Un autostéréogramme est une image qui cache une visualisation en trois dimensions d’un objet. La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. En fixant l’image en deux dimensions rien n’apparaitra. Il faut pouvoir fixer le regard en avant ou en arrière de l’image, pour réussir à y voir l’objet caché.	
+
+\paragraph{}
+	Pour générer un autostéréogramme, il faut utiliser une carte des profondeurs, ou carte de disparité, de l’objet à dissimuler. Cette carte s’obtient grâce à deux visions d’une même scène prises à deux endroits différents, et permet de mettre en avant les informations sur la profondeur de l’objet. La carte des profondeurs de la figure \ref{fig:carteProfondeur} a permis d’obtenir l’autostéréogramme de la figure \ref{fig:autostereogramme}.
+
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{carteProfondeur.png}
+		\caption{\label{fig:carteProfondeur} Carte des profondeurs \protect \footnotemark }
+\end{figure}
+\footnotetext{http://en.wikipedia.org/wiki/Autostereogram}
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{autostereog.png}
+		\caption{\label{fig:autostereogramme} Autostéréogramme obtenu \protect \footnotemark }
+\end{figure}
+\footnotetext{http://en.wikipedia.org/wiki/Autostereogram}
+
+\subsection{Les anaglyphes}
+
+\paragraph{}
+	Un anaglyphe est une image sur laquelle on superpose deux vues, si possible différentes, d’une scène. La meilleure distance entre ces deux visions est la même que celle entre les deux yeux, afin que le cerveau puisse recréer la même vision en trois dimensions que dans la réalité.
+	
+\paragraph{}
+	Les anaglyphes les plus fréquents sont les anaglyphes dits rouge-cyan. Ils se nomment ainsi car ils sont constitués d’une image sur laquelle on passe un filtre magenta, et une autre avec un filtre cyan (cf. figure \ref{fig:anaglyph}). Pour pouvoir visualiser le relief sur une telle image, on utilise une paire de lunettes rouge-cyan, dont chaque verre est un filtre pour l’une des deux couleurs de l’image. Le plus souvent, le filtre magenta est placé sur l’œil gauche, le cyan sur l’œil droit. En regardant l’image, l’œil gauche ne verra alors que la composante cyan, et inversement pour l’œil droit. Les deux images ayant un léger décalage, le cerveau va percevoir l’image comme si elle était en trois dimensions. Les anaglyphes rouge-cyan sont principalement intéressants sur des images en noir et blanc. En effet, quand il s’agit d’images en couleur, celles-ci sont souvent détériorées par l’usage des filtres, car les couleurs sont généralement composées de plusieurs composantes. A l’inverse, quand l’image est en nuances de gris, l’image n’est pas modifiée, juste mise en relief.
+
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=1]{anaglyph.png}
+		\caption{\label{fig:anaglyph} Le décalage de la partie rouge et cyan permet à l’œil de percevoir l’image non plus dans un plan XY mais dans l’espace \protect \footnotemark }
+\end{figure}
+\footnotetext{http://www.david-romeuf.fr/3D/Anaglyphes/TCAnaglypheLSDubois/TransformationCouleursPourAnaglyphe.html}
+
+\paragraph{}
+	Le paragraphe précédent concernent la création d’un anaglyphe depuis deux prises de vue d’une même scène avec un léger décalage. Mais il est également possible de le faire à partir d’une image en deux dimensions grâce à l’algorithme de Dubois \cite{algoDubois}, qui définit une vision matricielle de l’anaglyphe (cf. figure \ref{fig:algoDubois}). Dès lors, une matrice de transformation est introduite, qui permet de passer du taux RGB d’un pixel de l’image originale,  aux deux taux RGB des anaglyphes gauche/droite. Les coefficients de cette matrice sont calculés pour satisfaire une bonne restitution de l’image originale, tout en supprimant les rivalités colorées induites par des lunettes bicolores. Ainsi, pour visualiser une image rouge pure, il faudra changer le taux RGB de ce pixel pour que les deux yeux puissent le voir après les filtres. Sinon l’information ne circulera que dans un œil, et l’on perdra la vision stéréoscopique, et donc la notion de profondeur. 
+	
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=1]{algoDubois.png}
+		\caption{\label{fig:algoDubois} Rendu final d’une image par l’algorithme de Dubois \protect \footnotemark }
+\end{figure}
+\footnotetext{http://zour.deviantart.com/art/Wernigerode-Boulevard-Dubois-Anaglyph-HDR-3D-276542278}
+	
+	
