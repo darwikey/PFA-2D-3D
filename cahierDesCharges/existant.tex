@@ -26,7 +26,7 @@
 \paragraph{}
 	La création d’un flipbook est possible en créant une animation à l’aide d’un logiciel de manipulation d’objets 3D et en ne capturant que certaines images, par exemple avec Blender. Ainsi l’impression de ces images successives permet de réaliser un flipbook (cf. figure \ref{fig:flipbook}). En combinant par exemple avec le logiciel Gimp (outil d’édition et de retouche d’image) l’animation peut être obtenue en GIF. 
 
-\begin{figure}[h]
+\begin{figure}[h!]
 		\centering
 		\includegraphics[]{flipbook.png}
 		\caption{\label{fig:flipbook} Story-board d’un flipbook \protect \footnotemark }
@@ -36,12 +36,23 @@
 \subsection{Les autostéréogrammes}	
 
 \paragraph{}
-	Un autostéréogramme est une image qui cache une visualisation en trois dimensions d’un objet. La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. En fixant l’image en deux dimensions rien n’apparaitra. Il faut pouvoir fixer le regard en avant ou en arrière de l’image, pour réussir à y voir l’objet caché.	
+Un autostéréogramme est une image qui cache une visualisation en trois dimensions d’un objet. La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. Cette image est construite de sorte qu'à chaque point de l'objet en trois dimensions soient associés deux points de l'image. L'utilisateur doit observer chaque point d'un couple de points avec un seul œil, ce qui donne l'illusion au cerveau d'observer deux images différentes avec les deux yeux et donc l'incite à traiter cette information comme l'observation d'un objet en trois dimensions, comme illustré par la figure \ref{fig:ppe_autostereogramme}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{./ppe_autostereogramme.png}
+  \label{fig:ppe_autostereogramme}
+  \caption{Visualisation d’un autostéréogramme en vision parallèle \protect \footnotemark }
+\end{figure}
+\footnotetext{http://www.techmind.org/stereo/geometry.gif}
 
 \paragraph{}
-	Pour générer un autostéréogramme, il faut utiliser une carte des profondeurs, ou carte de disparité, de l’objet à dissimuler. Cette carte s’obtient grâce à deux visions d’une même scène prises à deux endroits différents, et permet de mettre en avant les informations sur la profondeur de l’objet. La carte des profondeurs de la figure \ref{fig:carteProfondeur} a permis d’obtenir l’autostéréogramme de la figure \ref{fig:autostereogramme}.
+La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. Il faut pouvoir fixer le regard en avant ou en arrière de l’image, pour réussir à y voir l’objet caché. La plupart des autostéréogrammes sont observables en vision parallèle, c'est-à-dire qu'il faut faire le point au-delà de l'image pour pouvoir observer l'objet.
 
-\begin{figure}[h]
+\paragraph{}
+	Pour générer un autostéréogramme, il faut utiliser une carte des profondeurs, ou carte de disparité, de l’objet à dissimuler. Cette carte s’obtient grâce à deux visions d’une même scène prises à deux endroits différents, et permet de mettre en avant les informations sur la profondeur de l’objet. Par exemple, la carte des profondeurs de la figure \ref{fig:carteProfondeur} a permis d’obtenir l’autostéréogramme de la figure \ref{fig:autostereogramme}.
+
+\begin{figure}[h!]
 		\centering
 		\includegraphics[scale=0.4]{carteProfondeur.png}
 		\caption{\label{fig:carteProfondeur} Carte des profondeurs \protect \footnotemark }
@@ -53,6 +64,13 @@
 		\caption{\label{fig:autostereogramme} Autostéréogramme obtenu \protect \footnotemark }
 \end{figure}
 \footnotetext{http://en.wikipedia.org/wiki/Autostereogram}
+
+\paragraph{}
+Il existe des algorithmes de génération d’autostéréogrammes très simples , comme celui proposé par Gary Beene \cite{garybeene}. Cependant un algorithme aussi peu optimisé produit des autostéréogrammes défecteux, comportant par exemple des échos (répétition d'une partie de l'objet 3D) ou des artefacts (défaut de l'objet 3D observé).
+
+\paragraph{}
+Des algorithmes plus poussés ont été développés, comme celui présenté par Harold W. Thimbleby, Stuart Inglis et Ian H. Witten \cite{stereogram}, et celui proposé par W. A. Steer \cite{wasteer}, associés à une réalisation en C. Ils permettent la génération d’autostéréogrammes SIRDS (Single Image Random Dots Stereogram) à partir d’une image 2D. Ces articles présentent également des méthodes de correction de problèmes tels que l'écho ou la gestion des faces cachées (faces de l'objet tridimensionnel visibles par un seul œil). W. A. Steer propose de plus une méthode de génération d'autostéréogrammes utilisant un motif bitmap comme image de base plutôt qu'un nuage de points aléatoires, ce qui pallie à certaines limites des SIRDS comme le manque de détails et la grossièreté des surfaces courbes.
+
 
 \subsection{Les anaglyphes}
 
