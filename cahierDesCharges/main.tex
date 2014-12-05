@@ -13,7 +13,7 @@
 %\title{Project Report}
 %
 %%% Preamble
-\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\documentclass[paper=a4, fontsize=11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{fourier}
 \usepackage[utf8]{inputenc}
@@ -22,22 +22,26 @@
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 \usepackage[pdftex]{graphicx}	
 \usepackage{url}
-
+\usepackage[bottom=10em]{geometry}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\renewcommand\descriptionlabel[1]{\textbf{#1 :}}
 %%% Custom sectioning
 %\usepackage{sectsty}
 %\allsectionsfont{\normalfont\scshape}
 
 
 %%% Custom headers/footers (fancyhdr package)
-\usepackage{fancyhdr}
-\pagestyle{fancyplain}
-\fancyhead{}											% No page header
+%\usepackage{fancyhdr}
+%\pagestyle{fancyplain}
+%\fancyhead{}											% No page header
 %\fancyfoot[L]{}											% Empty 
 %\fancyfoot[C]{}											% Empty
-\fancyfoot[C]{\thepage}									% Pagenumbering
-\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+%\fancyfoot[C]{\thepage}									% Pagenumbering
+%\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
 %\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
-\setlength{\headheight}{13.6pt}
+%\setlength{\headheight}{13.6pt}
 
 
 %%% Equation and float numbering
@@ -95,24 +99,21 @@
 \section{Sujet}
 \input{sujet.tex}
 
-\section{Cahier des besoins}
-\subsection{Besoins fonctionnels}
+\part*{Cahier des besoins}
+\addcontentsline{toc}{part}{Cahier des besoins}
+\section{Besoins fonctionnels}
 \input{besoinFct.tex}
-\subsection{Besoins non fonctionnels}
+\section{Besoins non fonctionnels}
 \input{besoinNfct.tex}
-\subsection{Contraintes}
+\section{Contraintes}
 \input{contraintes.tex}
-\subsection{Briques logicielles}
+\section{Briques logicielles}
 \input{briques.tex}
-
 \section{Maquette}
 \input{maquette.tex}
-
-\section{Prototype test}
+\section{Prototype test}\label{sec:prototypetest}
 \input{prototype.tex}
-
-
-\section{Architecture du projet}
+\section{Architecture du projet}\label{sec:archi}
 \input{archi.tex}
 
 \bibliographystyle{plain}

@@ -36,40 +36,42 @@
 \subsection{Les autostéréogrammes}	
 
 \paragraph{}
-Un autostéréogramme est une image qui cache une visualisation en trois dimensions d’un objet. La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. Cette image est construite de sorte qu'à chaque point de l'objet en trois dimensions soient associés deux points de l'image. L'utilisateur doit observer chaque point d'un couple de points avec un seul œil, ce qui donne l'illusion au cerveau d'observer deux images différentes avec les deux yeux et donc l'incite à traiter cette information comme l'observation d'un objet en trois dimensions, comme illustré par la figure \ref{fig:ppe_autostereogramme}.
+	Un autostéréogramme est une image qui cache une visualisation en trois dimensions d’un objet. La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. Cette image est construite de sorte qu'à chaque point de l'objet en trois dimensions soient associés deux points de l'image. L'utilisateur doit observer chaque point d'un couple de points avec un seul œil, ce qui donne l'illusion au cerveau d'observer deux images différentes avec les deux yeux et donc l'incite à traiter cette information comme l'observation d'un objet en trois dimensions, comme illustré par la figure \ref{fig:ppe_autostereogramme}.
 
-\begin{figure}[h!]
+\paragraph{}
+	La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. Il faut pouvoir fixer le regard en avant ou en arrière de l’image, pour réussir à y voir l’objet caché. La plupart des autostéréogrammes sont observables en vision parallèle, c'est-à-dire qu'il faut faire le point au-delà de l'image pour pouvoir observer l'objet.
+
+\begin{figure}[H]
   \centering
-  \includegraphics{./ppe_autostereogramme.png}
+  \includegraphics[scale=0.7]{./ppe_autostereogramme.png}
   \label{fig:ppe_autostereogramme}
   \caption{Visualisation d’un autostéréogramme en vision parallèle \protect \footnotemark }
 \end{figure}
-\footnotetext{http://www.techmind.org/stereo/geometry.gif}
 
-\paragraph{}
-La visualisation en trois dimensions peut être difficile à obtenir, et demande une réelle gymnastique oculaire. Il faut pouvoir fixer le regard en avant ou en arrière de l’image, pour réussir à y voir l’objet caché. La plupart des autostéréogrammes sont observables en vision parallèle, c'est-à-dire qu'il faut faire le point au-delà de l'image pour pouvoir observer l'objet.
+\footnotetext{http://www.techmind.org/stereo/geometry.gif}
 
 \paragraph{}
 	Pour générer un autostéréogramme, il faut utiliser une carte des profondeurs, ou carte de disparité, de l’objet à dissimuler. Cette carte s’obtient grâce à deux visions d’une même scène prises à deux endroits différents, et permet de mettre en avant les informations sur la profondeur de l’objet. Par exemple, la carte des profondeurs de la figure \ref{fig:carteProfondeur} a permis d’obtenir l’autostéréogramme de la figure \ref{fig:autostereogramme}.
 
-\begin{figure}[h!]
+\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.4]{carteProfondeur.png}
 		\caption{\label{fig:carteProfondeur} Carte des profondeurs \protect \footnotemark }
 \end{figure}
 \footnotetext{http://en.wikipedia.org/wiki/Autostereogram}
+
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{autostereog.png}
 		\caption{\label{fig:autostereogramme} Autostéréogramme obtenu \protect \footnotemark }
 \end{figure}
-\footnotetext{http://en.wikipedia.org/wiki/Autostereogram}
 
 \paragraph{}
 Il existe des algorithmes de génération d’autostéréogrammes très simples , comme celui proposé par Gary Beene \cite{garybeene}. Cependant un algorithme aussi peu optimisé produit des autostéréogrammes défecteux, comportant par exemple des échos (répétition d'une partie de l'objet 3D) ou des artefacts (défaut de l'objet 3D observé).
 
 \paragraph{}
 Des algorithmes plus poussés ont été développés, comme celui présenté par Harold W. Thimbleby, Stuart Inglis et Ian H. Witten \cite{stereogram}, et celui proposé par W. A. Steer \cite{wasteer}, associés à une réalisation en C. Ils permettent la génération d’autostéréogrammes SIRDS (Single Image Random Dots Stereogram) à partir d’une image 2D. Ces articles présentent également des méthodes de correction de problèmes tels que l'écho ou la gestion des faces cachées (faces de l'objet tridimensionnel visibles par un seul œil). W. A. Steer propose de plus une méthode de génération d'autostéréogrammes utilisant un motif bitmap comme image de base plutôt qu'un nuage de points aléatoires, ce qui pallie à certaines limites des SIRDS comme le manque de détails et la grossièreté des surfaces courbes.
+\footnotetext{http://en.wikipedia.org/wiki/Autostereogram}
 
 
 \subsection{Les anaglyphes}
@@ -82,7 +84,7 @@ Des algorithmes plus poussés ont été développés, comme celui présenté par
 
 \begin{figure}[h]
 		\centering
-		\includegraphics[scale=1]{anaglyph.png}
+		\includegraphics[scale=0.7]{anaglyph.png}
 		\caption{\label{fig:anaglyph} Le décalage de la partie rouge et cyan permet à l’œil de percevoir l’image non plus dans un plan XY mais dans l’espace \protect \footnotemark }
 \end{figure}
 \footnotetext{http://www.david-romeuf.fr/3D/Anaglyphes/TCAnaglypheLSDubois/TransformationCouleursPourAnaglyphe.html}
@@ -90,9 +92,9 @@ Des algorithmes plus poussés ont été développés, comme celui présenté par
 \paragraph{}
 	Le paragraphe précédent concernent la création d’un anaglyphe depuis deux prises de vue d’une même scène avec un léger décalage. Mais il est également possible de le faire à partir d’une image en deux dimensions grâce à l’algorithme de Dubois \cite{algoDubois}, qui définit une vision matricielle de l’anaglyphe (cf. figure \ref{fig:algoDubois}). Dès lors, une matrice de transformation est introduite, qui permet de passer du taux RGB d’un pixel de l’image originale,  aux deux taux RGB des anaglyphes gauche/droite. Les coefficients de cette matrice sont calculés pour satisfaire une bonne restitution de l’image originale, tout en supprimant les rivalités colorées induites par des lunettes bicolores. Ainsi, pour visualiser une image rouge pure, il faudra changer le taux RGB de ce pixel pour que les deux yeux puissent le voir après les filtres. Sinon l’information ne circulera que dans un œil, et l’on perdra la vision stéréoscopique, et donc la notion de profondeur. 
 	
-\begin{figure}[h]
+\begin{figure}[H]
 		\centering
-		\includegraphics[scale=1]{algoDubois.png}
+		\includegraphics[scale=0.9]{algoDubois.png}
 		\caption{\label{fig:algoDubois} Rendu final d’une image par l’algorithme de Dubois \protect \footnotemark }
 \end{figure}
 \footnotetext{http://zour.deviantart.com/art/Wernigerode-Boulevard-Dubois-Anaglyph-HDR-3D-276542278}

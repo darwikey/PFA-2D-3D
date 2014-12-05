@@ -1,0 +1,109 @@
+\subsection{La scène}
+Cette partie montre l’ensemble des cas d’utilisation relatifs à la scène.
+
+\begin{description}[style=nextline]
+    \item[Création de la scène]
+    \mbox{\hspace{1cm}} Au démarrage du logiciel, il sera possible de créer une nouvelle scène ou d’en charger une préexistante. Celle-ci permettra d’afficher et disposer plusieurs objets 3D avant d’être sauvegardée pour une utilisation ultérieure.
+    
+    \item[Sauvegarde de la scène] 
+    \mbox{\hspace{1cm}} On distinguera deux types de sauvegardes indépendantes entre elles : la sauvegarde automatique et la sauvegarde manuelle. La première s’effectuera après chaque modification apportée avec pour but d’éviter la perte de données en cas de crash du logiciel, elle se fera de manière discrète (c’est à dire en arrière-plan sans figer le logiciel le temps de la sauvegarde). La seconde se fera au format XML (dont le prototype est détaillé ultérieurement) sur demande de l’utilisateur. Il sera possible de choisir entre une importation des objets utilisés dans le répertoire courant de la scène ou d’une simple sauvegarde des chemins d’accès aux modèles 3D. Par ailleurs, les deux types de sauvegarde étant indépendants, une sauvegarde manuelle n’écrasera pas une sauvegarde automatique.
+    
+    \item[Chargement de la scène] 
+    \mbox{\hspace{1cm}} Comme vu précédemment, lors de la sauvegarde, les données relatives aux objets de la scène seront stockées dans un fichier au format XML. A l’ouverture du logiciel, l’utilisateur pourra choisir d’ouvrir une scène qu’il aura sauvegardée précédemment. Dans ce cas, les données enregistrées seront récupérées pour recréer la scène telle qu’elle était avant la fermeture du logiciel.
+    
+    \item[Suppression de la scène]
+    \mbox{\hspace{1cm}} Le logiciel ne proposera pas directement de méthode pour supprimer une scène. Pour cela, il faudra directement aller supprimer le dossier associé à la sauvegarde à l’intérieur du dossier contenant le logiciel.
+    
+\end{description}
+	
+\subsection{Les objets}
+Une fois la scène créée ou chargée, l’utilisateur aura la possibilité d’y placer des objets.
+
+\begin{description}[style=nextline]
+	\item[Chargement des fichiers objets]
+	\mbox{\hspace{1cm}} Les objets en trois dimensions utilisés seront sous la forme de fichiers objets. Trois types seront acceptés : les fichiers d’extension .OBJ (version 3.0, ASCII) et .PLY (versions 1.0, ASCII et binaire). Ils devront permettre de définir des objets à facettes triangulaires. Les objets pourront être ceux de l’utilisateur ou de la bibliothèque implémentée dans le logiciel. \newline
+	\mbox{\hspace{1cm}}Ces objets ne devront contenir aucun trou, par exemple une face absente sur un cube ou un triangle non généré par le fichier de chargement. Le fonctionnement du logiciel n’est garanti que sur des objets topologiquement valides. \newline
+	\mbox{\hspace{1cm}}Si un fichier à charger possède trop de polygones, un algorithme de décimation de faces permet d’en réduire le nombre jusqu’à un certain seuil (cf. prototype). Ce traitement n’est pas automatique et l’utilisateur pourra ou non l’appliquer.
+	
+	\item[Placement d'un objet]
+	\mbox{\hspace{1cm}} Après le chargement de l’objet il sera possible de le placer dans la scène via les trois translations du repère 3D. Ce placement n’est pas définitif et pourra être modifié ultérieurement lors de la constitution de la scène.
+	
+	\item[Modification d'un objet]
+	\mbox{\hspace{1cm}}Trois caractéristiques d’un objet pourront être modifiées : son emplacement, son orientation et sa taille.
+	
+	\item[Modification de l'orientation d'un objet]
+		\mbox{\hspace{1cm}}	L’orientation d’un objet dans la scène pourra être modifiée en fonction des trois axes de rotation usuels.
+	
+	\item[Modification de la taille d'un objet]
+		\mbox{\hspace{1cm}} L’objet pourra être agrandi ou réduit selon le besoin.
+		
+	\item[Mode de modification d'un objet]
+	\mbox{\hspace{1cm}}	Le placement et le paramétrage de l’objet (orientation, taille …) n’est pas définitif et peut-être revu par la suite via un mode de modification après avoir sélectionné l’objet à modifier. Toute sortie de ce mode de modification entraînera une sauvegarde automatique de la scène. 
+		
+	\item[Sélection d'un objet]
+	\mbox{\hspace{1cm}} Il sera possible de sélectionner un objet pour réaliser des modifications.
+	
+	\item[Suppression d'un objet]
+	\mbox{\hspace{1cm}} Il sera également possible, après sélection, de supprimer un ou plusieurs objets de la scène. Le ou les objets ainsi supprimés ne seront plus référencés dans la sauvegarde.
+\end{description}		
+
+
+\subsection{La caméra}
+La caméra possède un repère qui lui est propre et une distance correspondant à celle entre l’origine du repère de la scène (centre de rotation de la caméra) et le sien. 
+
+	
+\begin{description}[style=nextline]
+	\item[Observation de la scène]
+	\mbox{\hspace{1cm}}La caméra permettra de se déplacer dans la scène en suivant les trois axes de rotation et les trois axes de translation usuels, ainsi qu’un zoom. Si l’on choisit de se déplacer relativement aux axes de translation, le centre de rotation de la caméra sera modifié.
+
+	\item[Type de projection]
+	\mbox{\hspace{1cm}}	Deux types de projections seront disponibles : la projection orthographique (qui sera l’option par défaut) et la projection en perspective.
+
+	\item[Zoom de la scène]
+	\mbox{\hspace{1cm}}Il sera possible de se rapprocher ou s’éloigner de la scène via une fonctionnalité de zoom. Il ne sera pas possible d’atteindre le centre de rotation de la caméra.
+
+	\item[Remise à zéro du centre de la caméra]
+	\mbox{\hspace{1cm}}La position de la caméra pourra, à tout moment, être réinitialisée pour se retrouver dans les conditions initiales de visionnage de la scène.
+	
+\end{description}
+
+\subsection{Le passage en deux dimensions}
+\begin{description}[style=nextline]
+	\item[Mode de passage en deux dimensions]
+	Différents rendus seront accessibles : 
+	\begin{itemize}
+			\item Photographie
+			\item Anaglyphe via un algorithme améliorant le rendu post-impression \cite{printAnaglyph} ou s’appliquant sur des paires d’images pseudo stéréoscopique \cite{steteroAnaglyph}. 			
+	\end{itemize}
+	Pour les images générées par les modes présentés ci-dessous, il faudra choisir entre une qualité de 75 ou 300 pixels par pouce. \colorbox{yellow}{Préciser les algorithmes} 
+	
+	\item[Mode photographie]
+	\mbox{\hspace{1cm}} Le mode photographie permettra d’obtenir une image proche de la scène virtuelle créée. Pour ce mode, des informations concernant la qualité de l’image et sa taille devront être fournies.
+	
+	\item[Mode analgyphe]	
+	\mbox{\hspace{1cm}}Le mode anaglyphe permettra d’obtenir une image rouge, une image cyan, ainsi qu’une image superposant les deux. Pour ce mode, des informations concernant la qualité de l’image et sa taille devront être fournies.
+	
+	\item[Mode autostéréogramme]	
+	\mbox{\hspace{1cm}}Le mode autostéréogramme permettra d’obtenir un autostéréogramme fixe à une image. Pour ce mode, des informations concernant la qualité de l’image et sa taille devront être fournies.
+	
+	\item[Mode flipbook]	
+	\mbox{\hspace{1cm}}Le mode flipbook permettra d’obtenir un ensemble d’image sur une trajectoire donnée. Pour ce mode, des informations concernant la qualité de l’image et sa taille, mais également des informations nécessaires au lancement et à la construction du flipbook devront être fournies par l’utilisateur. Ainsi, il devra tout d’abord choisir une trajectoire parmi les trois axes de rotation, les trois axes de translation ou le zoom, puis un point de départ. Au choix, il pourra alors sélectionner un point d’arrivée et un nombre d’images, ou un nombre d’image et un angle pour connaître la mesure entre deux prises. Une barre de progression indiquera le nombre prises de vues faites par rapport au total. Si le temps d’attente est trop long, il sera toujours possible d’annuler l’action et redéfinir les paramètres.
+	
+	\item[Affichage du rendu]
+	\mbox{\hspace{1cm}}Les algorithmes des modes présentés ci-dessus permettront d’obtenir un rendu correspondant aux attentes de l’utilisateur. Ce dernier sera ensuite affiché dans une nouvelle fenêtre contenant le ou les produits demandé qu’il sera possible de sauvegarder avant de quitter.
+	
+	\item[Enregistrement du rendu]
+	\mbox{\hspace{1cm}} Si l’utilisateur choisit d’enregistrer les images générées par les algorithmes, les rendus qu’il souhaite sauvegarder devront être choisis parmi les rendus obtenus.
+	
+	\item[Enregistrement de la photographie]
+	\mbox{\hspace{1cm}}	Pour le cas simple de la photographie, il faudra nommer le fichier et donner son emplacement avant qu’il ne soit enregistré au format PNG.
+	
+	\item[Enregistrement de l'anaglyphe]
+	\mbox{\hspace{1cm}} Les images rouge et cyan pourront être enregistrées séparément ou non. Deux options de rendus seront disponibles : pour l’impression et pour l’ordinateur. Elles permettront d’optimiser l’affichage et l’utilisation des lunettes dans les deux cas. 
+	
+	\item[Enregistrement de l'autostéréogramme]
+	\mbox{\hspace{1cm}}	Pour l' autostéréogramme, il faudra nommer le fichier et indiquer son emplacement avant de le sauvegarder au format PNG.
+	
+	\item[Enregistrement du flipbook]
+	\mbox{\hspace{1cm}}Dans le cas du flipbook, les images pourront être enregistrées une à une au format PNG, par tranche au format PNG ou sous forme d’animation GIF. Dans le cas d’une sauvegarde séparée de chaque image il faudra les nommer et donner leur chemin d’accès. Par tranche il faudra indiquer la première et la dernière image ainsi qu’un nom commun et un répertoire. Pour l’animation il faudra la nommer et donner son chemin d’accès. 
+\end{description}
