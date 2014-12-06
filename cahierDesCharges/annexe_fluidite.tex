@@ -1,0 +1,47 @@
+Les résultats de fluidité obtenus avec les modèles de la section \ref{annexe:modeles} sont présentés dans les tableaux \ref{tab:avecprocgraphique} et \ref{tab:aveccg}. Parmi les machines ayant servi pour les tests, deux sont relativement anciennes et les résultats s'en ressentent (voir tableau \ref{tab:avecprocgraphique}, première et troisième machines).
+
+\begin{figure}
+  \begin{changemargin}{-4cm}{-4cm}
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+      \hline
+      Version de Meshlab & V1.3.4 & V1.3.2 & V1.3.3 \\
+      Système & Windows 7 & Debian Jessie & Debian Jessie/Sid \\
+      Carte graphique & Intel HD Graphics 4000 & Intel HD Graphics 4000 & Intel Mobile Series 4 \\ \hline \hline
+      bunny.ply & 54 à 64 & - & - \\ \hline
+      cart.obj & 15 à 35 & 23 à 36 & 17 à 18 \\ \hline
+      pan\_obj.obj & 20 à 30 & 23 à 32 & 15 à 18 \\ \hline
+      extincteur\_obj.obj & 7 à 9 & 19 à 31 & 11 à 12 \\ \hline
+      M60.obj & 6 à 8 & 14 à 16 & 9,7 à 11,5 \\ \hline
+      dragon\_vrip.ply & 6 à 10 & 12 à 13 & - \\ \hline
+      happy.ply & 4 à 8 & 8 à 10 & - \\ \hline
+      blade.ply & 3 à 5 & 0,5 à 0,6 & - \\ \hline
+      lucy.ply & < 0,5 & < 0,5 & 0,3 \\ \hline
+    \end{tabular}
+  \end{changemargin}
+  \caption{Nombre de FPS obtenus pour chaque modèle (tests réalisés sur des machines avec processeur graphique)}
+  \label{tab:avecprocgraphique}
+\end{figure}
+
+\begin{figure}
+  \begin{changemargin}{-4cm}{-4cm}
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|}
+      \hline
+      Version de Meshlab & V1.3.4 & V1.3.3 & V1.3.3 & V1.3.2 & V1.3.3 \\
+      Système & Windows 7 & Windows 7 & Windows XP & Fedora 20 & Windows 8 \\
+      Carte graphique & NVIDIA GTX 770 & NVIDIA GTX 760 & ATI HD 4850 & NVIDIA GTX 520 & NVIDIA GTX 330M \\ \hline \hline
+      bunny.ply & 500 & - & - & - & - \\ \hline
+      cart.obj & 200 & - & - & - & - \\ \hline
+      pan\_obj & 150 & - & - & - & - \\ \hline
+      extincteur\_obj & 100 & - & - & - & - \\ \hline
+      M60.obj & 95 & - & - & - & - \\ \hline
+      dragon\_vrip.ply & 50 à 60 & 45 à 55 & 8 à 9 & 15 à 18 & 23 \\ \hline
+      happy.ply & 32 à 39 & 35 à 37 & 6 à 7 & 13 à 14 & 18 \\ \hline
+      blade.ply & 16 à 18 & 18 & 4 à 5 & 8 à 9 & 12,5 \\ \hline
+      lucy.ply & 0 à 2 & 0 à 3 & Crash & 0,5 & Crash \\ \hline
+    \end{tabular}
+  \end{changemargin}
+  \caption{Nombre de FPS obtenus pour chaque modèle (tests réalisés sur des machines avec carte graphique)}
+  \label{tab:aveccg}
+\end{figure}

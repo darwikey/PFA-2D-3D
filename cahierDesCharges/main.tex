@@ -31,6 +31,19 @@
 %\usepackage{sectsty}
 %\allsectionsfont{\normalfont\scshape}
 
+%% Local modification of margins
+\newenvironment{changemargin}[2]{\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{0pt}%
+\setlength{\rightmargin}{0pt}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{0pt plus 1pt}%
+\addtolength{\leftmargin}{#1}%
+\addtolength{\rightmargin}{#2}%
+}\item }{\end{list}}
+%%
+
 
 %%% Custom headers/footers (fancyhdr package)
 %\usepackage{fancyhdr}
@@ -115,6 +128,15 @@
 \input{prototype.tex}
 \section{Architecture du projet}\label{sec:archi}
 \input{archi.tex}
+
+\appendix
+\part*{Annexes}
+\section{Modèles utilisés pour les prototypes} \label{annexe:modeles}
+\input{annexe_modeles.tex}
+\section{Résultats des tests de fluidité} \label{annexe:fluidite}
+\input{annexe_fluidite.tex}
+
+\newpage
 
 \bibliographystyle{plain}
 \bibliography{bibli}
