@@ -17,7 +17,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{fourier}
 \usepackage[utf8]{inputenc}
-\usepackage[french]{babel}															% English language/hyphenation
+\usepackage[french]{babel}
+
+% English language/hyphenation
 \usepackage[protrusion=true,expansion=true]{microtype}	
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 \usepackage[pdftex]{graphicx}	
@@ -31,6 +33,10 @@
 %\usepackage{sectsty}
 %\allsectionsfont{\normalfont\scshape}
 
+%% Language definition package (for XML Annexe)
+\usepackage{listings}
+\usepackage{color}
+
 %% Local modification of margins
 \newenvironment{changemargin}[2]{\begin{list}{}{%
 \setlength{\topsep}{0pt}%
@@ -43,7 +49,6 @@
 \addtolength{\rightmargin}{#2}%
 }\item }{\end{list}}
 %%
-
 
 %%% Custom headers/footers (fancyhdr package)
 %\usepackage{fancyhdr}
@@ -135,6 +140,11 @@
 \input{annexe_modeles.tex}
 \section{Résultats des tests de fluidité} \label{annexe:fluidite}
 \input{annexe_fluidite.tex}
+
+\newpage
+
+\section{Schéma XML}
+\input{annexe_xml.tex}
 
 \newpage
 
