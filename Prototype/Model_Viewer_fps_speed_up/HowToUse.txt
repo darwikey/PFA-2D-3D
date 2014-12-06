@@ -1,1 +1,0 @@
-qmake-qt5 QT+=opengl LIBS+=-lglut LIBS+=-lGLU INCLUDEPATH+=-L/usr/lib Proto_degradation.pro
