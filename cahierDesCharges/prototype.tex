@@ -13,9 +13,19 @@ Le logiciel Meshlab a été utilisé sur différentes machines avec différents 
 
 Pour s’assurer de la portabilité de QT et OpenGL sur Windows et Linux, un affichage simple d’un modèle 3D dans une fenêtre QT, sans colorations de face, a été fait et testé sur différentes distributions. Les versions 5 de QT et 3.3 d’OpenGL ont été utilisées pour ce prototype et seront utilisées dans la suite du projet. Il a été testé avec des modèles de Stanford comme le dragon, le lapin ou le bouddha.
 
-\subsection{Décimation de polygones d’un modèle 3D}
+\subsection{Réduction du nombre de polygones d’un modèle 3D}
 
-Un algorithme permet de réduire le nombre de faces d’un modèle 3D qui en possèderait trop et serait donc impossible à afficher. Il supprime des triangles et fusionne les sommets autour, jusqu’à ce que le nombre de polygones tombe en dessous d’un certain seuil.
+Un algorithme permet de réduire le nombre de faces d’un modèle 3D qui en possèderait trop et serait donc impossible à afficher. Il supprime des triangles et fusionne les sommets autour, jusqu’à ce que le nombre de polygones tombe en dessous d’un certain seuil (fig. \ref{fig:poly_reduc}).
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{polygon_reduction.png}
+		\caption{\label{fig:poly_reduc} \`A gauche modèle 3D d'origine, à droite modèle après suppression de faces }
+\end{figure}
 
 \paragraph{}
-Ce traitement est effectué lors du chargement et est relativement rapide pour les objets (8s pour supprimer 30 000 faces).
+Ce traitement est effectué lors du chargement et est relativement rapide pour les objets (fig. \ref{fig:poly_reduc_console}).
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{polygon_reduction_console.png}
+		\caption{\label{fig:poly_reduc_console}Un test effectué avec l'algorithme sur le modèle de la figure \ref{fig:poly_reduc} montre qu'il met moins de 7 secondes pour supprimer 40000 faces}
+\end{figure}
