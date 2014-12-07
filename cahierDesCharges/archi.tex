@@ -11,20 +11,6 @@ L’ensemble des diagrammes de séquence et des diagrammes de classe présentés
 
 Les diagrammes de séquence permettent de simuler les différentes communications qui auront lieu entre les classes du logiciel.
 
-\subsubsection{Création d'une scène}
-
-\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.4]{creerscene.jpg}
-		\caption{\label{fig:creerScene} Création d'une scène}
-\end{figure}
-
-\paragraph{}
-Lorsqu’il commence à utiliser le logiciel, la première action d’un utilisateur va être de créer une scène (cf. \ref{fig:creerScene}). Grâce à l’interface graphique correspondante, qui a été présentée dans la partie Interface de ce cahier des Charges, l’utilisateur demande à l’interface de créer une scène. Celle-ci passera par l’intermédiaire d’un chargeur, déjà initialisé, qui devra créer l’instance correspondante soit à partir de rien, soit à partir d’une scène déjà existante.
-
-\paragraph{}
-Une fois sa tâche effectuée, le chargeur valide à l’interface qu’il a bien répondu à sa demande, et celle-ci peut modifier l’interface pour afficher la fenêtre principale, qui contient désormais la scène de travail.
-
 \subsubsection{Création d'un objet}
 
 \begin{figure}[h]
@@ -34,13 +20,19 @@ Une fois sa tâche effectuée, le chargeur valide à l’interface qu’il a bie
 \end{figure}
 
 \paragraph{}
-Une fois la scène créée, l'utilisateur pourra y ajouter des objets s'il le souhaite (cf. \ref{fig:creerObjet}). Pour cela, il va une fois de plus devoir communiquer avec l'interface graphique correspondante.
+Une fois la scène de travail créée, l'utilisateur pourra y ajouter des objets s'il le souhaite (cf. \ref{fig:creerObjet}). Pour cela, il va une fois de plus devoir communiquer avec l'interface graphique correspondante.
 
 \paragraph{}
 Une fois qu'il aura choisi un fichier objet d'extension .OBJ, .STL ou .PLY, l'interface enverra celui-ci au chargeur qui vérifiera sa validité et le transformera en un modèle 3D. Ce dernier sera transmis à la scène, qui se chargera de créer l'objet en plaçant les points du modèle par rapport à son origine. Enfin, une confirmation sera envoyée au chargeur, puis à l'interface, qui affichera la fenêtre correspondant au mode modification de l'objet.
 
 \paragraph{}
 Durant ce mode, l'interface demandera à l'utilisateur de modifier la position, l'orientation et la taille de l'objet s'il le souhaite, et appellera des méthodes soient publiques de l'objet, soit en passant par le chargeur puis la scène, pour effectuer les changements demandés.
+
+\paragraph{}
+Ce diagramme de séquence montre l'importance du chargeur dans l'intéraction de l'interface avec la scène. C'est lui qui s'occupera de créer la scène et de lui transmettre les demandes de l'utilisateur.
+
+
+\newpage
 
 \subsubsection{Déplacement dans la scène}
 
@@ -55,17 +47,6 @@ Quand il aura placé des objets dans sa scène, l’utilisateur pourra avoir env
 
 \paragraph{}
 L’interface se chargera de transmettre l’information au chargeur, qui lui-même l’enverra à la caméra. Cette dernière se chargera de créer une nouvelle vue correspondant à la projection de la scène depuis l’angle demandé par l’utilisateur. Cette vue sera renvoyée étape par étape jusqu’à l’interface, qui se chargera de la transformer en un rendu visualisable par l’utilisateur dans la zone de la scène.
-
-\subsubsection{Création d'un anaglyphe}
-
-\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.25]{creeranaglyphe.jpg}
-		\caption{\label{fig:creerAnaglyphe} Création d'un anaglyphe}
-\end{figure}
-
-\paragraph{}
-Lorsque l’utilisateur souhaite créer un anaglyphe, il sélectionne les critères nécessaires et la vue souhaitées grâce aux interfaces correspondantes et envoie sa demande à l’interface (cf. \ref{fig:creerAnaglyphe}). Celle-ci transmet les informations au créateur d’image, qui instancie l’anaglyphe. C’est ce dernier qui va se charger de créer les deux images magenta et cyan nécessaires à la création du rendu. Pour cela, il va interagir avec la caméra par l’intermédiaire de la scène, pour récupérer les vues gauche et droite de l’anaglyphe. Il demandera ensuite la création du rendu lui-même à partir des deux images déjà générées, et renverra le ou les produits demandés par l’utilisateur jusqu’à l’interface. Celle-ci se changera alors d’ouvrir la fenêtre d’aperçu du rendu pour montrer le résultat à l’utilisateur.
 
 \subsubsection{Création d'un autostéréogramme}
 
@@ -109,8 +90,6 @@ A partir des diagrammes de séquences présentés précédemment, l’architectu
 \paragraph{}
 Ce premier diagramme représente l’architecture globale du futur logiciel (cf. \ref{fig:diagPaquetage}). Comme montré dans les diagrammes de séquence précédemment, le point d’entrée du logiciel pour l’utilisateur est l’interface graphique. C’est celle-ci qui redirigera les actions de l’utilisateur vers soit le créateur d’image, soit le chargeur. Ce dernier sera toujours utilisé pour accéder à la scène, car il sera responsable de la création de celle-ci et de la transformation des fichiers objets en modèles 3D.
 
-\newpage
-
 \subsubsection{Paquetage Création}
 
 \begin{figure}[h]
@@ -124,6 +103,8 @@ L’architecture du paquetage de création a été pensée pour que de futures e
 
 \paragraph{}
 Toutes les classes sont en relation avec la caméra par l’intermédiaire de la scène, de façon à pouvoir récupérer les différentes vues nécessaires à la création des rendus.
+
+\newpage
 
 \subsubsection{Paquetage Scène}
 
