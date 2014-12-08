@@ -34,7 +34,7 @@ On considèrera que lorsqu’il commence à utiliser le logiciel, la première a
 Une fois la scène de travail créée, l'utilisateur pourra y ajouter des objets s'il le souhaite (cf. \ref{fig:creerObjet}). Pour cela, il va une fois de plus devoir communiquer avec l'interface graphique correspondante.
 
 \paragraph{}
-Une fois qu'il aura choisi un fichier objet d'extension .OBJ, .STL ou .PLY, l'interface enverra celui-ci au chargeur qui vérifiera sa validité et le transformera en un modèle 3D. Ce dernier sera transmis à la scène, qui se chargera de créer l'objet en plaçant les points du modèle par rapport à son origine. Ce premier objet généré sera initialisé en position centrale de la scène, avec une taille et une orientation de base définie par ses points. Enfin, une confirmation sera envoyée au chargeur, puis à l'interface, qui affichera la fenêtre correspondant au mode modification de l'objet.
+Une fois qu'il aura choisi un fichier objet d'extension .OBJ ou .PLY, l'interface enverra celui-ci au chargeur qui vérifiera sa validité et le transformera en un modèle 3D. Ce dernier sera transmis à la scène, qui se chargera de créer l'objet en plaçant les points du modèle par rapport à son origine. Ce premier objet généré sera initialisé en position centrale de la scène, avec une taille et une orientation de base définie par ses points. Enfin, une confirmation sera envoyée au chargeur, puis à l'interface, qui affichera la fenêtre correspondant au mode modification de l'objet.
 
 \paragraph{}
 Durant ce mode, l'interface demandera à l'utilisateur de modifier la position, l'orientation et la taille de l'objet s'il le souhaite, et appellera des méthodes soient publiques de l'objet, soit en passant par le chargeur puis la scène, pour effectuer les changements demandés.
@@ -52,7 +52,7 @@ Ce diagramme de séquence montre l'importance du chargeur dans l'intéraction de
 \end{figure}
 
 \paragraph{}
-Quand il aura placé des objets dans sa scène, l’utilisateur pourra avoir envie de s’y déplacer pour observer les différents angles de vue (cf. \ref{fig:deplacementCam}). Pour cela, grâce à une action sur l’interface, il va demander à la caméra de se déplacer. La première demande sera donc initialisée par l’utilisateur, qui demandera le déplacement de la caméra à l’interface, selon un type (rotation, translation, homothétie), un axe (horizontal, vertical) et un angle ou une valeur donnée.
+Quand il aura placé des objets dans sa scène, l’utilisateur pourra avoir envie de s’y déplacer pour observer les différents angles de vue. Pour cela, grâce à une action sur l’interface, il va demander à la caméra de se déplacer (cf. \ref{fig:deplacementCam}). La première demande sera donc initialisée par l’utilisateur, qui demandera le déplacement de la caméra à l’interface, selon un type (rotation, translation, homothétie), un axe (horizontal, vertical) et un angle ou une valeur donnée.
 
 \paragraph{}
 La caméra étant un attribut de la scène, l’interface se chargera de transmettre l’information au chargeur, qui lui-même l’enverra à la scène. Cette dernière se chargera d'appeler la fonction adéquate de son attribut qui génèrera une nouvelle vue correspondant à la projection de la scène depuis l’angle demandé par l’utilisateur. Cette vue sera renvoyée étape par étape jusqu’à l’interface, qui se chargera de la transformer en un rendu visualisable par l’utilisateur dans la zone de la scène.
@@ -61,7 +61,7 @@ La caméra étant un attribut de la scène, l’interface se chargera de transme
 
 \begin{figure}[h]
 		\centering
-		\includegraphics[scale=0.3]{creerstereogramme.jpg}
+		\includegraphics[scale=0.4]{creerstereogramme.jpg}
 		\caption{\label{fig:creerAutostereogramme} Création d'un autostéréogramme}
 \end{figure}
 
@@ -117,6 +117,8 @@ Toutes les classes sont en relation avec la caméra par l’intermédiaire de la
 
 \paragraph{}
 On considèrera pour le logiciel la scène comme un ensemble d’objets et une caméra. C’est la scène qui gèrera elle-même l’accès à ses différentes composantes (cf. \ref{fig:paqScene}). La caméra utilisée, qui sera liée à la caméra de la bibliothèque OpenGL, génèrera des vues qui pourront être utilisées pour l’affichage de la scène ou la création de rendus. Le contenu réel de ces vues et leur utilisation dépendront de la bibliothèque OpenGL.
+
+\newpage
 
 \subsubsection{Paquetage Interface}
 
