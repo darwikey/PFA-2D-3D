@@ -39,15 +39,15 @@
 
 %% Local modification of margins
 \newenvironment{changemargin}[2]{\begin{list}{}{%
-\setlength{\topsep}{0pt}%
-\setlength{\leftmargin}{0pt}%
-\setlength{\rightmargin}{0pt}%
-\setlength{\listparindent}{\parindent}%
-\setlength{\itemindent}{\parindent}%
-\setlength{\parsep}{0pt plus 1pt}%
-\addtolength{\leftmargin}{#1}%
-\addtolength{\rightmargin}{#2}%
-}\item }{\end{list}}
+      \setlength{\topsep}{0pt}%
+      \setlength{\leftmargin}{0pt}%
+      \setlength{\rightmargin}{0pt}%
+      \setlength{\listparindent}{\parindent}%
+      \setlength{\itemindent}{\parindent}%
+      \setlength{\parsep}{0pt plus 1pt}%
+      \addtolength{\leftmargin}{#1}%
+      \addtolength{\rightmargin}{#2}%
+    }\item }{\end{list}}
 %%
 
 %%% Custom headers/footers (fancyhdr package)
@@ -74,23 +74,23 @@
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
 
 \title{
-		%\vspace{-1in} 			
-		\usefont{OT1}{bch}{b}{n}
-		\horrule{1.5pt} \\[0.5cm]	
-		\Huge \textbf{Cahier des charges} \\ [10pt]
-		\Huge PFA - De la 3D vers la 2D \\ [15pt]
-		\LARGE Année scolaire 2014-2015 \\ 
-		\horrule{1.5pt} \\[0.5cm]
-		%
+  %\vspace{-1in} 			
+  \usefont{OT1}{bch}{b}{n}
+  \horrule{1.5pt} \\[0.5cm]	
+  \Huge \textbf{Cahier des charges} \\ [10pt]
+  \Huge PFA - De la 3D vers la 2D \\ [15pt]
+  \LARGE Année scolaire 2014-2015 \\ 
+  \horrule{1.5pt} \\[0.5cm]
+  %
 }
 
 \author{
-		\huge \underline{Client} : \LARGE BLANC Carole, DESBARATS Pascal\\ [10pt] 
-		\huge \underline{Encadrant} : \LARGE LOMBARDY Sylvain\\[20pt]
-				\normalfont 							
-        \huge \textbf{Equipe} : \Large BOHER Anaïs - CABON Yohann - CHAUVAT Magali \\[5pt]
-        \Large LEVY Akané - MARCELIN Thomas \\[5pt]
-        \Large MAUPEU Xavier - PHILIPPI Alexandre \\[10pt]		\normalsize
+  \huge \underline{Client} : \LARGE BLANC Carole, DESBARATS Pascal\\ [10pt] 
+  \huge \underline{Encadrant} : \LARGE LOMBARDY Sylvain\\[20pt]
+  \normalfont 							
+  \huge \textbf{Equipe} : \Large BOHER Anaïs - CABON Yohann - CHAUVAT Magali \\[5pt]
+  \Large LEVY Akané - MARCELIN Thomas \\[5pt]
+  \Large MAUPEU Xavier - PHILIPPI Alexandre \\[10pt]		\normalsize
 }
 \date{}
 
@@ -99,7 +99,7 @@
 \maketitle
 
 \begin{figure}[b]
-\centering\includegraphics{logo.png}
+  \centering\includegraphics{logo.png}
 \end{figure}
 
 \newpage
@@ -110,48 +110,48 @@
 
 \begin{changemargin}{-1cm}{-1cm}
 
-\section{Domaine}
-\input{domaine.tex}
+  \section{Domaine}
+  \input{domaine.tex}
 
-\section{État de l'art et existant}
-\input{existant.tex}
+  \section{État de l'art et existant}
+  \input{existant.tex}
 
-\section{Sujet}
-\input{sujet.tex}
+  \section{Sujet}
+  \input{sujet.tex}
 
-\section{Cahier des besoins}
-%\addcontentsline{toc}{part}{Cahier des besoins}
-\subsection{Besoins fonctionnels}
-\input{besoinFct.tex}
-\subsection{Besoins non fonctionnels}
-\input{besoinNfct.tex}
-\subsection{Contraintes}
-\input{contraintes.tex}
-%\section{Briques logicielles}
-%\input{briques.tex}
-\section{Maquette}
-\input{maquette.tex}
-\section{Prototype test}\label{sec:prototypetest}
-\input{prototype.tex}
-\section{Architecture du projet}\label{sec:archi}
-\input{archi.tex}
+  \section{Cahier des besoins}
+  \subsection{Besoins fonctionnels}
+  \input{besoinFct.tex}
+  \subsection{Besoins non fonctionnels}
+  \input{besoinNfct.tex}
+  \subsection{Contraintes}
+  \input{contraintes.tex}
+  %\section{Briques logicielles}
+  %\input{briques.tex}
+  \section{Maquette}
+  \input{maquette.tex}
+  \section{Prototype test}\label{sec:prototypetest}
+  \input{prototype.tex}
+  \section{Architecture du projet}\label{sec:archi}
+  \input{archi.tex}
 
-\appendix
-\part*{Annexes}
-\section{Modèles utilisés pour les prototypes} \label{annexe:modeles}
-\input{annexe_modeles.tex}
-\section{Résultats des tests de fluidité} \label{annexe:fluidite}
-\input{annexe_fluidite.tex}
+  \appendix
+  \part*{Annexes}
+  \section{Modèles utilisés pour les prototypes} \label{annexe:modeles}
+  \input{annexe_modeles.tex}
+  \section{Résultats des tests de fluidité} \label{annexe:fluidite}
+  \input{annexe_fluidite.tex}
 
-\newpage
+  \newpage
 
-\section{Schéma XML}
-\input{annexe_xml.tex}
+  \section{Schéma XML}
+  \input{annexe_xml.tex}
 
-\newpage
 
-\bibliographystyle{plain}
-\bibliography{bibli}
+  \newpage
+
+  \bibliographystyle{plain}
+  \bibliography{bibli}
 
 \end{changemargin}
 

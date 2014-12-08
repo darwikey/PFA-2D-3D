@@ -21,7 +21,7 @@ Une fois la scène créée ou chargée, l’utilisateur aura la possibilité d�
 
 \begin{description}[style=nextline]
 	\item[Chargement des fichiers objets]
-	\mbox{\hspace{1cm}} Les objets en trois dimensions utilisés seront sous la forme de fichiers objets. Trois types seront acceptés : les fichiers d’extension .OBJ (version 3.0, ASCII) et .PLY (versions 1.0, ASCII et binaire). Ils devront permettre de définir des objets à facettes triangulaires. Les objets pourront être ceux de l’utilisateur ou de la bibliothèque implémentée dans le logiciel. \newline
+	\mbox{\hspace{1cm}} Les objets en trois dimensions utilisés seront sous la forme de fichiers objets. Deux types seront acceptés : les fichiers d’extension .OBJ (version 3.0, ASCII) et .PLY (versions 1.0, ASCII et binaire). Ils devront permettre de définir des objets à facettes triangulaires. Les objets pourront être ceux de l’utilisateur ou de la bibliothèque implémentée dans le logiciel. \newline
 	\mbox{\hspace{1cm}}Ces objets ne devront contenir aucun trou, par exemple une face absente sur un cube ou un triangle non généré par le fichier de chargement. Le fonctionnement du logiciel n’est garanti que sur des objets topologiquement valides. \newline
 	\mbox{\hspace{1cm}}Si un fichier à charger possède trop de polygones, un algorithme de décimation de faces permet d’en réduire le nombre jusqu’à un certain seuil (cf. prototype). Ce traitement n’est pas automatique et l’utilisateur pourra ou non l’appliquer.
 	
@@ -73,7 +73,7 @@ La caméra possède un repère qui lui est propre et une distance correspondant 
 	Différents rendus seront accessibles : 
 	\begin{itemize}
 			\item Photographie résultant d'une projection sans traitement de la scène en trois dimensions.
-			\item Anaglyphe rouge-cyan à partir d'images en noir et blanc via un algorithme améliorant le rendu post-impression ou s’appliquant sur des paires d’images pseudo stéréoscopique.
+			\item Anaglyphe rouge-cyan à partir de paires d'images en noir et blanc avec traitement possible pour l'impression.
                         \item Autostéréogramme SIRDS selon l'algorithme de Witten, Inglis et Thimbleby.
                         \item Flipbook d'une rotation complète ou non autour d'un objet ou d'une scène.
 	\end{itemize}
