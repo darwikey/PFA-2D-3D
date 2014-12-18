@@ -1,34 +1,26 @@
-#ifndef EXEMPLE_HPP
-#define EXEMPLE_HPP
+#ifndef SCENE_HPP
+#define SCENE_HPP
 
-#include <stdio>
-
+#include <cstdio>
+#include "Object.hpp"
 
 namespace Loader{
-  // ! \class Example
-  // ! \brief blabla… 
-  class Example{
+  // ! \class Scene
+  // ! \brief The three dimension scene where objects will be placed
+  class Scene{
   public:
-    //! \brief …
-    void myFonction1 (){
-      …
-	}
+    //! \brief Scene constructor for a new scene
+    Scene();
 
-    //! \brief …
-    //! \param …
-    //! \return …
-    int myFonction2 (int fTruc){
-      …
-	}
+    //! \brief Scene constructor for a loaded scene that had been started before
+    Scene(<Objects>);
 
-	
+    //! \brief Function to add a new object in a scene
+    //! \param Object to place
+    void addObject(Object);
+
   private:
-    //! \brief …
-    //! \return …
-    int myFonction3 (){
-      …
-	}
-	
+    <Objects> objects;	
   }
 
 }

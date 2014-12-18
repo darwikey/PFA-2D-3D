@@ -1,34 +1,21 @@
-#ifndef EXEMPLE_HPP
-#define EXEMPLE_HPP
+#ifndef OBJECT_HPP
+#define OBJECT_HPP
 
-#include <stdio>
-
+#include <cstdio>
+#include "Tools::Point.hpp"
 
 namespace Loader{
-  // ! \class Example
-  // ! \brief blabla… 
-  class Example{
+  // ! \class Object
+  // ! \brief definition of objects that will be placed in the scene
+  class Object{
   public:
-    //! \brief …
-    void myFonction1 (){
-      …
-	}
-
-    //! \brief …
-    //! \param …
-    //! \return …
-    int myFonction2 (int fTruc){
-      …
-	}
-
-	
+    //! \brief Construction of the object before filling it with points
+    Object();
+    
+    //! \brief To move an object depending on three values on  x, y and z coordonates
+    moveObject(float horizontalValue, float verticalValue, float depthValue);
+    
   private:
-    //! \brief …
-    //! \return …
-    int myFonction3 (){
-      …
-	}
-	
+    <Point> points;	
   }
-
 }
