@@ -1,26 +1,24 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
-#include <cstdio>
-#include "Object.hpp"
+#include "global.hpp"
 
-namespace Loader{
-  // ! \class Scene
-  // ! \brief The three dimension scene where objects will be placed
-  class Scene{
-  public:
-    //! \brief Scene constructor for a new scene
-    Scene();
 
-    //! \brief Scene constructor for a loaded scene that had been started before
-    Scene(<Objects>);
+class Object;
 
-    //! \brief Function to add a new object in a scene
-    //! \param Object to place
-    void addObject(Object);
+//! \class Scene
+//! \brief The three dimension scene where objects will be placed
+class Scene{
+	public:
+	//! \brief Scene constructor for a new scene
+	Scene();
 
-  private:
-    <Objects> objects;	
-  }
+	//! \brief Function to add a new object in a scene
+	//! \param Object to place
+	void addObject(fObject);
 
+	private:
+	Vector<Object*> mObjects;	
 }
+
+#endif

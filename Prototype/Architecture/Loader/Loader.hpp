@@ -1,7 +1,7 @@
 #ifndef EXEMPLE_HPP
 #define EXEMPLE_HPP
 
-#include <stdio>
+#include "global.hpp"
 
 
 namespace Loader{

@@ -1,6 +1,7 @@
 #ifndef BOUNDING_BOX_HPP
 #define BOUNDING_BOX_HPP
 
+#include "global.hpp"
 
 //! \class BoundingBox
 //! \brief a box including a 3D model
