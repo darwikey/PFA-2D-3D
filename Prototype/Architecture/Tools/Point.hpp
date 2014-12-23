@@ -1,6 +1,6 @@
 #ifndef POINT_HPP
 #define POINT_HPP
-#include <cstdio>
+#include "global.hpp"
 
 namespace Tools{
   // ! \class Point
@@ -28,3 +28,5 @@ namespace Tools{
     float x,y,z;
   }
 }
+
+#endif

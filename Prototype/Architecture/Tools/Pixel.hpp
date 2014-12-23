@@ -1,6 +1,6 @@
 #ifndef PIXEL_HPP
 #define PIXEL_HPP
-#include <cstdio>
+#include "global.hpp"
 
 namespace Tools{
   // ! \class Pixel

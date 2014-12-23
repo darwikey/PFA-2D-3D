@@ -1,7 +1,7 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <cstdio>
+#include "global.hpp"
 #include "Point.hpp"
 
 namespace Tools{
@@ -45,3 +45,5 @@ namespace Tools{
     void fillValues(Point,Point);	
   }
 }
+
+#endif
