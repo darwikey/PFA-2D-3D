@@ -24,9 +24,9 @@ namespace Loader{
   private:
     //! \brief createObject method will recognise an OBJ or PLY file and will call the adequate method
     //! \param Path to the file
-    void parseOBJFile(char *fPath);
-    void parsePLYBinaryFile(char *fPath);
-    void parsePLYAsciiFile(char *fPath);
+    void _parseOBJFile(char *fPath);
+    void _parsePLYBinaryFile(char *fPath);
+    void _parsePLYAsciiFile(char *fPath);
   }
 }
 #endif

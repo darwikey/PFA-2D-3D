@@ -11,7 +11,7 @@ public:
   Object();
 
   //! \brief To move an object depending on three values on  x, y and z coordonates
-  moveObject(float horizontalValue, float verticalValue, float depthValue);
+  void moveObject(float fHorizontalValue, float fVerticalValue, float fDepthValue);
 
   //! \brief Scaling of the object, following the given rate
   //! \param Rate for the scaling, considering the actual size of the object as rate 1

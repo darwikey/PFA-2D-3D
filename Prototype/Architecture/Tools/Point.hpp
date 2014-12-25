@@ -2,31 +2,29 @@
 #define POINT_HPP
 #include "global.hpp"
 
-namespace Tools{
-  // ! \class Point
-  // ! \brief Tool point for a three dimension position
-  class Point{
-  public:
-    //! Basic constructor, no arguments
-    Point();
+// ! \class Point
+// ! \brief Tool point for a three dimension position
+class Point{
+public:
+  //! Basic constructor, no arguments
+  Point();
 
-    //! Constructor with values
-    Point(float, float, float);
+  //! Constructor with values
+  Point(float, float, float);
   
-    //! Getter functions for Point values
-    void getX();
-    void getY();
-    void getZ();
+  //! Getter functions for Point values
+  float getX();
+  float getY();
+  float getZ();
   
-    //! Setter functions for Point values
-    void setX(float);
-    void setY(float);
-    void setZ(float);
+  //! Setter functions for Point values
+  void setX(float);
+  void setY(float);
+  void setZ(float);
   
-  private:
-    //! Point attributes
-    float x,y,z;
-  }
+private:
+  //! Point attributes
+  float _mX,_mY,_mZ;
 }
 
 #endif
