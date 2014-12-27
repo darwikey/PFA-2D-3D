@@ -55,20 +55,7 @@ void SceneRenderer::initialize()
 
 	mProgram->link();
 	mMatrixUniform = mProgram->uniformLocation("matrix");
-	/*Object* _model = Scene::getScene()->getObject("cube1");
-    glGenBuffers(1, &_model->vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _model->vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, _model->vertices.size()*sizeof(QVector3D), _model->vertices.data(), GL_STATIC_DRAW);
 
-    glGenBuffers(1, &_model->colorbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _model->colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, _model->color.size() * sizeof(QVector3D), _model->color.data(), GL_STATIC_DRAW);
-
-    glGenBuffers(1, &_model->elementbuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _model->elementbuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, _model->indices.size() * sizeof(uint), _model->indices.data(), GL_STATIC_DRAW);
-
-    _model->vboStatus = 1;*/
 
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
