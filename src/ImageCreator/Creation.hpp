@@ -5,11 +5,11 @@
 class Pixel;
 class PixelTab;
 
-namespace ImageCreator{
+
   // ! \class Creation
   // ! \brief Creation is the basic virtual class for the creation of any other image. However, this basic virtual class also corresponds to basic Photography
-  class Creation{
-  public:
+class Creation{
+public:
     //! \brief Creation can be initialize with a default size and content by calling the default constructor. Default size will be 100*100, so default attribute mPixelTable will contain 10 000 pixels colored in black (0,0,0)
     Creation();
 
@@ -25,14 +25,13 @@ namespace ImageCreator{
     //! \param fToUse is a PixelTab vector initialize by Creator and that contains what create method needs
     virtual <Image*> create(<PixelTab*> fToUse);
 
-  private:
+private:
     //! \brief Attributes for all types of creations
     <Pixel*> mPixelTable;
     //! \describe how large is the image to create in number of pixel
     int mLength; 
     //! \describe how high is the image to create in number of pixel
     int mHeight;
-  }
-}
+};
 
 #endif

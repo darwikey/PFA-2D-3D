@@ -1,11 +1,11 @@
 #ifndef EXEMPLE_HPP
 #define EXEMPLE_HPP
 
-#include <stdio>
+#include "global.hpp"
 
 
-// ! \class Example
-// ! \brief blabla… 
+//! \class Example
+//! \brief blabla… 
 class Example{
 public:
 	//! \brief …
@@ -30,3 +30,4 @@ private:
 	
 }
 
+#endif
