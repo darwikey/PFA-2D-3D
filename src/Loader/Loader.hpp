@@ -15,18 +15,18 @@ public:
 	void createScene();
 	//! \brief It can also create a scene from an XML file that will be given by the user. It will parse it and create the associate objects and scene
 	//! \param path to the XML file
-	void createScene(char *fPath);
+	void createScene(std::string fPath);
 
 	//! \brief Loader has to create object from OBJ or PLY files. It will parse them and add them to the scene, then they will be placed by the user
 	//! \param Path to an OBJ or PLY file
-	void createObject(char *fPath);
+	void loadObject(std::string fPath);
 	
 private:
 	//! \brief createObject method will recognise an OBJ or PLY file and will call the adequate method
 	//! \param Path to the file
-	void _parseOBJFile(char *fPath);
-	void _parsePLYBinaryFile(char *fPath);
-	void _parsePLYAsciiFile(char *fPath);
+	void _parseOBJFile(std::string fPath);
+	void _parsePLYBinaryFile(std::string fPath);
+	void _parsePLYAsciiFile(std::string fPath);
 };
 
 

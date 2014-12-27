@@ -18,7 +18,7 @@ public:
 
 	//! \brief Function to add a new object in a scene
 	//! \param Object to place
-	void addObject(Object* fObject);
+	void addObject(const std::string fName, Object* fObject);
 
 	//! \brief return a object
 	//! \param name of the object
@@ -27,6 +27,9 @@ public:
 
 	//! \brief render the scene
 	void show();
+
+	//! \brief get loader instance
+	Loader* getLoader();
 
 private:
 	//! \brief Scene constructor for a new scene

@@ -19,8 +19,9 @@ Scene* Scene::getScene(){
 }
 
 
-void Scene::addObject(Object *fObject){
-	//TODO
+void Scene::addObject(const std::string fName, Object *fObject){
+
+	mObjects.insert(std::pair<std::string, Object*>(fName, fObject));
 }
 
 Object* Scene::getObject(const std::string& fName){
@@ -39,4 +40,9 @@ Object* Scene::getObject(const std::string& fName){
 
 void Scene::show(){
 	mWindow->show();
+}
+
+
+Loader* Scene::getLoader(){
+	return mLoader;
 }

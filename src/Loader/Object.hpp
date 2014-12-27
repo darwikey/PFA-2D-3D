@@ -4,9 +4,11 @@
 #include "global.hpp"
 #include "BoundingBox.hpp"
 
+class SceneRenderer;
+
 //! \class Object
 //! \brief definition of objects that will be placed in the scene
-class Object : private QOpenGLFunctions{
+class Object {
 public:
 	//! \brief Construction of the object before filling it with points
 	Object();
@@ -23,10 +25,16 @@ public:
 	void changeObjectOrientation(float fHorizontalAngle, float fVerticalAngle);
 
 	//! \brief initialize the vertex buffer object
-	void initVbo();
+	void initVbo(SceneRenderer* fRenderer);
 
 	//! \brief draw the object
-	void draw();
+	void draw(SceneRenderer* fRenderer);
+
+	//! \brief fit the bounding box to the vertices
+	void computeBoundingBox();
+
+	//! \brief find the vertice color
+	void computeColors();
 
 	//! \brief return the object bounding box 
 	BoundingBox getBoundingBox();
@@ -34,12 +42,27 @@ public:
 	//! \brief tell if the vertex buffer object is initialized
 	bool isVboInitialized();
 
+	//! \brief add one vertex in the model
+	void pushVertice(QVector3D fValue);
+
+	//! \brief add one normal in the model
+	void pushNormal(QVector3D fValue);
+
+	//! \brief add one indice in the model
+	void pushIndice(uint fValue);
+
+	//! \brief add one vertex color in the model
+	//! \note coordinates of fValue must be between 0 and 1
+	void pushColor(QVector3D fValue);
+
+	//! \brief add one texture coordinate in the model
+	void pushTextureCoordinate(QVector2D fValue);
 
 private:
 	BoundingBox mBoundingBox;
 	
 	std::vector<QVector3D> mVertices;
-    std::vector<QVector2D> mUvs;
+    std::vector<QVector2D> mTextureCoordinates;
     std::vector<QVector3D> mNormals;
     std::vector<uint> mIndices;
     std::vector<QVector3D> mColor;

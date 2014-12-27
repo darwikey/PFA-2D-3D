@@ -10,7 +10,7 @@
 
 #include <QGLWidget>
 
-class MyGLWidget : public QWindow, protected QOpenGLFunctions
+class MyGLWidget : public QWindow, public QOpenGLFunctions
 {
     Q_OBJECT
 public:
