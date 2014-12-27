@@ -23,7 +23,7 @@ find_package(Qt5Widgets REQUIRED)
 SET(QT_USE_QTOPENGL TRUE)
 # The Qt5Widgets_INCLUDES also includes the include directories for
 # dependencies QtCore and QtGui
-include_directories(${Qt5Widgets_INCLUDES} src src/ImageCreator src/Loader src/Tools)
+include_directories(${Qt5Widgets_INCLUDES} src src/ImageCreator src/Loader src/Tools src/Window)
 
 # We need add -DQT_WIDGETS_LIB when using QtWidgets in Qt 5.
 add_definitions(${Qt5Widgets_DEFINITIONS})

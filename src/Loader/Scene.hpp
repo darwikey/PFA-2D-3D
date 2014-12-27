@@ -5,11 +5,13 @@
 
 
 class Object;
+class Loader;
+class MainWindow;
 
 //! \class Scene
 //! \brief The three dimension scene where objects will be placed
 class Scene{
-	public:
+public:
 	//! \brief Scene constructor for a new scene
 	Scene();
 
@@ -17,7 +19,13 @@ class Scene{
 	//! \param Object to place
 	void addObject(Object* fObject);
 
-	private:
+	//! \brief render the scene
+	void show();
+
+private:
+	Loader* mLoader;
+	MainWindow* mWindow;
+
 	std::vector<Object*> mObjects;	
 };
 
