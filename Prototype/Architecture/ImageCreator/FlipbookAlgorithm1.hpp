@@ -1,32 +1,19 @@
-#ifndef EXEMPLE_HPP
-#define EXEMPLE_HPP
+#ifndef FLIPBOOK_ALGO1_HPP
+#define FLIPBOOK_ALGO1_HPP
 
-#include <stdio>
+#include "global.hpp"
 
 namespace ImageCreator{
-  // ! \class Example
-  // ! \brief blabla… 
-  class Example{
+  // ! \class FlipbookAlgorithm1
+  // ! \brief First algorithm to create an flipbook
+  class FlipbookAlgorithm1{
   public:
-    //! \brief …
-    void myFonction1 (){
-      …
-	}
-
-    //! \brief …
-    //! \param …
-    //! \return …
-    int myFonction2 (int fTruc){
-      …
-	}
-
-	
-  private:
-    //! \brief …
-    //! \return …
-    int myFonction3 (){
-      …
-	}
-	
-  }
+    //! \brief no specific constructors for flipbooks, creation constructors will be called
+    
+    //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
+    virtual <Image*> create(<PixelTab*> fToUse);
+       
+  }   
 }
+
+#endif

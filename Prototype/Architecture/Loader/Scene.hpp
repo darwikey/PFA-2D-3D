@@ -18,7 +18,7 @@ class Scene{
 	void addObject(fObject);
 
 	private:
-	Vector<Object*> mObjects;	
+	std::vector<Object*> mObjects;	
 }
 
 #endif
