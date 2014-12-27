@@ -29,10 +29,11 @@ struct BoundingBox{
 	//! \brief get the center of the box
 	QVector3D getCenter();
 	
+
 	QVector3D mVector0;
 	QVector3D mVector1;
 
-}
+};
 
 
 #endif

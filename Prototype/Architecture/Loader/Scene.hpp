@@ -15,10 +15,10 @@ class Scene{
 
 	//! \brief Function to add a new object in a scene
 	//! \param Object to place
-	void addObject(fObject);
+	void addObject(Object* fObject);
 
 	private:
 	std::vector<Object*> mObjects;	
-}
+};
 
 #endif

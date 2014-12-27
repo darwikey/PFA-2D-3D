@@ -10,18 +10,18 @@ class PixelTab{
 public:
   //! \brief All constructors
   PixelTab();
-  PixelTab(int,int);
-  PixelTab(<Pixel *> &, int,int);
+  PixelTab(int fWidth, int fHeight);
+  PixelTab(std::vector<Pixel*>, int fWidth, int fHeight);
 
   //! \brief Get a pixel by giving its row and its column
   Pixel getPixel(int,int);
 
   //! \brief Set a pixel at the given row and column number
-  void setPixel(Pixel &,int,int);
+  void setPixel(const Pixel& ,int,int);
 
 private:
-  <Pixel *> _mTable;
-  int _mRow, _mColumn;
-}
+  std::vector<Pixel*> mTable;
+  size_t mWidth, mHeight;
+};
 
 #endif

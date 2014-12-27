@@ -35,6 +35,6 @@ class Camera{
 	QVector3D mPosition;
 	QVector3D mOrientation;
 	float mAngleOfView; // in radian
-}
+};
 
 #endif

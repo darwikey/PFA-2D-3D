@@ -26,5 +26,6 @@ public:
 private:
   //! Point attributes
   int _mR,_mG,_mB;
-}
+};
 
+#endif
