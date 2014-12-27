@@ -6,7 +6,7 @@
 
 //! \class Object
 //! \brief definition of objects that will be placed in the scene
-class Object{
+class Object : private QOpenGLFunctions{
 public:
 	//! \brief Construction of the object before filling it with points
 	Object();
@@ -22,6 +22,18 @@ public:
 	//! \param Two angles in radian are given on the horizontal plan and the vertical plan to move the object from his initial axe
 	void changeObjectOrientation(float fHorizontalAngle, float fVerticalAngle);
 
+	//! \brief initialize the vertex buffer object
+	void initVbo();
+
+	//! \brief draw the object
+	void draw();
+
+	//! \brief return the object bounding box 
+	BoundingBox getBoundingBox();
+
+	//! \brief tell if the vertex buffer object is initialized
+	bool isVboInitialized();
+
 
 private:
 	BoundingBox mBoundingBox;
@@ -31,6 +43,11 @@ private:
     std::vector<QVector3D> mNormals;
     std::vector<uint> mIndices;
     std::vector<QVector3D> mColor;
+
+	bool mIsVboInitialized = false;
+	GLuint mVertexbuffer = 0;
+	GLuint mColorbuffer = 0;
+	GLuint mElementbuffer = 0;
 };
 
 

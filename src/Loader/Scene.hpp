@@ -12,21 +12,31 @@ class MainWindow;
 //! \brief The three dimension scene where objects will be placed
 class Scene{
 public:
-	//! \brief Scene constructor for a new scene
-	Scene();
+	//! \brief get the current scene
+	static Scene* getScene();
+
 
 	//! \brief Function to add a new object in a scene
 	//! \param Object to place
 	void addObject(Object* fObject);
 
+	//! \brief return a object
+	//! \param name of the object
+	//! \return return nullptr if the object can't be find
+	Object* getObject(const std::string& fName);
+
 	//! \brief render the scene
 	void show();
 
 private:
+	//! \brief Scene constructor for a new scene
+	Scene();
+
+	static Scene* mSceneInstance;
 	Loader* mLoader;
 	MainWindow* mWindow;
 
-	std::vector<Object*> mObjects;	
+	std::map<std::string, Object*> mObjects;	
 };
 
 #endif
