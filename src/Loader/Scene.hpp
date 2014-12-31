@@ -2,7 +2,7 @@
 #define SCENE_HPP
 
 #include "global.hpp"
-
+#include <QOpenGLBuffer>
 
 class Object;
 class Loader;
@@ -38,6 +38,7 @@ private:
 	static Scene* mSceneInstance;
 	Loader* mLoader;
 	MainWindow* mWindow;
+    QOpenGLVertexArrayObject mVao;
 
 	std::map<std::string, Object*> mObjects;	
 };

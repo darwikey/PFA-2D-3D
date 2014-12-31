@@ -3,6 +3,7 @@
 
 #include "global.hpp"
 #include "BoundingBox.hpp"
+#include <QOpenGLBuffer>
 
 class SceneRenderer;
 
@@ -68,9 +69,9 @@ private:
     std::vector<QVector3D> mColor;
 
 	bool mIsVboInitialized = false;
-	GLuint mVertexbuffer = 0;
-	GLuint mColorbuffer = 0;
-	GLuint mElementbuffer = 0;
+    QOpenGLBuffer  mVertexbuffer;
+    QOpenGLBuffer  mColorbuffer;
+    QOpenGLBuffer  mElementbuffer;
 };
 
 

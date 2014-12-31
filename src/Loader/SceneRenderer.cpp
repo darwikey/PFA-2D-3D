@@ -133,3 +133,5 @@ void SceneRenderer::render() {
 
     ++mFrame;
 }
+
+QOpenGLShaderProgram* SceneRenderer::getShaderProgram(){ return mProgram; }

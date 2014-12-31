@@ -6,7 +6,7 @@
 #include "SceneRenderer.hpp"
 
 
-Object::Object(){
+Object::Object():mElementbuffer(QOpenGLBuffer::IndexBuffer){
 }
 
 
@@ -24,17 +24,40 @@ void Object::changeObjectOrientation(float fHorizontalAngle, float fVerticalAngl
 
 void Object::initVbo(SceneRenderer* fRenderer)
 {
-	fRenderer->glGenBuffers(1, &mVertexbuffer);
-	fRenderer->glBindBuffer(GL_ARRAY_BUFFER, mVertexbuffer);
-	fRenderer->glBufferData(GL_ARRAY_BUFFER, mVertices.size()*sizeof(QVector3D), mVertices.data(), GL_STATIC_DRAW);
 
-	fRenderer->glGenBuffers(1, &mColorbuffer);
-	fRenderer->glBindBuffer(GL_ARRAY_BUFFER, mColorbuffer);
-	fRenderer->glBufferData(GL_ARRAY_BUFFER, mColor.size() * sizeof(QVector3D), mColor.data(), GL_STATIC_DRAW);
 
-	fRenderer->glGenBuffers(1, &mElementbuffer);
-	fRenderer->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementbuffer);
-	fRenderer->glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(uint), mIndices.data(), GL_STATIC_DRAW);
+    // Create a buffer and Fill it the the vertex data
+
+    mVertexbuffer.create();
+    mVertexbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    mVertexbuffer.bind();
+    mVertexbuffer.allocate(mVertices.data(), mVertices.size()*sizeof(QVector3D));
+
+    // Create a buffer and Fill it the the color data
+
+    mColorbuffer.create();
+    mColorbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    mColorbuffer.bind();
+    mColorbuffer.allocate(mColor.data(), mColor.size()*sizeof(QVector3D));
+
+    // Create a buffer and Fill it the the index data
+
+    mElementbuffer.create();
+    mElementbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    mElementbuffer.bind();
+    mElementbuffer.allocate(mIndices.data(), mIndices.size() * sizeof(uint));
+
+//	fRenderer->glGenBuffers(1, &mVertexbuffer);
+//	fRenderer->glBindBuffer(GL_ARRAY_BUFFER, mVertexbuffer);
+//	fRenderer->glBufferData(GL_ARRAY_BUFFER, mVertices.size()*sizeof(QVector3D), mVertices.data(), GL_STATIC_DRAW);
+
+//	fRenderer->glGenBuffers(1, &mColorbuffer);
+//	fRenderer->glBindBuffer(GL_ARRAY_BUFFER, mColorbuffer);
+//	fRenderer->glBufferData(GL_ARRAY_BUFFER, mColor.size() * sizeof(QVector3D), mColor.data(), GL_STATIC_DRAW);
+
+//	fRenderer->glGenBuffers(1, &mElementbuffer);
+//	fRenderer->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementbuffer);
+//	fRenderer->glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(uint), mIndices.data(), GL_STATIC_DRAW);
 	mIsVboInitialized = true;
 }
 
@@ -42,36 +65,29 @@ void Object::initVbo(SceneRenderer* fRenderer)
 void Object::draw(SceneRenderer* fRenderer)
 {
 
-	fRenderer->glEnableVertexAttribArray(0);
+    fRenderer->getShaderProgram()->enableAttributeArray(0);
 	// Index buffer
-	fRenderer->glBindBuffer(GL_ARRAY_BUFFER, mVertexbuffer);
+    mVertexbuffer.bind();
 
-	// Draw the triangles !
-
-	fRenderer->glVertexAttribPointer(
+    fRenderer->getShaderProgram()->setAttributeBuffer(
 		0,                  // attribute
-		3,                  // size
 		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
 		0,                  // stride
-		(void*) 0            // array buffer offset
+        3            // array buffer offset
 		);
 
 	// 2nd attribute buffer : colors
-	fRenderer->glEnableVertexAttribArray(1);
-	fRenderer->glBindBuffer(GL_ARRAY_BUFFER, mColorbuffer);
-	fRenderer->glVertexAttribPointer(
+    fRenderer->getShaderProgram()->enableAttributeArray(1);
+    mColorbuffer.bind();
+    fRenderer->getShaderProgram()->setAttributeBuffer(
 		1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-		3,                                // size
 		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
 		0,                                // stride
-		(void*) 0                          // array buffer offset
+        3                          // array buffer offset
 		);
 
-	// glDrawArrays(GL_TRIANGLES, 0, _model->vertices.size() );
-	//not working, no shader
-	fRenderer->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementbuffer);
+    mElementbuffer.bind();
+
 	// Draw the triangles !
 	fRenderer->glDrawElements(
 		GL_TRIANGLES,      // mode
@@ -80,12 +96,8 @@ void Object::draw(SceneRenderer* fRenderer)
 		(void*) 0           // element array buffer offset
 		);
 
-
-	//glDrawArrays(GL_TRIANGLES, 0, _model->vertices.size()*3);
-
-
-	fRenderer->glDisableVertexAttribArray(0);
-	fRenderer->glDisableVertexAttribArray(1);
+    fRenderer->getShaderProgram()->disableAttributeArray(0);
+    fRenderer->getShaderProgram()->disableAttributeArray(0);
 }
 
 
