@@ -38,7 +38,6 @@ private:
 	static Scene* mSceneInstance;
 	Loader* mLoader;
 	MainWindow* mWindow;
-    QOpenGLVertexArrayObject mVao;
 
 	std::map<std::string, Object*> mObjects;	
 };

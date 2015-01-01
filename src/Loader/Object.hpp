@@ -28,6 +28,9 @@ public:
 	//! \brief initialize the vertex buffer object
 	void initVbo(SceneRenderer* fRenderer);
 
+    //! \brief draw the object
+    void initAttributes(SceneRenderer* fRenderer);
+
 	//! \brief draw the object
 	void draw(SceneRenderer* fRenderer);
 
@@ -69,6 +72,7 @@ private:
     std::vector<QVector3D> mColor;
 
 	bool mIsVboInitialized = false;
+    QOpenGLVertexArrayObject mVao;
     QOpenGLBuffer  mVertexbuffer;
     QOpenGLBuffer  mColorbuffer;
     QOpenGLBuffer  mElementbuffer;
