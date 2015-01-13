@@ -6,7 +6,7 @@
 #include "SceneRenderer.hpp"
 
 
-Object::Object():mElementbuffer(QOpenGLBuffer::IndexBuffer){
+Object::Object() : mElementbuffer(QOpenGLBuffer::IndexBuffer){
 }
 
 
@@ -108,7 +108,8 @@ void Object::computeBoundingBox(){
 
 
 void Object::computeColors(){
-	if (mVertices.size() > 0 && mIndices.size() > 0){
+	if (!mVertices.empty() && !mIndices.empty()){
+		mColor.clear();
 		for (unsigned int i = 0; i < mVertices.size(); i++)
 		{
 			GLfloat _f = (GLfloat) i / mVertices.size();

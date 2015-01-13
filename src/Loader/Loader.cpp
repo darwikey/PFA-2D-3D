@@ -1,7 +1,7 @@
 #include "Loader.hpp"
 #include "Object.hpp"
 #include "ObjLoader.hpp"
-#include "PlyAsciiLoader.hpp"
+#include "PlyLoader.hpp"
 #include "Scene.hpp"
 
 
@@ -16,15 +16,29 @@ void Loader::createScene(std::string fPath){
 
 void Loader::loadObject(std::string fPath){
 
-	//TODO detect file type
+	//detect file type
+	// get extension
+	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);
 
 	Object* _object = new Object();
-	ObjLoader _loader(fPath);
 
-	if (!_loader.load(_object))
-	{
-		std::cerr << "Impossible to open the file ! Are you in the right path ?" << std::endl;
-		QMessageBox::critical(0, "Error", "Error Opening File...");
+	if (_ext == "obj"){
+		ObjLoader _loader(fPath);
+
+		if (!_loader.load(_object))
+		{
+			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
+			QMessageBox::critical(0, "Error", "Error Opening File...");
+		}
+	}
+	else if (_ext == "ply")	{
+		PlyLoader _loader(fPath);
+
+		if (!_loader.load(_object))
+		{
+			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
+			QMessageBox::critical(0, "Error", "Error Opening File...");
+		}
 	}
 
 	_object->computeColors();
