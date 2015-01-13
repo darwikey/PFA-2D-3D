@@ -12,6 +12,7 @@ public:
     SceneRenderer();
     void initialize();
     void render();
+    QOpenGLShaderProgram* getShaderProgram();
 
 private:
     GLuint loadShader(GLenum type, const char *source);

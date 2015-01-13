@@ -2,7 +2,7 @@
 #define SCENE_HPP
 
 #include "global.hpp"
-
+#include <QOpenGLBuffer>
 
 class Object;
 class Loader;

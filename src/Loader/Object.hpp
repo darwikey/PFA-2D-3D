@@ -3,6 +3,7 @@
 
 #include "global.hpp"
 #include "BoundingBox.hpp"
+#include <QOpenGLBuffer>
 
 class SceneRenderer;
 
@@ -26,6 +27,9 @@ public:
 
 	//! \brief initialize the vertex buffer object
 	void initVbo(SceneRenderer* fRenderer);
+
+    //! \brief draw the object
+    void initAttributes(SceneRenderer* fRenderer);
 
 	//! \brief draw the object
 	void draw(SceneRenderer* fRenderer);
@@ -68,9 +72,10 @@ private:
     std::vector<QVector3D> mColor;
 
 	bool mIsVboInitialized = false;
-	GLuint mVertexbuffer = 0;
-	GLuint mColorbuffer = 0;
-	GLuint mElementbuffer = 0;
+    QOpenGLVertexArrayObject mVao;
+    QOpenGLBuffer  mVertexbuffer;
+    QOpenGLBuffer  mColorbuffer;
+    QOpenGLBuffer  mElementbuffer;
 };
 
 
