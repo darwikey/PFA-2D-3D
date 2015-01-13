@@ -9,23 +9,23 @@
 
 
 static const char *vertexShaderSource =
-        "#version 330 core\n"
-        "layout(location = 0) in vec3 vertexPosition_modelspace;\n"
-    "layout(location = 1) in vec3 vertexColor;\n"
-        "out vec3 fragmentColor;\n"
-    "uniform mat4 matrix;\n"
-    "void main() {\n"
-    "   gl_Position = matrix * vec4(vertexPosition_modelspace,1);\n"
-        "fragmentColor = vertexColor;\n"
-    "}\n";
+	"#version 330 core\n"
+	"layout(location = 0) in vec3 vertexPosition_modelspace;\n"
+	"layout(location = 1) in vec3 vertexColor;\n"
+	"out vec3 fragmentColor;\n"
+	"uniform mat4 matrix;\n"
+	"void main() {\n"
+	"   gl_Position = matrix * vec4(vertexPosition_modelspace,1);\n"
+	"   fragmentColor = vertexColor;\n"
+	"}\n";
 
 static const char *fragmentShaderSource =
-        "#version 330 core\n"
-        "in vec3 fragmentColor;\n"
-        "out vec3 color;\n"
-    "void main() {\n"
-        "color = fragmentColor;\n"
-    "}\n";
+	"#version 330 core\n"
+	"in vec3 fragmentColor;\n"
+	"out vec3 color;\n"
+	"void main() {\n"
+	"   color = fragmentColor;\n"
+	"}\n";
 
 
 SceneRenderer::SceneRenderer(){
@@ -70,11 +70,14 @@ void SceneRenderer::initialize()
 
 
 void SceneRenderer::render() {
+	Scene::getScene()->render();
+}
 
-    Object* _model = Scene::getScene()->getObject("cube1");
 
-    if(! _model->isVboInitialized()){
-		_model->initVbo(this);
+void SceneRenderer::render(Object* fModel) {
+
+    if(! fModel->isVboInitialized()){
+		fModel->initVbo(this);
     }
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -84,25 +87,22 @@ void SceneRenderer::render() {
         return;
     }
 
-    mMatrix = QMatrix4x4();
 
-	QVector3D _modelCenter = _model->getBoundingBox().getCenter();
+	QVector3D fModelCenter = fModel->getBoundingBox().getCenter();
 	
-	GLdouble r = _modelCenter.distanceToPoint(_model->getBoundingBox().mVector1);
+	GLdouble r = fModelCenter.distanceToPoint(fModel->getBoundingBox().mVector1);
 
     GLfloat fDistance = r / 0.57735f; // where 0.57735f is tan(30 degrees)
 
     GLfloat zNear = fDistance - r;
     GLfloat zFar = fDistance + r;
 
-    //printf("bounding box : x -- %f, %f, y -- %f, %f, z -- %f, %f\n",_model->BoundingBox.x_max,_model->BoundingBox.x_min,_model->BoundingBox.y_max,_model->BoundingBox.y_min,_model->BoundingBox.z_max,_model->BoundingBox.z_min);
-    //printf("center : %lf, %lf, %lf\n", centerx, centery, centerz);
-    //printf("r : %lf, dist : %f, zNear : %f, zFar : %f\n",r, fDistance, zNear, zFar);
+
     QVector3D _eye = QVector3D(0., 0., fDistance);
     QVector3D _center = QVector3D(0., 0., 0.);
     QVector3D _up = QVector3D(0.0, 1.0, 0.0);
 
-
+	mMatrix = QMatrix4x4();
     mMatrix.frustum(-r, +r, -r, +r, zNear, zFar);
     mMatrix.lookAt(_eye, _center, _up);
     mMatrix.translate(-_center.x(), -_center.y(), -_center.z());
@@ -111,14 +111,16 @@ void SceneRenderer::render() {
     mMatrix.rotate(fRotationY, 0.0f, 1.0f, 0.0f);
     mMatrix.rotate(fRotationZ, 0.0f, 0.0f, 1.0f);
 
+	fModel->draw(this);
 
     mProgram->setUniformValue(mMatrixUniform, mMatrix);
-
-	_model->draw(this);
 
     mProgram->release();
 
     ++mFrame;
 }
 
-QOpenGLShaderProgram* SceneRenderer::getShaderProgram(){ return mProgram; }
+
+QOpenGLShaderProgram* SceneRenderer::getShaderProgram(){ 
+	return mProgram;
+}

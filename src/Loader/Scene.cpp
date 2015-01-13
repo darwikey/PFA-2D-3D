@@ -2,18 +2,21 @@
 #include "Object.hpp"
 #include "Loader.hpp"
 #include "MainWindow.hpp"
+#include "SceneRenderer.hpp"
 
 Scene* Scene::mSceneInstance = nullptr;
 
 
 Scene::Scene() : mLoader(new Loader()),
-mWindow(new MainWindow()){
+mSceneRenderer(new SceneRenderer()),
+mWindow(nullptr){
 }
 
 
 Scene* Scene::getScene(){
 	if (mSceneInstance == nullptr){
 		mSceneInstance = new Scene();
+		mSceneInstance->mWindow = new MainWindow();
 	}
 	return mSceneInstance;
 }
@@ -38,8 +41,21 @@ Object* Scene::getObject(const std::string& fName){
 	}
 }
 
+
 void Scene::show(){
 	mWindow->show();
+}
+
+
+void Scene::render(){
+	for (auto _obj : mObjects){
+		mSceneRenderer->render(_obj.second);
+	}
+}
+
+
+SceneRenderer* Scene::getSceneRenderer(){
+	return mSceneRenderer;
 }
 
 

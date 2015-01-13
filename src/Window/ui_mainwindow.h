@@ -25,6 +25,7 @@
 #include <QtWidgets/QWidget>
 #include <QGLWidget>
 #include "SceneRenderer.hpp"
+#include "Scene.hpp"
 
 
 QT_BEGIN_NAMESPACE
@@ -60,7 +61,7 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        widget = QWidget::createWindowContainer(new SceneRenderer(),centralwidget);
+        widget = QWidget::createWindowContainer(Scene::getScene()->getSceneRenderer(),centralwidget);
         widget->setObjectName(QStringLiteral("widget"));
         widget->setMinimumSize(QSize(600, 0));
 

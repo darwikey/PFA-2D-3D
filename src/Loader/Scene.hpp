@@ -7,6 +7,7 @@
 class Object;
 class Loader;
 class MainWindow;
+class SceneRenderer;
 
 //! \class Scene
 //! \brief The three dimension scene where objects will be placed
@@ -25,8 +26,14 @@ public:
 	//! \return return nullptr if the object can't be find
 	Object* getObject(const std::string& fName);
 
-	//! \brief render the scene
+	//! \brief show the scene, this function must be called once
 	void show();
+
+	//! \brief render the scene, this function must be called each frame
+	void render();
+
+	//! \brief get scene renderer instance
+	SceneRenderer* getSceneRenderer();
 
 	//! \brief get loader instance
 	Loader* getLoader();
@@ -35,9 +42,11 @@ private:
 	//! \brief Scene constructor for a new scene
 	Scene();
 
+	// Instances
 	static Scene* mSceneInstance;
 	Loader* mLoader;
 	MainWindow* mWindow;
+	SceneRenderer* mSceneRenderer;
 
 	std::map<std::string, Object*> mObjects;	
 };

@@ -4,15 +4,16 @@
 #include "MyGLWidget.hpp"
 #include "global.hpp"
 
+class Object;
 
-class SceneRenderer : public MyGLWidget
-{
+class SceneRenderer : public MyGLWidget{
 
 public:
     SceneRenderer();
     void initialize();
     void render();
-    QOpenGLShaderProgram* getShaderProgram();
+	void render(Object* fModel);
+	QOpenGLShaderProgram* getShaderProgram();
 
 private:
     GLuint loadShader(GLenum type, const char *source);
