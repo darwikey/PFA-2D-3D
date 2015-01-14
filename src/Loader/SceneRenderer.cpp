@@ -60,6 +60,7 @@ void SceneRenderer::initialize()
 
     glDepthFunc(GL_LESS);
     glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
     glCullFace(GL_BACK);
 
     const qreal retinaScale = devicePixelRatio();
