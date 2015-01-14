@@ -5,8 +5,7 @@
 #include "Object.hpp"
 
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]){
     QApplication app(argc, argv);
 	Scene::getScene()->getLoader()->loadObject("C:/sources/3D/cubeout.ply", "cube1");
 	Scene::getScene()->getLoader()->loadObject("C:/sources/3D/cubeout.ply", "cube2");

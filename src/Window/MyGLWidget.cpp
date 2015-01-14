@@ -103,11 +103,11 @@ void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 
 
 
-//mouse Move Event  // non fonctionnel ??!
+//mouse Move Event
 void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 
     GLfloat _dx = (GLfloat)(fEvent->x() - mPrevMousePosition.x()) / 10;//viewport_size.width();
-    GLfloat _dy = (GLfloat)(fEvent->y() - mPrevMousePosition.y()) / 7;//viewport_size.height();
+    float _dy = (float)(fEvent->y() - mPrevMousePosition.y()) / 7;//viewport_size.height();
 
 
     if( fEvent->buttons() & Qt::LeftButton ) {
@@ -124,8 +124,10 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 //wheel Event
 void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 {
-    //TODO (GLfloat)fEvent->delta() / 80.0;
-    renderLater();
+    float _dz = (float)fEvent->delta();
+	Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, _dz);
+
+    renderNow();
 }
 
 

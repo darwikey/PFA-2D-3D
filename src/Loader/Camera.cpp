@@ -16,10 +16,17 @@ void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthVa
 	float _radius = mPosition.distanceToPoint(QVector3D(0.f, 0.f, 0.f));
 	//mRotation += QVector3D(fHorizontalAxe, fVerticalAxe, 0.f);
 
+	//Rotation
 	QMatrix4x4 _mat;
 	_mat.rotate(5.f * fVerticalAxe, QVector3D(0.f, -1.f, 0.f));
 	_mat.rotate(5.f * fHorizontalAxe, QVector3D(-1.f, 0.f, 0.f));
 	mPosition = _mat * mPosition;
+
+	//Zoom
+	if (fDepthValue > 0.f)
+		mPosition *= 1.1f;
+	else if (fDepthValue < 0.f)
+		mPosition *= 0.9f;
 
 	computeViewMatrix();
 }
