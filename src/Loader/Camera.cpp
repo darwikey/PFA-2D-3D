@@ -1,11 +1,11 @@
 #include "Camera.hpp"
+#include "Scene.hpp"
 
 
 Camera::Camera() : 
 mPosition(0.f, 0.f, 3.f),
 mRotation(0.f, 0.f, 0.f),
 mAngleOfView(1.f){
-	computeViewMatrix();
 }
 
 /*Camera::Camera(QVector3D,QVector3D ,float){
@@ -13,7 +13,7 @@ mAngleOfView(1.f){
 
 void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
 	//warning wild TRIGO
-	float _radius = mPosition.distanceToPoint(QVector3D(0.f, 0.f, 0.f));
+	
 	//mRotation += QVector3D(fHorizontalAxe, fVerticalAxe, 0.f);
 
 	//Rotation
@@ -27,6 +27,13 @@ void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthVa
 		mPosition *= 1.1f;
 	else if (fDepthValue < 0.f)
 		mPosition *= 0.9f;
+
+	computeViewMatrix();
+}
+
+void Camera::repositionCamera(float fBoundingSphereRadius){
+	mPosition.normalize();
+	mPosition *= 1.7f * fBoundingSphereRadius;
 
 	computeViewMatrix();
 }
@@ -47,7 +54,8 @@ const PixelTab& Camera::getDepthMap(){
 void Camera::computeViewMatrix() {
 	mViewMatrix = QMatrix4x4();
 	
-	const float r = 1.f;
+	const float r = 1.f;// Scene::getScene()->getBoundingSphereRadius();
+
 	const float _distance = r / 0.57735f; // where 0.57735f is tan(30 degrees)
 
 	const float _zNear = 1.f;

@@ -15,11 +15,11 @@ public:
 	Object();
 
 	//! \brief To move an object depending on three values on  x, y and z coordonates
-	void moveObject(QVector3D fDelta);
+	void moveObject(QVector3D fPosition);
 
 	//! \brief Scaling of the object, following the given rate
 	//! \param Rate for the scaling, considering the actual size of the object as rate 1
-	void changeObjectSize(float fRate);
+	void changeObjectScale(float fScale);
 
 	//! \brief Moving the object from his initial orientation to a new orientation
 	//! \param Two angles in radian are given on the horizontal plan and the vertical plan to move the object from his initial axe
@@ -49,6 +49,9 @@ public:
 	//! \brief get rotation in the scene
 	QVector3D getRotation();
 
+	//! \brief get scale of the object
+	float getScale();
+
 	//! \brief tell if the vertex buffer object is initialized
 	bool isVboInitialized();
 
@@ -73,6 +76,7 @@ private:
 	BoundingBox mBoundingBox;
 	QVector3D mPosition;
 	QVector3D mRotation;
+	float mScale = 1.f;
 	
 	std::vector<QVector3D> mVertices;
     std::vector<QVector2D> mTextureCoordinates;

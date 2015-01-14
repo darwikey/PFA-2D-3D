@@ -22,6 +22,10 @@ public:
 	//! \param params are about directions and values of move in those directions. horizontalAxe is about x value, verticalAxe is about y value and depthValue is about z value.
 	void moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthValue);
 
+	//! \brief move the camera in order to see all the object
+	//! \param the bounding sphere radius of the scene objects
+	void repositionCamera(float fBoundingSphereRadius);
+
 	//! \brief get an access to the image created for the viewport
 	const PixelTab& getViewPort();
 	

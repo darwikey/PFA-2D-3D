@@ -4,6 +4,8 @@
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 #include "SceneRenderer.hpp"
+#include "Scene.hpp"
+#include "Camera.hpp"
 
 
 Object::Object() : mPosition(0.f, 0.f, 0.f), 
@@ -12,16 +14,33 @@ mElementbuffer(QOpenGLBuffer::IndexBuffer){
 }
 
 
-void Object::moveObject(QVector3D fDelta){
-	mPosition += fDelta;
+void Object::moveObject(QVector3D fPosition){
+	mPosition = fPosition;
+
+	// update camera position
+	Scene* _scene = Scene::getScene();
+	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
 }
 
 
-void Object::changeObjectSize(float fRate){
+void Object::changeObjectScale(float fScale){
+	mScale = fScale;
+
+	// update bounding box
+	computeBoundingBox();
+
+	// update camera position
+	Scene* _scene = Scene::getScene();
+	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
 }
 
 
 void Object::changeObjectOrientation(float fHorizontalAngle, float fVerticalAngle){
+	//TODO
+
+	// update camera position
+	Scene* _scene = Scene::getScene();
+	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
 }
 
 
@@ -107,6 +126,8 @@ void Object::computeBoundingBox(){
 		mBoundingBox.mVector0.setZ((_v.z() < mBoundingBox.mVector0.z()) ? _v.z() : mBoundingBox.mVector0.z());
 		mBoundingBox.mVector1.setZ((mBoundingBox.mVector1.z() < _v.z()) ? _v.z() : mBoundingBox.mVector1.z());
 	}
+	mBoundingBox.mVector0 *= mScale;
+	mBoundingBox.mVector1 *= mScale;
 }
 
 
@@ -136,6 +157,9 @@ QVector3D Object::getRotation() {
 	return mRotation;
 }
 
+float Object::getScale() {
+	return mScale;
+}
 
 bool Object::isVboInitialized(){
 	return mIsVboInitialized;

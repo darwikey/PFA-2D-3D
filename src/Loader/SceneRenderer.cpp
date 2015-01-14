@@ -86,18 +86,16 @@ void SceneRenderer::render(Object* fModel) {
         return;
     }
 
-
-	QVector3D _modelCenter(1.f, 0.f, 0.f);//fModel->getBoundingBox().getCenter();
 	
 	fModel->draw(this);
 
 	QMatrix4x4 _cameraMatrix = Scene::getScene()->getCamera()->getViewMatrix();
 
-	QMatrix4x4 _modelMatrix;
+	QMatrix4x4 _modelMatrix, _scale;
+	_scale.scale(fModel->getScale());
 	_modelMatrix.translate(fModel->getPosition());
 
-
-    mProgram->setUniformValue(mMatrixUniform, _cameraMatrix * _modelMatrix);
+    mProgram->setUniformValue(mMatrixUniform, _cameraMatrix * (_modelMatrix * _scale));
 
     mProgram->release();
 

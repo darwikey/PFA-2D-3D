@@ -42,7 +42,10 @@ public:
 	//! \brief get camera instance
 	Camera* getCamera();
 
+	//! \brief get the radius of the bounding sphere including all objects in the scene
+	float getBoundingSphereRadius();
 	
+
 private:
 	//! \brief Scene constructor for a new scene
 	Scene();

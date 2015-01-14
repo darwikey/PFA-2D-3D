@@ -27,6 +27,9 @@ Scene* Scene::getScene(){
 void Scene::addObject(const std::string fName, Object *fObject){
 
 	mObjects.insert(std::pair<std::string, Object*>(fName, fObject));
+
+	// update camera position
+	mCamera->repositionCamera(getBoundingSphereRadius());
 }
 
 Object* Scene::getObject(const std::string& fName){
@@ -66,4 +69,18 @@ Loader* Scene::getLoader(){
 
 Camera* Scene::getCamera(){
 	return mCamera;
+}
+
+
+float Scene::getBoundingSphereRadius(){
+	float _radius = 0.f;
+
+	for (auto _model : mObjects) {
+		BoundingBox _bb = _model.second->getBoundingBox();
+		float _r = 0.5f * _bb.mVector0.distanceToPoint(_bb.mVector1);
+		_r += _model.second->getPosition().distanceToPoint(QVector3D(0.f, 0.f, 0.f)),
+		_radius = std::max(_radius, _r);
+	}
+
+	return _radius;
 }
