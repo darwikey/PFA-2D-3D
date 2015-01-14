@@ -6,11 +6,14 @@
 #include "SceneRenderer.hpp"
 
 
-Object::Object() : mElementbuffer(QOpenGLBuffer::IndexBuffer){
+Object::Object() : mPosition(0.f, 0.f, 0.f), 
+mRotation(0.f, 0.f, 0.f),
+mElementbuffer(QOpenGLBuffer::IndexBuffer){
 }
 
 
-void Object::moveObject(float fHorizontalValue, float fVerticalValue, float fDepthValue){
+void Object::moveObject(QVector3D fDelta){
+	mPosition += fDelta;
 }
 
 
@@ -24,8 +27,8 @@ void Object::changeObjectOrientation(float fHorizontalAngle, float fVerticalAngl
 
 void Object::initVbo(SceneRenderer* fRenderer)
 {
-    mVao.create();
-    mVao.bind();
+    mVAO.create();
+    mVAO.bind();
 
     // Create a buffer and Fill it the the vertex data
 
@@ -54,7 +57,7 @@ void Object::initVbo(SceneRenderer* fRenderer)
 
 void Object::initAttributes(SceneRenderer* fRenderer)
 {
-    mVao.bind();
+    mVAO.bind();
     fRenderer->getShaderProgram()->bind();
     fRenderer->getShaderProgram()->enableAttributeArray(0);
     // Index buffer
@@ -81,7 +84,7 @@ void Object::initAttributes(SceneRenderer* fRenderer)
 void Object::draw(SceneRenderer* fRenderer)
 {
 //    mElementbuffer.bind();
-    mVao.bind();
+    mVAO.bind();
 	// Draw the triangles !
 	fRenderer->glDrawElements(
 		GL_TRIANGLES,      // mode
@@ -124,6 +127,15 @@ void Object::computeColors(){
 BoundingBox Object::getBoundingBox(){
 	return mBoundingBox;
 }
+
+QVector3D Object::getPosition() {
+	return mPosition;
+}
+
+QVector3D Object::getRotation() {
+	return mRotation;
+}
+
 
 bool Object::isVboInitialized(){
 	return mIsVboInitialized;

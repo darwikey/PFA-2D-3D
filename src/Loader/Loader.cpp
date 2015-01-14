@@ -14,7 +14,7 @@ void Loader::createScene(){
 void Loader::createScene(std::string fPath){
 }
 
-void Loader::loadObject(std::string fPath){
+void Loader::loadObject(const std::string& fPath, const std::string& fObjectName){
 
 	//detect file type
 	// get extension
@@ -42,7 +42,7 @@ void Loader::loadObject(std::string fPath){
 	}
 
 	_object->computeColors();
-	Scene::getScene()->addObject("cube1", _object);
+	Scene::getScene()->addObject(fObjectName, _object);
 }
 
 void Loader::_parseOBJFile(std::string fPath){

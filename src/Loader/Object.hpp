@@ -15,7 +15,7 @@ public:
 	Object();
 
 	//! \brief To move an object depending on three values on  x, y and z coordonates
-	void moveObject(float fHorizontalValue, float fVerticalValue, float fDepthValue);
+	void moveObject(QVector3D fDelta);
 
 	//! \brief Scaling of the object, following the given rate
 	//! \param Rate for the scaling, considering the actual size of the object as rate 1
@@ -43,6 +43,12 @@ public:
 	//! \brief return the object bounding box 
 	BoundingBox getBoundingBox();
 
+	//! \brief get position in the scene
+	QVector3D getPosition();
+
+	//! \brief get rotation in the scene
+	QVector3D getRotation();
+
 	//! \brief tell if the vertex buffer object is initialized
 	bool isVboInitialized();
 
@@ -62,8 +68,11 @@ public:
 	//! \brief add one texture coordinate in the model
 	void pushTextureCoordinate(QVector2D fValue);
 
+
 private:
 	BoundingBox mBoundingBox;
+	QVector3D mPosition;
+	QVector3D mRotation;
 	
 	std::vector<QVector3D> mVertices;
     std::vector<QVector2D> mTextureCoordinates;
@@ -72,7 +81,7 @@ private:
     std::vector<QVector3D> mColor;
 
 	bool mIsVboInitialized = false;
-    QOpenGLVertexArrayObject mVao;
+    QOpenGLVertexArrayObject mVAO;
     QOpenGLBuffer  mVertexbuffer;
     QOpenGLBuffer  mColorbuffer;
     QOpenGLBuffer  mElementbuffer;

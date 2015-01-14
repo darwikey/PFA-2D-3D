@@ -92,13 +92,6 @@ void MyGLWidget::renderNow()
         renderLater();
 }
 
-void MyGLWidget::setAnimating(bool animating)
-{
-    m_animating = animating;
-
-    if (animating)
-        renderLater();
-}
 
 //mouse Press Event
 void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)

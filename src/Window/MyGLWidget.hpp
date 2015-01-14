@@ -20,7 +20,7 @@ public:
     virtual void render(QPainter *painter);
     virtual void render();
     virtual void initialize();
-    void setAnimating(bool animating);
+    
 
     virtual void keyPressEvent( QKeyEvent *fEvent );
 

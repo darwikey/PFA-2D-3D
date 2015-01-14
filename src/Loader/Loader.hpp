@@ -19,7 +19,8 @@ public:
 
 	//! \brief Loader has to create object from OBJ or PLY files. It will parse them and add them to the scene, then they will be placed by the user
 	//! \param Path to an OBJ or PLY file
-	void loadObject(std::string fPath);
+	//! \param name of the object in the scene
+	void loadObject(const std::string& fPath, const std::string& fObjectName);
 	
 private:
 	//! \brief createObject method will recognise an OBJ or PLY file and will call the adequate method

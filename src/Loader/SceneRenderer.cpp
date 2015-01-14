@@ -86,16 +86,17 @@ void SceneRenderer::render(Object* fModel) {
     }
 
 
-	QVector3D _modelCenter = fModel->getBoundingBox().getCenter();
+	QVector3D _modelCenter(1.f, 0.f, 0.f);//fModel->getBoundingBox().getCenter();
 	
-	GLdouble r = _modelCenter.distanceToPoint(fModel->getBoundingBox().mVector1);
-
 	fModel->draw(this);
 
-	QMatrix4x4 _matrix = Scene::getScene()->getCamera()->getMatrix();
-	//_matrix.translate(-_modelCenter.x(), -_modelCenter.y(), -_modelCenter.z());
-	
-    mProgram->setUniformValue(mMatrixUniform, _matrix);
+	QMatrix4x4 _cameraMatrix = Scene::getScene()->getCamera()->getViewMatrix();
+
+	QMatrix4x4 _modelMatrix;
+	_modelMatrix.translate(fModel->getPosition());
+
+
+    mProgram->setUniformValue(mMatrixUniform, _cameraMatrix * _modelMatrix);
 
     mProgram->release();
 

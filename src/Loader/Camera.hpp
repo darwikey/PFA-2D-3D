@@ -8,7 +8,7 @@ class PixelTab;
 //! \class Camera
 //! \brief The camera that will be used to see the three dimension scene
 class Camera{
-	public:
+public:
 	//! \brief Camera Basic Constructor
 	Camera();
 
@@ -25,15 +25,21 @@ class Camera{
 	//! \brief get an access to the image created for the viewport
 	const PixelTab& getViewPort();
 	
-	QMatrix4x4 getMatrix();
+	//! \brief get the matrix associate with the camera
+	const QMatrix4x4& getViewMatrix();
 	
 	//! \brief get an access to the depth map
 	const PixelTab& getDepthMap();
 
-	private:
+
+private:
+	// \brief compute the view matrix
+	void computeViewMatrix();
+
 	QVector3D mPosition;
 	QVector3D mRotation;
 	float mAngleOfView; // in radian
+	QMatrix4x4 mViewMatrix;
 };
 
 #endif
