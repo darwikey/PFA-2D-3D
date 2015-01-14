@@ -1,12 +1,11 @@
 #include "SceneRenderer.hpp"
-#include "Scene.hpp"
-#include "Object.hpp"
 #include <QtGui/QMatrix4x4>
 #include <QtGui/QOpenGLShaderProgram>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
-
-
+#include "Scene.hpp"
+#include "Object.hpp"
+#include "Camera.hpp"
 
 static const char *vertexShaderSource =
 	"#version 330 core\n"
@@ -70,6 +69,7 @@ void SceneRenderer::initialize()
 
 
 void SceneRenderer::render() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Scene::getScene()->render();
 }
 
@@ -80,40 +80,22 @@ void SceneRenderer::render(Object* fModel) {
 		fModel->initVbo(this);
     }
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	if (!mProgram->bind()){
         qWarning() << "Could not bind shader program";
         return;
     }
 
 
-	QVector3D fModelCenter = fModel->getBoundingBox().getCenter();
+	QVector3D _modelCenter = fModel->getBoundingBox().getCenter();
 	
-	GLdouble r = fModelCenter.distanceToPoint(fModel->getBoundingBox().mVector1);
-
-    GLfloat fDistance = r / 0.57735f; // where 0.57735f is tan(30 degrees)
-
-    GLfloat zNear = fDistance - r;
-    GLfloat zFar = fDistance + r;
-
-
-    QVector3D _eye = QVector3D(0., 0., fDistance);
-    QVector3D _center = QVector3D(0., 0., 0.);
-    QVector3D _up = QVector3D(0.0, 1.0, 0.0);
-
-	mMatrix = QMatrix4x4();
-    mMatrix.frustum(-r, +r, -r, +r, zNear, zFar);
-    mMatrix.lookAt(_eye, _center, _up);
-    mMatrix.translate(-_center.x(), -_center.y(), -_center.z());
-    mMatrix.translate(fMoveLeftRight, fMoveUpDown, fMoveInOut);
-    mMatrix.rotate(fRotationX, 1.0f, 0.0f, 0.0f);
-    mMatrix.rotate(fRotationY, 0.0f, 1.0f, 0.0f);
-    mMatrix.rotate(fRotationZ, 0.0f, 0.0f, 1.0f);
+	GLdouble r = _modelCenter.distanceToPoint(fModel->getBoundingBox().mVector1);
 
 	fModel->draw(this);
 
-    mProgram->setUniformValue(mMatrixUniform, mMatrix);
+	QMatrix4x4 _matrix = Scene::getScene()->getCamera()->getMatrix();
+	//_matrix.translate(-_modelCenter.x(), -_modelCenter.y(), -_modelCenter.z());
+	
+    mProgram->setUniformValue(mMatrixUniform, _matrix);
 
     mProgram->release();
 

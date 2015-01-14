@@ -22,29 +22,18 @@ public:
     virtual void initialize();
     void setAnimating(bool animating);
 
-    virtual void keyPressEvent( QKeyEvent *pEvent );
+    virtual void keyPressEvent( QKeyEvent *fEvent );
 
     /** Handles mouse press events on the QGLWidget. */
-    void mousePressEvent( QMouseEvent *pEvent );
+    void mousePressEvent( QMouseEvent *fEvent );
 
     /** Handles mouse move events on the QGLWidget. */
-    void mouseMoveEvent( QMouseEvent *pEvent );
+    void mouseMoveEvent( QMouseEvent *fEvent );
 
     /** Zoomin in and out of the cube */
-    void wheelEvent ( QWheelEvent * pEvent );
+    void wheelEvent ( QWheelEvent * fEvent );
 
-    GLfloat fRotationX;
-    GLfloat fRotationY;
-    GLfloat fRotationZ;
 
-    GLfloat fMoveUpDown;
-    GLfloat fMoveLeftRight;
-    GLfloat fMoveInOut;
-
-    QSize viewport_size;					//< current size of the viewport.
-    QPoint lastPos;
-
-public slots:
     void renderLater();
     void renderNow();
 
@@ -54,13 +43,13 @@ protected:
 
 private:
 
-    /** Change settings for rendering. */
-    void setRotation( GLfloat _x, GLfloat _y, GLfloat _z );
-
-    bool m_update_pending;
-    bool m_animating;
-    QOpenGLContext *m_context;
-    QOpenGLPaintDevice *m_device;
+    bool mUpdatePending = false;
+    bool m_animating = false;
+    QOpenGLContext *mContext = nullptr;
+    QOpenGLPaintDevice *mDevice = nullptr;
+	
+	// mouse position at the lastest mouse click 
+	QPoint mPrevMousePosition;
 };
 
 

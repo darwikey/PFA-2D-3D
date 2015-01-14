@@ -3,12 +3,14 @@
 #include "Loader.hpp"
 #include "MainWindow.hpp"
 #include "SceneRenderer.hpp"
+#include "Camera.hpp"
 
 Scene* Scene::mSceneInstance = nullptr;
 
 
 Scene::Scene() : mLoader(new Loader()),
 mSceneRenderer(new SceneRenderer()),
+mCamera(new Camera()),
 mWindow(nullptr){
 }
 
@@ -58,7 +60,10 @@ SceneRenderer* Scene::getSceneRenderer(){
 	return mSceneRenderer;
 }
 
-
 Loader* Scene::getLoader(){
 	return mLoader;
+}
+
+Camera* Scene::getCamera(){
+	return mCamera;
 }

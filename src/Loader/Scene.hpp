@@ -8,6 +8,7 @@ class Object;
 class Loader;
 class MainWindow;
 class SceneRenderer;
+class Camera;
 
 //! \class Scene
 //! \brief The three dimension scene where objects will be placed
@@ -37,7 +38,11 @@ public:
 
 	//! \brief get loader instance
 	Loader* getLoader();
+	
+	//! \brief get camera instance
+	Camera* getCamera();
 
+	
 private:
 	//! \brief Scene constructor for a new scene
 	Scene();
@@ -47,6 +52,7 @@ private:
 	Loader* mLoader;
 	MainWindow* mWindow;
 	SceneRenderer* mSceneRenderer;
+	Camera* mCamera;
 
 	std::map<std::string, Object*> mObjects;	
 };

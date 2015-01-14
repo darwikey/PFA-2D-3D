@@ -20,7 +20,6 @@ private:
 
 
     GLuint mMatrixUniform = 0;
-    QMatrix4x4 mMatrix;
 
     QOpenGLShaderProgram* mProgram = nullptr;
     int mFrame = 0;

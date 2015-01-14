@@ -12,9 +12,6 @@ class Camera{
 	//! \brief Camera Basic Constructor
 	Camera();
 
-	//! \brief Camera Constructor with information about orientation and angle size
-	//! \param take information about orientation vector and angle size
-	Camera(QVector3D ,float);
 
 	//! \brief Camera Constructor with given position, orientation and angle size
 	//! \param take information about position, orientation vector and angle size
@@ -28,12 +25,14 @@ class Camera{
 	//! \brief get an access to the image created for the viewport
 	const PixelTab& getViewPort();
 	
+	QMatrix4x4 getMatrix();
+	
 	//! \brief get an access to the depth map
 	const PixelTab& getDepthMap();
 
 	private:
 	QVector3D mPosition;
-	QVector3D mOrientation;
+	QVector3D mRotation;
 	float mAngleOfView; // in radian
 };
 
