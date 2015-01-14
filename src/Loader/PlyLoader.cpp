@@ -8,10 +8,6 @@ PlyLoader::PlyLoader(std::string fPath){
 
 	mFile.open(fPath);
 
-	if (!mFile) {
-		std::cerr << "Impossible to open the file ! Are you in the right path ?" << std::endl;
-        exit(EXIT_FAILURE);
-	}
 }
 
 
@@ -21,6 +17,9 @@ PlyLoader::~PlyLoader(){
 
 
 bool PlyLoader::load(Object* fObject) {
+	if (!mFile)
+		return false;
+	
 	parseHeader();
 
 	std::cout << "parse vertices (" << mVerticesNumber << ")..." << std::endl;
