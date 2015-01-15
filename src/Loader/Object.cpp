@@ -8,9 +8,31 @@
 #include "Camera.hpp"
 
 
+// will be move into a file
+static const char *vertexShaderSource =
+"#version 330 core\n"
+"layout(location = 0) in vec3 vertexPosition_modelspace;\n"
+"layout(location = 1) in vec3 vertexColor;\n"
+"out vec3 fragmentColor;\n"
+"uniform mat4 matrix;\n"
+"void main() {\n"
+"   gl_Position = matrix * vec4(vertexPosition_modelspace, 1.0);\n"
+"   fragmentColor = vertexColor;\n"
+"}\n";
+
+static const char *fragmentShaderSource =
+"#version 330 core\n"
+"in vec3 fragmentColor;\n"
+"out vec3 color;\n"
+"void main() {\n"
+"   color = fragmentColor;\n"
+"}\n";
+
+
 Object::Object() : mPosition(0.f, 0.f, 0.f), 
 mRotation(0.f, 0.f, 0.f),
 mElementbuffer(QOpenGLBuffer::IndexBuffer){
+
 }
 
 
@@ -70,6 +92,7 @@ void Object::initVbo(SceneRenderer* fRenderer)
     mElementbuffer.bind();
     mElementbuffer.allocate(mIndices.data(), mIndices.size() * sizeof(uint));
 
+	initShader(fRenderer);
     initAttributes(fRenderer);
 	mIsVboInitialized = true;
 }
@@ -77,12 +100,12 @@ void Object::initVbo(SceneRenderer* fRenderer)
 void Object::initAttributes(SceneRenderer* fRenderer)
 {
     mVAO.bind();
-    fRenderer->getShaderProgram()->bind();
-    fRenderer->getShaderProgram()->enableAttributeArray(0);
+    mShader->bind();
+    mShader->enableAttributeArray(0);
     // Index buffer
     mVertexbuffer.bind();
 
-    fRenderer->getShaderProgram()->setAttributeBuffer(
+    mShader->setAttributeBuffer(
         0,                  // attribute
         GL_FLOAT,           // type
         0,                  // stride
@@ -90,14 +113,28 @@ void Object::initAttributes(SceneRenderer* fRenderer)
         );
 
     // 2nd attribute buffer : colors
-    fRenderer->getShaderProgram()->enableAttributeArray(1);
+    mShader->enableAttributeArray(1);
     mColorbuffer.bind();
-    fRenderer->getShaderProgram()->setAttributeBuffer(
+    mShader->setAttributeBuffer(
         1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
         GL_FLOAT,                         // type
         0,                                // stride
         3                          // array buffer offset
         );
+}
+
+void Object::initShader(SceneRenderer* fRenderer) {
+	mShader = new QOpenGLShaderProgram(fRenderer);
+	mShader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
+	mShader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+	//m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "StandardShading.vertexshader");
+	//m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "StandardShading.fragmentshader");
+	//m_program->bindAttributeLocation("vertexColor",1);
+	//m_program->bindAttributeLocation("vertexPosition_modelspace",0);
+
+	qDebug() << mShader->log();
+
+	mShader->link();
 }
 
 void Object::draw(SceneRenderer* fRenderer)
@@ -112,8 +149,8 @@ void Object::draw(SceneRenderer* fRenderer)
 		(void*) 0           // element array buffer offset
 		);
 
-//    fRenderer->getShaderProgram()->disableAttributeArray(0);
-//    fRenderer->getShaderProgram()->disableAttributeArray(0);
+//    mShader->disableAttributeArray(0);
+//    mShader->disableAttributeArray(0);
 }
 
 
@@ -163,6 +200,10 @@ float Object::getScale() {
 
 bool Object::isVboInitialized(){
 	return mIsVboInitialized;
+}
+
+QOpenGLShaderProgram * Object::getShader(){
+	return mShader;
 }
 
 

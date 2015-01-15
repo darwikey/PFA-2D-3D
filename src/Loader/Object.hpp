@@ -28,8 +28,11 @@ public:
 	//! \brief initialize the vertex buffer object
 	void initVbo(SceneRenderer* fRenderer);
 
-    //! \brief draw the object
+    //! \brief init attribute
     void initAttributes(SceneRenderer* fRenderer);
+
+	//! \brief init shader
+	void initShader(SceneRenderer* fRenderer);
 
 	//! \brief draw the object
 	void draw(SceneRenderer* fRenderer);
@@ -54,6 +57,9 @@ public:
 
 	//! \brief tell if the vertex buffer object is initialized
 	bool isVboInitialized();
+
+	//! \brief get the shader of the object
+	QOpenGLShaderProgram* getShader();
 
 	//! \brief add one vertex in the model
 	void pushVertice(QVector3D fValue);
@@ -89,6 +95,8 @@ private:
     QOpenGLBuffer  mVertexbuffer;
     QOpenGLBuffer  mColorbuffer;
     QOpenGLBuffer  mElementbuffer;
+
+	QOpenGLShaderProgram* mShader = nullptr;
 };
 
 

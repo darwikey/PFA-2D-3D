@@ -8,9 +8,12 @@
 int main(int argc, char * argv[]){
     QApplication app(argc, argv);
 	Scene::getScene()->getLoader()->loadObject("C:/sources/3D/cubeout.ply", "cube1");
-	Scene::getScene()->getLoader()->loadObject("C:/sources/3D/cubeout.ply", "cube2");
-	Scene::getScene()->getObject("cube2")->moveObject(QVector3D(10.f, 0.f, 0.f));
-	Scene::getScene()->getObject("cube2")->changeObjectScale(2.f);
+	Scene::getScene()->getLoader()->loadObject("C:/sources/3D/monkey.obj", "monkey1");
+	Scene::getScene()->getLoader()->loadObject("C:/sources/3D/monkey.obj", "monkey2");
+	Scene::getScene()->getObject("cube1")->moveObject(QVector3D(0.f, 1.f, 0.f));
+	Scene::getScene()->getObject("monkey1")->moveObject(QVector3D(1.f, 0.f, 0.f));
+	//Scene::getScene()->getObject("cube3")->moveObject(QVector3D(2.f, 0.f, 0.f));
+	//Scene::getScene()->getObject("cube2")->changeObjectScale(2.f);
 
     Scene::getScene()->show();
     return app.exec();

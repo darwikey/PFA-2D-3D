@@ -13,15 +13,11 @@ public:
     void initialize();
     void render();
 	void render(Object* fModel);
-	QOpenGLShaderProgram* getShaderProgram();
 
 private:
     GLuint loadShader(GLenum type, const char *source);
 
 
-    GLuint mMatrixUniform = 0;
-
-    QOpenGLShaderProgram* mProgram = nullptr;
     int mFrame = 0;
 };
 

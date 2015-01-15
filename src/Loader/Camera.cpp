@@ -5,7 +5,7 @@
 Camera::Camera() : 
 mPosition(0.f, 0.f, 3.f),
 mRotation(0.f, 0.f, 0.f),
-mAngleOfView(1.f){
+mAngleOfView(60.f){
 }
 
 /*Camera::Camera(QVector3D,QVector3D ,float){
@@ -46,6 +46,10 @@ const QMatrix4x4& Camera::getViewMatrix(){
 	return mViewMatrix;
 }
 
+const QMatrix4x4& Camera::getProjectionMatrix(){
+	return mProjectionMatrix;
+}
+
 /*
 const PixelTab& Camera::getDepthMap(){
 }*/
@@ -53,6 +57,7 @@ const PixelTab& Camera::getDepthMap(){
 
 void Camera::computeViewMatrix() {
 	mViewMatrix = QMatrix4x4();
+	mProjectionMatrix = QMatrix4x4();
 	
 	const float r = 1.f;// Scene::getScene()->getBoundingSphereRadius();
 
@@ -66,6 +71,6 @@ void Camera::computeViewMatrix() {
 	const QVector3D _up = QVector3D(0.0, 1.0, 0.0);
 
 
-	mViewMatrix.frustum(-r, +r, -r, +r, _zNear, _zFar);
+	mProjectionMatrix.perspective(mAngleOfView, 1.f, _zNear, _zFar);
 	mViewMatrix.lookAt(mPosition, _center, _up);
 }

@@ -29,8 +29,11 @@ public:
 	//! \brief get an access to the image created for the viewport
 	const PixelTab& getViewPort();
 	
-	//! \brief get the matrix associate with the camera
+	//! \brief get the view matrix associate with the camera
 	const QMatrix4x4& getViewMatrix();
+
+	//! \brief get the projection matrix associate with the camera
+	const QMatrix4x4& getProjectionMatrix();
 	
 	//! \brief get an access to the depth map
 	const PixelTab& getDepthMap();
@@ -42,8 +45,9 @@ private:
 
 	QVector3D mPosition;
 	QVector3D mRotation;
-	float mAngleOfView; // in radian
+	float mAngleOfView; // in degree
 	QMatrix4x4 mViewMatrix;
+	QMatrix4x4 mProjectionMatrix;
 };
 
 #endif
