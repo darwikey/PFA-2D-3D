@@ -8,26 +8,6 @@
 #include "Camera.hpp"
 
 
-// will be move into a file
-static const char *vertexShaderSource =
-"#version 330 core\n"
-"layout(location = 0) in vec3 vertexPosition_modelspace;\n"
-"layout(location = 1) in vec3 vertexColor;\n"
-"out vec3 fragmentColor;\n"
-"uniform mat4 matrix;\n"
-"void main() {\n"
-"   gl_Position = matrix * vec4(vertexPosition_modelspace, 1.0);\n"
-"   fragmentColor = vertexColor;\n"
-"}\n";
-
-static const char *fragmentShaderSource =
-"#version 330 core\n"
-"in vec3 fragmentColor;\n"
-"out vec3 color;\n"
-"void main() {\n"
-"   color = fragmentColor;\n"
-"}\n";
-
 
 Object::Object() : mPosition(0.f, 0.f, 0.f), 
 mRotation(0.f, 0.f, 0.f),
@@ -125,12 +105,19 @@ void Object::initAttributes(SceneRenderer* fRenderer)
 
 void Object::initShader(SceneRenderer* fRenderer) {
 	mShader = new QOpenGLShaderProgram(fRenderer);
-	mShader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-	mShader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
-	//m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "StandardShading.vertexshader");
-	//m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "StandardShading.fragmentshader");
-	//m_program->bindAttributeLocation("vertexColor",1);
-	//m_program->bindAttributeLocation("vertexPosition_modelspace",0);
+
+	QString _shaderPath = "resources/shaders/StandardShading.vertexshader";
+	if (!mShader->addShaderFromSourceFile(QOpenGLShader::Vertex, _shaderPath)) {
+		QMessageBox::critical(0, "Error", "Error loading shader " + _shaderPath);
+		exit(EXIT_FAILURE);
+	}
+
+	_shaderPath = "resources/shaders/StandardShading.fragmentshader";
+	if (!mShader->addShaderFromSourceFile(QOpenGLShader::Fragment, _shaderPath)) {
+		QMessageBox::critical(0, "Error", "Error loading shader " + _shaderPath);
+		exit(EXIT_FAILURE);
+	}
+
 
 	qDebug() << mShader->log();
 
