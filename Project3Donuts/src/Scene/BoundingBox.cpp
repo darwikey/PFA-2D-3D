@@ -1,5 +1,6 @@
 #include "BoundingBox.hpp"
 
+
 BoundingBox::BoundingBox(){
 }
 
@@ -29,44 +30,45 @@ bool BoundingBox::isCollision(const BoundingBox& fBox){
 			|| (fBox.mVector1.z() <= mVector0.z()));
 }
 
-
+// source :
+//http://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-custom-ray-obb-function/
 bool BoundingBox::isCollision(QVector3D fRayOrigin, QVector3D fRayDirection, QMatrix4x4 fModelMatrix, float & fIntersectionDistance){
-	float tMin = 0.0f;
-	float tMax = 100000.0f;
+	float _tMin = 0.0f;
+	float _tMax = 100000.0f;
 
-	QVector3D OBBposition_worldspace(fModelMatrix.column(3).x(), fModelMatrix.column(3).y(), fModelMatrix.column(3).z());
+	QVector3D _OBBpositionWorldspace(fModelMatrix.column(3).x(), fModelMatrix.column(3).y(), fModelMatrix.column(3).z());
 
-	QVector3D delta = OBBposition_worldspace - fRayOrigin;
+	QVector3D _delta = _OBBpositionWorldspace - fRayOrigin;
 
 	// Test intersection with the 2 planes perpendicular to the OBB's X axis
 	{
-		QVector3D xaxis(fModelMatrix.column(0).x(), fModelMatrix.column(0).y(), fModelMatrix.column(0).z());
-		float e = QVector3D::dotProduct(xaxis, delta);
-		float f = QVector3D::dotProduct(fRayDirection, xaxis);
+		QVector3D _xAxis(fModelMatrix.column(0).x(), fModelMatrix.column(0).y(), fModelMatrix.column(0).z());
+		float e = QVector3D::dotProduct(_xAxis, _delta);
+		float f = QVector3D::dotProduct(fRayDirection, _xAxis);
 
 		if (fabs(f) > 0.001f) { // Standard case
 
-			float t1 = (e + mVector0.x()) / f; // Intersection with the "left" plane
-			float t2 = (e + mVector1.x()) / f; // Intersection with the "right" plane
-											 // t1 and t2 now contain distances betwen ray origin and ray-plane intersections
+			float _t1 = (e + mVector0.x()) / f; // Intersection with the "left" plane
+			float _t2 = (e + mVector1.x()) / f; // Intersection with the "right" plane
+											 // _t1 and _t2 now contain distances betwen ray origin and ray-plane intersections
 
-											 // We want t1 to represent the nearest intersection, 
-											 // so if it's not the case, invert t1 and t2
-			if (t1>t2) {
-				float w = t1; t1 = t2; t2 = w; // swap t1 and t2
+											 // We want _t1 to represent the nearest intersection, 
+											 // so if it's not the case, invert _t1 and _t2
+			if (_t1>_t2) {
+				std::swap(_t1, _t2); // swap _t1 and _t2
 			}
 
-			// tMax is the nearest "far" intersection (amongst the X,Y and Z planes pairs)
-			if (t2 < tMax)
-				tMax = t2;
-			// tMin is the farthest "near" intersection (amongst the X,Y and Z planes pairs)
-			if (t1 > tMin)
-				tMin = t1;
+			// _tMax is the nearest "far" intersection (amongst the X,Y and Z planes pairs)
+			if (_t2 < _tMax)
+				_tMax = _t2;
+			// _tMin is the farthest "near" intersection (amongst the X,Y and Z planes pairs)
+			if (_t1 > _tMin)
+				_tMin = _t1;
 
 			// And here's the trick :
 			// If "far" is closer than "near", then there is NO intersection.
 			// See the images in the tutorials for the visual explanation.
-			if (tMax < tMin)
+			if (_tMax < _tMin)
 				return false;
 
 		}
@@ -80,22 +82,23 @@ bool BoundingBox::isCollision(QVector3D fRayOrigin, QVector3D fRayDirection, QMa
 	// Test intersection with the 2 planes perpendicular to the OBB's Y axis
 	// Exactly the same thing than above.
 	{
-		QVector3D yaxis(fModelMatrix.column(1).x(), fModelMatrix.column(1).y(), fModelMatrix.column(1).z());
-		float e = QVector3D::dotProduct(yaxis, delta);
-		float f = QVector3D::dotProduct(fRayDirection, yaxis);
+		QVector3D _yAxis(fModelMatrix.column(1).x(), fModelMatrix.column(1).y(), fModelMatrix.column(1).z());
+		float e = QVector3D::dotProduct(_yAxis, _delta);
+		float f = QVector3D::dotProduct(fRayDirection, _yAxis);
 
 		if (fabs(f) > 0.001f) {
 
-			float t1 = (e + mVector0.y()) / f;
-			float t2 = (e + mVector1.y()) / f;
+			float _t1 = (e + mVector0.y()) / f;
+			float _t2 = (e + mVector1.y()) / f;
 
-			if (t1>t2) { float w = t1; t1 = t2; t2 = w; }
+			if (_t1>_t2)
+				std::swap(_t1, _t2);
 
-			if (t2 < tMax)
-				tMax = t2;
-			if (t1 > tMin)
-				tMin = t1;
-			if (tMin > tMax)
+			if (_t2 < _tMax)
+				_tMax = _t2;
+			if (_t1 > _tMin)
+				_tMin = _t1;
+			if (_tMin > _tMax)
 				return false;
 
 		}
@@ -109,22 +112,23 @@ bool BoundingBox::isCollision(QVector3D fRayOrigin, QVector3D fRayDirection, QMa
 	// Test intersection with the 2 planes perpendicular to the OBB's Z axis
 	// Exactly the same thing than above.
 	{
-		QVector3D zaxis(fModelMatrix.column(2).x(), fModelMatrix.column(2).y(), fModelMatrix.column(2).z());
-		float e = QVector3D::dotProduct(zaxis, delta);
-		float f = QVector3D::dotProduct(fRayDirection, zaxis);
+		QVector3D _zAxis(fModelMatrix.column(2).x(), fModelMatrix.column(2).y(), fModelMatrix.column(2).z());
+		float e = QVector3D::dotProduct(_zAxis, _delta);
+		float f = QVector3D::dotProduct(fRayDirection, _zAxis);
 
 		if (fabs(f) > 0.001f) {
 
-			float t1 = (e + mVector0.z()) / f;
-			float t2 = (e + mVector1.z()) / f;
+			float _t1 = (e + mVector0.z()) / f;
+			float _t2 = (e + mVector1.z()) / f;
 
-			if (t1>t2) { float w = t1; t1 = t2; t2 = w; }
+			if (_t1>_t2)
+				std::swap(_t1, _t2);
 
-			if (t2 < tMax)
-				tMax = t2;
-			if (t1 > tMin)
-				tMin = t1;
-			if (tMin > tMax)
+			if (_t2 < _tMax)
+				_tMax = _t2;
+			if (_t1 > _tMin)
+				_tMin = _t1;
+			if (_tMin > _tMax)
 				return false;
 
 		}
@@ -134,7 +138,7 @@ bool BoundingBox::isCollision(QVector3D fRayOrigin, QVector3D fRayDirection, QMa
 		}
 	}
 
-	fIntersectionDistance = tMin;
+	fIntersectionDistance = _tMin;
 	return true;
 }
 

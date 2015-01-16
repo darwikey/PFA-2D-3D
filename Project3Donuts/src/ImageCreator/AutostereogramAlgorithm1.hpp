@@ -13,7 +13,7 @@ namespace ImageCreator{
     //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
     virtual <Image*> create(<PixelTab*> fToUse);
        
-  }   
+  };
 }
 
 #endif
