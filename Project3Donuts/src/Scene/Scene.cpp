@@ -119,10 +119,12 @@ void Scene::activateTransformWidget(TransformWidgetState fState){
 	if (mTransformWidgetObject == nullptr) {
 		mTransformWidgetObject = new Object();
 		QString _objPath = "resources/models/widget.obj";
-		ObjLoader _loader(_objPath.toStdString());
+		ObjLoader _loader("resources/models/widget.obj");
 		
 		if (!_loader.load(mTransformWidgetObject)) {
 			QMessageBox::critical(0, "Error", "Error opening " + _objPath);
 		}
 	}
+
+	mTransformWidgetState = fState;
 }

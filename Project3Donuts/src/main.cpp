@@ -13,7 +13,7 @@ int main(int argc, char * argv[]){
 	Scene::getScene()->getObject("cube1")->moveObject(QVector3D(0.f, 2.f, 0.f));
 	Scene::getScene()->getObject("monkey1")->moveObject(QVector3D(2.f, 0.f, 0.f));
 	//Scene::getScene()->getObject("cube2")->changeObjectScale(2.f);
-	
+	Scene::getScene()->activateTransformWidget(TransformWidgetState::TRANSLATION);
 
     Scene::getScene()->show();
     return app.exec();
