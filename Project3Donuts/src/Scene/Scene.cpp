@@ -59,6 +59,20 @@ void Scene::render(){
 }
 
 
+void Scene::selectObjects(QVector2D fMousePosition){
+	QVector3D _rayOrigin, _rayDirection;
+	mCamera->getMouseRay(fMousePosition, _rayOrigin, _rayDirection);
+
+	for (auto it : mObjects) {
+		float _intersection = 0;
+		QMatrix4x4 _modelMatrix;
+		_modelMatrix.translate(it.second->getPosition());
+		
+		it.second->selectObject(it.second->getBoundingBox().isCollision(_rayOrigin, _rayDirection, _modelMatrix, _intersection));
+	}
+}
+
+
 SceneRenderer* Scene::getSceneRenderer(){
 	return mSceneRenderer;
 }

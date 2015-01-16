@@ -15,8 +15,6 @@ public:
 	void render(Object* fModel);
 
 private:
-    GLuint loadShader(GLenum type, const char *source);
-
 
     int mFrame = 0;
 };

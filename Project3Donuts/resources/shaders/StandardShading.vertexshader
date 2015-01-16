@@ -6,8 +6,7 @@ layout(location = 1) in vec3 vertexColor;
 out vec3 fragmentColor;
 uniform mat4 matrix;
 
-
 void main() {
    gl_Position = matrix * vec4(vertexPosition_modelspace, 1.0);
-   fragmentColor = vertexColor;
+   fragmentColor = vec(1,0,0,0);//vertexColor;
 }

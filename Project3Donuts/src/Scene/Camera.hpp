@@ -38,6 +38,12 @@ public:
 	//! \brief get an access to the depth map
 	const PixelTab& getDepthMap();
 
+	//! \brief get the ray from th camera to the mouse
+	//! \param fMousePosition, position of the mouse in the screen
+	//! \param fRayOrigin, get ray origin in world space
+	//! \param fRayDirection, get ray direction in world space
+	void getMouseRay(QVector2D fMousePosition, QVector3D& fRayOrigin, QVector3D& fRayDirection);
+
 
 private:
 	// \brief compute the view matrix

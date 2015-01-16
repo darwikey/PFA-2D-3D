@@ -9,6 +9,7 @@ mAngleOfView(60.f){
 }
 
 /*Camera::Camera(QVector3D,QVector3D ,float){
+//TODO
   }*/
 
 void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
@@ -53,6 +54,47 @@ const QMatrix4x4& Camera::getProjectionMatrix(){
 /*
 const PixelTab& Camera::getDepthMap(){
 }*/
+
+
+void Camera::getMouseRay(QVector2D fMousePosition, QVector3D & fRayOrigin, QVector3D & fRayDirection){
+	// The ray Start and End positions, in Normalized Device Coordinates (Have you read Tutorial 4 ?)
+	QVector4D lRayStart_NDC(
+		((float)fMousePosition.x() - 0.5f) * 2.0f, // [0,1024] -> [-1,1]
+		((float)fMousePosition.y() - 0.5f) * 2.0f, // [0, 768] -> [-1,1]
+		-1.0, // The near plane maps to Z=-1 in Normalized Device Coordinates
+		1.0f
+		);
+	QVector4D lRayEnd_NDC(
+		((float)fMousePosition.x() - 0.5f) * 2.0f,
+		((float)fMousePosition.y() - 0.5f) * 2.0f,
+		0.0,
+		1.0f
+		);
+
+
+	// The Projection matrix goes from Camera Space to NDC.
+	// So inverse(ProjectionMatrix) goes from NDC to Camera Space.
+	QMatrix4x4 InverseProjectionMatrix = mProjectionMatrix.inverted();
+
+	// The View Matrix goes from World Space to Camera Space.
+	// So inverse(ViewMatrix) goes from Camera Space to World Space.
+	QMatrix4x4 InverseViewMatrix = mViewMatrix.inverted();
+
+	QVector4D lRayStart_camera = InverseProjectionMatrix * lRayStart_NDC;    
+	lRayStart_camera = lRayStart_camera / lRayStart_camera.w();
+	QVector4D lRayStart_world = InverseViewMatrix * lRayStart_camera; 
+	lRayStart_world = lRayStart_world / lRayStart_world.w();
+	QVector4D lRayEnd_camera = InverseProjectionMatrix * lRayEnd_NDC;      
+	lRayEnd_camera = lRayEnd_camera / lRayEnd_camera.w();
+	QVector4D lRayEnd_world = InverseViewMatrix * lRayEnd_camera;   
+	lRayEnd_world = lRayEnd_world / lRayEnd_world.w();
+
+
+	fRayDirection = QVector3D(lRayEnd_world - lRayStart_world);
+	fRayDirection.normalize();
+
+	fRayOrigin = QVector3D(lRayStart_world);
+}
 
 
 void Camera::computeViewMatrix() {

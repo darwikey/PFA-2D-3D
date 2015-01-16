@@ -98,6 +98,11 @@ void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 {
     mPrevMousePosition = fEvent->pos();
 
+	if (fEvent->buttons() & Qt::RightButton) {
+		QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
+		Scene::getScene()->selectObjects(_mouse);
+	}
+
     renderLater();
 }
 
@@ -112,9 +117,6 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 
     if( fEvent->buttons() & Qt::LeftButton ) {
         Scene::getScene()->getCamera()->moveCamera(_dy, _dx, 0.f);
-    }
-    else if( fEvent->buttons() & Qt::RightButton ) {
-        //TODOScene::getScene()->moveCamera(-_dy, 0.f, _dx);
     }
 
     mPrevMousePosition = fEvent->pos();

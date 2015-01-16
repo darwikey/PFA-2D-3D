@@ -25,7 +25,14 @@ struct BoundingBox{
 	
 	//! \brief say if a bounding box collide this bounding box
 	bool isCollision(const BoundingBox& fBox);
-	
+
+	//! \brief say if a ray collide this bounding box
+	//! \param fRayOrigin, Ray origin, in world space
+	//! \param fRayDirection, Ray direction (NOT target position!), in world space. Must be normalize
+	//! \param fModelMatrix, transformation matrix apply to the object, contains the translation and the rotation
+	//! \param fIntersectionDistance, get the distance between ray_origin and the intersection with the OBB
+	bool BoundingBox::isCollision(QVector3D fRayOrigin, QVector3D fRayDirection, QMatrix4x4 fModelMatrix, float& fIntersectionDistance);
+
 	//! \brief get the center of the box
 	QVector3D getCenter();
 	

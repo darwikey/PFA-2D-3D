@@ -33,6 +33,10 @@ public:
 	//! \brief render the scene, this function must be called each frame
 	void render();
 
+	//! \brief select all the object touched by the mouse
+	//! \param fMousePosition, position of the mouse in the screen
+	void selectObjects(QVector2D fMousePosition);
+
 	//! \brief get scene renderer instance
 	SceneRenderer* getSceneRenderer();
 

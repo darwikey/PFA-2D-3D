@@ -13,14 +13,6 @@ SceneRenderer::SceneRenderer(){
 }
 
 
-GLuint SceneRenderer::loadShader(GLenum type, const char *source)
-{
-    GLuint shader = glCreateShader(type);
-    glShaderSource(shader, 1, &source, 0);
-    glCompileShader(shader);
-    return shader;
-}
-
 void SceneRenderer::initialize()
 {
 
@@ -66,8 +58,8 @@ void SceneRenderer::render(Object* fModel) {
 	_viewMatrix.translate(fModel->getPosition());
 	_viewMatrix.scale(fModel->getScale());
 
-	static uint _MatrixLocation = fModel->getShader()->uniformLocation("matrix");
-	fModel->getShader()->setUniformValue(_MatrixLocation, _projectionMatrix * _viewMatrix);
+	fModel->getShader()->setUniformValue("matrix", _projectionMatrix * _viewMatrix);
+	fModel->getShader()->setUniformValue("isSelected", fModel->isObjectSelected());
 
 	fModel->getShader()->release();
 

@@ -169,6 +169,14 @@ void Object::computeColors(){
 }
 
 
+void Object::selectObject(bool fIsSelected) {
+	mIsSelected = fIsSelected;
+}
+
+bool Object::isObjectSelected() {
+	return mIsSelected;
+}
+
 BoundingBox Object::getBoundingBox(){
 	return mBoundingBox;
 }

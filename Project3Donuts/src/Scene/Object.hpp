@@ -43,6 +43,13 @@ public:
 	//! \brief find the vertice color
 	void computeColors();
 
+	//! \brief select the object
+	//! \param select or not the object
+	void selectObject(bool fIsSelected);
+
+	//! \brief is selected by the user
+	bool isObjectSelected();
+
 	//! \brief return the object bounding box 
 	BoundingBox getBoundingBox();
 
@@ -79,6 +86,7 @@ public:
 
 
 private:
+	bool mIsSelected = false;
 	BoundingBox mBoundingBox;
 	QVector3D mPosition;
 	QVector3D mRotation;
