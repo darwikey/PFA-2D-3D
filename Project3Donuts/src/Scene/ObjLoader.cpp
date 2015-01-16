@@ -96,6 +96,7 @@ bool ObjLoader::load(Object* fObject){
 		{
 			istringstream _lineVals (_line.substr(2));
 			string _group;
+			vector<tuple<uint, uint, uint>> _data;
 
 			while (std::getline(_lineVals, _group, ' ')) {
 
@@ -103,20 +104,22 @@ bool ObjLoader::load(Object* fObject){
 				string _s;
 				size_t _i = 0;
 
+				_data.push_back(tuple<uint, uint, uint>(0, 0, 0));
+
 				while (std::getline(_sgroup, _s, '/')) {
 					if (!_s.empty()) {
 						uint _value = atoi(_s.c_str()) - 1;
 
 						switch(_i) {
 						case 0:
-							fObject->pushIndice(_value);
+							get<0>(_data.back()) = _value;
 							break;
 						case 1:
-							//TODO fObject->uvsIndice.push_back(_value);
+							get<1>(_data.back()) = _value;
 							break;
 
 						case 2:
-							//TODO fObject->normalIndices.push_back(_value);
+							get<1>(_data.back()) = _value;
 							break;
 						}
 					}
@@ -124,6 +127,25 @@ bool ObjLoader::load(Object* fObject){
 					_i++;
 				}
 
+			}
+		
+			// Triangle
+			if (_data.size() == 3) {
+				for (auto it : _data) {
+					injectDataInModel(fObject, it);
+				}
+			}
+			// Quad
+			else if (_data.size() == 4){
+				injectDataInModel(fObject, _data[0]);
+				injectDataInModel(fObject, _data[1]);
+				injectDataInModel(fObject, _data[2]);
+				injectDataInModel(fObject, _data[0]);
+				injectDataInModel(fObject, _data[2]);
+				injectDataInModel(fObject, _data[3]);
+			}
+			else {
+				std::cerr << "parser don't support polygons which are not triangle or quad" << std::endl;
 			}
 		}
 	}
@@ -141,4 +163,13 @@ bool ObjLoader::load(Object* fObject){
 
 	return true;
 }
+
+
+void ObjLoader::injectDataInModel(Object * fObject, std::tuple<uint, uint, uint> fData) {
+	fObject->pushIndice(get<0>(fData));
+	//TODO
+	//fObject->pushTextureCoordinate(get<1>(fData));
+	//fObject->pushNormal(get<2>(fData));
+}
+
 

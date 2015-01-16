@@ -22,6 +22,9 @@ private:
 	void parseVertex(Object* fObject);
 	void parseFace(Object* fObject);
 
+	//! \param fData, in the tuple : indice, texture coordinate, normal
+	void injectDataInModel(Object* fObject, std::tuple<uint, uint, uint> fData);
+
 	std::ifstream mFile;
 
 };

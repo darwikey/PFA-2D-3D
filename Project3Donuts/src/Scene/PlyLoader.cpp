@@ -1,5 +1,6 @@
 #include "PlyLoader.hpp"
 #include "Object.hpp"
+#include "ObjLoader.hpp"
 
 
 
