@@ -4,14 +4,14 @@
 #include "MainWindow.hpp"
 #include "SceneRenderer.hpp"
 #include "Camera.hpp"
+#include "ObjLoader.hpp"
 
 Scene* Scene::mSceneInstance = nullptr;
 
 
 Scene::Scene() : mLoader(new Loader()),
 mSceneRenderer(new SceneRenderer()),
-mCamera(new Camera()),
-mWindow(nullptr){
+mCamera(new Camera()){
 }
 
 
@@ -54,7 +54,15 @@ void Scene::show(){
 
 void Scene::render(){
 	for (auto _obj : mObjects){
-		mSceneRenderer->render(_obj.second);
+		mSceneRenderer->render(_obj.second, false);
+	}
+
+	if (mTransformWidgetState != TransformWidgetState::HIDE
+		&& mTransformWidgetObject != nullptr
+		&& ! mSelectedObjects.empty()) {
+
+		mTransformWidgetObject->moveObject(mSelectedObjects[0]->getPosition());
+		mSceneRenderer->render(mTransformWidgetObject, true);
 	}
 }
 
@@ -63,12 +71,18 @@ void Scene::selectObjects(QVector2D fMousePosition){
 	QVector3D _rayOrigin, _rayDirection;
 	mCamera->getMouseRay(fMousePosition, _rayOrigin, _rayDirection);
 
+	mSelectedObjects.clear();
+
 	for (auto it : mObjects) {
 		float _intersection = 0;
 		QMatrix4x4 _modelMatrix;
 		_modelMatrix.translate(it.second->getPosition());
 		
-		it.second->selectObject(it.second->getBoundingBox().isCollision(_rayOrigin, _rayDirection, _modelMatrix, _intersection));
+		bool _isCollision = it.second->getBoundingBox().isCollision(_rayOrigin, _rayDirection, _modelMatrix, _intersection);
+		it.second->selectObject(_isCollision);
+		if (_isCollision) {
+			mSelectedObjects.push_back(it.second);
+		}
 	}
 }
 
@@ -97,4 +111,18 @@ float Scene::getBoundingSphereRadius(){
 	}
 
 	return _radius;
+}
+
+
+void Scene::activateTransformWidget(TransformWidgetState fState){
+	// Load the widget model
+	if (mTransformWidgetObject == nullptr) {
+		mTransformWidgetObject = new Object();
+		QString _objPath = "resources/models/widget.obj";
+		ObjLoader _loader(_objPath.toStdString());
+		
+		if (!_loader.load(mTransformWidgetObject)) {
+			QMessageBox::critical(0, "Error", "Error opening " + _objPath);
+		}
+	}
 }

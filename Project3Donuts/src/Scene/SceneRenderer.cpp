@@ -37,7 +37,7 @@ void SceneRenderer::render() {
 }
 
 
-void SceneRenderer::render(Object* fModel) {
+void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 
     if(! fModel->isVboInitialized()){
 		fModel->initVbo(this);
@@ -48,6 +48,9 @@ void SceneRenderer::render(Object* fModel) {
         return;
     }
 
+	if (fRenderForeground) {
+		glDisable(GL_DEPTH_TEST);
+	}
 	
 	fModel->draw(this);
 
@@ -64,5 +67,9 @@ void SceneRenderer::render(Object* fModel) {
 	fModel->getShader()->release();
 
     ++mFrame;
+
+	if (fRenderForeground) {
+		glEnable(GL_DEPTH_TEST);
+	}
 }
 

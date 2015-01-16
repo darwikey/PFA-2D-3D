@@ -12,7 +12,7 @@ public:
     SceneRenderer();
     void initialize();
     void render();
-	void render(Object* fModel);
+	void render(Object* fModel, bool fRenderForeground);
 
 private:
 
