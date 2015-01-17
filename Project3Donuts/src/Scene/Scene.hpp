@@ -9,10 +9,8 @@ class Loader;
 class MainWindow;
 class SceneRenderer;
 class Camera;
+class TransformWidget;
 
-enum class TransformWidgetState {
-	HIDE, TRANSLATION, ROTATION, SCALE
-};
 
 //! \class Scene
 //! \brief The three dimension scene where objects will be placed
@@ -50,12 +48,12 @@ public:
 	//! \brief get camera instance
 	Camera* getCamera();
 
+	//! \brief get the transform widget
+	TransformWidget* getTransformWidget();
+
 	//! \brief get the radius of the bounding sphere including all objects in the scene
 	float getBoundingSphereRadius();
 	
-	//! \brief activate or not the transform widget
-	void activateTransformWidget(TransformWidgetState fState);
-
 
 private:
 	//! \brief Scene constructor for a new scene
@@ -68,9 +66,7 @@ private:
 	SceneRenderer* mSceneRenderer = nullptr;
 	Camera* mCamera = nullptr;
 
-	//Transform widget
-	Object* mTransformWidgetObject = nullptr;
-	TransformWidgetState mTransformWidgetState = TransformWidgetState::HIDE;
+	TransformWidget* mTransformWidget = nullptr;
 
 	std::map<std::string, Object*> mObjects;
 	std::vector<Object*> mSelectedObjects;

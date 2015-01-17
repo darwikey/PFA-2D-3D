@@ -5,13 +5,15 @@
 #include "SceneRenderer.hpp"
 #include "Camera.hpp"
 #include "ObjLoader.hpp"
+#include "TransformWidget.hpp"
 
 Scene* Scene::mSceneInstance = nullptr;
 
 
 Scene::Scene() : mLoader(new Loader()),
 mSceneRenderer(new SceneRenderer()),
-mCamera(new Camera()){
+mCamera(new Camera()),
+mTransformWidget(new TransformWidget){
 }
 
 
@@ -36,12 +38,10 @@ Object* Scene::getObject(const std::string& fName){
 
 	auto _model = mObjects.find(fName);
 
-	if (_model != mObjects.end())
-	{
+	if (_model != mObjects.end()){
 		return _model->second;
 	}
-	else
-	{
+	else{
 		return nullptr;
 	}
 }
@@ -57,13 +57,7 @@ void Scene::render(){
 		mSceneRenderer->render(_obj.second, false);
 	}
 
-	if (mTransformWidgetState != TransformWidgetState::HIDE
-		&& mTransformWidgetObject != nullptr
-		&& ! mSelectedObjects.empty()) {
-
-		mTransformWidgetObject->moveObject(mSelectedObjects[0]->getPosition());
-		mSceneRenderer->render(mTransformWidgetObject, true);
-	}
+	mTransformWidget->render(mSceneRenderer, mSelectedObjects);
 }
 
 
@@ -99,6 +93,10 @@ Camera* Scene::getCamera(){
 	return mCamera;
 }
 
+TransformWidget * Scene::getTransformWidget(){
+	return mTransformWidget;
+}
+
 
 float Scene::getBoundingSphereRadius(){
 	float _radius = 0.f;
@@ -111,20 +109,4 @@ float Scene::getBoundingSphereRadius(){
 	}
 
 	return _radius;
-}
-
-
-void Scene::activateTransformWidget(TransformWidgetState fState){
-	// Load the widget model
-	if (mTransformWidgetObject == nullptr) {
-		mTransformWidgetObject = new Object();
-		QString _objPath = "resources/models/widget.obj";
-		ObjLoader _loader("resources/models/widget.obj");
-		
-		if (!_loader.load(mTransformWidgetObject)) {
-			QMessageBox::critical(0, "Error", "Error opening " + _objPath);
-		}
-	}
-
-	mTransformWidgetState = fState;
 }

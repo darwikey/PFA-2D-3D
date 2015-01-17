@@ -155,16 +155,12 @@ void Object::computeBoundingBox(){
 }
 
 
-void Object::computeColors(){
-	if (!mVertices.empty() && !mIndices.empty()){
+void Object::computeColors(QVector3D fColor) {
+	if (!mVertices.empty() && !mIndices.empty()) {
 		mColor.clear();
-		for (unsigned int i = 0; i < mVertices.size(); i++)
-		{
-			GLfloat _f = (GLfloat) i / mVertices.size();
-			QVector3D _ColorMod (_f, _f, _f);
-			mColor.push_back(_ColorMod);
+		for (unsigned int i = 0; i < mVertices.size(); i++) {
+			mColor.push_back(fColor);
 		}
-
 	}
 }
 
