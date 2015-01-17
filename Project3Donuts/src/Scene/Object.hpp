@@ -17,13 +17,17 @@ public:
 	//! \brief To move an object depending on three values on  x, y and z coordonates
 	void moveObject(QVector3D fPosition);
 
-	//! \brief Scaling of the object, following the given rate
+	//! \brief Scaling of the object
 	//! \param Rate for the scaling, considering the actual size of the object as rate 1
 	void changeObjectScale(float fScale);
 
+	//! \brief Scaling of the object
+	//! \param scale along each axis, considering the actual size of the object as rate 1
+	void changeObjectScale(QVector3D fScale);
+
 	//! \brief Moving the object from his initial orientation to a new orientation
-	//! \param Two angles in radian are given on the horizontal plan and the vertical plan to move the object from his initial axe
-	void changeObjectOrientation(float fHorizontalAngle, float fVerticalAngle);
+	//! \param 3 euler angles in radian are given to move the object from his initial axe
+	void changeObjectOrientation(QVector3D fRotation);
 
 	//! \brief initialize the vertex buffer object
 	void initVbo(SceneRenderer* fRenderer);
@@ -57,10 +61,11 @@ public:
 	QVector3D getPosition();
 
 	//! \brief get rotation in the scene
+	//! \note in radian
 	QVector3D getRotation();
 
 	//! \brief get scale of the object
-	float getScale();
+	QVector3D getScale();
 
 	//! \brief tell if the vertex buffer object is initialized
 	bool isVboInitialized();
@@ -89,8 +94,8 @@ private:
 	bool mIsSelected = false;
 	BoundingBox mBoundingBox;
 	QVector3D mPosition;
-	QVector3D mRotation;
-	float mScale = 1.f;
+	QVector3D mRotation; //in radian
+	QVector3D mScale;
 	
 	std::vector<QVector3D> mVertices;
     std::vector<QVector2D> mTextureCoordinates;

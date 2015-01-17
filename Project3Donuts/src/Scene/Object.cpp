@@ -11,6 +11,7 @@
 
 Object::Object() : mPosition(0.f, 0.f, 0.f), 
 mRotation(0.f, 0.f, 0.f),
+mScale(1.f, 1.f, 1.f),
 mElementbuffer(QOpenGLBuffer::IndexBuffer){
 
 }
@@ -26,6 +27,18 @@ void Object::moveObject(QVector3D fPosition){
 
 
 void Object::changeObjectScale(float fScale){
+	mScale = QVector3D(fScale, fScale, fScale);
+
+	// update bounding box
+	computeBoundingBox();
+
+	// update camera position
+	Scene* _scene = Scene::getScene();
+	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+}
+
+
+void Object::changeObjectScale(QVector3D fScale) {
 	mScale = fScale;
 
 	// update bounding box
@@ -37,8 +50,8 @@ void Object::changeObjectScale(float fScale){
 }
 
 
-void Object::changeObjectOrientation(float fHorizontalAngle, float fVerticalAngle){
-	//TODO
+void Object::changeObjectOrientation(QVector3D fRotation){
+	mRotation = fRotation;
 
 	// update camera position
 	Scene* _scene = Scene::getScene();
@@ -185,7 +198,7 @@ QVector3D Object::getRotation() {
 	return mRotation;
 }
 
-float Object::getScale() {
+QVector3D Object::getScale() {
 	return mScale;
 }
 

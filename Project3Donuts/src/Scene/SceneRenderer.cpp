@@ -59,6 +59,10 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 
 	QMatrix4x4 _modelMatrix, _scale;
 	_viewMatrix.translate(fModel->getPosition());
+	const float _radTodeg = 57.29578f;
+	_viewMatrix.rotate(_radTodeg * fModel->getRotation().x(), QVector3D(1.f, 0.f, 0.f));
+	_viewMatrix.rotate(_radTodeg * fModel->getRotation().y(), QVector3D(0.f, 1.f, 0.f));
+	_viewMatrix.rotate(_radTodeg * fModel->getRotation().z(), QVector3D(0.f, 0.f, 1.f));
 	_viewMatrix.scale(fModel->getScale());
 
 	fModel->getShader()->setUniformValue("matrix", _projectionMatrix * _viewMatrix);
