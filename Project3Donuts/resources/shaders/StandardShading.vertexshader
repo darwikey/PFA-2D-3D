@@ -1,12 +1,16 @@
 #version 330 core
 
-layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 0) in vec3 vertexPosition;
 layout(location = 1) in vec3 vertexColor;
+layout(location = 2) in vec3 vertexNormal;
 
 out vec3 fragmentColor;
 uniform mat4 matrix;
 
 void main() {
-   gl_Position = matrix * vec4(vertexPosition_modelspace, 1.0);
-   fragmentColor = vertexColor;
+   gl_Position = matrix * vec4(vertexPosition, 1.0);
+   
+   //Color
+   float angle = clamp( abs(dot(vertexNormal, vec3(0,0,1))), 0, 1);
+   fragmentColor = vertexColor * angle;
 }

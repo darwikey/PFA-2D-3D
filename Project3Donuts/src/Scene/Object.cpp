@@ -12,7 +12,7 @@
 Object::Object() : mPosition(0.f, 0.f, 0.f), 
 mRotation(0.f, 0.f, 0.f),
 mScale(1.f, 1.f, 1.f),
-mElementbuffer(QOpenGLBuffer::IndexBuffer){
+mIndexbuffer(QOpenGLBuffer::IndexBuffer){
 
 }
 
@@ -65,25 +65,28 @@ void Object::initVbo(SceneRenderer* fRenderer)
     mVAO.bind();
 
     // Create a buffer and Fill it the the vertex data
-
     mVertexbuffer.create();
     mVertexbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
     mVertexbuffer.bind();
-    mVertexbuffer.allocate(mVertices.data(), mVertices.size()*sizeof(QVector3D));
+    mVertexbuffer.allocate(mVertices.data(), mVertices.size() * sizeof(QVector3D));
 
     // Create a buffer and Fill it the the color data
-
     mColorbuffer.create();
     mColorbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
     mColorbuffer.bind();
-    mColorbuffer.allocate(mColor.data(), mColor.size()*sizeof(QVector3D));
+    mColorbuffer.allocate(mColor.data(), mColor.size() * sizeof(QVector3D));
 
     // Create a buffer and Fill it the the index data
+    mIndexbuffer.create();
+    mIndexbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    mIndexbuffer.bind();
+    mIndexbuffer.allocate(mIndices.data(), mIndices.size() * sizeof(uint));
 
-    mElementbuffer.create();
-    mElementbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    mElementbuffer.bind();
-    mElementbuffer.allocate(mIndices.data(), mIndices.size() * sizeof(uint));
+	// Create a buffer and Fill it the the normal data
+	mNormalBuffer.create();
+	mNormalBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+	mNormalBuffer.bind();
+	mNormalBuffer.allocate(mNormals.data(), mNormals.size() * sizeof(QVector3D));
 
 	initShader(fRenderer);
     initAttributes(fRenderer);
@@ -95,25 +98,26 @@ void Object::initAttributes(SceneRenderer* fRenderer)
     mVAO.bind();
     mShader->bind();
     mShader->enableAttributeArray(0);
+
     // Index buffer
     mVertexbuffer.bind();
 
     mShader->setAttributeBuffer(
-        0,                  // attribute
+        0,                  // attribute (use in the shader)
         GL_FLOAT,           // type
-        0,                  // stride
-        3            // array buffer offset
+        0,                  // offset
+        3					// size of one element
         );
 
     // 2nd attribute buffer : colors
     mShader->enableAttributeArray(1);
     mColorbuffer.bind();
-    mShader->setAttributeBuffer(
-        1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-        GL_FLOAT,                         // type
-        0,                                // stride
-        3                          // array buffer offset
-        );
+    mShader->setAttributeBuffer(1, GL_FLOAT, 0, 3);
+
+	// 3rd attribute buffer : normals
+	mShader->enableAttributeArray(2);
+	mNormalBuffer.bind();
+	mShader->setAttributeBuffer(2, GL_FLOAT, 0, 3);
 }
 
 void Object::initShader(SceneRenderer* fRenderer) {
@@ -173,6 +177,22 @@ void Object::computeColors(QVector3D fColor) {
 		mColor.clear();
 		for (unsigned int i = 0; i < mVertices.size(); i++) {
 			mColor.push_back(fColor);
+		}
+	}
+}
+
+void Object::computeNornals(){
+	mNormals.clear();
+	// each 3 vertices we have a triangle
+	for (size_t i = 0; i < mVertices.size(); i += 3){
+		if (i + 2 < mVertices.size()){
+			QVector3D _normal = QVector3D::crossProduct(mVertices[i + 1] - mVertices[i], mVertices[i + 2] - mVertices[i]);
+			_normal.normalize();
+
+			// one normal for each vertex
+			mNormals.push_back(_normal);
+			mNormals.push_back(_normal);
+			mNormals.push_back(_normal);
 		}
 	}
 }

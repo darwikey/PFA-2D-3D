@@ -42,6 +42,7 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 	}
 
 	_object->computeColors();
+	_object->computeNornals();
 	Scene::getScene()->addObject(fObjectName, _object);
 }
 

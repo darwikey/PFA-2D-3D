@@ -44,8 +44,11 @@ public:
 	//! \brief fit the bounding box to the vertices
 	void computeBoundingBox();
 
-	//! \brief find the vertice color
+	//! \brief find vertex colors
 	void computeColors(QVector3D fColor = QVector3D(0.5, 0.5, 0.5));
+
+	//! \brief find vertex normals
+	void computeNornals();
 
 	//! \brief select the object
 	//! \param select or not the object
@@ -105,9 +108,10 @@ private:
 
 	bool mIsVboInitialized = false;
     QOpenGLVertexArrayObject mVAO;
-    QOpenGLBuffer  mVertexbuffer;
-    QOpenGLBuffer  mColorbuffer;
-    QOpenGLBuffer  mElementbuffer;
+    QOpenGLBuffer mVertexbuffer;
+    QOpenGLBuffer mColorbuffer;
+    QOpenGLBuffer mIndexbuffer;
+	QOpenGLBuffer mNormalBuffer;
 
 	QOpenGLShaderProgram* mShader = nullptr;
 };
