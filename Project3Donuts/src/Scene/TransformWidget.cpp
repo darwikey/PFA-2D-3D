@@ -19,6 +19,11 @@ void TransformWidget::render(SceneRenderer* fRenderer, const std::vector<Object*
 		mObjectX->moveObject(fSelectedObjects[0]->getPosition());
 		mObjectY->moveObject(fSelectedObjects[0]->getPosition());
 		mObjectZ->moveObject(fSelectedObjects[0]->getPosition());
+
+		mObjectX->changeObjectOrientation(QVector3D(0.f, 0.f, -1.57f));
+		//mObjectY->changeObjectOrientation(fSelectedObjects[0]->getRotation());
+		mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
+
 		fRenderer->render(mObjectX, true);
 		fRenderer->render(mObjectY, true);
 		fRenderer->render(mObjectZ, true);
