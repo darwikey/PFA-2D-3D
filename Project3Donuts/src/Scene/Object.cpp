@@ -184,15 +184,26 @@ void Object::computeColors(QVector3D fColor) {
 void Object::computeNornals(){
 	mNormals.clear();
 	// each 3 vertices we have a triangle
-	for (size_t i = 0; i < mVertices.size(); i += 3){
-		if (i + 2 < mVertices.size()){
-			QVector3D _normal = QVector3D::crossProduct(mVertices[i + 1] - mVertices[i], mVertices[i + 2] - mVertices[i]);
-			_normal.normalize();
+	for (size_t i = 0; i < mIndices.size(); i += 3){
+		if (i + 2 < mIndices.size()){
+			uint _indice0 = mIndices[i];
+			uint _indice1 = mIndices[i + 1];
+			uint _indice2 = mIndices[i + 2];
 
-			// one normal for each vertex
-			mNormals.push_back(_normal);
-			mNormals.push_back(_normal);
-			mNormals.push_back(_normal);
+			if (_indice0 < mVertices.size() && _indice1 < mVertices.size() && _indice2 < mVertices.size()){
+				QVector3D _normal = QVector3D::crossProduct(mVertices[_indice1] - mVertices[_indice0], mVertices[_indice2] - mVertices[_indice0]);
+				_normal.normalize();
+
+				uint _maxIndices = std::max(std::max(_indice0, _indice1), _indice2);
+				if (_maxIndices >= mNormals.size()) {
+					mNormals.resize(_maxIndices + 1);
+				}
+
+				// one normal for each vertex
+				mNormals[_indice0] = _normal;
+				mNormals[_indice1] = _normal;
+				mNormals[_indice2] = _normal;
+			}
 		}
 	}
 }

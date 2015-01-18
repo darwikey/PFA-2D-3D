@@ -5,12 +5,19 @@ layout(location = 1) in vec3 vertexColor;
 layout(location = 2) in vec3 vertexNormal;
 
 out vec3 fragmentColor;
-uniform mat4 matrix;
+uniform mat4 viewProjectionMatrix;
+uniform mat4 normalMatrix;
 
 void main() {
-   gl_Position = matrix * vec4(vertexPosition, 1.0);
+   gl_Position = viewProjectionMatrix * vec4(vertexPosition, 1.0);
    
-   //Color
-   float angle = clamp( abs(dot(vertexNormal, vec3(0,0,1))), 0, 1);
-   fragmentColor = vertexColor * angle;
+   vec3 lightDir  = vec3(0,1,1);
+   vec4 normal = normalMatrix * vec4(vertexNormal, 0.0);
+   
+   //****Color****
+   // ambient color
+   vec3 ambientColor = 0.15 * vec3(1.0, 1.0, 1.0);
+   
+   float angle = clamp(dot(normal.xyz, lightDir), 0, 1);
+   fragmentColor = vertexColor * (angle + ambientColor);
 }
