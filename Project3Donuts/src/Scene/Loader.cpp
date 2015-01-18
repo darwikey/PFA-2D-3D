@@ -43,11 +43,3 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 	_object->computeNormals();
 	Scene::getScene()->addObject(fObjectName, _object);
 }
-
-void Loader::_parseOBJFile(std::string fPath){
-}
-void Loader::_parsePLYBinaryFile(std::string fPath){
-}
-void Loader::_parsePLYAsciiFile(std::string fPath){
-}
-

@@ -20,7 +20,6 @@ bool ObjLoader::load(Object* fObject){
     if (!mFile)
         return false;
 	string _line;
-	size_t hashIndex = 0;
 
 	// Visit each line of the obj file
 	while (getline(mFile, _line))

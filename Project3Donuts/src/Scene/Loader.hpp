@@ -23,11 +23,7 @@ public:
 	void loadObject(const std::string& fPath, const std::string& fObjectName);
 	
 private:
-	//! \brief createObject method will recognise an OBJ or PLY file and will call the adequate method
-	//! \param Path to the file
-	void _parseOBJFile(std::string fPath);
-	void _parsePLYBinaryFile(std::string fPath);
-	void _parsePLYAsciiFile(std::string fPath);
+
 };
 
 

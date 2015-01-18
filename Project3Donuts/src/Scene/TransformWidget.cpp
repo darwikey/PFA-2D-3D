@@ -136,7 +136,7 @@ void TransformWidget::activate(QVector2D fMousePosition){
 		break;
 	}
 
-	QVector3D _delta = (fMousePosition.x() - mInitialMousePosition.x()) * _dir;
+	QVector3D _delta = ((fMousePosition.x() - mInitialMousePosition.x()) + (fMousePosition.y() - mInitialMousePosition.y())) * _dir;
 
 	if (_object != nullptr) {
 		switch (mState) {

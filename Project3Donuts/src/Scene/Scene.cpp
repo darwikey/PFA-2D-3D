@@ -28,7 +28,7 @@ Scene* Scene::getScene(){
 }
 
 
-void Scene::addObject(const std::string fName, Object *fObject){
+void Scene::addObject(const std::string& fName, Object *fObject){
 
 	mObjects.insert(std::pair<std::string, Object*>(fName, fObject));
 

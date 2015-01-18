@@ -22,7 +22,7 @@ public:
 
 	//! \brief Function to add a new object in a scene
 	//! \param Object to place
-	void addObject(const std::string fName, Object* fObject);
+	void addObject(const std::string& fName, Object* fObject);
 
 	//! \brief return a object
 	//! \param name of the object
@@ -71,7 +71,7 @@ private:
 	TransformWidget* mTransformWidget = nullptr;
 
 	std::map<std::string, Object*> mObjects;
-    std::pair<std::string, Object*> mSelectedObject;// = std::pair<std::string, Object*>("", nullptr);
+    std::pair<std::string, Object*> mSelectedObject = std::make_pair(std::string(), nullptr);
 };
 
 #endif
