@@ -22,20 +22,20 @@ public:
     virtual void resizeGL(int fWidth, int fHeight) = 0;
     virtual void paintGL() = 0;
     
+	//! \brief Handles key press events on the QGLWidget.
+    void keyPressEvent( QKeyEvent *fEvent ) override;
 
-    virtual void keyPressEvent( QKeyEvent *fEvent );
+    //! \brief Handles mouse press events on the QGLWidget.
+    void mousePressEvent(QMouseEvent *fEvent) override;
 
-    /** Handles mouse press events on the QGLWidget. */
-    void mousePressEvent( QMouseEvent *fEvent );
+	// \brief Handles mouse release events on the QGLWidget.
+	void mouseReleaseEvent(QMouseEvent *fEvent) override;
 
-	/** Handles mouse release events on the QGLWidget. */
-	void mouseReleaseEvent(QMouseEvent *fEvent);
+    // \brief Handles mouse move events on the QGLWidget.
+    void mouseMoveEvent(QMouseEvent *fEvent) override;
 
-    /** Handles mouse move events on the QGLWidget. */
-    void mouseMoveEvent( QMouseEvent *fEvent );
-
-    /** Zoomin in and out of the cube */
-    void wheelEvent ( QWheelEvent * fEvent );
+    // \brief Zoomin in and out of the cube
+    void wheelEvent(QWheelEvent * fEvent) override;
 
 
 public slots:

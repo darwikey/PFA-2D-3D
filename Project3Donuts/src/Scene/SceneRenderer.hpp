@@ -10,9 +10,10 @@ class SceneRenderer : public MyGLWidget{
 
 public:
     SceneRenderer(QWidget *fParent = 0);
-    void initializeGL();
-    void resizeGL(int width, int height);
-	void paintGL();
+
+    void initializeGL() override;
+    void resizeGL(int width, int height) override;
+	void paintGL() override;
 	void render(Object* fModel, bool fRenderForeground);
 
 private:
