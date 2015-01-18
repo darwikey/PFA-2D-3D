@@ -5,6 +5,7 @@
 #include <QtGui/QPainter>
 #include "Scene.hpp"
 #include "Camera.hpp"
+#include "TransformWidget.hpp"
 
 
 MyGLWidget::MyGLWidget(QWindow *fParent) : 
@@ -98,8 +99,12 @@ void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 {
     mPrevMousePosition = fEvent->pos();
 
-	if (fEvent->buttons() & Qt::RightButton) {
-		QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
+	QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
+
+	if (fEvent->buttons() & Qt::LeftButton) {
+		Scene::getScene()->getTransformWidget()->select(_mouse);
+	}
+	else if (fEvent->buttons() & Qt::RightButton) {
 		Scene::getScene()->selectObjects(_mouse);
 	}
 
@@ -107,6 +112,11 @@ void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 }
 
 
+void  MyGLWidget::mouseReleaseEvent(QMouseEvent *fEvent) {
+	Scene::getScene()->getTransformWidget()->unselect();
+
+	renderLater();
+}
 
 //mouse Move Event
 void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
@@ -116,7 +126,13 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 
 
     if( fEvent->buttons() & Qt::LeftButton ) {
-        Scene::getScene()->getCamera()->moveCamera(_dy, _dx, 0.f);
+		if (Scene::getScene()->getTransformWidget()->isSelected()) {
+			QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
+			Scene::getScene()->getTransformWidget()->activate(_mouse);
+		}
+		else {
+			Scene::getScene()->getCamera()->moveCamera(_dy, _dx, 0.f);
+		}
     }
 
     mPrevMousePosition = fEvent->pos();
@@ -138,56 +154,22 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 {
     switch( fEvent->key() )
     {
-        /*case Qt::Key_Escape:
+        case Qt::Key_Escape:
             exit(0);
             break;
 
+		case Qt::Key_T:
+			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::TRANSLATION);
+			break;
+
         case Qt::Key_R:
-            fRotationX = 0.0f;
-            fRotationY = 0.0f;
-            fRotationZ = 0.0f;
-            fMoveUpDown = 0.0f;
-            fMoveLeftRight = 0.0f;
-            fMoveInOut = 0.0f;
+			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::ROTATION);
             break;
 
-        case Qt::Key_Up:
-        case Qt::Key_Z:
-            fMoveUpDown += 0.6;
-            break;
-
-        case Qt::Key_Down:
         case Qt::Key_S:
-            fMoveUpDown -= 0.6;
+			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::SCALE);
             break;
-
-        case Qt::Key_Left:
-        case Qt::Key_Q:
-            fMoveLeftRight -= 0.6;
-            break;
-
-        case Qt::Key_Right:
-        case Qt::Key_D:
-            fMoveLeftRight += 0.6;
-            break;
-        case Qt::Key_I:
-            fRotationX += 10;
-            break;
-        case Qt::Key_K:
-            fRotationX -= 10;
-            break;
-        case Qt::Key_J:
-            fRotationY += 10;
-            break;
-        case Qt::Key_L:
-            fRotationY -= 10;
-            break;
-        case Qt::Key_P:
-            fRotationZ += 10;
-            break;
-        case Qt::Key_M:
-            fRotationZ -= 10;
-            break;*/
+       
         default:
             QWindow::keyPressEvent( fEvent );
     }

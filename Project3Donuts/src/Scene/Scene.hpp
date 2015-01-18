@@ -39,6 +39,8 @@ public:
 	//! \param fMousePosition, position of the mouse in the screen
 	void selectObjects(QVector2D fMousePosition);
 
+	std::string getNameSelectedObject();
+
 	//! \brief get scene renderer instance
 	SceneRenderer* getSceneRenderer();
 
@@ -69,7 +71,7 @@ private:
 	TransformWidget* mTransformWidget = nullptr;
 
 	std::map<std::string, Object*> mObjects;
-	std::vector<Object*> mSelectedObjects;
+	std::pair<std::string, Object*> mSelectedObject = std::pair<std::string, Object*>("", nullptr);
 };
 
 #endif

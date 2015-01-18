@@ -57,17 +57,12 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 	QMatrix4x4 _viewMatrix = Scene::getScene()->getCamera()->getViewMatrix();
 	const QMatrix4x4& _projectionMatrix = Scene::getScene()->getCamera()->getProjectionMatrix();
 
-	QMatrix4x4 _modelMatrix;
-	_modelMatrix.translate(fModel->getPosition());
-	const float _radTodeg = 57.29578f;
-	_modelMatrix.rotate(_radTodeg * fModel->getRotation().x(), QVector3D(1.f, 0.f, 0.f));
-	_modelMatrix.rotate(_radTodeg * fModel->getRotation().y(), QVector3D(0.f, 1.f, 0.f));
-	_modelMatrix.rotate(_radTodeg * fModel->getRotation().z(), QVector3D(0.f, 0.f, 1.f));
-	_modelMatrix.scale(fModel->getScale());
+	QMatrix4x4 _modelMatrix = fModel->getModelMatrix();
 
 	fModel->getShader()->setUniformValue("viewProjectionMatrix", _projectionMatrix * _viewMatrix * _modelMatrix);
 	fModel->getShader()->setUniformValue("normalMatrix", _modelMatrix.inverted().transposed());
 	fModel->getShader()->setUniformValue("isSelected", fModel->isObjectSelected());
+	fModel->getShader()->setUniformValue("enableShading", !fRenderForeground);
 
 	fModel->getShader()->release();
 

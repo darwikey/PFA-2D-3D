@@ -57,15 +57,15 @@ void Scene::render(){
 		mSceneRenderer->render(_obj.second, false);
 	}
 
-	mTransformWidget->render(mSceneRenderer, mSelectedObjects);
+	if (mSelectedObject.second != nullptr){
+		mTransformWidget->render(mSceneRenderer, mSelectedObject.second);
+	}
 }
 
 
 void Scene::selectObjects(QVector2D fMousePosition){
 	QVector3D _rayOrigin, _rayDirection;
 	mCamera->getMouseRay(fMousePosition, _rayOrigin, _rayDirection);
-
-	mSelectedObjects.clear();
 
 	for (auto it : mObjects) {
 		float _intersection = 0;
@@ -75,9 +75,13 @@ void Scene::selectObjects(QVector2D fMousePosition){
 		bool _isCollision = it.second->getBoundingBox().isCollision(_rayOrigin, _rayDirection, _modelMatrix, _intersection);
 		it.second->selectObject(_isCollision);
 		if (_isCollision) {
-			mSelectedObjects.push_back(it.second);
+			mSelectedObject = it;
 		}
 	}
+}
+
+std::string Scene::getNameSelectedObject(){
+	return mSelectedObject.first;
 }
 
 

@@ -15,19 +15,23 @@ public:
 	Object();
 
 	//! \brief To move an object depending on three values on  x, y and z coordonates
-	void moveObject(QVector3D fPosition);
+	//! \param fUpdateCamera, update the camera position
+	void moveObject(QVector3D fPosition, bool fUpdateCamera = false);
 
 	//! \brief Scaling of the object
 	//! \param Rate for the scaling, considering the actual size of the object as rate 1
-	void changeObjectScale(float fScale);
+	//! \param fUpdateCamera, update the camera position
+	void changeObjectScale(float fScale, bool fUpdateCamera = false);
 
 	//! \brief Scaling of the object
 	//! \param scale along each axis, considering the actual size of the object as rate 1
-	void changeObjectScale(QVector3D fScale);
+	//! \param fUpdateCamera, update the camera position
+	void changeObjectScale(QVector3D fScale, bool fUpdateCamera = false);
 
 	//! \brief Moving the object from his initial orientation to a new orientation
 	//! \param 3 euler angles in radian are given to move the object from his initial axe
-	void changeObjectOrientation(QVector3D fRotation);
+	//! \param fUpdateCamera, update the camera position
+	void changeObjectOrientation(QVector3D fRotation, bool fUpdateCamera = false);
 
 	//! \brief initialize the vertex buffer object
 	void initVbo(SceneRenderer* fRenderer);
@@ -75,6 +79,9 @@ public:
 
 	//! \brief get the shader of the object
 	QOpenGLShaderProgram* getShader();
+
+	//! \brief compute model matrix
+	QMatrix4x4 getModelMatrix();
 
 	//! \brief add one vertex in the model
 	void pushVertice(QVector3D fValue);

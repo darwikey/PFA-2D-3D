@@ -17,45 +17,53 @@ mIndexbuffer(QOpenGLBuffer::IndexBuffer){
 }
 
 
-void Object::moveObject(QVector3D fPosition){
+void Object::moveObject(QVector3D fPosition, bool fUpdateCamera){
 	mPosition = fPosition;
 
 	// update camera position
-	Scene* _scene = Scene::getScene();
-	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	if (fUpdateCamera){
+		Scene* _scene = Scene::getScene();
+		_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	}
 }
 
 
-void Object::changeObjectScale(float fScale){
+void Object::changeObjectScale(float fScale, bool fUpdateCamera){
 	mScale = QVector3D(fScale, fScale, fScale);
 
 	// update bounding box
 	computeBoundingBox();
 
 	// update camera position
-	Scene* _scene = Scene::getScene();
-	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	if (fUpdateCamera) {
+		Scene* _scene = Scene::getScene();
+		_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	}
 }
 
 
-void Object::changeObjectScale(QVector3D fScale) {
+void Object::changeObjectScale(QVector3D fScale, bool fUpdateCamera) {
 	mScale = fScale;
 
 	// update bounding box
 	computeBoundingBox();
 
 	// update camera position
-	Scene* _scene = Scene::getScene();
-	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	if (fUpdateCamera) {
+		Scene* _scene = Scene::getScene();
+		_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	}
 }
 
 
-void Object::changeObjectOrientation(QVector3D fRotation){
+void Object::changeObjectOrientation(QVector3D fRotation, bool fUpdateCamera){
 	mRotation = fRotation;
 
 	// update camera position
-	Scene* _scene = Scene::getScene();
-	_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	if (fUpdateCamera) {
+		Scene* _scene = Scene::getScene();
+		_scene->getCamera()->repositionCamera(_scene->getBoundingSphereRadius());
+	}
 }
 
 
@@ -239,6 +247,19 @@ bool Object::isVboInitialized(){
 
 QOpenGLShaderProgram * Object::getShader(){
 	return mShader;
+}
+
+QMatrix4x4 Object::getModelMatrix()
+{
+	QMatrix4x4 _modelMatrix;
+	_modelMatrix.translate(mPosition);
+	const float _radTodeg = 57.29578f;
+	_modelMatrix.rotate(_radTodeg * mRotation.x(), QVector3D(1.f, 0.f, 0.f));
+	_modelMatrix.rotate(_radTodeg * mRotation.y(), QVector3D(0.f, 1.f, 0.f));
+	_modelMatrix.rotate(_radTodeg * mRotation.z(), QVector3D(0.f, 0.f, 1.f));
+	_modelMatrix.scale(mScale);
+
+	return _modelMatrix;
 }
 
 

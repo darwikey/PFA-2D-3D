@@ -27,6 +27,9 @@ public:
     /** Handles mouse press events on the QGLWidget. */
     void mousePressEvent( QMouseEvent *fEvent );
 
+	/** Handles mouse release events on the QGLWidget. */
+	void mouseReleaseEvent(QMouseEvent *fEvent);
+
     /** Handles mouse move events on the QGLWidget. */
     void mouseMoveEvent( QMouseEvent *fEvent );
 
