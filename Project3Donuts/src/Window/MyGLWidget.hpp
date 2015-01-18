@@ -8,18 +8,19 @@
 #include <QSize>
 #include <QPoint>
 
+#include <QOpenGLFunctions>
 #include <QGLWidget>
 
-class MyGLWidget : public QWindow, public QOpenGLFunctions
+class MyGLWidget : public QGLWidget, public QOpenGLFunctions
 {
     Q_OBJECT
 public:
-    explicit MyGLWidget(QWindow *parent = 0);
+    explicit MyGLWidget(int framesPerSecond = 0, QWidget *fParent = 0, char * fName = 0);
     ~MyGLWidget();
 
-    virtual void render(QPainter *painter);
-    virtual void render();
-    virtual void initialize();
+    virtual void initializeGL() = 0;
+    virtual void resizeGL(int fWidth, int fHeight) = 0;
+    virtual void paintGL() = 0;
     
 
     virtual void keyPressEvent( QKeyEvent *fEvent );
@@ -37,22 +38,15 @@ public:
     void wheelEvent ( QWheelEvent * fEvent );
 
 
-    void renderLater();
-    void renderNow();
-
-protected:
-    bool event(QEvent *event);
-    void exposeEvent(QExposeEvent *event);
+public slots:
+    virtual void timeOutSlot();
 
 private:
 
-    bool mUpdatePending = false;
-    bool m_animating = false;
-    QOpenGLContext *mContext = nullptr;
-    QOpenGLPaintDevice *mDevice = nullptr;
-	
+    QTimer *mTimer;
 	// mouse position at the lastest mouse click 
 	QPoint mPrevMousePosition;
+    QSize viewport_size;
 };
 
 

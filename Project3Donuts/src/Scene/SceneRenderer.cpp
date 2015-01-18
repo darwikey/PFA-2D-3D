@@ -8,14 +8,16 @@
 #include "Camera.hpp"
 
 
-SceneRenderer::SceneRenderer(){
+SceneRenderer::SceneRenderer(QWidget *fParent):MyGLWidget(60, fParent, "Render Window"){
 
 }
 
 
-void SceneRenderer::initialize()
-{
+void SceneRenderer::initializeGL(){
 
+
+    makeCurrent();
+    initializeOpenGLFunctions();
 
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -26,12 +28,17 @@ void SceneRenderer::initialize()
     glCullFace(GL_BACK);
 
     const qreal retinaScale = devicePixelRatio();
-    glViewport(0, 0, width() * retinaScale, height() * retinaScale);
+    glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
 
 }
 
+void SceneRenderer::resizeGL(int fWidth, int fHeight){
+    if(fHeight == 0)
+        fHeight = 1;
+    glViewport(0, 0, fWidth, fHeight);
 
-void SceneRenderer::render() {
+}
+void SceneRenderer::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Scene::getScene()->render();
 }

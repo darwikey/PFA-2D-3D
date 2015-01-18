@@ -38,7 +38,7 @@ public:
     QAction *actionDegrader;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
-    QWidget *widget;
+    SceneRenderer *widget;
     QListView *listView;
     QMenuBar *menubar;
     QMenu *menuFichier;
@@ -61,7 +61,7 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        widget = QWidget::createWindowContainer(Scene::getScene()->getSceneRenderer(),centralwidget);
+        widget = new SceneRenderer(centralwidget);
         widget->setObjectName(QStringLiteral("widget"));
         widget->setMinimumSize(QSize(600, 0));
 

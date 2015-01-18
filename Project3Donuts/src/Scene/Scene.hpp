@@ -71,7 +71,7 @@ private:
 	TransformWidget* mTransformWidget = nullptr;
 
 	std::map<std::string, Object*> mObjects;
-	std::pair<std::string, Object*> mSelectedObject = std::pair<std::string, Object*>("", nullptr);
+    std::pair<std::string, Object*> mSelectedObject;// = std::pair<std::string, Object*>("", nullptr);
 };
 
 #endif

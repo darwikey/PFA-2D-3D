@@ -2,6 +2,7 @@
 #include "Object.hpp"
 #include "Loader.hpp"
 #include "MainWindow.hpp"
+#include "ui_mainwindow.h"
 #include "SceneRenderer.hpp"
 #include "Camera.hpp"
 #include "ObjLoader.hpp"
@@ -11,7 +12,7 @@ Scene* Scene::mSceneInstance = nullptr;
 
 
 Scene::Scene() : mLoader(new Loader()),
-mSceneRenderer(new SceneRenderer()),
+mSceneRenderer(nullptr),
 mCamera(new Camera()),
 mTransformWidget(new TransformWidget){
 }
@@ -21,6 +22,7 @@ Scene* Scene::getScene(){
 	if (mSceneInstance == nullptr){
 		mSceneInstance = new Scene();
 		mSceneInstance->mWindow = new MainWindow();
+        mSceneInstance->mSceneRenderer = mSceneInstance->mWindow->ui->widget;
 	}
 	return mSceneInstance;
 }
@@ -86,6 +88,11 @@ std::string Scene::getNameSelectedObject(){
 
 
 SceneRenderer* Scene::getSceneRenderer(){
+    if (mSceneInstance == nullptr){
+        mSceneInstance = new Scene();
+        mSceneInstance->mWindow = new MainWindow();
+        mSceneInstance->mSceneRenderer = mSceneInstance->mWindow->ui->widget;
+    }
 	return mSceneRenderer;
 }
 

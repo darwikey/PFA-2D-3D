@@ -129,6 +129,11 @@ void Object::initAttributes(SceneRenderer* fRenderer)
 }
 
 void Object::initShader(SceneRenderer* fRenderer) {
+    QGLContext *context = fRenderer->context();
+    if (!context){
+        QMessageBox::critical(0, "Error", "Context Error");
+      exit(EXIT_FAILURE);
+    }
 	mShader = new QOpenGLShaderProgram(fRenderer);
 
 	QString _shaderPath = "resources/shaders/StandardShading.vertexshader";

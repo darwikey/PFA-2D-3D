@@ -9,9 +9,10 @@ class Object;
 class SceneRenderer : public MyGLWidget{
 
 public:
-    SceneRenderer();
-    void initialize();
-    void render();
+    SceneRenderer(QWidget *fParent = 0);
+    void initializeGL();
+    void resizeGL(int width, int height);
+	void paintGL();
 	void render(Object* fModel, bool fRenderForeground);
 
 private:
