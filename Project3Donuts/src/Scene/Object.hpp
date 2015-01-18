@@ -52,7 +52,7 @@ public:
 	void computeColors(QVector3D fColor = QVector3D(0.5, 0.5, 0.5));
 
 	//! \brief find vertex normals
-	void computeNornals();
+	void computeNormals();
 
 	//! \brief select the object
 	//! \param select or not the object

@@ -189,7 +189,7 @@ void Object::computeColors(QVector3D fColor) {
 	}
 }
 
-void Object::computeNornals(){
+void Object::computeNormals(){
 	mNormals.clear();
 	// each 3 vertices we have a triangle
 	for (size_t i = 0; i < mIndices.size(); i += 3){

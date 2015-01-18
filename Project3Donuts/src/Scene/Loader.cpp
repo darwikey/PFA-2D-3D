@@ -25,8 +25,7 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 	if (_ext == "obj"){
 		ObjLoader _loader(fPath);
 
-		if (!_loader.load(_object))
-		{
+		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
 			QMessageBox::critical(0, "Error", "Error Opening File...");
 		}
@@ -34,15 +33,14 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 	else if (_ext == "ply")	{
 		PlyLoader _loader(fPath);
 
-		if (!_loader.load(_object))
-		{
+		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
 			QMessageBox::critical(0, "Error", "Error Opening File...");
 		}
 	}
 
 	_object->computeColors();
-	_object->computeNornals();
+	_object->computeNormals();
 	Scene::getScene()->addObject(fObjectName, _object);
 }
 
