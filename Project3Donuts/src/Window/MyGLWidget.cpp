@@ -35,7 +35,7 @@ void MyGLWidget::timeOutSlot()
 void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 {
     mPrevMousePosition = fEvent->pos();
-
+    setFocus();
 	QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
 
 	if (fEvent->buttons() & Qt::LeftButton) {
