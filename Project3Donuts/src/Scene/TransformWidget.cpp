@@ -136,22 +136,30 @@ void TransformWidget::activate(QVector2D fMousePosition){
 		break;
 	}
 
-	QVector3D _delta = ((fMousePosition.x() - mInitialMousePosition.x()) + (fMousePosition.y() - mInitialMousePosition.y())) * _dir;
+	Camera* _camera = Scene::getScene()->getCamera();
+	// matrix to project a scene vector on the screen
+	QMatrix4x4 _matrix = _camera->getProjectionMatrix() * _camera->getViewMatrix();
+	QVector4D _dirMouse = _matrix * QVector4D(_dir, 1.f);
+
+	// translation of the mouse
+	QVector2D _deltaMouse = fMousePosition - mInitialMousePosition;
+	// translation of the mouse along the axis of the transform widget
+	QVector3D _delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.x(), _dirMouse.y())) * _dir;
 
 	if (_object != nullptr) {
 		switch (mState) {
 		case State::TRANSLATION:
-			_delta *= 2.f;
+			_delta *= 4.f;
 			_object->moveObject(mInitialSelectedObject + _delta);
 			break;
 
 		case State::ROTATION:
-			_delta *= 2.f;
+			_delta *= 5.f;
 			_object->changeObjectOrientation(mInitialSelectedObject + _delta);
 			break;
 
 		case State::SCALE:
-			//_delta *= 2.f;
+			_delta *= 2.f;
 			_object->changeObjectScale(mInitialSelectedObject + _delta);
 			break;
 

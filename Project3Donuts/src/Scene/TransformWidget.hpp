@@ -26,13 +26,16 @@ public:
 	//! \brief show the widget, and choose the transformation
 	void changeState(TransformWidget::State fState);
 
-	//! \brief 
+	//! \brief tell if the widget is selected by the mouse
 	bool isSelected();
 
+	// \brief select with the mouse the widget
 	void select(QVector2D fMousePosition);
 
+	//! \brief the widget can be manipulate with the mouse
 	void activate(QVector2D fMousePosition);
 
+	//! \brief unselect the widget, the mouse will not be able to use it
 	void unselect();
 
 
