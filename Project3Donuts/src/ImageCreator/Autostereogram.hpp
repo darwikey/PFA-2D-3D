@@ -2,6 +2,7 @@
 #define AUTOSTEREOGRAM_HPP
 
 #include "global.hpp"
+class PixelTab;
 
 namespace ImageCreator{
   // ! \class Autostereogram
@@ -11,7 +12,7 @@ namespace ImageCreator{
     //! \brief no specific constructors for autostereograms, creation constructors will be called
     
     //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
-    virtual <Image*> create(<PixelTab*> fToUse);
+    virtual std::vector<PixelTab*> create(std::vector<PixelTab*> fToUse) =0;
        
   }   
 }

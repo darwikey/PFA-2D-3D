@@ -23,11 +23,11 @@ public:
 
     //! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class. Those methods will use a vector of PixelTab that the Creator will give them, and will turn back a vector of Images (even when there is only one image to return)
     //! \param fToUse is a PixelTab vector initialize by Creator and that contains what create method needs
-    virtual <Image*> create(<PixelTab*> fToUse);
+    virtual std::vector<PixelTab*> create(std::vector<PixelTab*> fToUse);
 
 private:
     //! \brief Attributes for all types of creations
-    <Pixel*> mPixelTable;
+    std::vector<Pixel*> mPixelTable;
     //! \describe how large is the image to create in number of pixel
     int mLength; 
     //! \describe how high is the image to create in number of pixel
