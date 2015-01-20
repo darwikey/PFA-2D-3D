@@ -65,8 +65,13 @@ std::vector<Image*> AutostereogramAlgorithm1::create(std::vector<PixelTab*> fToU
                 pix[x]=random()&1;
             else
                 pix[x] = pix[same[x]];
-            toReturn[x][y]=pix[x];
+            Pixel pix = new Pixel(same[x],same[x],same[x]);
+            toReturn.setPixel(pix,x,y);
         }
     }
+
+    std::vector v;
+    v.push_back(toReturn);
+    return v;
 }
 */
