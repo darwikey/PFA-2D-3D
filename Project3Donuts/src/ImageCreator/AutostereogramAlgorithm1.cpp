@@ -90,7 +90,9 @@ std::vector<Image*> AutostereogramAlgorithm1::create(std::vector<PixelTab*> fToU
   return v;
 }
 
-int main() {
-  PixelTab * pixtab = new PixelTab(50, 20) ;
-  return 0 ;
-}
+// test
+
+// int main() {
+//   PixelTab * pixtab = new PixelTab(50, 20) ;
+//   return 0 ;
+// }
