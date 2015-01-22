@@ -2,6 +2,8 @@
 #define PIXEL_HPP
 #include "global.hpp"
 
+#define PIXEL_MAX_COLOR 256
+
 // ! \class Pixel
 // ! \brief Tool pixel for having three r g b values for a pixel
 // ! \brief Pixel colors must be between 0 and 255
@@ -22,7 +24,7 @@ public:
   void setR(int);
   void setG(int);
   void setB(int);
-  
+
 private:
   //! Point attributes
   int _mR,_mG,_mB;

@@ -1,8 +1,8 @@
 #ifndef AUTOSTEREOGRAM_HPP
 #define AUTOSTEREOGRAM_HPP
 
-#include "global.hpp"
-class PixelTab;
+//#include "../global.hpp"
+#include "../Tools/PixelTab.hpp"
 
 namespace ImageCreator{
   // ! \class Autostereogram

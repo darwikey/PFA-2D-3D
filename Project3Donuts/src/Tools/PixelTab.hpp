@@ -19,6 +19,11 @@ public:
   //! \brief Set a pixel at the given row and column number
   void setPixel(const Pixel& ,int,int);
 
+  //! \brief Get table width
+  int getWidth() ;
+  //! \brief Get table height
+  int getHeight() ;
+  
 private:
   std::vector<Pixel*> mTable;
   size_t mWidth, mHeight;
