@@ -56,6 +56,9 @@ public:
 	//! \brief get the radius of the bounding sphere including all objects in the scene
 	float getBoundingSphereRadius();
 	
+	//! \brief When asked by the user, save the scene
+	//! \param The name of the file where the user wants to save his scene (xml file)
+	void saveScene(const std::string& fPath);
 
 private:
 	//! \brief Scene constructor for a new scene

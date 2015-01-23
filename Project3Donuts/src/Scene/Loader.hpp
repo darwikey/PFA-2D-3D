@@ -21,10 +21,6 @@ public:
 	//! \param Path to an OBJ or PLY file
 	//! \param name of the object in the scene
 	void loadObject(const std::string& fPath, const std::string& fObjectName);
-
-    //! \brief When asked by the user, the Loader has to save the scene
-    //! \param The name of the file where the user wants to save his scene (xml file)
-    void saveScene(const std::string& fPath);
 	
 private:
 
