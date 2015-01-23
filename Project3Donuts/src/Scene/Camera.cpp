@@ -116,3 +116,11 @@ void Camera::computeViewMatrix() {
 	mProjectionMatrix.perspective(mAngleOfView, 1.f, _zNear, _zFar);
 	mViewMatrix.lookAt(mPosition, _center, _up);
 }
+
+QVector3D Camera::getPosition(){
+    return mPosition;
+}
+
+QVector3D Camera::getRotation(){
+    return mRotation;
+}

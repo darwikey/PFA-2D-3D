@@ -44,6 +44,8 @@ public:
 	//! \param fRayDirection, get ray direction in world space
 	void getMouseRay(QVector2D fMousePosition, QVector3D& fRayOrigin, QVector3D& fRayDirection);
 
+    QVector3D getPosition();
+    QVector3D getRotation();
 
 private:
 	// \brief compute the view matrix

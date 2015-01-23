@@ -124,9 +124,78 @@ float Scene::getBoundingSphereRadius(){
 	return _radius;
 }
 
+void writeCoordinates(std::string &fStr, int fX, int fY, int fZ, int fTab){
+    int _i;
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("<coordinates>\n");
+    for (_i=0;_i<fTab+1;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("<x>");
+    fStr.append(std::to_string(fX));
+    fStr.append("</x>\n");
+    for (_i=0;_i<fTab+1;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("<y>");
+    fStr.append(std::to_string(fY));
+    fStr.append("</y>\n");
+    for (_i=0;_i<fTab+1;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("<z>");
+    fStr.append(std::to_string(fZ));
+    fStr.append("</z>\n");
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("</coordinates>\n");
+}
+
+void writeTranslation(std::string &fStr, int fX, int fY, int fZ, int fTab){
+    int _i;
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("<translation>\n");
+    writeCoordinates(fStr,fX,fY,fZ,fTab+1);
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("</translation>\n");
+}
+
+void writeRotation(std::string &fStr, int fX, int fY, int fZ, int fTab){
+    int _i;
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("<rotation>\n");
+    writeCoordinates(fStr,fX,fY,fZ,fTab+1);
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("</rotation>\n");
+}
+
+void writeScale(std::string &fStr, int fX, int fY, int fZ, int fTab){
+    int _i;
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("<scale>\n");
+    writeCoordinates(fStr,fX,fY,fZ,fTab+1);
+    for (_i=0;_i<fTab;_i++){
+        fStr.append("\t");
+    }
+    fStr.append("</scale>\n");
+}
 
 void Scene::saveScene(const std::string& fPath) {
 	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);
+    int _i;
 
 	if (_ext != "xml") {
 		std::cerr << "File must have an XML extension !" << std::endl;
@@ -138,97 +207,30 @@ void Scene::saveScene(const std::string& fPath) {
 	//Scene definition
 	_data.append("<scene>\n");
 
-	/*FOR EACH OBJECT IN SCENE*/
-	_data.append("\t<object type=\"");
-	//ADD TYPE
-	_data.append("\" src=\"");
-	//ADD SRC
-	_data.append("\">\n\
-\t\t<scale>\n\
-\t\t\t<coordinates>\n\
-\t\t\t\t<x>");
+    std::map<std::string, Object*>::iterator it=mObjects.begin();
+    for (it; it!=mObjects.end(); ++it){
+        Object* _obj =  it->second;
+        QVector3D _oPosition = _obj->getPosition();
+        QVector3D _oRotation = _obj->getRotation();
+        QVector3D _oScale = _obj->getScale();
+        _data.append("\t<object type=\"");
+        //ADD TYPE
+        _data.append("\" src=\"");
+        //ADD SRC
+        writeScale(_data,_oScale.x(),_oScale.y(),_oScale.z(),2);
+        writeTranslation(_data,_oPosition.x(),_oPosition.y(),_oPosition.z(),2);
+        writeRotation(_data,_oRotation.x(),_oRotation.y(),_oRotation.z(),2);
+        _data.append("\t</object>\n");
+    }
 
+	//Camera definition           
+    QVector3D _CPosition = mCamera->getPosition();
+    QVector3D _CRotation = mCamera->getRotation();
 
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
-\t\t\t</coordinates>\n\
-\t\t</scale>\n\
-\t\t<translation>\n\
-\t\t\t<coordinates>\n\
-\t\t\t\t<x>");
-
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
-\t\t\t</coordinates>\n\
-\t\t</translation>\n\
-\t\t<rotation>\n\
-\t\t\t<coordinates>\n\
-\t\t\t\t<x>");
-
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
-\t\t\t</coordinates>\n\
-\t\t</rotation>\n\
-\t</object>\n\n");
-
-
-	/*END OF OBJECT CREATION LOOP*/
-
-
-
-	//Camera definition
-	_data.append("\t<camera>\n\
-\t\t<translation>\n\
-\t\t\t<coordinates>\n\
-\t\t\t\t<x>");
-
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
-\t\t\t</coordinates>\n\
-\t\t</translation>\n\
-\t\t<rotation>\n\
-\t\t\t<coordinates>\n\
-\t\t\t\t<x>");
-
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
-\t\t\t</coordinate>\n\
-\t\t</rotation>\n\
-\t</camera>\n\
+    _data.append("\t<camera>\n");
+    writeTranslation(_data,_CPosition.x(),_CPosition.y(),_CPosition.z(),2);
+    writeRotation(_data,_CRotation.x(),_CRotation.y(),_CRotation.z(),2);
+    _data.append("\t</camera>\n\
 </scene>");
 
 	std::ofstream _file(fPath, std::ios::out | std::ios::trunc);
