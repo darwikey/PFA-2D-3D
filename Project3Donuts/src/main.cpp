@@ -12,7 +12,7 @@ int main(int argc, char * argv[]){
     Scene::getScene()->getLoader()->loadObject("resources/example/monkey.obj", "monkey1");
     Scene::getScene()->getLoader()->loadObject("resources/example/monkey.obj", "monkey2");
     Scene::getScene()->getObject("cube1")->moveObject(QVector3D(0.f, 2.f, 0.f), true);
-	Scene::getScene()->getObject("monkey1")->moveObject(QVector3D(2.f, 0.f, 0.f), true);
+	Scene::getScene()->getObject("monkey1")->moveObject(QVector3D(2.5f, 0.f, 0.f), true);
 	Scene::getScene()->getObject("monkey1")->changeObjectScale(QVector3D(1.f, 2.f, 1.f));
     Scene::getScene()->getObject("monkey1")->changeObjectOrientation(QVector3D(1.f, 0.f, 0.f));
 

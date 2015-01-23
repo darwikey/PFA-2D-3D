@@ -133,105 +133,81 @@ void Scene::saveScene(const std::string& fPath) {
 		QMessageBox::critical(0, "Error", "Error with File Extension...");
 	}
 
-	std::string _data("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+	// open the file and clear it
+	std::ofstream _file(fPath, std::ios::out | std::ios::trunc);
+
+	_file << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 
 	//Scene definition
-	_data.append("<scene>\n");
+	_file << "<scene>\n";
 
 	/*FOR EACH OBJECT IN SCENE*/
-	_data.append("\t<object type=\"");
-	//ADD TYPE
-	_data.append("\" src=\"");
-	//ADD SRC
-	_data.append("\">\n\
+	for (auto _it = mObjects.begin(); _it != mObjects.end(); ++_it) {
+		Object* _object = _it->second;
+
+		_file << "\t<object type=\"";
+		_file << "\" name=\"" << _it->first;
+		//ADD TYPE
+		_file << "\" src=\"";
+		//ADD SRC
+		_file << "\">\n\
 \t\t<scale>\n\
 \t\t\t<coordinates>\n\
-\t\t\t\t<x>");
+\t\t\t\t<x>" << _object->getPosition().x();
 
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
+		_file << "</x>\n\t\t\t\t<y>";
+		_file << "</y>\n\t\t\t\t<z>";
+		_file << "</z>\n\
 \t\t\t</coordinates>\n\
 \t\t</scale>\n\
 \t\t<translation>\n\
 \t\t\t<coordinates>\n\
-\t\t\t\t<x>");
+\t\t\t\t<x>";
 
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
+		_file << "</x>\n\t\t\t\t<y>";
+		_file << "</y>\n\t\t\t\t<z>";
+		_file << "</z>\n\
 \t\t\t</coordinates>\n\
 \t\t</translation>\n\
 \t\t<rotation>\n\
 \t\t\t<coordinates>\n\
-\t\t\t\t<x>");
+\t\t\t\t<x>";
 
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
+		_file << "</x>\n\t\t\t\t<y>";
+		_file << "</y>\n\t\t\t\t<z>";
+		_file << "</z>\n\
 \t\t\t</coordinates>\n\
 \t\t</rotation>\n\
-\t</object>\n\n");
+\t</object>\n\n";
 
-
-	/*END OF OBJECT CREATION LOOP*/
-
+	} //END OF OBJECT CREATION LOOP
 
 
 	//Camera definition
-	_data.append("\t<camera>\n\
+	_file << "\t<camera>\n\
 \t\t<translation>\n\
 \t\t\t<coordinates>\n\
-\t\t\t\t<x>");
-
+\t\t\t\t<x>";
 
 
 	/* How to get x,y,z coordinates of Camera ?*/
 
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
+	_file << "</x>\n\t\t\t\t<y>";
+	_file << "</y>\n\t\t\t\t<z>";
+	_file << "</z>\n\
 \t\t\t</coordinates>\n\
 \t\t</translation>\n\
 \t\t<rotation>\n\
 \t\t\t<coordinates>\n\
-\t\t\t\t<x>");
+\t\t\t\t<x>";
 
-
-
-	/* How to get x,y,z coordinates of Camera ?*/
-
-
-
-	_data.append("</x>\n\t\t\t\t<y>");
-	_data.append("</y>\n\t\t\t\t<z>");
-	_data.append("</z>\n\
+	_file << "</x>\n\t\t\t\t<y>";
+	_file << "</y>\n\t\t\t\t<z>";
+	_file << "</z>\n\
 \t\t\t</coordinate>\n\
 \t\t</rotation>\n\
 \t</camera>\n\
-</scene>");
+</scene>";
 
-	std::ofstream _file(fPath, std::ios::out | std::ios::trunc);
-	_file << _data;
 	_file.close();
 }
