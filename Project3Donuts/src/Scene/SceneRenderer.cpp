@@ -45,10 +45,8 @@ void SceneRenderer::paintGL() {
 
 	Scene::getScene()->getCamera()->applyProjectionMatrix((float)width() / height());
 
-	glBegin(GL_TRIANGLES);
 	Scene::getScene()->render();
 
-	glEnd();
 	glFlush();
 }
 
@@ -59,8 +57,9 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 		glDisable(GL_DEPTH_TEST);
 	}
 	
+	glBegin(GL_TRIANGLES);
 	fModel->draw(this);
-
+	glEnd();
 	
     ++mFrame;
 

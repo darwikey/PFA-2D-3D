@@ -33,15 +33,6 @@ public:
 	//! \param fUpdateCamera, update the camera position
 	void changeObjectOrientation(QVector3D fRotation, bool fUpdateCamera = false);
 
-	//! \brief initialize the vertex buffer object
-	void initVbo(SceneRenderer* fRenderer);
-
-    //! \brief init attribute
-    void initAttributes(SceneRenderer* fRenderer);
-
-	//! \brief init shader
-	void initShader(SceneRenderer* fRenderer);
-
 	//! \brief draw the object
 	void draw(SceneRenderer* fRenderer);
 
@@ -73,12 +64,6 @@ public:
 
 	//! \brief get scale of the object
 	QVector3D getScale();
-
-	//! \brief tell if the vertex buffer object is initialized
-	bool isVboInitialized();
-
-	//! \brief get the shader of the object
-	QOpenGLShaderProgram* getShader();
 
 	//! \brief compute model matrix
 	QMatrix4x4 getModelMatrix();
@@ -112,15 +97,6 @@ private:
     std::vector<QVector3D> mNormals;
     std::vector<uint> mIndices;
     std::vector<QVector3D> mColor;
-
-	bool mIsVboInitialized = false;
-    QOpenGLVertexArrayObject mVAO;
-    QOpenGLBuffer mVertexbuffer;
-    QOpenGLBuffer mColorbuffer;
-    QOpenGLBuffer mIndexbuffer;
-	QOpenGLBuffer mNormalBuffer;
-
-	QOpenGLShaderProgram* mShader = nullptr;
 };
 
 
