@@ -154,23 +154,14 @@ void Object::initShader(SceneRenderer* fRenderer) {
 	mShader->link();*/
 }
 
-void Object::draw(SceneRenderer* fRenderer)
-{
-//    mElementbuffer.bind();
-    /*mVAO.bind();
-	// Draw the triangles !
-	fRenderer->glDrawElements(
-		GL_TRIANGLES,      // mode
-		mIndices.size(),    // count
-		GL_UNSIGNED_INT,   // type
-		(void*) 0           // element array buffer offset
-		);*/
+void Object::draw(SceneRenderer* fRenderer){
+	Camera* _camera = Scene::getScene()->getCamera();
+	const QMatrix4x4 _ViewProjMatrix = _camera->getViewMatrix() * getModelMatrix();
 
-	for (auto _indice : mIndices)
-	{
+	for (auto _indice : mIndices) {
 
 		if (1){//TODO check
-			QVector3D _v = Scene::getScene()->getCamera()->getViewMatrix() * getModelMatrix() * mVertices[_indice];
+			QVector3D _v = _ViewProjMatrix * mVertices[_indice];
 			glVertex3f(_v.x(), _v.y(), _v.z());
 			QVector3D _c = mColor[_indice];
 			glColor3f(_c.x(), _c.y(), _c.z());

@@ -22,7 +22,7 @@ void SceneRenderer::initializeGL(){
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
     glDepthFunc(GL_LESS);
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_DEPTH_CLAMP);
     glCullFace(GL_BACK);
@@ -55,45 +55,17 @@ void SceneRenderer::paintGL() {
 
 void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 
-    /*if(! fModel->isVboInitialized()){
-		fModel->initVbo(this);
-    }
-
-	if (!fModel->getShader()->bind()){
-        qWarning() << "Could not bind shader program";
-        return;
-    }
-
 	if (fRenderForeground) {
 		glDisable(GL_DEPTH_TEST);
 	}
 	
-	fModel->draw(this);*/
-
-	QMatrix4x4 _viewMatrix = Scene::getScene()->getCamera()->getViewMatrix();
-	const QMatrix4x4& _projectionMatrix = Scene::getScene()->getCamera()->getProjectionMatrix();
-	QMatrix4x4 _modelMatrix = fModel->getModelMatrix();
-
-	/*glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(0, 0, -10);*/
-	/*glRotatef(fRotationX, 1.0f, 0.0f, 0.0f);
-	glRotatef(fRotationY, 0.0f, 1.0f, 0.0f);
-	glRotatef(fRotationZ, 0.0f, 0.0f, 1.0f);*/
-
 	fModel->draw(this);
 
-	/*fModel->getShader()->setUniformValue("viewProjectionMatrix", _projectionMatrix * _viewMatrix * _modelMatrix);
-	fModel->getShader()->setUniformValue("normalMatrix", _modelMatrix.inverted().transposed());
-	fModel->getShader()->setUniformValue("isSelected", fModel->isObjectSelected());
-	fModel->getShader()->setUniformValue("enableShading", !fRenderForeground);
-
-	fModel->getShader()->release();*/
-
+	
     ++mFrame;
 
-	/*if (fRenderForeground) {
+	if (fRenderForeground) {
 		glEnable(GL_DEPTH_TEST);
-	}*/
+	}
 }
 
