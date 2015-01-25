@@ -129,7 +129,7 @@ void Object::initAttributes(SceneRenderer* fRenderer)
 }
 
 void Object::initShader(SceneRenderer* fRenderer) {
-    QGLContext *context = fRenderer->context();
+/*    QGLContext *context = fRenderer->context();
     if (!context){
         QMessageBox::critical(0, "Error", "Context Error");
       exit(EXIT_FAILURE);
@@ -151,23 +151,33 @@ void Object::initShader(SceneRenderer* fRenderer) {
 
 	qDebug() << mShader->log();
 
-	mShader->link();
+	mShader->link();*/
 }
 
 void Object::draw(SceneRenderer* fRenderer)
 {
 //    mElementbuffer.bind();
-    mVAO.bind();
+    /*mVAO.bind();
 	// Draw the triangles !
 	fRenderer->glDrawElements(
 		GL_TRIANGLES,      // mode
 		mIndices.size(),    // count
 		GL_UNSIGNED_INT,   // type
 		(void*) 0           // element array buffer offset
-		);
+		);*/
 
-//    mShader->disableAttributeArray(0);
-//    mShader->disableAttributeArray(0);
+	for (auto _indice : mIndices)
+	{
+
+		if (1){//TODO check
+			QVector3D _v = getModelMatrix() * mVertices[_indice];
+			glVertex3f(_v.x(), _v.y(), _v.z());
+			QVector3D _c = mColor[_indice];
+			glColor3f(_c.x(), _c.y(), _c.z());
+	
+		}
+	}
+
 }
 
 
