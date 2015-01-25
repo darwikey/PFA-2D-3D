@@ -1,6 +1,4 @@
 #include "Object.hpp"
-#include <QtGui/QMatrix4x4>
-#include <QtGui/QOpenGLShaderProgram>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 #include "SceneRenderer.hpp"
@@ -76,7 +74,8 @@ void Object::draw(SceneRenderer* fRenderer){
 			glVertex3f(_v.x(), _v.y(), _v.z());
 			QVector3D _c = mColor[_indice];
 			glColor3f(_c.x(), _c.y(), _c.z());
-	
+			QVector3D _n = mNormals[_indice];
+			glNormal3f(_n.x(), _n.y(), _n.z());
 		}
 	}
 

@@ -27,6 +27,33 @@ void SceneRenderer::initializeGL(){
 	glEnable(GL_DEPTH_CLAMP);
     glCullFace(GL_BACK);
 
+
+	/*GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat mat_shininess[] = { 50.0 };
+
+	glShadeModel(GL_SMOOTH);
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glEnable(GL_LIGHT0);*/
+	// Somewhere in the initialization part of your program…
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	// Create light components
+	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
+	GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	QVector3D _lampPosition(1, 0, 0);// = Scene::getScene()->getCamera()->getViewMatrix() * QVector3D(3, 3, 3);
+	GLfloat light_position[] = { _lampPosition.x(), _lampPosition.y(), _lampPosition.z(), 0.f };
+
+	// Assign created components to GL_LIGHT0
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
 
@@ -44,6 +71,10 @@ void SceneRenderer::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Scene::getScene()->getCamera()->applyProjectionMatrix((float)width() / height());
+
+	QVector3D _lampPosition = Scene::getScene()->getCamera()->getViewMatrix() * QVector3D(3, 3, 3);
+	GLfloat light_position[] = { _lampPosition.x(), _lampPosition.y(), _lampPosition.z(), 1.f };
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
 	Scene::getScene()->render();
 
