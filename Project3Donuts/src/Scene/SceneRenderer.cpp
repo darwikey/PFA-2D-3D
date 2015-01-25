@@ -45,14 +45,14 @@ void SceneRenderer::initializeGL(){
 	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
 	GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-	QVector3D _lampPosition(1, 0, 0);// = Scene::getScene()->getCamera()->getViewMatrix() * QVector3D(3, 3, 3);
-	GLfloat light_position[] = { _lampPosition.x(), _lampPosition.y(), _lampPosition.z(), 1.f };
+	/*QVector3D _lampPosition(1, 0, 0);// = Scene::getScene()->getCamera()->getViewMatrix() * QVector3D(3, 3, 3);
+	GLfloat light_position[] = { _lampPosition.x(), _lampPosition.y(), _lampPosition.z(), 1.f };*/
 
 	// Assign created components to GL_LIGHT0
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	//glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
@@ -72,7 +72,7 @@ void SceneRenderer::paintGL() {
 
 	Scene::getScene()->getCamera()->applyProjectionMatrix((float)width() / height());
 
-	QVector3D _lampPosition = Scene::getScene()->getCamera()->getViewMatrix() * QVector3D(3, 3, 3);
+	QVector3D _lampPosition(0,1, 1);// = Scene::getScene()->getCamera()->getViewMatrix() * QVector3D(3, 3, 3);
 	GLfloat light_position[] = { _lampPosition.x(), _lampPosition.y(), _lampPosition.z(), 1.f };
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
@@ -86,6 +86,7 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 
 	if (fRenderForeground) {
 		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_LIGHTING);
 	}
 	
 	glBegin(GL_TRIANGLES);
@@ -96,6 +97,7 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 
 	if (fRenderForeground) {
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_LIGHTING);
 	}
 }
 
