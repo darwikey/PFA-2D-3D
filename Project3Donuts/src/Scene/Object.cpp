@@ -170,7 +170,7 @@ void Object::draw(SceneRenderer* fRenderer)
 	{
 
 		if (1){//TODO check
-			QVector3D _v = getModelMatrix() * mVertices[_indice];
+			QVector3D _v = Scene::getScene()->getCamera()->getViewMatrix() * getModelMatrix() * mVertices[_indice];
 			glVertex3f(_v.x(), _v.y(), _v.z());
 			QVector3D _c = mColor[_indice];
 			glColor3f(_c.x(), _c.y(), _c.z());

@@ -32,6 +32,8 @@ public:
 	//! \brief get the view matrix associate with the camera
 	const QMatrix4x4& getViewMatrix();
 
+	void applyProjectionMatrix(float fAspect);
+
 	//! \brief get the projection matrix associate with the camera
 	const QMatrix4x4& getProjectionMatrix();
 	

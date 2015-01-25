@@ -39,28 +39,12 @@ void SceneRenderer::resizeGL(int fWidth, int fHeight){
 
 }
 
-void perspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar)
-{
-	GLdouble xmin, xmax, ymin, ymax;
-
-	ymax = zNear * tan(fovy * M_PI / 360.0);
-	ymin = -ymax;
-	xmin = ymin * aspect;
-	xmax = ymax * aspect;
-
-	glFrustum(xmin, xmax, ymin, ymax, zNear, zFar);
-}
 
 void SceneRenderer::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	perspective(45.0f, (GLfloat)width() / (GLfloat)height(), 0.1f, 100.0f);
+	Scene::getScene()->getCamera()->applyProjectionMatrix((float)width() / height());
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(0., 0., -50);
 	glBegin(GL_TRIANGLES);
 	Scene::getScene()->render();
 

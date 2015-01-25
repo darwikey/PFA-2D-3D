@@ -39,12 +39,31 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 	computeViewMatrix();
 }
 
+
 /*const PixelTab& Camera::getViewPort(){
 }*/
 
 
 const QMatrix4x4& Camera::getViewMatrix(){	
 	return mViewMatrix;
+}
+
+void Camera::applyProjectionMatrix(float fAspect){
+	mProjectionMatrix = QMatrix4x4();
+
+	const float _zNear = 1.f;
+	const float _zFar = 1000.f;
+
+	GLdouble _ymax = _zNear * tan(mAngleOfView * M_PI / 360.0);
+	GLdouble _ymin = -_ymax;
+	GLdouble _xmin = _ymin * fAspect;
+	GLdouble _xmax = _ymax * fAspect;
+
+	mProjectionMatrix.perspective(mAngleOfView, fAspect, _zNear, _zFar);
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glFrustum(_xmin, _xmax, _ymin, _ymax, _zNear, _zFar);
 }
 
 const QMatrix4x4& Camera::getProjectionMatrix(){
@@ -99,21 +118,10 @@ void Camera::getMouseRay(QVector2D fMousePosition, QVector3D & fRayOrigin, QVect
 
 void Camera::computeViewMatrix() {
 	mViewMatrix = QMatrix4x4();
-	mProjectionMatrix = QMatrix4x4();
 	
-	const float r = 1.f;// Scene::getScene()->getBoundingSphereRadius();
-
-	const float _distance = r / 0.57735f; // where 0.57735f is tan(30 degrees)
-
-	const float _zNear = 1.f;
-	const float _zFar = 1000.f;
-
-
 	const QVector3D _center = QVector3D(0., 0., 0.);
 	const QVector3D _up = QVector3D(0.0, 1.0, 0.0);
 
-
-	mProjectionMatrix.perspective(mAngleOfView, 1.f, _zNear, _zFar);
 	mViewMatrix.lookAt(mPosition, _center, _up);
 }
 
