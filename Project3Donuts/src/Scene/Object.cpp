@@ -67,15 +67,23 @@ void Object::draw(SceneRenderer* fRenderer){
 	Camera* _camera = Scene::getScene()->getCamera();
 	const QMatrix4x4 _ViewProjMatrix = _camera->getViewMatrix() * getModelMatrix();
 
-	for (auto _indice : mIndices) {
+	for (auto _indice = mIndices.begin(); _indice != mIndices.end(); ) {
 
-		if (1){//TODO check
-			QVector3D _v = _ViewProjMatrix * mVertices[_indice];
-			glVertex3f(_v.x(), _v.y(), _v.z());
-			QVector3D _c = mColor[_indice];
-			glColor3f(_c.x(), _c.y(), _c.z());
-			QVector3D _n = mNormals[_indice];
-			glNormal3f(_n.x(), _n.y(), _n.z());
+		for (uint i = 0; i < 3 && _indice != mIndices.end(); i++) {
+		
+			if (1) {//TODO check
+				if (i == 0) {
+					QVector3D _n = mNormals[*_indice];
+					glNormal3f(_n.x(), _n.y(), _n.z());
+				}
+
+				QVector3D _v = _ViewProjMatrix * mVertices[*_indice];
+				glVertex3f(_v.x(), _v.y(), _v.z());
+				QVector3D _c = mColor[*_indice];
+				glColor3f(_c.x(), _c.y(), _c.z());
+
+			}
+			++_indice;
 		}
 	}
 
