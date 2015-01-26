@@ -72,16 +72,22 @@ void Object::draw(SceneRenderer* fRenderer){
 		for (uint i = 0; i < 3 && _indice != mIndices.end(); i++) {
 		
 			if (1) {//TODO check
+				//Normal
 				if (i == 0) {
 					QVector3D _n = mNormals[*_indice];
 					glNormal3f(_n.x(), _n.y(), _n.z());
 				}
 
-				QVector3D _v = _ViewProjMatrix * mVertices[*_indice];
-				glVertex3f(_v.x(), _v.y(), _v.z());
+				//Color
 				QVector3D _c = mColor[*_indice];
+				if (mIsSelected) {
+					_c += QVector3D(0.2f, 0.1f, -0.1f);
+				}
 				glColor3f(_c.x(), _c.y(), _c.z());
 
+				// Vertex position
+				QVector3D _v = _ViewProjMatrix * mVertices[*_indice];
+				glVertex3f(_v.x(), _v.y(), _v.z());
 			}
 			++_indice;
 		}

@@ -18,7 +18,6 @@ public:
 
 private:
 
-    int mFrame = 0;
 };
 
 #endif // SCENERENDERER_HPP
