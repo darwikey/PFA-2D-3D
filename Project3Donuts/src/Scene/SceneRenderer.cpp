@@ -44,6 +44,9 @@ void SceneRenderer::initializeGL(){
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
 	//glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
 
