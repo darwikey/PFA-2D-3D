@@ -64,7 +64,20 @@ void SceneRenderer::resizeGL(int fWidth, int fHeight){
 void SceneRenderer::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	Scene::getScene()->getCamera()->applyProjectionMatrix((float)width() / height());
+	float _aspect = (float)width() / height();
+	Scene::getScene()->getCamera()->applyProjectionMatrix(_aspect);
+	const float _zNear = 1.f;
+	const float _zFar = 1000.f;
+
+	GLdouble _ymax = _zNear * tan(60. * M_PI / 360.0);
+	GLdouble _ymin = -_ymax;
+	GLdouble _xmin = _ymin * _aspect;
+	GLdouble _xmax = _ymax * _aspect;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glFrustum(_xmin, _xmax, _ymin, _ymax, _zNear, _zFar);
+
 
 	QVector3D _lampPosition(0,1, 1);// = Scene::getScene()->getCamera()->getViewMatrix() * QVector3D(3, 3, 3);
 	GLfloat light_position[] = { _lampPosition.x(), _lampPosition.y(), _lampPosition.z(), 1.f };

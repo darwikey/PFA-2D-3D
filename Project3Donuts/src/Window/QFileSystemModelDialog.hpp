@@ -28,8 +28,8 @@ private:
     // to filter them separately
     QFileSystemModel *dirModel;
     QFileSystemModel *fileModel;
-    QString current_path;
-    QString valid_path;
+    QString mCurrentPath;
+    QString mValidPath;
 };
 
 #endif // QFILESYSTEMMODELDIALOG_HPP

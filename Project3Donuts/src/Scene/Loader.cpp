@@ -48,6 +48,7 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
 			QMessageBox::critical(0, "Error", "Error Opening File...");
+			return;
 		}
 	}
 	else if (_ext == "ply")	{
@@ -56,7 +57,12 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
 			QMessageBox::critical(0, "Error", "Error Opening File...");
+			return;
 		}
+	}
+	else{
+		QMessageBox::critical(0, "Error", "Error Opening File, extension \"" + QString(_ext.c_str()) + "\" not supported");
+		return;
 	}
 
 	_object->computeColors();

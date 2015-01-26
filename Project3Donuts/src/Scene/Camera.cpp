@@ -1,6 +1,6 @@
 #include "Camera.hpp"
 #include "Scene.hpp"
-
+#include "SceneRenderer.hpp"
 
 Camera::Camera() : 
 mPosition(0.f, 0.f, 3.f),
@@ -60,10 +60,6 @@ void Camera::applyProjectionMatrix(float fAspect){
 	GLdouble _xmax = _ymax * fAspect;
 
 	mProjectionMatrix.perspective(mAngleOfView, fAspect, _zNear, _zFar);
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glFrustum(_xmin, _xmax, _ymin, _ymax, _zNear, _zFar);
 }
 
 const QMatrix4x4& Camera::getProjectionMatrix(){

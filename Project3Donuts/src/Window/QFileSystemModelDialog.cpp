@@ -2,6 +2,8 @@
 #include "ui_qfilesystemmodeldialog.h"
 #include <iostream>
 #include <string>
+#include "Scene.hpp"
+#include "Loader.hpp"
 
 
 QFileSystemModelDialog::QFileSystemModelDialog(QWidget *parent) :
@@ -13,8 +15,8 @@ QFileSystemModelDialog::QFileSystemModelDialog(QWidget *parent) :
 
     // Creates our new model and populate
     QString mPath = "";
-    current_path = mPath;
-    valid_path = mPath;
+    mCurrentPath = mPath;
+    mValidPath = mPath;
     // DIRECTORIES
 
     dirModel = new QFileSystemModel(this);
@@ -53,7 +55,7 @@ QFileSystemModelDialog::~QFileSystemModelDialog()
 void QFileSystemModelDialog::on_listView_clicked(const QModelIndex &index) //index not used but necessary for slot purposes
 {
     // ListView clicked, new file selected
-    valid_path=current_path;
+    mValidPath=mCurrentPath;
 }
 
 void QFileSystemModelDialog::on_treeView_clicked(const QModelIndex &index)
@@ -66,7 +68,7 @@ void QFileSystemModelDialog::on_treeView_clicked(const QModelIndex &index)
     QString mPath = dirModel->fileInfo(index).absoluteFilePath();
     ui->listView->setRootIndex(fileModel->setRootPath(mPath));
     ui->listView->setModel(fileModel);
-    current_path = mPath;
+    mCurrentPath = mPath;
 
 }
 
@@ -84,12 +86,12 @@ void QFileSystemModelDialog::button_ok_create_selected()
 
     foreach(QString str, stringList)
     {
-        std::string localString = str.toStdString();
-        std::string pathString = valid_path.toStdString();
-        if(pathString.size() > 0 && pathString[pathString.size() -1]!='/')
+        std::string localString(str.toStdString());
+        std::string pathString(mValidPath.toStdString());
+        if(!pathString.empty() && pathString.back() != '/')
             pathString.append("/");
         pathString.append(localString);
-        //Chargeur::getInstance()->newModel(pathString);
+        Scene::getScene()->getLoader()->loadObject(pathString, "d");
     }
 
 }
