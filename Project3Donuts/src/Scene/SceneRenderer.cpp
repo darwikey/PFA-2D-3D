@@ -30,6 +30,7 @@ void SceneRenderer::initializeGL(){
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glShadeModel(GL_SMOOTH);
 
 	// Create light components
 	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };

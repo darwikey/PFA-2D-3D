@@ -86,12 +86,18 @@ void TransformWidget::select(QVector2D fMousePosition){
 	bool _isCollisionY = mObjectY->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectY->getModelMatrix(), _intersection);
 	bool _isCollisionZ = mObjectZ->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectZ->getModelMatrix(), _intersection);
 
-	if (_isCollisionX)
+	if (_isCollisionX) {
 		mDirection = Direction::X;
-	else if (_isCollisionY)
+		mObjectX->computeColors(QVector3D(1.f, 1.f, 1.f));
+	}
+	else if (_isCollisionY) {
 		mDirection = Direction::Y;
-	else if (_isCollisionZ)
+		mObjectY->computeColors(QVector3D(1.f, 1.f, 1.f));
+	}
+	else if (_isCollisionZ) {
 		mDirection = Direction::Z;
+		mObjectZ->computeColors(QVector3D(1.f, 1.f, 1.f));
+	}
 
 	mIsSelected = _isCollisionX || _isCollisionY || _isCollisionZ;
 
@@ -175,4 +181,7 @@ void TransformWidget::activate(QVector2D fMousePosition){
 
 void TransformWidget::unselect() {
 	mIsSelected = false;
+	mObjectX->computeColors(QVector3D(1.f, 0.f, 0.f));
+	mObjectY->computeColors(QVector3D(0.f, 1.f, 0.f));
+	mObjectZ->computeColors(QVector3D(0.f, 0.f, 1.f));
 }
