@@ -5,7 +5,6 @@
 #include "Object.hpp"
 #include "TransformWidget.hpp"
 
-
 int main(int argc, char * argv[]){
     QApplication app(argc, argv);
     Scene::getScene()->getLoader()->loadObject("resources/example/cubeout.ply", "cube1");

@@ -5,6 +5,7 @@
 #define E round(2.5*DPI)//to change : separation between eyes in inches
 #define separation(Z) round(1-mu*Z)*E/(2-mu*Z)
 
+/*
 float depth(Pixel * p) {
   return (float)p.getR()/255.0 ;
 }    
@@ -19,7 +20,7 @@ float depth(PixelTab * pixtab, int x, int y) {
  * This is a retranscription in C++ of the algorithm of Harold W. Thimbleby, Stuart Inglis and Ian H. Witten
  * as presented in their article "Displaying 3D Images : Algorithm for Single Image Random Dot Stereograms" which has
  * been publicated in IEEE Computer in 1994
- */
+
 std::vector<Image*> AutostereogramAlgorithm1::create(std::vector<PixelTab*> fToUse, int DPI){
   // First position of fToUse will contain the depth map created by Creator
   PixelTab *depthMap = fToUse[0];
@@ -89,7 +90,7 @@ std::vector<Image*> AutostereogramAlgorithm1::create(std::vector<PixelTab*> fToU
   v.push_back(toReturn);
   return v;
 }
-
+*/
 // test
 
 // int main() {

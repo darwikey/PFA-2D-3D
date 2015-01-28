@@ -17,7 +17,7 @@ public:
   Pixel getPixel(int,int);
 
   //! \brief Set a pixel at the given row and column number
-  void setPixel(const Pixel& ,int,int);
+  //void setPixel(const Pixel& ,int,int);
 
   //! \brief Get table width
   int getWidth() ;

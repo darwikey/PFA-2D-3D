@@ -12,7 +12,7 @@ namespace ImageCreator{
       //! \brief no specific constructors for autostereograms, creation constructors will be called
     
       //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
-      virtual std::vector<PixelTab*> create(std::vector<PixelTab*>fToUse, int DPI);
+      //virtual std::vector<PixelTab*> create(std::vector<PixelTab*>fToUse, int DPI);
     };
 }
 
