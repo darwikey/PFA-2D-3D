@@ -12,7 +12,7 @@ int caseXY(int fx, int fy, int fwidth) {
   return fy * fwidth + fx ;
 }
 
-int AutostereogramAlgorithm1::separation(int fZ, int fE) {
+int AutostereogramAlgorithm1::separation(float fZ, int fE) {
   return round(1 - mu * fZ) * fE / (2 - mu * fZ) ;
 }
 
@@ -22,7 +22,7 @@ std::vector<float> getDepth(QImage fImg) {
   std::vector<float> resultat (myWidth * myHeight, 0.) ;
   for (int i = 0 ; i < myHeight ; ++i) {
     for (int j = 0 ; j < myWidth ; ++j) {
-      resultat[i * myWidth + j] = qRed(fImg.pixel(j, i)) ;
+      resultat[i * myWidth + j] = 1. - qGray(fImg.pixel(j, i))/255. ;
     }
   }
   return resultat ;
