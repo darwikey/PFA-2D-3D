@@ -10,7 +10,7 @@ public:
   //! \brief no specific constructors for autostereograms, creation constructors will be called
   
   //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
-  virtual QImage create(int DPI, int fHeight, int fWidth) =0;
+  virtual std::vector<QImage> create(int DPI, int fHeight, int fWidth) =0;
 
 } ;
 

@@ -17,7 +17,7 @@ public:
 
 private :
   static AutostereogramAlgorithm1 * getAutostereogramAlgorithm() ;
-  static int separation(int fZ, int fE) ;
+  static int separation(float fZ, int fE) ;
   static std::vector<QImage> depthmapToAutostereogram(QImage * fDepthmap, int fE) ; 
 };
 
