@@ -16,10 +16,8 @@ public:
     void resizeGL(int width, int height) override;
 	void paintGL() override;
 	void render(Object* fModel, bool fRenderForeground);
-    QOpenGLFunctions * getContext();
 
 private:
-    QOpenGLFunctions *mcontext;
 };
 
 #endif // SCENERENDERER_HPP

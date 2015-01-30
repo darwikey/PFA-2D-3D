@@ -4,8 +4,6 @@
 #include "SceneRenderer.hpp"
 #include "Scene.hpp"
 #include "Camera.hpp"
-#include <qtopenglglobal.h>
-
 
 
 Object::Object() : mPosition(0.f, 0.f, 0.f), 
@@ -67,9 +65,6 @@ void Object::changeObjectOrientation(QVector3D fRotation, bool fUpdateCamera){
 void Object::draw(SceneRenderer* fRenderer){
     Camera* _camera = Scene::getScene()->getCamera();
 	const QMatrix4x4 _ViewProjMatrix = _camera->getViewMatrix() * getModelMatrix();
-
-    QOpenGLFunctions *_context = fRenderer->getContext();
-    _context->initializeOpenGLFunctions();
 
 	for (auto _indice = mIndices.begin(); _indice != mIndices.end(); ) {
 		for (uint i = 0; i < 3 && _indice != mIndices.end(); i++) {
