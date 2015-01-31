@@ -40,5 +40,8 @@ file(GLOB_RECURSE header_files src/*.hpp)
 
 add_executable(${PROJECT_NAME} ${source_files} ${header_files})
 
+find_package(OpenGL)
+include_directories( ${OPENGL_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
 
 target_link_libraries(${PROJECT_NAME} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} Qt5::OpenGL )

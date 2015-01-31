@@ -72,7 +72,7 @@ void Object::draw(SceneRenderer* fRenderer){
 				//Normal
 				if (i == 0) {
 					QVector3D _n = mNormals[*_indice];
-                    //glNormal3f(_n.x(), _n.y(), _n.z());
+                    glNormal3f(_n.x(), _n.y(), _n.z());
 				}
 
 				//Color
@@ -80,11 +80,11 @@ void Object::draw(SceneRenderer* fRenderer){
 				if (mIsSelected) {
 					_c += QVector3D(0.2f, 0.1f, -0.1f);
 				}
-                //glColor3f(_c.x(), _c.y(), _c.z());
+                glColor3f(_c.x(), _c.y(), _c.z());
 
 				// Vertex position
 				QVector3D _v = _ViewProjMatrix * mVertices[*_indice];
-                //glVertex3f(_v.x(), _v.y(), _v.z());
+                glVertex3f(_v.x(), _v.y(), _v.z());
 			}
 			++_indice;
 		}
