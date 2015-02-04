@@ -66,7 +66,8 @@ public:
 	QVector3D getScale();
 
 	//! \brief compute model matrix
-	QMatrix4x4 getModelMatrix();
+	//! \param if fWithoutScaling is false, apply the scaling of the object on the matrix
+	QMatrix4x4 getModelMatrix(bool fWithoutScaling = false);
 
 	//! \brief add one vertex in the model
 	void pushVertice(QVector3D fValue);

@@ -93,6 +93,8 @@ void Object::draw(SceneRenderer* fRenderer){
 
 
 void Object::computeBoundingBox(){
+	mBoundingBox.mVector0 = mBoundingBox.mVector1 = QVector3D(0.f, 0.f, 0.f);
+
 	for (QVector3D _v : mVertices) {
 		mBoundingBox.mVector0.setX((_v.x() < mBoundingBox.mVector0.x()) ? _v.x() : mBoundingBox.mVector0.x());
 		mBoundingBox.mVector1.setX((mBoundingBox.mVector1.x() < _v.x()) ? _v.x() : mBoundingBox.mVector1.x());
@@ -168,7 +170,7 @@ QVector3D Object::getScale() {
 }
 
 
-QMatrix4x4 Object::getModelMatrix()
+QMatrix4x4 Object::getModelMatrix(bool fWithoutScaling)
 {
 	QMatrix4x4 _modelMatrix;
 	_modelMatrix.translate(mPosition);
@@ -176,7 +178,10 @@ QMatrix4x4 Object::getModelMatrix()
 	_modelMatrix.rotate(_radTodeg * mRotation.x(), QVector3D(1.f, 0.f, 0.f));
 	_modelMatrix.rotate(_radTodeg * mRotation.y(), QVector3D(0.f, 1.f, 0.f));
 	_modelMatrix.rotate(_radTodeg * mRotation.z(), QVector3D(0.f, 0.f, 1.f));
-	_modelMatrix.scale(mScale);
+	
+	if (!fWithoutScaling){
+		_modelMatrix.scale(mScale);
+	}
 
 	return _modelMatrix;
 }

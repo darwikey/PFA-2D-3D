@@ -18,14 +18,22 @@ void TransformWidget::render(SceneRenderer* fRenderer, Object* fSelectedObject){
 		&& mObjectX != nullptr
 		&& fSelectedObject != nullptr) {
 
+		//Translation
 		mObjectX->moveObject(fSelectedObject->getPosition());
 		mObjectY->moveObject(fSelectedObject->getPosition());
 		mObjectZ->moveObject(fSelectedObject->getPosition());
 
+		//Orientation
 		mObjectX->changeObjectOrientation(QVector3D(0.f, 0.f, -1.57f));
-		//mObjectY->changeObjectOrientation(fSelectedObjects[0]->getRotation());
 		mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
 
+		// Scale
+		float _scale = Scene::getScene()->getCamera()->getPosition().length() / 7.f;
+		mObjectX->changeObjectScale(_scale);
+		mObjectY->changeObjectScale(_scale);
+		mObjectZ->changeObjectScale(_scale);
+
+		// Render
 		fRenderer->render(mObjectX, true);
 		fRenderer->render(mObjectY, true);
 		fRenderer->render(mObjectZ, true);
@@ -82,9 +90,9 @@ void TransformWidget::select(QVector2D fMousePosition){
 	Scene::getScene()->getCamera()->getMouseRay(fMousePosition, _rayOrigin, _rayDirection);
 
 	float _intersection = 0;
-	bool _isCollisionX = mObjectX->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectX->getModelMatrix(), _intersection);
-	bool _isCollisionY = mObjectY->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectY->getModelMatrix(), _intersection);
-	bool _isCollisionZ = mObjectZ->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectZ->getModelMatrix(), _intersection);
+	bool _isCollisionX = mObjectX->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectX->getModelMatrix(true), _intersection);
+	bool _isCollisionY = mObjectY->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectY->getModelMatrix(true), _intersection);
+	bool _isCollisionZ = mObjectZ->getBoundingBox().isCollision(_rayOrigin, _rayDirection, mObjectZ->getModelMatrix(true), _intersection);
 
 	if (_isCollisionX) {
 		mDirection = Direction::X;
@@ -153,23 +161,23 @@ void TransformWidget::activate(QVector2D fMousePosition){
 	// translation of the mouse
 	QVector2D _deltaMouse = fMousePosition - mInitialMousePosition;
 	// translation of the mouse along the axis of the transform widget
-	QVector3D _delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.x(), _dirMouse.y())) * _dir;
+	float _delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.x(), _dirMouse.y()));
 
 	if (_object != nullptr) {
 		switch (mState) {
 		case State::TRANSLATION:
-			_delta *= 4.f;
-			_object->moveObject(mInitialSelectedObject + _delta);
+			_delta *= _camera->getPosition().length();
+			_object->moveObject(mInitialSelectedObject + _delta * _dir);
 			break;
 
 		case State::ROTATION:
 			_delta *= 5.f;
-			_object->changeObjectOrientation(mInitialSelectedObject + _delta);
+			_object->changeObjectOrientation(mInitialSelectedObject + _delta * _dir);
 			break;
 
 		case State::SCALE:
 			_delta *= 2.f;
-			_object->changeObjectScale(mInitialSelectedObject + _delta);
+			_object->changeObjectScale(mInitialSelectedObject.x() + _delta);
 			break;
 
 		default:
