@@ -1,10 +1,11 @@
-#version 330 core
+#version 120 core
 
-layout(location = 0) in vec3 vertexPosition;
-layout(location = 1) in vec3 vertexColor;
-layout(location = 2) in vec3 vertexNormal;
+attribute vec3 vertexPosition;
+attribute vec3 vertexNormal;
+attribute vec3 vertexColor;
 
-out vec3 fragmentColor;
+
+varying vec3 fragmentColor;
 uniform mat4 viewProjectionMatrix;
 uniform mat4 normalMatrix;
 uniform bool enableShading;

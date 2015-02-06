@@ -1,4 +1,6 @@
 #include "Object.hpp"
+#include <QtGui/QMatrix4x4>
+#include <QtGui/QOpenGLShaderProgram>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 #include "SceneRenderer.hpp"
@@ -8,7 +10,8 @@
 
 Object::Object() : mPosition(0.f, 0.f, 0.f), 
 mRotation(0.f, 0.f, 0.f),
-mScale(1.f, 1.f, 1.f){
+mScale(1.f, 1.f, 1.f),
+mIndexbuffer(QOpenGLBuffer::IndexBuffer){
 }
 
 
@@ -62,36 +65,109 @@ void Object::changeObjectOrientation(QVector3D fRotation, bool fUpdateCamera){
 }
 
 
-void Object::draw(SceneRenderer* fRenderer){
-    Camera* _camera = Scene::getScene()->getCamera();
-	const QMatrix4x4 _ViewProjMatrix = _camera->getViewMatrix() * getModelMatrix();
+void Object::initVbo(SceneRenderer* fRenderer)
+{
+    mVAO.create();
+    mVAO.bind();
 
-	for (auto _indice = mIndices.begin(); _indice != mIndices.end(); ) {
-		for (uint i = 0; i < 3 && _indice != mIndices.end(); i++) {
-			if (1) {//TODO check
-				//Normal
-				if (i == 0) {
-					QVector3D _n = mNormals[*_indice];
-                    glNormal3f(_n.x(), _n.y(), _n.z());
-				}
+    // Create a buffer and Fill it the the vertex data
+    mVertexbuffer.create();
+    mVertexbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    mVertexbuffer.bind();
+    mVertexbuffer.allocate(mVertices.data(), mVertices.size() * sizeof(QVector3D));
 
-				//Color
-				QVector3D _c = mColor[*_indice];
-				if (mIsSelected) {
-					_c += QVector3D(0.2f, 0.1f, -0.1f);
-				}
-                glColor3f(_c.x(), _c.y(), _c.z());
+    // Create a buffer and Fill it the the color data
+    mColorbuffer.create();
+    mColorbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    mColorbuffer.bind();
+    mColorbuffer.allocate(mColor.data(), mColor.size() * sizeof(QVector3D));
 
-				// Vertex position
-				QVector3D _v = _ViewProjMatrix * mVertices[*_indice];
-                glVertex3f(_v.x(), _v.y(), _v.z());
-			}
-			++_indice;
-		}
-	}
+    // Create a buffer and Fill it the the index data
+    mIndexbuffer.create();
+    mIndexbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    mIndexbuffer.bind();
+    mIndexbuffer.allocate(mIndices.data(), mIndices.size() * sizeof(uint));
+
+	// Create a buffer and Fill it the the normal data
+	mNormalBuffer.create();
+	mNormalBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+	mNormalBuffer.bind();
+	mNormalBuffer.allocate(mNormals.data(), mNormals.size() * sizeof(QVector3D));
+
+	initShader(fRenderer);
+    initAttributes(fRenderer);
+	mIsVboInitialized = true;
+}
+
+void Object::initAttributes(SceneRenderer* fRenderer)
+{
+    mVAO.bind();
+    mShader->bind();
+    
+    // Index buffer
+    mVertexbuffer.bind();
+
+	// first attribute buffer : vertex positions
+	int _positionHandle = mShader->attributeLocation("vertexPosition");
+	mShader->enableAttributeArray(_positionHandle);
+    mShader->setAttributeBuffer(_positionHandle,                  // attribute (use in the shader)
+        GL_FLOAT,           // type
+        0,                  // offset
+        3					// size of one element
+        );
+
+    // 2nd attribute buffer : colors
+	_positionHandle = mShader->attributeLocation("vertexColor");
+    mShader->enableAttributeArray(_positionHandle);
+    mColorbuffer.bind();
+    mShader->setAttributeBuffer(_positionHandle, GL_FLOAT, 0, 3);
+
+	// 3rd attribute buffer : normals
+	_positionHandle = mShader->attributeLocation("vertexNormal");
+	mShader->enableAttributeArray(_positionHandle);
+	mNormalBuffer.bind();
+	mShader->setAttributeBuffer(_positionHandle, GL_FLOAT, 0, 3);
 }
 
 
+void Object::initShader(SceneRenderer* fRenderer) {
+    QGLContext *context = fRenderer->context();
+    if (!context){
+        QMessageBox::critical(0, "Error", "Context Error");
+      exit(EXIT_FAILURE);
+    }
+	mShader = new QOpenGLShaderProgram(fRenderer);
+
+
+	QString _shaderPath = "resources/shaders/StandardShading.vertexshader";
+	if (!mShader->addShaderFromSourceFile(QOpenGLShader::Vertex, _shaderPath)) {
+		QMessageBox::critical(0, "Error", "Error loading shader " + _shaderPath);
+		exit(EXIT_FAILURE);
+	}
+
+	_shaderPath = "resources/shaders/StandardShading.fragmentshader";
+	if (!mShader->addShaderFromSourceFile(QOpenGLShader::Fragment, _shaderPath)) {
+		QMessageBox::critical(0, "Error", "Error loading shader " + _shaderPath);
+		exit(EXIT_FAILURE);
+	}
+
+	qDebug() << mShader->log();
+
+	mShader->link();
+}
+
+void Object::draw(SceneRenderer* fRenderer)
+{
+    mVAO.bind();
+
+	// Draw the triangles !
+	fRenderer->glDrawElements(
+		GL_TRIANGLES,      // mode
+		mIndices.size(),    // count
+		GL_UNSIGNED_INT,   // type
+		(void*) 0           // element array buffer offset
+		);
+}
 void Object::computeBoundingBox(){
 	mBoundingBox.mVector0 = mBoundingBox.mVector1 = QVector3D(0.f, 0.f, 0.f);
 
@@ -169,7 +245,13 @@ QVector3D Object::getScale() {
 	return mScale;
 }
 
+bool Object::isVboInitialized(){
+	return mIsVboInitialized;
+}
 
+QOpenGLShaderProgram * Object::getShader(){
+	return mShader;
+}
 QMatrix4x4 Object::getModelMatrix(bool fWithoutScaling)
 {
 	QMatrix4x4 _modelMatrix;
