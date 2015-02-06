@@ -1,4 +1,3 @@
-#version 120 core
 
 varying vec3 fragmentColor;
 uniform bool isSelected;
