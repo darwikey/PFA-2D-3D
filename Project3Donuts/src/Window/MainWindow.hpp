@@ -2,7 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
-#include "QFileSystemModelDialog.hpp"
+#include "FileExplorer.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -18,7 +18,7 @@ public:
     Ui::MainWindow *ui;
 
 private:
-    QFileSystemModelDialog mOpen;
+    FileExplorer mOpen;
 
 public slots:
    void openfile();
