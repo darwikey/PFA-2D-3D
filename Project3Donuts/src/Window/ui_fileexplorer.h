@@ -79,7 +79,6 @@ public:
         QObject::connect(buttonBox, SIGNAL(accepted()), MainWindow, SLOT(button_ok_create_selected()));
         QObject::connect(actionGetParent, SIGNAL(triggered()), MainWindow, SLOT(actionGetParent()));
         //QObject::connect(actionCreateDirectory, SIGNAL(triggered()), MainWindow, SLOT(actionCreateDirectory()));
-        QObject::connect(buttonBox, SIGNAL(accepted()), MainWindow, SLOT(accept()));
         QObject::connect(buttonBox, SIGNAL(rejected()), MainWindow, SLOT(close()));
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
