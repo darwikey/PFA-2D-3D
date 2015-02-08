@@ -43,7 +43,7 @@ void FileExplorer::on_listView_clicked(const QModelIndex &index)
     if(fileModel->isDir(index)||mCurrentPath == "")
     {
         // ListView clicked, new file selected
-        qDebug() << mCurrentPath;
+        //qDebug() << mCurrentPath;
         mCurrentPath = fileModel->fileInfo(index).absoluteFilePath();
         ui->listView->setRootIndex(fileModel->setRootPath(mCurrentPath));
         ui->listView->setModel(fileModel);
