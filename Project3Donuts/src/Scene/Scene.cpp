@@ -71,16 +71,24 @@ void Scene::selectObjects(QVector2D fMousePosition) {
 
 	mSelectedObject = std::make_pair(std::string(), nullptr);
 
+	float _previousIntersection = 1e20f;
 	for (auto it : mObjects) {
 		float _intersection = 0;
 		QMatrix4x4 _modelMatrix;
 		_modelMatrix.translate(it.second->getPosition());
 
 		bool _isCollision = it.second->getBoundingBox().isCollision(_rayOrigin, _rayDirection, _modelMatrix, _intersection);
-		it.second->selectObject(_isCollision);
-		if (_isCollision) {
+		
+		if (_isCollision && _intersection < _previousIntersection) {
 			mSelectedObject = it;
+			_previousIntersection = _intersection;
 		}
+
+		it.second->selectObject(false);
+	}
+
+	if (mSelectedObject.second != nullptr){
+		mSelectedObject.second->selectObject(true);
 	}
 }
 
