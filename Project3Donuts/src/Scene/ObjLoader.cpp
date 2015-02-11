@@ -35,14 +35,14 @@ bool ObjLoader::load(Object* fObject){
 			QVector3D _val;
 
 			string val0 = _lineVals.substr(0, _lineVals.find(' '));
-			_val.setX((float) atof(val0.c_str()));
+			_val.setX(getFloat(val0));
 		
 			string val1 = _lineVals.substr(val0.length() + 1,
 										  _lineVals.find(' '));
-			_val.setY((float) atof(val1.c_str()));
+			_val.setY(getFloat(val1));
 			
 			string val2 = _lineVals.substr(_lineVals.find_last_of(' ') + 1);
-			_val.setZ((float) atof(val2.c_str()));
+			_val.setZ(getFloat(val2));
 
 			fObject->pushVertice(_val);
 		}
@@ -56,10 +56,10 @@ bool ObjLoader::load(Object* fObject){
 			QVector2D _val;
 
 			string val0 = _lineVals.substr(0, _lineVals.find(' '));
-			_val.setX((float) atof(val0.c_str()));
+			_val.setX(getFloat(val0));
 			
 			string val1 = _lineVals.substr(val0.length() + 1, _lineVals.find(' '));
-			_val.setY((float) atof(val1.c_str()));
+			_val.setY(getFloat(val1));
 			
 			fObject->pushTextureCoordinate(_val);
 		}
@@ -73,14 +73,14 @@ bool ObjLoader::load(Object* fObject){
 			QVector3D _val;
 
 			string val0 = _lineVals.substr(0, _lineVals.find(' '));
-			_val.setX((float) atof(val0.c_str()));
+			_val.setX(getFloat(val0.c_str()));
 
 			string val1 = _lineVals.substr(val0.length() + 1,
 										  _lineVals.find(' '));
-			_val.setY((float) atof(val1.c_str()));
+			_val.setY(getFloat(val1));
 
 			string val2 = _lineVals.substr(_lineVals.find_last_of(' ') + 1);
-			_val.setZ((float) atof(val2.c_str()));
+			_val.setZ(getFloat(val2));
 			
 			fObject->pushNormal(_val);
 		}
@@ -172,3 +172,9 @@ void ObjLoader::injectDataInModel(Object * fObject, std::tuple<uint, uint, uint>
 }
 
 
+float ObjLoader::getFloat(const std::string& fString){
+	std::istringstream _stream(fString);
+	float _value = 0.f;
+	_stream >> _value;
+	return _value;
+}

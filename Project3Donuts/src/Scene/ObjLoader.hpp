@@ -25,6 +25,8 @@ private:
 	//! \param fData, in the tuple : indice, texture coordinate, normal
 	void injectDataInModel(Object* fObject, std::tuple<uint, uint, uint> fData);
 
+	float getFloat(const std::string&);
+
 	std::ifstream mFile;
 
 };
