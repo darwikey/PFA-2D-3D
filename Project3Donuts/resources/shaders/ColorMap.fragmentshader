@@ -1,0 +1,8 @@
+
+varying vec3 fragmentColor;
+uniform bool isSelected;
+
+
+void main() {
+	gl_FragData[0] = vec4(fragmentColor, 1.0);
+}
