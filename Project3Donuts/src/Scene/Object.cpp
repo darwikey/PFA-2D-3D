@@ -156,6 +156,7 @@ void Object::initShader(SceneRenderer* fRenderer) {
 	mShader->link();
 }
 
+
 void Object::draw(SceneRenderer* fRenderer)
 {
     mVAO.bind();
@@ -167,7 +168,11 @@ void Object::draw(SceneRenderer* fRenderer)
 		GL_UNSIGNED_INT,   // type
 		(void*) 0           // element array buffer offset
 		);
+
+	mVAO.release();
 }
+
+
 void Object::computeBoundingBox(){
 	mBoundingBox.mVector0 = mBoundingBox.mVector1 = QVector3D(0.f, 0.f, 0.f);
 

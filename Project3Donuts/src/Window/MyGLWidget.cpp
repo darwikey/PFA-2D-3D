@@ -105,6 +105,11 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
         case Qt::Key_S:
 			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::SCALE);
             break;
+
+		case Qt::Key_A:
+			Scene::getScene()->getCamera()->getColorMap().save("pied.png");
+			break;
+
         default:
             QGLWidget::keyPressEvent( fEvent );
     }

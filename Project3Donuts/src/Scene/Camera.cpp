@@ -40,8 +40,34 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 }
 
 
-/*const PixelTab& Camera::getViewPort(){
-}*/
+QImage Camera::getColorMap(){
+	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
+
+	QGLPixelBuffer* _pixelBuffer = new QGLPixelBuffer(512, 512, _renderer->format(), _renderer);
+	_pixelBuffer->makeCurrent();
+	_renderer->initOpengl(QVector3D(0.f, 0.f, 0.4f));
+
+	Scene::getScene()->render(true);
+
+	return _pixelBuffer->toImage();
+
+	delete _pixelBuffer;
+}
+
+
+QImage Camera::getDepthMap(){
+	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
+
+	QGLPixelBuffer* _pixelBuffer = new QGLPixelBuffer(512, 512, _renderer->format(), _renderer);
+	_pixelBuffer->makeCurrent();
+	_renderer->initOpengl(QVector3D(0.f, 0.f, 0.4f));
+
+	Scene::getScene()->render(true);
+
+	return _pixelBuffer->toImage();
+
+	delete _pixelBuffer;
+}
 
 
 const QMatrix4x4& Camera::getViewMatrix(){	
@@ -52,10 +78,6 @@ const QMatrix4x4& Camera::getViewMatrix(){
 const QMatrix4x4& Camera::getProjectionMatrix(){
 	return mProjectionMatrix;
 }
-
-/*
-const PixelTab& Camera::getDepthMap(){
-}*/
 
 
 void Camera::getMouseRay(QVector2D fMousePosition, QVector3D & fRayOrigin, QVector3D & fRayDirection){

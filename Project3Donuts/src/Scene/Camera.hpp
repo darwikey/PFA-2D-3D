@@ -26,17 +26,17 @@ public:
 	//! \param the bounding sphere radius of the scene objects
 	void repositionCamera(float fBoundingSphereRadius);
 
-	//! \brief get an access to the image created for the viewport
-	const PixelTab& getViewPort();
+	//! \brief get an access to the image
+	QImage getColorMap();
 	
+	//! \brief get an access to the depth map
+	QImage getDepthMap();
+
 	//! \brief get the view matrix associate with the camera
 	const QMatrix4x4& getViewMatrix();
 
 	//! \brief get the projection matrix associate with the camera
 	const QMatrix4x4& getProjectionMatrix();
-	
-	//! \brief get an access to the depth map
-	const PixelTab& getDepthMap();
 
 	//! \brief get the ray from th camera to the mouse
 	//! \param fMousePosition, position of the mouse in the screen

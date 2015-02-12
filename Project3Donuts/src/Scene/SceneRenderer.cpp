@@ -12,19 +12,38 @@ SceneRenderer::SceneRenderer(QWidget *fParent):MyGLWidget(60, fParent, "Render W
 void SceneRenderer::initializeGL(){
     makeCurrent();
     initializeOpenGLFunctions();
+	initOpengl(QVector3D(0.f, 0.f, 0.4f));
 
-	//background color
-    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
-
-    glDepthFunc(GL_LESS);
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_DEPTH_CLAMP);
-    glCullFace(GL_BACK);
 
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
+
+	/*GLuint textureId = 0;
+	glGenTextures(1, &textureId);
+	glBindTexture(GL_TEXTURE_2D, textureId);
+	
+	glGenFramebuffers(1, &fboId);
+	glBindFramebuffer(GL_FRAMEBUFFER, fboId);
+	GLuint rboId = 0;
+	glGenRenderbuffers(1, &rboId);
+	glBindRenderbuffer(GL_RENDERBUFFER, rboId);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 512, 512);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);*/
+
 }
+
+
+void SceneRenderer::initOpengl(QVector3D fColor){
+	glClearColor(fColor.x(), fColor.y(), fColor.z(), 1.f);
+
+	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_CLAMP);
+	glCullFace(GL_BACK);
+
+}
+
 
 void SceneRenderer::resizeGL(int fWidth, int fHeight){
     if(fHeight == 0)
@@ -33,9 +52,12 @@ void SceneRenderer::resizeGL(int fWidth, int fHeight){
 }
 
 void SceneRenderer::paintGL() {
+	makeCurrent();
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     Scene::getScene()->render();
+	
 }
 
 void SceneRenderer::render(Object* fModel, bool fRenderForeground) {

@@ -33,7 +33,8 @@ public:
 	void show();
 
 	//! \brief render the scene, this function must be called each frame
-	void render();
+	//! \param fRenderOnlyObject, don't render widgets and lamps
+	void render(bool fRenderOnlyObject = false);
 
 	//! \brief select all the object touched by the mouse
 	//! \param fMousePosition, position of the mouse in the screen

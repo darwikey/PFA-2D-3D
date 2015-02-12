@@ -54,13 +54,15 @@ void Scene::show() {
 }
 
 
-void Scene::render() {
+void Scene::render(bool fRenderOnlyObject) {
 	for (auto _obj : mObjects) {
 		mSceneRenderer->render(_obj.second, false);
 	}
 
-	if (mSelectedObject.second != nullptr) {
-		mTransformWidget->render(mSceneRenderer, mSelectedObject.second);
+	if (!fRenderOnlyObject){
+		if (mSelectedObject.second != nullptr) {
+			mTransformWidget->render(mSceneRenderer, mSelectedObject.second);
+		}
 	}
 }
 

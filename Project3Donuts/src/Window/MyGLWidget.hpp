@@ -18,9 +18,9 @@ public:
     explicit MyGLWidget(int framesPerSecond = 0, QWidget *fParent = 0, char * fName = 0);
     ~MyGLWidget();
 
-    virtual void initializeGL() = 0;
-    virtual void resizeGL(int fWidth, int fHeight) = 0;
-    virtual void paintGL() = 0;
+	virtual void initializeGL() override  = 0;
+    virtual void resizeGL(int fWidth, int fHeight) override = 0;
+	virtual void paintGL() override = 0;
     
 	//! \brief Handles key press events on the QGLWidget.
     void keyPressEvent( QKeyEvent *fEvent ) override;
