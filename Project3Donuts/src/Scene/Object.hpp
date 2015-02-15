@@ -5,12 +5,19 @@
 #include "BoundingBox.hpp"
 #include <QOpenGLBuffer>
 
+
+
 class SceneRenderer;
 
 //! \class Object
 //! \brief definition of objects that will be placed in the scene
 class Object {
 public:
+
+	enum Shader{
+		STANDARD_SHADING, DEBUG_NORMAL, COLORMAP, DEPTHMAP
+	};
+
 	//! \brief Construction of the object before filling it with points
 	Object();
 
@@ -38,7 +45,10 @@ public:
 	void initVbo(SceneRenderer* fRenderer);
 
     //! \brief init attribute
-    void initAttributes(SceneRenderer* fRenderer);
+	void bindAttributes(SceneRenderer* fRenderer);
+
+	//! \brief release atribute
+	void releaseAttributes(SceneRenderer* fRenderer);
 
 	//! \brief init shader
 	void initShader(SceneRenderer* fRenderer);
@@ -53,8 +63,8 @@ public:
 	//! \brief find vertex colors
 	void computeColors(QVector3D fColor = QVector3D(0.5, 0.5, 0.5));
 
-	//! \brief find vertex normals
-	void computeNormals();
+	//! \brief normalize the stored data
+	void normalizeData();
 
 	//! \brief select the object
 	//! \param select or not the object
@@ -80,8 +90,12 @@ public:
 	//! \brief tell if the vertex buffer object is initialized
 	bool isVboInitialized();
 
+	//! \brief switch the active shader
+	static void switchShader(Object::Shader fShader);
+
 	//! \brief get the shader of the object
 	QOpenGLShaderProgram* getShader();
+
 	//! \brief compute model matrix
 	//! \param if fWithoutScaling is false, apply the scaling of the object on the matrix
 	QMatrix4x4 getModelMatrix(bool fWithoutScaling = false);
@@ -104,6 +118,12 @@ public:
 
 
 private:
+	void loadShader(SceneRenderer* fRenderer, Object::Shader fShader, QString fVertexShaderPath, QString fFragmentShaderPath);
+
+	//! \brief find vertex normals
+	void computeNormals();
+
+
 	bool mIsSelected = false;
 	BoundingBox mBoundingBox;
 	QVector3D mPosition;
@@ -120,10 +140,13 @@ private:
     QOpenGLVertexArrayObject mVAO;
     QOpenGLBuffer mVertexbuffer;
     QOpenGLBuffer mColorbuffer;
-    QOpenGLBuffer mIndexbuffer;
+    //QOpenGLBuffer mIndexbuffer;
 	QOpenGLBuffer mNormalBuffer;
 
-	QOpenGLShaderProgram* mShader = nullptr;
+	std::vector<QOpenGLShaderProgram*> mShaders;
+	static Shader mActiveShader;
+	Shader mCurrentShader = Shader::STANDARD_SHADING;
+
 };
 
 

@@ -66,7 +66,7 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 	}
 
 	_object->computeColors();
-	_object->computeNormals();
+	_object->normalizeData();
 	Scene::getScene()->addObject(fObjectName, _object);
 }
 

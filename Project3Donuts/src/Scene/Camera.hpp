@@ -56,6 +56,9 @@ private:
 	float mAngleOfView; // in degree
 	QMatrix4x4 mViewMatrix;
 	QMatrix4x4 mProjectionMatrix;
+
+	QGLPixelBuffer* mColorPixelBuffer = nullptr;
+	QGLPixelBuffer* mDepthPixelBuffer = nullptr;
 };
 
 #endif

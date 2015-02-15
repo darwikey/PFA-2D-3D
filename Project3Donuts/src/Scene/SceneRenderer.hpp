@@ -20,7 +20,6 @@ public:
 
 private:
 
-	GLuint fboId = 0;
 };
 
 #endif // SCENERENDERER_HPP

@@ -17,19 +17,6 @@ void SceneRenderer::initializeGL(){
 
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
-
-	/*GLuint textureId = 0;
-	glGenTextures(1, &textureId);
-	glBindTexture(GL_TEXTURE_2D, textureId);
-	
-	glGenFramebuffers(1, &fboId);
-	glBindFramebuffer(GL_FRAMEBUFFER, fboId);
-	GLuint rboId = 0;
-	glGenRenderbuffers(1, &rboId);
-	glBindRenderbuffer(GL_RENDERBUFFER, rboId);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 512, 512);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);*/
-
 }
 
 
@@ -52,12 +39,12 @@ void SceneRenderer::resizeGL(int fWidth, int fHeight){
 }
 
 void SceneRenderer::paintGL() {
-	makeCurrent();
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	this->makeCurrent();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	Object::switchShader(Object::Shader::STANDARD_SHADING);
+	Scene::getScene()->render(true);
 
-    Scene::getScene()->render();
-	
 }
 
 void SceneRenderer::render(Object* fModel, bool fRenderForeground) {

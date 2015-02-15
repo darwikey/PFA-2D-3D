@@ -6,6 +6,7 @@
 #include "Scene.hpp"
 #include "Camera.hpp"
 #include "TransformWidget.hpp"
+#include "Object.hpp"
 
 
 MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
@@ -89,6 +90,8 @@ void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 //key Press Event
 void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 {
+	static int a = 0;
+
     switch( fEvent->key() )
     {
         case Qt::Key_Escape:
@@ -108,6 +111,11 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 
 		case Qt::Key_A:
 			Scene::getScene()->getCamera()->getColorMap().save("pied.png");
+			Scene::getScene()->getCamera()->getDepthMap().save("pied_profondeur.png");
+			/*Object::switchShader((Object::Shader)a);//Object::Shader::DEBUG_NORMAL);
+			a++;
+			if (a > Object::Shader::DEPTHMAP)
+				a = 0;*/
 			break;
 
         default:

@@ -62,9 +62,9 @@ void TransformWidget::changeState(TransformWidget::State fState) {
 		mObjectX->computeColors(QVector3D(1.f, 0.f, 0.f));
 		mObjectY->computeColors(QVector3D(0.f, 1.f, 0.f));
 		mObjectZ->computeColors(QVector3D(0.f, 0.f, 1.f));
-		mObjectX->computeNormals();
-		mObjectY->computeNormals();
-		mObjectZ->computeNormals();
+		mObjectX->normalizeData();
+		mObjectY->normalizeData();
+		mObjectZ->normalizeData();
 	}
 
 	mState = fState;

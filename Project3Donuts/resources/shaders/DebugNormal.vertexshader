@@ -1,0 +1,16 @@
+
+attribute vec3 vertexPosition;
+attribute vec3 vertexNormal;
+attribute vec3 vertexColor;
+
+
+varying vec3 fragmentColor;
+uniform mat4 viewProjectionMatrix;
+uniform mat4 normalMatrix;
+uniform bool enableShading;
+
+void main() {
+	gl_Position = viewProjectionMatrix * vec4(vertexPosition, 1.0);
+
+	fragmentColor = vertexNormal;	
+}

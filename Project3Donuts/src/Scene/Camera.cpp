@@ -1,6 +1,7 @@
 #include "Camera.hpp"
 #include "Scene.hpp"
 #include "SceneRenderer.hpp"
+#include "Object.hpp"
 
 Camera::Camera() : 
 mPosition(0.f, 0.f, 3.f),
@@ -43,30 +44,40 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 QImage Camera::getColorMap(){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
-	QGLPixelBuffer* _pixelBuffer = new QGLPixelBuffer(512, 512, _renderer->format(), _renderer);
-	_pixelBuffer->makeCurrent();
-	_renderer->initOpengl(QVector3D(0.f, 0.f, 0.4f));
+	if (mColorPixelBuffer == nullptr){
+		mColorPixelBuffer = new QGLPixelBuffer(512, 512, _renderer->format(), _renderer);
 
+		mColorPixelBuffer->makeCurrent();
+		_renderer->initOpengl(QVector3D(0.f, 0.f, 0.4f));
+	}
+
+	mColorPixelBuffer->makeCurrent();
+	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	Object::switchShader(Object::Shader::COLORMAP);
 	Scene::getScene()->render(true);
 
-	return _pixelBuffer->toImage();
-
-	delete _pixelBuffer;
+	return mColorPixelBuffer->toImage();
 }
 
 
 QImage Camera::getDepthMap(){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
-	QGLPixelBuffer* _pixelBuffer = new QGLPixelBuffer(512, 512, _renderer->format(), _renderer);
-	_pixelBuffer->makeCurrent();
-	_renderer->initOpengl(QVector3D(0.f, 0.f, 0.4f));
+	if (mDepthPixelBuffer == nullptr){
+		mDepthPixelBuffer = new QGLPixelBuffer(512, 512, _renderer->format(), _renderer);
 
+		mDepthPixelBuffer->makeCurrent();
+		_renderer->initOpengl(QVector3D(1.f, 1.f, 1.f));
+	}
+
+	mDepthPixelBuffer->makeCurrent();
+	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	Object::switchShader(Object::Shader::DEPTHMAP);
 	Scene::getScene()->render(true);
 
-	return _pixelBuffer->toImage();
-
-	delete _pixelBuffer;
+	return mDepthPixelBuffer->toImage();
 }
 
 

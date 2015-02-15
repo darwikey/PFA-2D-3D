@@ -73,7 +73,7 @@ bool ObjLoader::load(Object* fObject){
 			QVector3D _val;
 
 			string val0 = _lineVals.substr(0, _lineVals.find(' '));
-			_val.setX(getFloat(val0.c_str()));
+			_val.setX(getFloat(val0));
 
 			string val1 = _lineVals.substr(val0.length() + 1,
 										  _lineVals.find(' '));
