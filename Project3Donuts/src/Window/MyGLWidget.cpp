@@ -110,8 +110,8 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
             break;
 
 		case Qt::Key_A:
-			Scene::getScene()->getCamera()->getColorMap().save("pied.png");
-			Scene::getScene()->getCamera()->getDepthMap().save("pied_profondeur.png");
+			Scene::getScene()->getCamera()->getColorMap().save("colormap.png");
+			Scene::getScene()->getCamera()->getDepthMap().save("depthmap.png");
 			/*Object::switchShader((Object::Shader)a);//Object::Shader::DEBUG_NORMAL);
 			a++;
 			if (a > Object::Shader::DEPTHMAP)
