@@ -43,7 +43,8 @@ void SceneRenderer::paintGL() {
 	this->makeCurrent();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Object::switchShader(Object::Shader::STANDARD_SHADING);
-	Scene::getScene()->render(true);
+
+	Scene::getScene()->render();
 
 }
 

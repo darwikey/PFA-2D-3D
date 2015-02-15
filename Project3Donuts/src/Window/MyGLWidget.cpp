@@ -90,8 +90,6 @@ void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 //key Press Event
 void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 {
-	static int a = 0;
-
     switch( fEvent->key() )
     {
         case Qt::Key_Escape:
