@@ -7,6 +7,12 @@
 #include "Camera.hpp"
 #include "ObjLoader.hpp"
 #include "TransformWidget.hpp"
+/*#include <QtXml/QDomDocument>
+#include <QtXml/QDomNode>
+#include <QtXml/QDomNamedNodeMap>
+#include <QtXml/QDomNodeList>
+#include <QFile>
+*/
 
 Scene* Scene::mSceneInstance = nullptr;
 
@@ -247,3 +253,189 @@ void Scene::saveScene(const std::string& fPath) {
 	_file << _data;
 	_file.close();
 }
+
+/*
+char* QStringToChar(QString in){
+    int len = in.length();
+    QChar *data = in.data();
+    char *out = (char *)(calloc(len,sizeof(char)));
+    int i;
+    for (i=0 ; i<len ; i++,data++)
+        out[i] = data->unicode();
+    return out;
+}
+
+QVector3D* node_treatment(QDomNode *fcurrent){
+    if (fcurrent->isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return NULL;
+    }
+    QDomNode _coordinates = fcurrent->namedItem("coordinates");
+
+    if (_coordinates.namedItem("x").isNull() || _coordinates.namedItem("y").isNull() || _coordinates.namedItem("z").isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return NULL;
+    }
+
+    float a = _coordinates.namedItem("x").toElement().text().toFloat();
+    float b = _coordinates.namedItem("y").toElement().text().toFloat();
+    float c = _coordinates.namedItem("z").toElement().text().toFloat();
+    QVector3D *_t = new QVector3D(a,b,c);
+
+    return _t;
+}
+
+bool camera_treatment(QDomNode *fcurrent){
+    printf("CAMERA\n");
+
+    QDomNodeList _subNodes = fcurrent->childNodes();
+    if (_subNodes.length() != 2){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    if (!fcurrent->hasAttributes()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    //take translation
+    QDomNode _translation = fcurrent->namedItem("translation");
+    QVector3D *_t = node_treatment(&_translation);
+    if (_t->isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    //take rotation
+    QDomNode _rotation = fcurrent->namedItem("rotation");
+    QVector3D *_r = node_treatment(&_rotation);
+    if (_r->isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    //take angle
+    QDomNamedNodeMap _attributes = fcurrent->attributes();
+    if (_attributes.length() != 1){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+    QDomNode _att = _attributes.item(0);
+    float _angle = _att.toElement().text().toFloat();
+
+    printf("FLOAT %f\n",_angle);
+
+    Camera c = new Camera(_t,_r,_angle);
+    printf("INITIALISER LA CAMERA\n");
+
+    return true;
+}
+
+bool object_treatment(QDomNode *fcurrent){
+    printf("OBJECT\n");
+
+    QDomNodeList _subNodes = fcurrent->childNodes();
+    if (_subNodes.length() != 3){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    //take translation
+    QDomNode _translation = fcurrent->namedItem("translation");
+    QVector3D *_t = node_treatment(&_translation);
+    if (_t->isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    //take rotation
+    QDomNode _rotation = fcurrent->namedItem("rotation");
+    QVector3D *_r = node_treatment(&_rotation);
+    if (_r->isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    //take scale
+    QDomNode _scale = fcurrent->namedItem("scale");
+    QVector3D *_s = node_treatment(&_scale);
+    if (_s->isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    //take attributes
+    QDomNamedNodeMap _attributes = fcurrent->attributes();
+    if (_attributes.length() != 2){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+    QDomNode _name = _attributes.namedItem("name");
+    QDomNode _src = _attributes.namedItem("src");
+    if (_name.isNull() || _src.isNull()){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
+        return false;
+    }
+
+    QString _n = _name.toAttr().value();
+    QString _p = _src.toAttr().value();
+
+    printf("nom %s source %s\n",QStringToChar(_n),QStringToChar(_p));
+
+    Object o = Loader::load_object(QStringToChar(_n),QStringToChar(_p));
+    o.moveObject(_t,true);
+    o.changeObjectScale(_s,true);
+    o.changeObjectOrientation(_r,true);
+
+    printf("INITIALISER L'OBJET\n");
+
+    return true;
+}
+
+void createScene(){
+    QDomDocument *dom = new QDomDocument("my_xml");
+    QFile xml_doc("C:/Qt/Tools/QtCreator/bin/test/maScene.xml");
+
+    //Opening file
+    if(!xml_doc.open(QIODevice::ReadOnly)){
+        QMessageBox::warning(0,"Error : opening file","The XML document can not be opened");
+        return;
+    }
+    if (!dom->setContent(&xml_doc)){
+        xml_doc.close();
+        QMessageBox::warning(0,"Error : linking file","This XML file can not be linked with DOM document");
+        return;
+    }
+
+    //Selecting first node scene
+    QDomElement dom_element = dom->documentElement();
+    QDomNodeList _cameraNode = dom_element.elementsByTagName("camera");
+    if (_cameraNode.length() != 1){
+        xml_doc.close();
+        QMessageBox::warning(0,"Error : bad file","XML document for loading scene must contain one and only one instance of camera");
+        return;
+    }
+    QDomNode _cam = _cameraNode.item(0);
+    bool c = camera_treatment(&_cam);
+    if (!c){
+        xml_doc.close();
+        QMessageBox::warning(0,"Error : bad file","XML document for loading scene must contain one and only one instance of camera");
+        return;
+    }
+    QDomNodeList _objectsNode = dom_element.elementsByTagName("object");
+    int i;
+    QDomNode _current;
+    bool o;
+    for (i=0;i<_objectsNode.length();i++){
+        _current = _objectsNode.item(i);
+        o = object_treatment(&_current);
+        if (!o){
+            xml_doc.close();
+            QMessageBox::warning(0,"Error : bad file","XML document for loading scene must contain one and only one instance of camera");
+            return;
+        }
+    }
+
+    xml_doc.close();
+}*/

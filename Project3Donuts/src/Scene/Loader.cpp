@@ -3,12 +3,6 @@
 #include "ObjLoader.hpp"
 #include "PlyLoader.hpp"
 #include "Scene.hpp"
-#include <QtXmlPatterns/QXmlQuery>
-#include <QApplication>
-#include <QString>
-#include <QVariant>
-#include <QStringList>
-#include <QStringBuilder>
 
 Loader::Loader(){
 }
@@ -17,21 +11,6 @@ void Loader::createScene(){
 }
 
 void Loader::createScene(std::string fPath){
-/*    QApplication app(fPath);
-    QXmlQuery query;
-    QStringList results;
-
-    QString path = app.arguments()[0];
-    query.bindVariable("path", QXmlItem(QVariant(url)));
-
-    query.setQuery("declare variable $path external;\
-                      select camera from doc({$path})");
-    if (query.isValid()){
-        if (query.evaluateTo(&results)) {
-            foreach (const QString &result, results)
-                  std::cout << qPrintable(result) << std::endl;
-        }
-    } */
 }
 
 void Loader::loadObject(const std::string& fPath, const std::string& fObjectName){
