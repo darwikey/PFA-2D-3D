@@ -107,7 +107,16 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::SCALE);
             break;
 
+		case Qt::Key_Plus:
+			Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, 0.1f);
+			break;
+
+		case Qt::Key_Minus:
+			Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, -0.1f);
+			break;
+
 		case Qt::Key_A:
+			std::cout << "rendu..." << std::endl;
 			Scene::getScene()->getCamera()->getColorMap().save("colormap.png");
 			Scene::getScene()->getCamera()->getDepthMap().save("depthmap.png");
 			/*Object::switchShader((Object::Shader)a);//Object::Shader::DEBUG_NORMAL);
