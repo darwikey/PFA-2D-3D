@@ -56,6 +56,10 @@ public:
 
 	//! \brief get the radius of the bounding sphere including all objects in the scene
 	float getBoundingSphereRadius();
+
+    //! \brief to know if the actual scene is empty or not
+    bool isEmptyScene();
+
 	
 	//! \brief When asked by the user, save the scene
 	//! \param The name of the file where the user wants to save his scene (xml file)

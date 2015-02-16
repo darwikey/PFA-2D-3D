@@ -140,6 +140,10 @@ float Scene::getBoundingSphereRadius() {
 	return _radius;
 }
 
+bool isEmptyScene(){
+    return mObjects.empty();
+}
+
 void writeCoordinates(std::string &fStr, int fX, int fY, int fZ, int fTab) {
 	int _i;
 	for (_i = 0; _i<fTab; _i++) {

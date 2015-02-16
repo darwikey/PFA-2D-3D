@@ -14,6 +14,11 @@ void Loader::createScene(std::string fPath){
 }
 
 void Loader::loadObject(const std::string& fPath, const std::string& fObjectName){
+    /* When we first load an object, we start a new thread in order to activate automatic save*/
+    if (getScene()->isEmptyScene()){
+        //launch a new thread
+    }
+
 
 	//detect file type
 	// get extension
