@@ -25,9 +25,9 @@ void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthVa
 	mPosition = _mat * mPosition;
 
 	//Zoom
-	if (fDepthValue > 0.f)
+	if (fDepthValue < 0.f)
 		mPosition *= 1.1f;
-	else if (fDepthValue < 0.f)
+	else if (fDepthValue > 0.f)
 		mPosition *= 0.9f;
 
 	computeViewMatrix();
@@ -147,8 +147,8 @@ void Camera::computeViewMatrix() {
 
 	const float _distance = r / 0.57735f; // where 0.57735f is tan(30 degrees)
 
-	const float _zNear = 1.f;
-	const float _zFar = 1000.f;
+	const float _zNear = 0.2f;
+	const float _zFar = 10000.f;
 
 
 	const QVector3D _center = QVector3D(0., 0., 0.);
