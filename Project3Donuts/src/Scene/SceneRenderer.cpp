@@ -40,7 +40,7 @@ void SceneRenderer::resizeGL(int fWidth, int fHeight){
 
 void SceneRenderer::paintGL() {
 
-	this->makeCurrent();
+	//this->makeCurrent();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Object::switchShader(Object::Shader::STANDARD_SHADING);
 
@@ -54,16 +54,12 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 		fModel->initVbo(this);
     }
 
+	// Bind the shader
 	if (!fModel->getShader()->bind()){
         qWarning() << "Could not bind shader program";
         return;
     }
 
-	if (fRenderForeground) {
-		glDisable(GL_DEPTH_TEST);
-	}
-	
-	fModel->draw(this);
 
 	QMatrix4x4 _viewMatrix = Scene::getScene()->getCamera()->getViewMatrix();
 	const QMatrix4x4& _projectionMatrix = Scene::getScene()->getCamera()->getProjectionMatrix();
@@ -76,10 +72,19 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
 	fModel->getShader()->setUniformValue("enableShading", !fRenderForeground);
 
 
-	fModel->getShader()->release();
+	if (fRenderForeground) {
+		glDisable(GL_DEPTH_TEST);
+	}
+
+	// Draw the object
+	fModel->draw(this);
 
 
 	if (fRenderForeground) {
 		glEnable(GL_DEPTH_TEST);
 	}
+
+	// Unbind the shader
+	fModel->getShader()->release();
+
 }

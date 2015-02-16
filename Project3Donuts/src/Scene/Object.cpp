@@ -96,7 +96,8 @@ void Object::initVbo(SceneRenderer* fRenderer)
 		mNormalBuffer.allocate(mNormals.data(), mNormals.size() * sizeof(QVector3D));
 	
 		initShader(fRenderer);
-		//initAttributes(fRenderer);
+		
+		mVAO.release();
 	}
     
 	mIsVboInitialized = true;
@@ -104,20 +105,11 @@ void Object::initVbo(SceneRenderer* fRenderer)
 
 void Object::bindAttributes(SceneRenderer* fRenderer)
 {
-    //mVAO.bind();
-    //mShaders[mActiveShader]->bind();
-    
-    // Index buffer
-    mVertexbuffer.bind();
-
 	// first attribute buffer : vertex positions
 	int _positionHandle = mShaders[mActiveShader]->attributeLocation("vertexPosition");
 	mShaders[mActiveShader]->enableAttributeArray(_positionHandle);
-	mShaders[mActiveShader]->setAttributeBuffer(_positionHandle,                  // attribute (use in the shader)
-        GL_FLOAT,           // type
-        0,                  // offset
-        3					// size of one element
-        );
+	mVertexbuffer.bind();
+	mShaders[mActiveShader]->setAttributeBuffer(_positionHandle, GL_FLOAT, 0, 3);
 
     // 2nd attribute buffer : colors
 	_positionHandle = mShaders[mActiveShader]->attributeLocation("vertexColor");
@@ -135,16 +127,10 @@ void Object::bindAttributes(SceneRenderer* fRenderer)
 
 void Object::releaseAttributes(SceneRenderer* fRenderer)
 {
-	//mVAO.bind();
-	//mShaders[mActiveShader]->bind();
-
-	// Index buffer
-	mVertexbuffer.release();
-
 	// first attribute buffer : vertex positions
 	int _positionHandle = mShaders[mActiveShader]->attributeLocation("vertexPosition");
 	mShaders[mActiveShader]->disableAttributeArray(_positionHandle);
-
+	mVertexbuffer.release();
 
 	// 2nd attribute buffer : colors
 	_positionHandle = mShaders[mActiveShader]->attributeLocation("vertexColor");
@@ -205,21 +191,16 @@ void Object::initShader(SceneRenderer* fRenderer) {
 
 void Object::draw(SceneRenderer* fRenderer)
 {
+	// Bind Vertex Array Object
     mVAO.bind();
+	// bind attributes of shaders 
 	bindAttributes(fRenderer);
 
-	// Draw the triangles !
-	/*fRenderer->glDrawElements(
-		GL_TRIANGLES,      // mode
-		mIndices.size(),    // count
-		GL_UNSIGNED_INT,   // type
-		(void*) 0           // element array buffer offset
-		);*/
-
+	// Draw triangles
 	fRenderer->glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
 
-	mVAO.release();
 	releaseAttributes(fRenderer);
+	mVAO.release();
 }
 
 

@@ -53,16 +53,14 @@ QImage Camera::getColorMap(){
 		_renderer->initOpengl(QVector3D(0.f, 0.f, 0.4f));
 	}
 
-	for (size_t i = 0; i < 2; i++)
-	{
-		mColorPixelBuffer->makeCurrent();
-		_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	mColorPixelBuffer->makeCurrent();
+	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		Object::switchShader(Object::Shader::COLORMAP);
-		Scene::getScene()->render(true);
+	Object::switchShader(Object::Shader::COLORMAP);
 
-		
-	}
+	Scene::getScene()->render(true);
+
+	_renderer->glFlush();
 	return mColorPixelBuffer->toImage();
 }
 
@@ -77,15 +75,13 @@ QImage Camera::getDepthMap(){
 		_renderer->initOpengl(QVector3D(1.f, 1.f, 1.f));
 	}
 
-	for (size_t i = 0; i < 2; i++)
-	{
-		mDepthPixelBuffer->makeCurrent();
-		_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	mDepthPixelBuffer->makeCurrent();
+	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		Object::switchShader(Object::Shader::DEPTHMAP);
-		Scene::getScene()->render(true);
-	}
+	Object::switchShader(Object::Shader::DEPTHMAP);
+	Scene::getScene()->render(true);
 
+	_renderer->glFlush();
 	return mDepthPixelBuffer->toImage();
 }
 
