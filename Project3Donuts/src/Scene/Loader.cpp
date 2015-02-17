@@ -3,6 +3,7 @@
 #include "ObjLoader.hpp"
 #include "PlyLoader.hpp"
 #include "Scene.hpp"
+#include <unistd.h>
 
 Loader::Loader(){
 }
@@ -13,11 +14,17 @@ void Loader::createScene(){
 void Loader::createScene(std::string fPath){
 }
 
+void autoSave(){
+    while(true){
+        sleep(60);
+        Scene::getScene()->saveScene("autoSave.xml");
+    }
+}
+
 void Loader::loadObject(const std::string& fPath, const std::string& fObjectName){
     /* When we first load an object, we start a new thread in order to activate automatic save*/
-    if (Scene::getScene()->isEmptyScene()){
-        //launch a new thread
-    }
+    if (Scene::getScene()->isEmptyScene())
+        mAutomaticSave = new std::thread(autoSave);
 
 	//detect file type
 	// get extension
@@ -52,4 +59,3 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 	_object->normalizeData();
 	Scene::getScene()->addObject(fObjectName, _object);
 }
-

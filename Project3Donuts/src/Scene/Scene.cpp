@@ -237,8 +237,9 @@ void Scene::saveScene(const std::string& fPath) {
 		QVector3D _oScale = _obj->getScale();
 		_data.append("\t<object type=\"");
 		//ADD TYPE
-		_data.append("\" src=\"");
+        _data.append("\" src=\"");
 		//ADD SRC
+        _data.append("\">\n");
 		writeScale(_data, _oScale.x(), _oScale.y(), _oScale.z(), 2);
 		writeTranslation(_data, _oPosition.x(), _oPosition.y(), _oPosition.z(), 2);
 		writeRotation(_data, _oRotation.x(), _oRotation.y(), _oRotation.z(), 2);

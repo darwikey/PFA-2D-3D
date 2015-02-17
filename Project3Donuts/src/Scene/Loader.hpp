@@ -2,6 +2,7 @@
 #define LOADER_HPP
 
 #include "global.hpp"
+#include <thread>
 
 
 // ! \class Loader
@@ -21,9 +22,9 @@ public:
 	//! \param Path to an OBJ or PLY file
 	//! \param name of the object in the scene
 	void loadObject(const std::string& fPath, const std::string& fObjectName);
-	
-private:
 
+private:
+    std::thread *mAutomaticSave = nullptr;
 };
 
 
