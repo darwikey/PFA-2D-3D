@@ -20,6 +20,9 @@ find_package(Qt5Core REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 
+find_package(Qt5Xml REQUIRED)
+include_directories(${Qt5Xml_INCLUDES} src/Scene)
+
 SET(QT_USE_QTOPENGL TRUE)
 # The Qt5Widgets_INCLUDES also includes the include directories for
 # dependencies QtCore and QtGui
@@ -44,4 +47,5 @@ find_package(OpenGL)
 include_directories( ${OPENGL_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
 
-target_link_libraries(${PROJECT_NAME} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} Qt5::OpenGL )
+target_link_libraries(${PROJECT_NAME} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} Qt5::OpenGL)
+target_link_libraries(${PROJECT_NAME} ${Qt5Xml_LIBRARIES})

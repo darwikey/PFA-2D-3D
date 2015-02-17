@@ -19,7 +19,6 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
         //launch a new thread
     }
 
-
 	//detect file type
 	// get extension
 	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);

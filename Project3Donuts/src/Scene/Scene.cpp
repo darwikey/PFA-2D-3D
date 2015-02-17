@@ -7,12 +7,12 @@
 #include "Camera.hpp"
 #include "ObjLoader.hpp"
 #include "TransformWidget.hpp"
-/*#include <QtXml/QDomDocument>
+#include <QtXml/QDomDocument>
 #include <QtXml/QDomNode>
 #include <QtXml/QDomNamedNodeMap>
 #include <QtXml/QDomNodeList>
 #include <QFile>
-*/
+
 
 Scene* Scene::mSceneInstance = nullptr;
 
@@ -260,7 +260,7 @@ void Scene::saveScene(const std::string& fPath) {
 	_file.close();
 }
 
-/*
+
 char* QStringToChar(QString in){
     int len = in.length();
     QChar *data = in.data();
@@ -332,7 +332,7 @@ bool camera_treatment(QDomNode *fcurrent){
 
     printf("FLOAT %f\n",_angle);
 
-    Camera c = new Camera(_t,_r,_angle);
+    Camera *c = new Camera(*_t,*_r,_angle);
     printf("INITIALISER LA CAMERA\n");
 
     return true;
@@ -389,10 +389,11 @@ bool object_treatment(QDomNode *fcurrent){
 
     printf("nom %s source %s\n",QStringToChar(_n),QStringToChar(_p));
 
-    Object o = Loader::load_object(QStringToChar(_n),QStringToChar(_p));
-    o.moveObject(_t,true);
-    o.changeObjectScale(_s,true);
-    o.changeObjectOrientation(_r,true);
+    Scene::getScene()->getLoader()->loadObject(QStringToChar(_n),QStringToChar(_p));
+    Object *o = Scene::getScene()->getObject(_n.toStdString());
+    o->moveObject(*_t,true);
+    o->changeObjectScale(*_s,true);
+    o->changeObjectOrientation(*_r,true);
 
     printf("INITIALISER L'OBJET\n");
 
@@ -444,4 +445,4 @@ void createScene(){
     }
 
     xml_doc.close();
-}*/
+}
