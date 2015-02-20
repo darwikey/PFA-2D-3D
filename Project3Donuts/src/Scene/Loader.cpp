@@ -3,7 +3,7 @@
 #include "ObjLoader.hpp"
 #include "PlyLoader.hpp"
 #include "Scene.hpp"
-#include <unistd.h>
+
 
 Loader::Loader(){
 }
@@ -16,8 +16,9 @@ void Loader::createScene(std::string fPath){
 
 void autoSave(){
     while(true){
-        sleep(60);
+		std::this_thread::sleep_for(std::chrono::seconds(10));
         Scene::getScene()->saveScene("autoSave.xml");
+		std::cout << "saving done" << std::endl;
     }
 }
 

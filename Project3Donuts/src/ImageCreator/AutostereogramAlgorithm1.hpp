@@ -1,7 +1,7 @@
 #ifndef AUTOSTEREOGRAM_ALGO1_HPP
 #define AUTOSTEREOGRAM_ALGO1_HPP
 
-#include "../global.hpp"
+#include "global.hpp"
 
 #include "Autostereogram.hpp"
 class PixelTab;
@@ -19,6 +19,9 @@ private :
   static AutostereogramAlgorithm1 * getAutostereogramAlgorithm() ;
   static int separation(float fZ, int fE) ;
   static std::vector<QImage> depthmapToAutostereogram(QImage * fDepthmap, int fE) ; 
+
+  static int round(float fX);
+  static int caseXY(int fx, int fy, int fwidth);
 };
 
 #endif

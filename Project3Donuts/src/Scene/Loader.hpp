@@ -2,7 +2,6 @@
 #define LOADER_HPP
 
 #include "global.hpp"
-#include <thread>
 
 
 // ! \class Loader

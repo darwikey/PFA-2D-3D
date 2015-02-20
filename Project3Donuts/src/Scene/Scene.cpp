@@ -20,7 +20,8 @@ Scene* Scene::mSceneInstance = nullptr;
 Scene::Scene() : mLoader(new Loader()),
 mSceneRenderer(nullptr),
 mCamera(new Camera()),
-mTransformWidget(new TransformWidget) {
+mTransformWidget(new TransformWidget),
+mObjects(new std::map<std::string, Object*>()){
 }
 
 
@@ -36,7 +37,7 @@ Scene* Scene::getScene() {
 
 void Scene::addObject(const std::string& fName, Object *fObject) {
 
-	mObjects.insert(std::pair<std::string, Object*>(fName, fObject));
+	mObjects.load()->insert(std::pair<std::string, Object*>(fName, fObject));
 
 	// update camera position
 	mCamera->repositionCamera(getBoundingSphereRadius());
@@ -44,9 +45,9 @@ void Scene::addObject(const std::string& fName, Object *fObject) {
 
 Object* Scene::getObject(const std::string& fName) {
 
-	auto _model = mObjects.find(fName);
+	auto _model = mObjects.load()->find(fName);
 
-	if (_model != mObjects.end()) {
+	if (_model != mObjects.load()->end()) {
 		return _model->second;
 	}
 	else {
@@ -61,7 +62,7 @@ void Scene::show() {
 
 
 void Scene::render(bool fRenderOnlyObject) {
-	for (auto _obj : mObjects) {
+	for (auto _obj : *mObjects.load()) {
 		mSceneRenderer->render(_obj.second, false);
 	}
 
@@ -80,7 +81,7 @@ void Scene::selectObjects(QVector2D fMousePosition) {
 	mSelectedObject = std::make_pair(std::string(), nullptr);
 
 	float _previousIntersection = 1e20f;
-	for (auto it : mObjects) {
+	for (auto it : *mObjects.load()) {
 		float _intersection = 0;
 		QMatrix4x4 _modelMatrix;
 		_modelMatrix.translate(it.second->getPosition());
@@ -130,7 +131,7 @@ TransformWidget * Scene::getTransformWidget() {
 float Scene::getBoundingSphereRadius() {
 	float _radius = 0.f;
 
-	for (auto _model : mObjects) {
+	for (auto _model : *mObjects.load()) {
 		BoundingBox _bb = _model.second->getBoundingBox();
 		float _r = 0.5f * _bb.mVector0.distanceToPoint(_bb.mVector1);
 		_r += _model.second->getPosition().distanceToPoint(QVector3D(0.f, 0.f, 0.f)),
@@ -142,7 +143,7 @@ float Scene::getBoundingSphereRadius() {
 
 
 bool Scene::isEmptyScene(){
-    return mObjects.empty();
+	return mObjects.load()->empty();
 }
 
 
@@ -229,8 +230,8 @@ void Scene::saveScene(const std::string& fPath) {
 	//Scene definition
 	_data.append("<scene>\n");
 
-	std::map<std::string, Object*>::iterator it = mObjects.begin();
-	for (it; it != mObjects.end(); ++it) {
+	std::map<std::string, Object*>::iterator it = mObjects.load()->begin();
+	for (it; it != mObjects.load()->end(); ++it) {
 		Object* _obj = it->second;
 		QVector3D _oPosition = _obj->getPosition();
 		QVector3D _oRotation = _obj->getRotation();

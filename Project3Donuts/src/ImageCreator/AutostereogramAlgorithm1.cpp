@@ -1,14 +1,13 @@
 #include "AutostereogramAlgorithm1.hpp"
-#include <iostream>
 #include <QLabel>
 
 static const float mu = 1./3. ;
 
-int round (float fX) {
+int AutostereogramAlgorithm1::round(float fX) {
   return (int)(fX + 0.5) ;
 }
 
-int caseXY(int fx, int fy, int fwidth) {
+int AutostereogramAlgorithm1::caseXY(int fx, int fy, int fwidth) {
   return fy * fwidth + fx ;
 }
 
@@ -49,8 +48,8 @@ std::vector<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(QImage * 
   QImage *toReturn = new QImage(maxX, maxY, QImage::Format_RGB888);
 
   for (int y = 0 ; y < maxY ; y++){
-    int pix[maxX];
-    int same[maxX];
+    int* pix = new int[maxX];
+    int* same = new int[maxX];
     int s;
     int left,right;
 
@@ -90,7 +89,7 @@ std::vector<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(QImage * 
 
     for (int x = maxX - 1 ; x >= 0 ; x--){
       if (same[x] == x)
-	pix[x]=random()&1;
+	pix[x] = rand() & 1;
       else
 	pix[x] = pix[same[x]];
       int mCouleur = pix[x] * 255 ;
