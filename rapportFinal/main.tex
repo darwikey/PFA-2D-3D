@@ -1,0 +1,152 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Example: Project Report
+%
+% Source: http://www.howtotex.com
+%
+% Feel free to distribute this example, but please keep the referral
+% to howtotex.com
+% Date: March 2011 
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Edit the title below to update the display in My Documents
+%\title{Project Report}
+%
+%%% Preamble
+\documentclass[paper=a4, fontsize=11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+% English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}	
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage[pdftex]{graphicx}	
+\usepackage{url}
+\usepackage[bottom=10em]{geometry}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\renewcommand\descriptionlabel[1]{\textbf{#1 :}}
+%%% Custom sectioning
+%\usepackage{sectsty}
+%\allsectionsfont{\normalfont\scshape}
+
+%% Language definition package (for XML Annexe)
+\usepackage{listings}
+\usepackage{color}
+
+%% Local modification of margins
+\newenvironment{changemargin}[2]{\begin{list}{}{%
+      \setlength{\topsep}{0pt}%
+      \setlength{\leftmargin}{0pt}%
+      \setlength{\rightmargin}{0pt}%
+      \setlength{\listparindent}{\parindent}%
+      \setlength{\itemindent}{\parindent}%
+      \setlength{\parsep}{0pt plus 1pt}%
+      \addtolength{\leftmargin}{#1}%
+      \addtolength{\rightmargin}{#2}%
+    }\item }{\end{list}}
+%%
+
+%%% Custom headers/footers (fancyhdr package)
+%\usepackage{fancyhdr}
+%\pagestyle{fancyplain}
+%\fancyhead{}											% No page header
+%\fancyfoot[L]{}											% Empty 
+%\fancyfoot[C]{}											% Empty
+%\fancyfoot[C]{\thepage}									% Pagenumbering
+%\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+%\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+%\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+%Graphics path
+%\graphicspath{./Images/}
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+  %\vspace{-1in} 			
+  \usefont{OT1}{bch}{b}{n}
+  \horrule{1.5pt} \\[0.5cm]	
+  \Huge \textbf{Rapport final} \\ [10pt]
+  \Huge PFA - De la 3D vers la 2D \\ [15pt]
+  \LARGE Année scolaire 2014-2015 \\ 
+  \horrule{1.5pt} \\[0.5cm]
+  %
+}
+
+\author{
+  \huge \underline{Client} : \LARGE BLANC Carole, DESBARATS Pascal\\ [10pt] 
+  \huge \underline{Encadrant} : \LARGE LOMBARDY Sylvain\\[20pt]
+  \normalfont 							
+  \huge \textbf{Equipe} : \Large BOHER Anaïs - CABON Yohann - CHAUVAT Magali \\[5pt]
+  \Large LEVY Akané - MARCELIN Thomas \\[5pt]
+  \Large MAUPEU Xavier - PHILIPPI Alexandre \\[10pt]		\normalsize
+}
+\date{}
+
+%%% Begin document
+\begin{document}
+\maketitle
+
+\begin{figure}[b]
+  \centering\includegraphics{logo.png}
+\end{figure}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\begin{changemargin}{-1cm}{-1cm}
+
+  \section{Introduction}
+  \input{intro.tex}
+
+  \section{Présentation du sujet}
+  \input{sujet.tex}
+
+  \section{Résumé du cahier des charges}
+  \input{cdc.tex}
+
+  \section{Déroulement de la réalisation}
+  \input{prog.tex}
+  
+  \section{Difficultés rencontrées}
+  \input{difficultes.tex}
+
+  \section{Conclusion}
+  \input{concl.tex}
+
+  \appendix
+  \part*{Annexes}
+  \section{Modèles utilisés pour les prototypes} \label{annexe:modeles}
+  \input{annexe_modeles.tex}
+  \section{Résultats des tests de fluidité} \label{annexe:fluidite}
+  \input{annexe_fluidite.tex}
+
+  \newpage
+
+  \section{Schéma XML}
+  \input{annexe_xml.tex}
+
+
+  \newpage
+
+  \bibliographystyle{plain}
+  \bibliography{bibli}
+
+\end{changemargin}
+
+%%% End document
+\end{document}
