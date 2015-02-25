@@ -3,6 +3,7 @@
 
 #include "global.hpp"
 #include <QOpenGLBuffer>
+#include <QtXml/QDomNode>
 
 class Object;
 class Loader;
@@ -64,6 +65,16 @@ public:
 	//! \brief When asked by the user, save the scene
 	//! \param The name of the file where the user wants to save his scene (xml file)
 	void saveScene(const std::string& fPath);
+
+    //! \brief Create a scene from a save document
+    //! \param The path to the save file
+    void createScene(const QString &fPath);
+
+    char* QStringToChar(QString in);
+    QVector3D* node_treatment(QDomNode *fcurrent);
+    bool camera_treatment(QDomNode *fcurrent);
+    bool object_treatment(QDomNode *fcurrent);
+
 
 private:
 	//! \brief Scene constructor for a new scene

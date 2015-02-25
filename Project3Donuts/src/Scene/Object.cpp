@@ -14,6 +14,12 @@ mRotation(0.f, 0.f, 0.f),
 mScale(1.f, 1.f, 1.f){
 }
 
+Object::Object(const std::string &p) : mPosition(0.f,0.f,0.f),
+mRotation(0.f, 0.f, 0.f),
+mScale(1.f, 1.f, 1.f),
+mPath(p){
+}
+
 
 void Object::moveObject(QVector3D fPosition, bool fUpdateCamera){
 	mPosition = fPosition;
@@ -364,4 +370,8 @@ void Object::pushColor(QVector3D fValue){
 
 void Object::pushTextureCoordinate(QVector2D fValue){
 	mTextureCoordinates.push_back(fValue);
+}
+
+const std::string& Object::getPath() const{
+    return mPath;
 }

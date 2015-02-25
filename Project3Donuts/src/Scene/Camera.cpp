@@ -157,10 +157,14 @@ void Camera::computeViewMatrix() {
 	mViewMatrix.lookAt(mPosition, _center, _up);
 }
 
-QVector3D Camera::getPosition(){
+QVector3D Camera::getPosition() const{
     return mPosition;
 }
 
-QVector3D Camera::getRotation(){
+QVector3D Camera::getRotation() const{
     return mRotation;
+}
+
+float Camera::getAngleOfView() const{
+    return mAngleOfView;
 }

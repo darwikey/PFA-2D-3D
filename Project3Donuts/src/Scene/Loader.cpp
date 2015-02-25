@@ -31,7 +31,7 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 	// get extension
 	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);
 
-	Object* _object = new Object();
+    Object* _object = new Object(fPath);
 
 	if (_ext == "obj"){
 		ObjLoader _loader(fPath);
@@ -52,6 +52,7 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 		}
 	}
 	else{
+        printf("chemin %s extension %s \n", fPath.c_str(), _ext.c_str());
 		QMessageBox::critical(0, "Error", "Error Opening File, extension \"" + QString(_ext.c_str()) + "\" not supported");
 		return;
 	}

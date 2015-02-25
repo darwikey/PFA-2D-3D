@@ -20,6 +20,7 @@ public:
 
 	//! \brief Construction of the object before filling it with points
 	Object();
+    Object(const std::string &p);
 
 	//! \brief To move an object depending on three values on  x, y and z coordonates
 	//! \param fUpdateCamera, update the camera position
@@ -116,6 +117,8 @@ public:
 	//! \brief add one texture coordinate in the model
 	void pushTextureCoordinate(QVector2D fValue);
 
+    const std::string& getPath() const;
+
 
 private:
 	void loadShader(SceneRenderer* fRenderer, Object::Shader fShader, QString fVertexShaderPath, QString fFragmentShaderPath);
@@ -147,6 +150,7 @@ private:
 	static Shader mActiveShader;
 	Shader mCurrentShader = Shader::STANDARD_SHADING;
 
+    std::string mPath;
 };
 
 

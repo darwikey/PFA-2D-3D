@@ -7,6 +7,8 @@
 
 int main(int argc, char * argv[]){
     QApplication app(argc, argv);
+    //Scene::getScene()->createScene("maScene.xml");
+
     Scene::getScene()->getLoader()->loadObject("resources/example/cubeout.ply", "cube1");
     Scene::getScene()->getLoader()->loadObject("resources/example/monkey.obj", "monkey1");
     Scene::getScene()->getLoader()->loadObject("resources/example/monkey.obj", "monkey2");
@@ -15,9 +17,9 @@ int main(int argc, char * argv[]){
 	Scene::getScene()->getObject("monkey1")->changeObjectScale(QVector3D(1.f, 2.f, 1.f));
     Scene::getScene()->getObject("monkey1")->changeObjectOrientation(QVector3D(1.f, 0.f, 0.f));
 
-	Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::TRANSLATION);
+    Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::TRANSLATION);
 
-	Scene::getScene()->saveScene("maScene.xml");
+    Scene::getScene()->saveScene("maScene.xml");
 
     Scene::getScene()->show();
     return app.exec();

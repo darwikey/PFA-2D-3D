@@ -8,7 +8,6 @@
 #include "ObjLoader.hpp"
 #include "TransformWidget.hpp"
 #include <QtXml/QDomDocument>
-#include <QtXml/QDomNode>
 #include <QtXml/QDomNamedNodeMap>
 #include <QtXml/QDomNodeList>
 #include <QFile>
@@ -230,16 +229,16 @@ void Scene::saveScene(const std::string& fPath) {
 	//Scene definition
 	_data.append("<scene>\n");
 
-	std::map<std::string, Object*>::iterator it = mObjects.load()->begin();
-	for (it; it != mObjects.load()->end(); ++it) {
-		Object* _obj = it->second;
+    std::map<std::string, Object*>::iterator _it = mObjects.load()->begin();
+    for (_it; _it != mObjects.load()->end(); ++_it) {
+        Object* _obj = _it->second;
 		QVector3D _oPosition = _obj->getPosition();
 		QVector3D _oRotation = _obj->getRotation();
 		QVector3D _oScale = _obj->getScale();
-		_data.append("\t<object type=\"");
-		//ADD TYPE
+        _data.append("\t<object name=\"");
+        _data.append(_it->first.c_str());
         _data.append("\" src=\"");
-		//ADD SRC
+        _data.append(_obj->getPath().c_str());
         _data.append("\">\n");
 		writeScale(_data, _oScale.x(), _oScale.y(), _oScale.z(), 2);
 		writeTranslation(_data, _oPosition.x(), _oPosition.y(), _oPosition.z(), 2);
@@ -251,10 +250,12 @@ void Scene::saveScene(const std::string& fPath) {
 	QVector3D _CPosition = mCamera->getPosition();
 	QVector3D _CRotation = mCamera->getRotation();
 
-	_data.append("\t<camera>\n");
+    _data.append("\t<camera angle=\"");
+    _data.append(std::to_string(mCamera->getAngleOfView()));
+    _data.append("\">\n");
 	writeTranslation(_data, _CPosition.x(), _CPosition.y(), _CPosition.z(), 2);
 	writeRotation(_data, _CRotation.x(), _CRotation.y(), _CRotation.z(), 2);
-	_data.append("\t</camera>\n\
+    _data.append("\t</camera>\n\
 </scene>");
 
 	std::ofstream _file(fPath, std::ios::out | std::ios::trunc);
@@ -263,7 +264,7 @@ void Scene::saveScene(const std::string& fPath) {
 }
 
 
-char* QStringToChar(QString in){
+char* Scene::QStringToChar(QString in){
     int len = in.length();
     QChar *data = in.data();
     char *out = (char *)(calloc(len,sizeof(char)));
@@ -273,16 +274,16 @@ char* QStringToChar(QString in){
     return out;
 }
 
-QVector3D* node_treatment(QDomNode *fcurrent){
+QVector3D* Scene::node_treatment(QDomNode *fcurrent){
     if (fcurrent->isNull()){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
-        return NULL;
+        return new QVector3D(-1,-1,-1);
     }
     QDomNode _coordinates = fcurrent->namedItem("coordinates");
 
     if (_coordinates.namedItem("x").isNull() || _coordinates.namedItem("y").isNull() || _coordinates.namedItem("z").isNull()){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
-        return NULL;
+        return new QVector3D(-1,-1,-1);
     }
 
     float a = _coordinates.namedItem("x").toElement().text().toFloat();
@@ -293,7 +294,7 @@ QVector3D* node_treatment(QDomNode *fcurrent){
     return _t;
 }
 
-bool camera_treatment(QDomNode *fcurrent){
+bool Scene::camera_treatment(QDomNode *fcurrent){
     printf("CAMERA\n");
 
     QDomNodeList _subNodes = fcurrent->childNodes();
@@ -310,7 +311,7 @@ bool camera_treatment(QDomNode *fcurrent){
     //take translation
     QDomNode _translation = fcurrent->namedItem("translation");
     QVector3D *_t = node_treatment(&_translation);
-    if (_t->isNull()){
+    if (_t->x()==-1 && _t->y()==-1 && _t->z()==-1){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
         return false;
     }
@@ -318,7 +319,7 @@ bool camera_treatment(QDomNode *fcurrent){
     //take rotation
     QDomNode _rotation = fcurrent->namedItem("rotation");
     QVector3D *_r = node_treatment(&_rotation);
-    if (_r->isNull()){
+    if (_r->x()==-1 && _r->y()==-1 && _r->z()==-1){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
         return false;
     }
@@ -334,13 +335,13 @@ bool camera_treatment(QDomNode *fcurrent){
 
     printf("FLOAT %f\n",_angle);
 
-    Camera *c = new Camera(*_t,*_r,_angle);
-    printf("INITIALISER LA CAMERA\n");
+    delete mCamera;
+    mCamera = new Camera(*_t,*_r,_angle);
 
     return true;
 }
 
-bool object_treatment(QDomNode *fcurrent){
+bool Scene::object_treatment(QDomNode *fcurrent){
     printf("OBJECT\n");
 
     QDomNodeList _subNodes = fcurrent->childNodes();
@@ -352,7 +353,7 @@ bool object_treatment(QDomNode *fcurrent){
     //take translation
     QDomNode _translation = fcurrent->namedItem("translation");
     QVector3D *_t = node_treatment(&_translation);
-    if (_t->isNull()){
+    if (_t->x()==-1 && _t->y()==-1 && _t->z()==-1){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
         return false;
     }
@@ -360,7 +361,7 @@ bool object_treatment(QDomNode *fcurrent){
     //take rotation
     QDomNode _rotation = fcurrent->namedItem("rotation");
     QVector3D *_r = node_treatment(&_rotation);
-    if (_r->isNull()){
+    if (_r->x()==-1 && _r->y()==-1 && _r->z()==-1){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
         return false;
     }
@@ -368,7 +369,7 @@ bool object_treatment(QDomNode *fcurrent){
     //take scale
     QDomNode _scale = fcurrent->namedItem("scale");
     QVector3D *_s = node_treatment(&_scale);
-    if (_s->isNull()){
+    if (_s->x()==-1 && _s->y()==-1 && _s->z()==-1){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
         return false;
     }
@@ -393,18 +394,16 @@ bool object_treatment(QDomNode *fcurrent){
 
     Scene::getScene()->getLoader()->loadObject(QStringToChar(_n),QStringToChar(_p));
     Object *o = Scene::getScene()->getObject(_n.toStdString());
-    o->moveObject(*_t,true);
-    o->changeObjectScale(*_s,true);
-    o->changeObjectOrientation(*_r,true);
-
-    printf("INITIALISER L'OBJET\n");
+    o->moveObject(*_t,false);
+    o->changeObjectScale(*_s,false);
+    o->changeObjectOrientation(*_r,false);
 
     return true;
 }
 
-void createScene(){
+void Scene::createScene(const QString &fPath){
     QDomDocument *dom = new QDomDocument("my_xml");
-    QFile xml_doc("C:/Qt/Tools/QtCreator/bin/test/maScene.xml");
+    QFile xml_doc(fPath);
 
     //Opening file
     if(!xml_doc.open(QIODevice::ReadOnly)){
@@ -441,7 +440,7 @@ void createScene(){
         o = object_treatment(&_current);
         if (!o){
             xml_doc.close();
-            QMessageBox::warning(0,"Error : bad file","XML document for loading scene must contain one and only one instance of camera");
+            QMessageBox::warning(0,"Error : bad file","Error with one of the objects defined");
             return;
         }
     }
