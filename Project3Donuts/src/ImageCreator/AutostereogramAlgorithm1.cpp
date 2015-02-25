@@ -26,19 +26,23 @@ std::vector<float> getDepth(QImage fImg) {
   }
   return resultat ;
 }
-  
+
 /* This is a retranscription in C++ of the algorithm of Harold W. Thimbleby, Stuart Inglis and Ian H. Witten */
 /* as presented in their article "Displaying 3D Images : Algorithm for Single Image Random Dot Stereograms" which has */
 /* been publicated in IEEE Computer in 1994 */
-
-std::vector<QImage> AutostereogramAlgorithm1::create(int fDPI, int fHeight, int fWidth){
+// void AutostereogramAlgorithm1 create(float fPhysicalLength, float fPhysicalWidth, DPI fReso);
   /* First position of fToUse will contain the depth map created by Creator */
-  int E = round(2.5 * fDPI) ;
+/*  int _DPI;
+  if (fReso == COMPUTER_RESO)
+      _DPI = 75;
+  else if (fReso == PRINT_RESO)
+      _DPI = 300;
+  int E = round(2.5 * _DPI) ;
   QImage *depthMap ;
   //todo : relier au reste du projet
-  return depthmapToAutostereogram(depthMap, E) ;
+  mPixelTable = depthmapToAutostereogram(depthMap, E) ;
 }
-
+*/
 std::vector<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(QImage * fDepthmap, int fE) {
   int maxX = fDepthmap->width() ;
   int maxY = fDepthmap->height() ;

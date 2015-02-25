@@ -1,10 +1,11 @@
 #ifndef AUTOSTEREOGRAM_ALGO1_HPP
 #define AUTOSTEREOGRAM_ALGO1_HPP
 
-#include "global.hpp"
+#include "../global.hpp"
 
 #include "Autostereogram.hpp"
 class PixelTab;
+class Creator;
 
 // ! \class AutostereogramAlgorithm1
 // ! \brief First algorithm to create an autostereogram
@@ -13,7 +14,7 @@ public:
   //! \brief no specific constructors for autostereograms, creation constructors will be called
   
   //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
-  virtual std::vector<QImage> create(int fDPI, int fHeight, int fWidth) ; //override ;
+  virtual void create(float fPhysicalLength, float fPhysicalWidth, enum Reso fReso);
 
 private :
   static AutostereogramAlgorithm1 * getAutostereogramAlgorithm() ;

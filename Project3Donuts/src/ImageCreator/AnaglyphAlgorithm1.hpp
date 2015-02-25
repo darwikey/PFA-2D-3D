@@ -1,20 +1,19 @@
 #ifndef ANAGLYPH_ALGO1_HPP
 #define ANAGLYPH_ALGO1_HPP
 
-#include "global.hpp"
+#include "../global.hpp"
+class Creator;
 class PixelTab;
 
-namespace ImageCreator{
-  // ! \class AnaglyphAlgo1
-  // ! \brief First algorithm to create an anaglyph
-  class AnaglyphAlgorithm1{
-  public:
+// ! \class AnaglyphAlgo1
+// ! \brief First algorithm to create an anaglyph
+class AnaglyphAlgorithm1{
+public:
     //! \brief no specific constructors for anaglyph, creation constructors will be called
     
     //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
-    virtual std::vector<PixelTab*> create(std::vector<PixelTab*> fToUse);
+    virtual void create(float fPhysicalLength, float fPhysicalWidth, enum Reso fReso);
        
-  }   
-}
+};
 
 #endif

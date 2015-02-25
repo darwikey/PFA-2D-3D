@@ -1,9 +1,10 @@
 #ifndef CREATION_HPP
 #define CREATION_HPP
 
-#include "global.hpp"
+#include "../global.hpp"
 class Pixel;
 class PixelTab;
+class Creator;
 
 
   // ! \class Creation
@@ -23,11 +24,10 @@ public:
 
     //! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class. Those methods will use a vector of PixelTab that the Creator will give them, and will turn back a vector of Images (even when there is only one image to return)
     //! \param fToUse is a PixelTab vector initialize by Creator and that contains what create method needs
-    virtual std::vector<PixelTab*> create(std::vector<PixelTab*> fToUse);
-
+    virtual void create(float fPhysicalLength, float fPhysicalWidth, enum Reso fReso);
 private:
     //! \brief Attributes for all types of creations
-    std::vector<Pixel*> mPixelTable;
+    std::vector<QImage*> mPixelTable;
     //! \describe how large is the image to create in number of pixel
     int mLength; 
     //! \describe how high is the image to create in number of pixel
