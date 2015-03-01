@@ -2,7 +2,6 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
-#include <QtOpenGL>
 #include "FileExplorer.hpp"
 
 namespace Ui {

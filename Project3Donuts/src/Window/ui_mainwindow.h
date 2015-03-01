@@ -169,6 +169,7 @@ public:
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
         QObject::connect(actionDepuis_le_disque_dur, SIGNAL(triggered()), MainWindow, SLOT(openfile()));		
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
+        //QObject::connect(listView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

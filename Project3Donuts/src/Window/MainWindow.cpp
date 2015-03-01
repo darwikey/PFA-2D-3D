@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     printf("count : %d\n", modelList->rowCount());
     ui->listView->setModel(modelList);
     ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //ui->listView->setSelectionMode(QAbstractItemView::MultiSelection );
 }
 
 MainWindow::~MainWindow()
