@@ -38,6 +38,9 @@ void Scene::addObject(const std::string& fName, Object *fObject) {
 
 	mObjects.load()->insert(std::pair<std::string, Object*>(fName, fObject));
 
+    mObjectList << QString::fromStdString(fName);
+    updateListObjects();
+
 	// update camera position
 	mCamera->repositionCamera(getBoundingSphereRadius());
 }
@@ -100,6 +103,22 @@ void Scene::selectObjects(QVector2D fMousePosition) {
 	}
 }
 
+void Scene::selectObjectsByName(QStringList fObjectList)
+{
+    mSelectedObject = std::make_pair(std::string(), nullptr);
+    for (auto it : *mObjects.load()) {
+
+        foreach(QString str, fObjectList)
+        {
+                it.second->selectObject(it.first == str.toStdString());
+                if (it.first == str.toStdString()) {
+                    mSelectedObject = it;
+                }
+        }
+
+    }
+}
+
 std::string Scene::getNameSelectedObject() {
 	return mSelectedObject.first;
 }
@@ -120,6 +139,20 @@ Loader* Scene::getLoader() {
 
 Camera* Scene::getCamera() {
 	return mCamera;
+}
+
+void Scene::updateListObjects(){
+
+    if(mModelList == nullptr)
+        mModelList = new QStringListModel();
+    mModelList->setStringList(mObjectList);
+
+}
+
+QStringListModel* Scene::getListObjects()
+{
+    updateListObjects();
+    return mModelList;
 }
 
 TransformWidget * Scene::getTransformWidget() {

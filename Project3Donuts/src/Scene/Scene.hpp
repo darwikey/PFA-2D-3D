@@ -41,6 +41,10 @@ public:
 	//! \param fMousePosition, position of the mouse in the screen
 	void selectObjects(QVector2D fMousePosition);
 
+    //! \brief select all the object given in parmameters
+    //! \param List of the objects
+    void selectObjectsByName(QStringList fObjectList);
+
 	std::string getNameSelectedObject();
 
 	//! \brief get scene renderer instance
@@ -51,6 +55,9 @@ public:
 	
 	//! \brief get camera instance
 	Camera* getCamera();
+
+    //! \brief get the list of the objects in the scene
+    QStringListModel* getListObjects();
 
 	//! \brief get the transform widget
 	TransformWidget* getTransformWidget();
@@ -80,6 +87,7 @@ private:
 	//! \brief Scene constructor for a new scene
 	Scene();
 
+    void updateListObjects();
 	// Instances
 	static Scene* mSceneInstance;
 	Loader* mLoader = nullptr;
@@ -88,6 +96,8 @@ private:
 	Camera* mCamera = nullptr;
 
 	TransformWidget* mTransformWidget = nullptr;
+    QStringList mObjectList;
+    QStringListModel *mModelList = nullptr;
 
 	std::atomic<std::map<std::string, Object*>*> mObjects;
     std::pair<std::string, Object*> mSelectedObject = std::make_pair(std::string(), nullptr);

@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <QtOpenGL>
 #include "FileExplorer.hpp"
 
 namespace Ui {
@@ -22,6 +23,6 @@ private:
 
 public slots:
    void openfile();
+   void selectObject(const QModelIndex &index);
 };
-
 #endif // MAINWINDOW_HPP
