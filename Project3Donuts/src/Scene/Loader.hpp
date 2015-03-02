@@ -3,6 +3,7 @@
 
 #include "global.hpp"
 
+class Object;
 
 // ! \class Loader
 // ! \brief The loader is in charge with parsing XML files for scene initialisation or parsing OBJ and PLY files for objects creation
@@ -20,7 +21,7 @@ public:
 	//! \brief Loader has to create object from OBJ or PLY files. It will parse them and add them to the scene, then they will be placed by the user
 	//! \param Path to an OBJ or PLY file
 	//! \param name of the object in the scene
-	void loadObject(const std::string& fPath, const std::string& fObjectName);
+	Object* loadObject(const std::string& fPath, const std::string& fObjectName);
 
 private:
     std::thread *mAutomaticSave = nullptr;

@@ -77,17 +77,20 @@ public:
     //! \param The path to the save file
     void createScene(const QString &fPath);
 
-    char* QStringToChar(QString in);
-    QVector3D* node_treatment(QDomNode *fcurrent);
-    bool camera_treatment(QDomNode *fcurrent);
-    bool object_treatment(QDomNode *fcurrent);
-
 
 private:
 	//! \brief Scene constructor for a new scene
 	Scene();
 
+	QVector3D nodeTreatment(QDomNode *fcurrent);
+	
+	bool cameraTreatment(QDomNode *fcurrent);
+
+	bool objectTreatment(QDomNode *fcurrent);
+
     void updateListObjects();
+	
+	
 	// Instances
 	static Scene* mSceneInstance;
 	Loader* mLoader = nullptr;

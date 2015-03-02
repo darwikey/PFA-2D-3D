@@ -189,7 +189,7 @@ void TransformWidget::activate(QVector2D fMousePosition){
 
 void TransformWidget::unselect() {
 	mIsSelected = false;
-	mObjectX->computeColors(QVector3D(1.f, 0.f, 0.f));
+	/*mObjectX->computeColors(QVector3D(1.f, 0.f, 0.f));
 	mObjectY->computeColors(QVector3D(0.f, 1.f, 0.f));
-	mObjectZ->computeColors(QVector3D(0.f, 0.f, 1.f));
+	mObjectZ->computeColors(QVector3D(0.f, 0.f, 1.f));*/
 }

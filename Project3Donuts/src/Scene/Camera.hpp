@@ -15,7 +15,7 @@ public:
 
 	//! \brief Camera Constructor with given position, orientation and angle size
 	//! \param take information about position, orientation vector and angle size
-    Camera(QVector3D,QVector3D,float);
+	Camera(QVector3D fPosition, QVector3D fRotation, float fAngleOfView);
 
 
 	//! \brief move the camera from its initial position with asked values

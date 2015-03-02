@@ -9,11 +9,13 @@ mRotation(0.f, 0.f, 0.f),
 mAngleOfView(60.f){
 }
 
-Camera::Camera(QVector3D fp,QVector3D fr,float fa):
-mPosition(fp[0],fp[1],fp[2]),
-mRotation(fr[0],fr[1],fr[2]),
-mAngleOfView(fa){
+Camera::Camera(QVector3D fPosition, QVector3D fRotation, float fAngleOfView) :
+mPosition(fPosition),
+mRotation(fRotation),
+mAngleOfView(fAngleOfView){
+	computeViewMatrix();
 }
+
 
 void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
 	//warning wild TRIGO

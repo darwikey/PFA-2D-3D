@@ -14,6 +14,13 @@ void SceneRenderer::initializeGL(){
     initializeOpenGLFunctions();
 	initOpengl(QVector3D(0.f, 0.f, 0.4f));
 
+	/*GLint dims[2];
+	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, &dims[0]);
+	int _MaxTexSize = 0;
+	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &_MaxTexSize);
+	int _MaxRenderBufferSize = 0;
+	glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &_MaxRenderBufferSize);
+	std::cout << "dims  " << dims[0] << " " << dims[1] << "tex " << _MaxTexSize << " render " << _MaxRenderBufferSize << std::endl;*/
 
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
