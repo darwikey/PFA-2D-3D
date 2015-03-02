@@ -52,7 +52,6 @@ void Loader::loadObject(const std::string& fPath, const std::string& fObjectName
 		}
 	}
 	else{
-        printf("chemin %s extension %s \n", fPath.c_str(), _ext.c_str());
 		QMessageBox::critical(0, "Error", "Error Opening File, extension \"" + QString(_ext.c_str()) + "\" not supported");
 		return;
 	}

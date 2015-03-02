@@ -298,7 +298,7 @@ void Scene::saveScene(const std::string& fPath) {
 
 
 char* Scene::QStringToChar(QString in){
-    int len = in.length();
+    int len = in.length()+1;
     QChar *data = in.data();
     char *out = (char *)(calloc(len,sizeof(char)));
     int i;
@@ -423,9 +423,7 @@ bool Scene::object_treatment(QDomNode *fcurrent){
     QString _n = _name.toAttr().value();
     QString _p = _src.toAttr().value();
 
-    printf("nom %s source %s\n",QStringToChar(_n),QStringToChar(_p));
-
-    Scene::getScene()->getLoader()->loadObject(QStringToChar(_n),QStringToChar(_p));
+    Scene::getScene()->getLoader()->loadObject(QStringToChar(_p),QStringToChar(_n));
     Object *o = Scene::getScene()->getObject(_n.toStdString());
     o->moveObject(*_t,false);
     o->changeObjectScale(*_s,false);
