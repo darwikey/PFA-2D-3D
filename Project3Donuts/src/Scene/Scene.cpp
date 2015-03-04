@@ -23,6 +23,26 @@ mTransformWidget(new TransformWidget),
 mObjects(new std::map<std::string, Object*>()){
 }
 
+Scene::~Scene()
+{
+	/*  tester...
+	if(mSceneInstance != nullptr)
+		delete mSceneInstance;
+	if(mLoader!= nullptr)
+		delete mLoader;
+	if(mWindow!= nullptr)
+		delete mWindow;
+	if(mSceneRenderer != nullptr)
+		delete mSceneRenderer;
+	if(mCamera != nullptr)
+		delete mCamera;
+	if(mTransformWidget!= nullptr)
+		delete mTransformWidget;
+	if(mModelList != nullptr)
+		delete mModelList;
+	*/
+
+}
 
 Scene* Scene::getScene() {
 	if (mSceneInstance == nullptr) {

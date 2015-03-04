@@ -81,7 +81,7 @@ public:
 private:
 	//! \brief Scene constructor for a new scene
 	Scene();
-
+	~Scene();
 	QVector3D nodeTreatment(QDomNode *fcurrent);
 	
 	bool cameraTreatment(QDomNode *fcurrent);
