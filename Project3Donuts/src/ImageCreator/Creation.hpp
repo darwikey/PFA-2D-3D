@@ -33,8 +33,6 @@ protected:
 
 	void updatePreview();
 
-	void gammaCorrection(std::shared_ptr<QImage> fImage);
-
 
     //! \describe how large is the image to create in number of pixel
     //int mWidth; 
@@ -45,11 +43,8 @@ protected:
 	QVBoxLayout* mLayout = nullptr;
 	QLabel* mLabel = nullptr;
 	QComboBox* mResolutionBox = nullptr;
-	QSlider* mGammaSlider = nullptr;
 	QPushButton* mRenderButton = nullptr;
 	QLabel* mPreviewImage = nullptr;
-
-	float mGamma = 1.f;
 
 
 private slots:
@@ -57,7 +52,6 @@ private slots:
 
 	void startRender();
 
-	void changeGamma(int fCursor);
 };
 
 #endif
