@@ -71,7 +71,26 @@ void FileExplorer::button_ok_create_selected()
         if(!pathString.empty() && pathString.back() != '/')
             pathString.append("/");
         pathString.append(localString);
-        Scene::getScene()->getLoader()->loadObject(pathString, "d");
+
+        //now we computer the name of the object
+        int _num=0;
+        std::string  _num_name;
+        std::string _name = localString.substr(0,localString.find_last_of('.'));
+
+
+        do
+        {
+            _num_name=_name;
+            if(_num==0)
+            {
+                if(Scene::getScene()->getObject(_num_name) == nullptr)
+                    break;
+            }
+            _num++;
+        }
+        while(Scene::getScene()->getObject(_num_name.append(std::to_string(_num))) != nullptr);
+
+        Scene::getScene()->getLoader()->loadObject(pathString, _num_name);
     }
 
 }
