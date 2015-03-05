@@ -19,9 +19,11 @@ public:
 
 private:
     FileExplorer mOpen;
+    bool eventFilter(QObject *, QEvent *);
 
 public slots:
    void openfile();
    void selectObject(const QModelIndex &index);
+   void invertwidgets();
 };
 #endif // MAINWINDOW_HPP

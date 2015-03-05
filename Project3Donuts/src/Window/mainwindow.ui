@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>782</width>
-    <height>486</height>
+    <width>855</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,23 +16,32 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QWidget" name="widget" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>600</width>
-        <height>0</height>
-       </size>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QListView" name="listView">
-      <property name="maximumSize">
-       <size>
-        <width>228</width>
-        <height>16777215</height>
-       </size>
-      </property>
+      <widget class="QWidget" name="widget" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>500</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QListView" name="listView">
+       <property name="maximumSize">
+        <size>
+         <width>228</width>
+         <height>16777215</height>
+        </size>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -42,7 +51,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>782</width>
+     <width>855</width>
      <height>21</height>
     </rect>
    </property>
@@ -50,17 +59,64 @@
     <property name="title">
      <string>Fichier</string>
     </property>
+    <widget class="QMenu" name="menuImporter">
+     <property name="title">
+      <string>Importer</string>
+     </property>
+     <addaction name="actionDepuis_la_bibliotheque"/>
+     <addaction name="actionDepuis_le_disque_dur"/>
+    </widget>
+    <addaction name="actionNouveau"/>
     <addaction name="actionOuvrir"/>
+    <addaction name="menuImporter"/>
+    <addaction name="actionEnregistrer"/>
+    <addaction name="actionEnregister_sous"/>
     <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuEditer">
     <property name="title">
      <string>Editer</string>
     </property>
-    <addaction name="actionDegrader"/>
+    <addaction name="actionPr_f_rences"/>
+   </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+    <addaction name="actionA_propos"/>
+   </widget>
+   <widget class="QMenu" name="menuOutils">
+    <property name="title">
+     <string>Outils</string>
+    </property>
+    <addaction name="actionEffectuer_un_rendu"/>
+    <addaction name="actionAfficher_la_carte_de_profondeur"/>
+    <addaction name="actionAnaglyphes"/>
+    <addaction name="actionAuto_st_r_ogrammes"/>
+    <addaction name="actionFlipbook"/>
+   </widget>
+   <widget class="QMenu" name="menuFen_tre">
+    <property name="title">
+     <string>Fenêtres</string>
+    </property>
+    <addaction name="actionInverser_les_positions_des_fen_tres"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuEditer"/>
+   <addaction name="menuOutils"/>
+   <addaction name="menuFen_tre"/>
+   <addaction name="menuAide"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
   </widget>
   <action name="actionOuvrir">
    <property name="text">
@@ -83,6 +139,74 @@
     <string>Degrader</string>
    </property>
   </action>
+  <action name="actionNouveau">
+   <property name="text">
+    <string>Nouveau</string>
+   </property>
+  </action>
+  <action name="actionEnregistrer">
+   <property name="text">
+    <string>Enregistrer</string>
+   </property>
+  </action>
+  <action name="actionEnregister_sous">
+   <property name="text">
+    <string>Enregister sous</string>
+   </property>
+  </action>
+  <action name="actionDepuis_la_bibliotheque">
+   <property name="text">
+    <string>depuis la bibliotheque</string>
+   </property>
+  </action>
+  <action name="actionDepuis_le_disque_dur">
+   <property name="text">
+    <string>depuis le disque dur</string>
+   </property>
+  </action>
+  <action name="actionPr_f_rences">
+   <property name="text">
+    <string>Préférences</string>
+   </property>
+  </action>
+  <action name="actionA_propos">
+   <property name="text">
+    <string>A propos</string>
+   </property>
+  </action>
+  <action name="actionEffectuer_un_rendu">
+   <property name="text">
+    <string>Effectuer un rendu</string>
+   </property>
+  </action>
+  <action name="actionAfficher_la_carte_de_profondeur">
+   <property name="text">
+    <string>Afficher la carte de profondeur</string>
+   </property>
+  </action>
+  <action name="actionInverser_les_positions_des_fen_tres">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Inverser les positions des fenêtres</string>
+   </property>
+  </action>
+  <action name="actionAnaglyphes">
+   <property name="text">
+    <string>Anaglyphes</string>
+   </property>
+  </action>
+  <action name="actionAuto_st_r_ogrammes">
+   <property name="text">
+    <string>Autostéréogrammes</string>
+   </property>
+  </action>
+  <action name="actionFlipbook">
+   <property name="text">
+    <string>flipbook</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -99,6 +223,22 @@
     <hint type="destinationlabel">
      <x>390</x>
      <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>731</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>427</x>
+     <y>280</y>
     </hint>
    </hints>
   </connection>

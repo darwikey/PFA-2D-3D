@@ -52,7 +52,7 @@ std::shared_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
 		mColorPixelBuffer = new QGLPixelBuffer(fWidth, fHeight, _renderer->format(), _renderer);
 
 		mColorPixelBuffer->makeCurrent();
-		_renderer->initOpengl(QVector3D(1.f, 1.f, 1.0f));
+		_renderer->initOpengl(QVector3D(0.f, 0.f, 0.4f));
 	}
 
 	mColorPixelBuffer->makeCurrent();

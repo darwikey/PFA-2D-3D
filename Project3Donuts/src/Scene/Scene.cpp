@@ -11,7 +11,7 @@
 #include <QtXml/QDomNamedNodeMap>
 #include <QtXml/QDomNodeList>
 #include <QFile>
-
+#include <iterator>
 
 Scene* Scene::mSceneInstance = nullptr;
 
@@ -136,6 +136,16 @@ void Scene::selectObjectsByName(QStringList fObjectList)
                 }
         }
 
+    }
+}
+
+void Scene::mapChange_Key(std::string fOldKey, std::string fNewKey)
+{
+    std::map<std::string, Object*>::iterator it = mObjects.load()->find(fOldKey);
+    if (it != mObjects.load()->end()) {
+      Object* _obj = it->second;
+      mObjects.load()->erase(it);
+      mObjects.load()->insert(std::pair<std::string, Object*>(fNewKey, _obj));
     }
 }
 
