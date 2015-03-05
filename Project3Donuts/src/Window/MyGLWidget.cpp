@@ -134,6 +134,10 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 			Creator::getCreator()->launchAutostereogram(0);
 			break;
 
+		case Qt::Key_P:
+			Creator::getCreator()->launchPhotograph(0);
+			break;
+
         default:
             QGLWidget::keyPressEvent( fEvent );
     }
