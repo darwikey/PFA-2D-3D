@@ -7,6 +7,7 @@
 #include "Camera.hpp"
 #include "TransformWidget.hpp"
 #include "Object.hpp"
+#include "Creator.hpp"
 
 
 MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
@@ -117,12 +118,16 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 
 		case Qt::Key_A:
 			std::cout << "rendu..." << std::endl;
-			Scene::getScene()->getCamera()->getColorMap().save("colormap.png");
-			Scene::getScene()->getCamera()->getDepthMap().save("depthmap.png");
+			Scene::getScene()->getCamera()->getColorMap(1920, 1080).save("colormap.png");
+			Scene::getScene()->getCamera()->getDepthMap(1920, 1080).save("depthmap.png");
 			/*Object::switchShader((Object::Shader)a);//Object::Shader::DEBUG_NORMAL);
 			a++;
 			if (a > Object::Shader::DEPTHMAP)
 				a = 0;*/
+			break;
+
+		case Qt::Key_L:
+			Creator::getCreator()->launchAnaglyph(0);
 			break;
 
         default:

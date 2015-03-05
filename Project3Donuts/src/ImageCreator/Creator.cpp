@@ -1,39 +1,49 @@
 #include "Creator.hpp"
-/*
-Creation Creator::createAnaglyph(int fAlgoNumber, float fPhysicalLength, float fPhysicalWidth, enum Reso fReso){
-    if (fAlgoNumber == 1)
-        mCreation = new AnaglyphAlgorithm1();
-    mCreation->create(fPhysicalLength,fPhysicalWidth,fReso);
-    return mCreation;
-}
+#include "Anaglyph.hpp"
+#include "AnaglyphAlgorithm1.hpp"
+#include "Autostereogram.hpp"
+#include "Flipbook.hpp"
+#include "DepthMap.hpp"
 
-Creation Creator::createDepthMap(int fAlgoNumber, float fPhysicalLength, float fPhysicalWidth, enum Reso fReso){
-    if (fAlgoNumber == 1)
-        mCreation = new DepthMapAlgorithm1();
-    mCreation.create(fPhysicalLength,fPhysicalWidth,fReso);
-    return mCreation;
-}
 
-Creation Creator::createAutostereogram(int fAlgoNumber, float fPhysicalLength, float fPhysicalWidth, enum Reso fReso){
-    if (fAlgoNumber == 1)
-        mCreation = new AutostereogramAlgorithm1();
-    mCreation.create(fPhysicalLength,fPhysicalWidth,fReso);
-    return mCreation;
-}
+Creator* Creator::mInstance = nullptr;
 
-Creation Creator::createFlipbook(int fAlgoNumber, float fPhysicalLength, float fPhysicalWidth, enum Reso fReso){
-    if (fAlgoNumber == 1)
-        mCreation = new FlipbookAlgorithm1();
-    mCreation.create(fPhysicalLength,fPhysicalWidth,fReso);
-    return mCreation;
-}
 
-Creation Creator::createPhotography(int fAlgoNumber, float fPhysicalLength, float fPhysicalWidth, enum Reso fReso){
-    if (fAlgoNumber == 1)
-        mCreation = new PhotographyAlgorithm1();
-    mCreation.create(fPhysicalLength,fPhysicalWidth,fReso);
-    return mCreation;
+Creator::Creator(){
+	AnaglyphTable.push_back(new AnaglyphAlgorithm1());
 }
 
 
-*/
+Creator* Creator::getCreator(){
+	if (mInstance == nullptr){
+		mInstance = new Creator();
+	}
+
+	return mInstance;
+}
+
+
+void Creator::launchAnaglyph(int fAlgoNumber){
+	AnaglyphTable[0]->launch();
+}
+
+
+void Creator::launchDepthMap(int fAlgoNumber){
+
+}
+
+
+void Creator::launchAutostereogram(int fAlgoNumber){
+
+}
+
+
+void Creator::launchFlipbook(int fAlgoNumber){
+
+}
+
+
+void Creator::launchPhotography(int fAlgoNumber){
+
+}
+

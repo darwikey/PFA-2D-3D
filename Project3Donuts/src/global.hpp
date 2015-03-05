@@ -21,6 +21,6 @@
 #include <chrono>
 #include <atomic>
 
-typedef enum Reso {COMPUTER_RESO, PRINT_RESO} DPI;
+enum class Resolution {COMPUTER_RESO, PRINT_RESO};
 
 #endif
