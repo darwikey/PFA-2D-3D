@@ -45,9 +45,6 @@ public:
     //! \param List of the objects
     void selectObjectsByName(QStringList fObjectList);
 
-    //! \brief change the key of an existing object in the map
-    //! \param The old key, and the new key
-    void mapChange_Key(std::string fOldKey, std::string fNewKey);
 	std::string getNameSelectedObject();
 
 	//! \brief get scene renderer instance

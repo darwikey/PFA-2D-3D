@@ -25,11 +25,13 @@ protected:
 	virtual void createWindow();
 
 	//! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class.
-	virtual void render() = 0;
+	virtual std::shared_ptr<QImage> render() = 0;
 
 	std::shared_ptr<QImage> getColorMap();
 
 	std::shared_ptr<QImage> getDepthMap();
+
+	void updatePreview();
 
 
     //! \describe how large is the image to create in number of pixel
@@ -42,6 +44,7 @@ protected:
 	QLabel* mLabel = nullptr;
 	QComboBox* mResolutionBox = nullptr;
 	QPushButton* mRenderButton = nullptr;
+	QLabel* mPreviewImage = nullptr;
 
 
 private slots:

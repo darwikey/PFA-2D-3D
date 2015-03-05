@@ -5,15 +5,24 @@
 #include "AutostereogramAlgorithm1.hpp"
 #include "Flipbook.hpp"
 #include "DepthMap.hpp"
+#include "Photograph.hpp"
+#include "PhotographNormal.hpp"
 
 
 Creator* Creator::mInstance = nullptr;
 
 
 Creator::Creator(){
+	// Anaglypth registration
 	mAnaglyphTable.push_back(new AnaglyphAlgorithm1());
 
+	// Autostereogram registration
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm1());
+
+	// Flipbook registration
+
+	// Photograph registration
+	mPhotographTable.push_back(new PhotographNormal());
 }
 
 
@@ -33,11 +42,6 @@ void Creator::launchAnaglyph(unsigned int fAlgoNumber){
 }
 
 
-void Creator::launchDepthMap(unsigned int fAlgoNumber){
-
-}
-
-
 void Creator::launchAutostereogram(unsigned int fAlgoNumber){
 	if (fAlgoNumber < mAutostereogramTable.size()){
 		mAutostereogramTable[fAlgoNumber]->launch();
@@ -46,11 +50,15 @@ void Creator::launchAutostereogram(unsigned int fAlgoNumber){
 
 
 void Creator::launchFlipbook(unsigned int fAlgoNumber){
-
+	if (fAlgoNumber < mFlipbookTable.size()){
+		mFlipbookTable[fAlgoNumber]->launch();
+	}
 }
 
 
-void Creator::launchPhotography(unsigned int fAlgoNumber){
-
+void Creator::launchPhotograph(unsigned int fAlgoNumber){
+	if (fAlgoNumber < mPhotographTable.size()){
+		mPhotographTable[fAlgoNumber]->launch();
+	}
 }
 
