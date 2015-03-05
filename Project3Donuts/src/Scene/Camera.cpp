@@ -45,7 +45,7 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 }
 
 
-QImage Camera::getColorMap(int fWidth, int fHeight){
+std::shared_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mColorPixelBuffer == nullptr){
@@ -64,11 +64,13 @@ QImage Camera::getColorMap(int fWidth, int fHeight){
 	Scene::getScene()->render(true);
 
 	_renderer->glFlush();
-	return mColorPixelBuffer->toImage();
+
+	std::shared_ptr<QImage> _image(new QImage(mColorPixelBuffer->toImage()));
+	return _image;
 }
 
 
-QImage Camera::getDepthMap(int fWidth, int fHeight){
+std::shared_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mDepthPixelBuffer == nullptr){
@@ -86,7 +88,9 @@ QImage Camera::getDepthMap(int fWidth, int fHeight){
 	Scene::getScene()->render(true);
 
 	_renderer->glFlush();
-	return mDepthPixelBuffer->toImage();
+	
+	std::shared_ptr<QImage> _image(new QImage(mDepthPixelBuffer->toImage()));
+	return _image;
 }
 
 

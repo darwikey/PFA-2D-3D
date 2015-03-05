@@ -1,15 +1,10 @@
 #ifndef MYGLWIDGET_HPP
 #define MYGLWIDGET_HPP
 
-
-#include <QMouseEvent>
-#include <QtOpenGL>
-#include <QWheelEvent>
-#include <QSize>
-#include <QPoint>
+#include "global.hpp"
 
 #include <QOpenGLFunctions>
-#include <QGLWidget>
+
 
 class MyGLWidget : public QGLWidget, public QOpenGLFunctions
 {

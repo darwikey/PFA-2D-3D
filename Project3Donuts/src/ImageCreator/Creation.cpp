@@ -3,6 +3,11 @@
 #include "Camera.hpp"
 
 
+Creation::Creation(){
+
+}
+
+
 void Creation::launch(){
 	if (mWindow == nullptr){
 		this->createWindow();
@@ -40,12 +45,12 @@ void Creation::createWindow(){
 }
 
 
-QImage Creation::getColorMap(){
+std::shared_ptr<QImage> Creation::getColorMap(){
 	return Scene::getScene()->getCamera()->getColorMap(1920, 1080);
 }
 
 
-QImage Creation::getDepthMap(){
+std::shared_ptr<QImage> Creation::getDepthMap(){
 	return Scene::getScene()->getCamera()->getDepthMap(1920, 1080);
 }
 

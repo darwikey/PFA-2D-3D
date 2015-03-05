@@ -20,6 +20,7 @@
 #include <thread>
 #include <chrono>
 #include <atomic>
+#include <memory>
 
 enum class Resolution {COMPUTER_RESO, PRINT_RESO};
 

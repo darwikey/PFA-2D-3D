@@ -5,6 +5,8 @@
 
 
 class Anaglyph;
+class Autostereogram;
+class Flipbook;
 
 //! \class Creator
 //! \brief Creator will be in charge of creating what the user asks
@@ -21,11 +23,11 @@ public:
 
 	static Creator* getCreator();
 
-	void launchAnaglyph(int fAlgoNumber);
-	void launchDepthMap(int fAlgoNumber);
-	void launchAutostereogram(int fAlgoNumber);
-	void launchFlipbook(int fAlgoNumber);
-	void launchPhotography(int fAlgoNumber);
+	void launchAnaglyph(unsigned int fAlgoNumber);
+	void launchDepthMap(unsigned int fAlgoNumber);
+	void launchAutostereogram(unsigned int fAlgoNumber);
+	void launchFlipbook(unsigned int fAlgoNumber);
+	void launchPhotography(unsigned int fAlgoNumber);
 
 
 
@@ -36,7 +38,9 @@ private:
 
 	static Creator* mInstance;
 
-	std::vector<Anaglyph*> AnaglyphTable;
+	std::vector<Anaglyph*> mAnaglyphTable;
+	std::vector<Autostereogram*> mAutostereogramTable;
+	std::vector<Flipbook*> mFlipbookTable;
 };
 
 

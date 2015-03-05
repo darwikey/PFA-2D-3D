@@ -13,8 +13,8 @@ class Creation : public QObject{
 	Q_OBJECT
 
 public:
-    //! \brief Creation can be initialize with a default size and content by calling the default constructor.
-	Creation() {};
+    //! \brief default constructor.
+	Creation();
 
 	//! \brief show the window
 	void launch();
@@ -27,9 +27,9 @@ protected:
 	//! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class.
 	virtual void render() = 0;
 
-	QImage getColorMap();
+	std::shared_ptr<QImage> getColorMap();
 
-	QImage getDepthMap();
+	std::shared_ptr<QImage> getDepthMap();
 
 
     //! \describe how large is the image to create in number of pixel

@@ -8,7 +8,6 @@
 // ! \brief virtual Anaglyph class to define every methods that will be needed in classes that will inherit from this one and that will define different algorithms
 class Anaglyph : public Creation{
 public:
-    //! \brief no specific constructors for anaglyphs, creation constructors will be called
 
 
 protected:

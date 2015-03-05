@@ -9,19 +9,26 @@
 // ! \class AutostereogramAlgorithm1
 // ! \brief First algorithm to create an autostereogram
 class AutostereogramAlgorithm1 : public Autostereogram {
-
 public:
 
-	//! \brief redefinition of virtual create method. This method can be redefined in Algorithms
-	virtual void create(float fPhysicalLength, float fPhysicalWidth, Resolution fReso) override;
+
+protected:
+	virtual void createWindow() override;
+
+	virtual void render() override;
+
 
 private :
-	static AutostereogramAlgorithm1 * getAutostereogramAlgorithm() ;
-	static int separation(float fZ, int fE) ;
-	static std::vector<QImage> depthmapToAutostereogram(QImage * fDepthmap, int fE) ; 
+	std::vector<float> getDepth(std::shared_ptr<QImage> fImg);
 
-	static int round(float fX);
-	static int caseXY(int fx, int fy, int fwidth);
+	int separation(float fZ, int fE) ;
+	std::shared_ptr<QImage> depthmapToAutostereogram(std::shared_ptr<QImage>, int fE);
+
+	int round(float fX);
+	int caseXY(int fx, int fy, int fwidth);
+
+
+	const float mu = (1. / 3.);
 };
 
 #endif
