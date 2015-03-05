@@ -45,7 +45,7 @@ std::vector<float> AutostereogramAlgorithm1::getDepth(std::shared_ptr<QImage> fI
 	std::vector<float> resultat(_width * _height, 0.);
 	for (int i = 0; i < _height; ++i) {
 		for (int j = 0; j < _width; ++j) {
-			resultat[i * _width + j] = 1. - qGray(fImg->pixel(j, i)) / 255.;
+			resultat[i * _width + j] = qGray(fImg->pixel(j, i)) / 255.;
 		}
 	}
 	return resultat;
