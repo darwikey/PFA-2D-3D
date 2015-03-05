@@ -2,7 +2,6 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
-#include "FileExplorer.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -17,11 +16,9 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
 
-private:
-    FileExplorer mOpen;
-
 public slots:
    void openfile();
    void selectObject(const QModelIndex &index);
+   void invertwidgets();
 };
 #endif // MAINWINDOW_HPP

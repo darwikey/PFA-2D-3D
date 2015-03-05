@@ -10,7 +10,6 @@
 #define UI_MAINWINDOW_H
 
 #include "MainWindow.hpp"
-#include "QFileSystemModelDialog.hpp"
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -170,7 +169,7 @@ public:
         QObject::connect(actionDepuis_le_disque_dur, SIGNAL(triggered()), MainWindow, SLOT(openfile()));		
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
         //QObject::connect(listView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
-
+		QObject::connect(actionInverser_les_positions_des_fen_tres, SIGNAL(changed()), MainWindow, SLOT(invertwidgets()));
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
