@@ -38,6 +38,13 @@ void Creation::createWindow(){
 	QObject::connect(mResolutionBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeResolution(int)));
 
 
+	// Gamma corection
+	mGammaSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
+	mGammaSlider->setValue(50);
+	mLayout->addWidget(mGammaSlider);
+	QObject::connect(mGammaSlider, SIGNAL(valueChanged(int)), this, SLOT(changeGamma(int)));
+
+
 	// Preview Image
 	mPreviewImage = new QLabel(mWindow);
 	mPreviewImage->setFixedSize(200, 200);
@@ -54,7 +61,11 @@ void Creation::createWindow(){
 
 
 std::shared_ptr<QImage> Creation::getColorMap(){
-	return Scene::getScene()->getCamera()->getColorMap(1920, 1080);
+	auto _image = Scene::getScene()->getCamera()->getColorMap(1920, 1080);
+	
+	this->gammaCorrection(_image);
+	
+	return _image;
 }
 
 
@@ -73,8 +84,30 @@ void Creation::updatePreview(){
 }
 
 
+void Creation::gammaCorrection(std::shared_ptr<QImage> fImage){
+	
+	for (int x = 0; x < fImage->width(); x++){
+		for (int y = 0; y < fImage->height(); y++){
+	
+			QRgb _p = fImage->pixel(x, y);
+		
+			float _red = qRed(_p) / 255.f;
+			float _green = qGreen(_p) / 255.f;
+			float _blue = qBlue(_p) / 255.f;
+		
+			_red = pow(_red, 1.f / mGamma);
+			_green = pow(_green, 1.f / mGamma);
+			_blue = pow(_blue, 1.f / mGamma);
+		
+			fImage->setPixel(x, y, qRgb((int)(_red * 255.f), (int)(_green * 255.f), (int)(_blue * 255.f)));
+			
+		}
+	}
+}
+
+
 void Creation::changeResolution(int fResolution){
-	std::cout << fResolution;
+	//TODO
 }
 
 
@@ -85,4 +118,15 @@ void Creation::startRender(){
 	std::shared_ptr<QImage> _image = this->render();
 
 	_image->save(_file);
+}
+
+
+void Creation::changeGamma(int fCursor){
+	mGamma = ((float)fCursor / 100.f) * 2.f;
+	
+	if (mGamma > 1.f){
+		mGamma *= 2.f;
+	}
+	
+	this->updatePreview();
 }
