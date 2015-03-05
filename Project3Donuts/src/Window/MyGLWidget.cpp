@@ -138,6 +138,11 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 			Creator::getCreator()->launchPhotograph(0);
 			break;
 
+		case Qt::Key_F:
+			Creator::getCreator()->launchFlipbook(0);
+			break;
+
+
         default:
             QGLWidget::keyPressEvent( fEvent );
     }

@@ -4,7 +4,7 @@
 #include "Autostereogram.hpp"
 #include "AutostereogramAlgorithm1.hpp"
 #include "Flipbook.hpp"
-#include "DepthMap.hpp"
+#include "FlipbookNormal.hpp"
 #include "Photograph.hpp"
 #include "PhotographNormal.hpp"
 
@@ -20,6 +20,7 @@ Creator::Creator(){
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm1());
 
 	// Flipbook registration
+	mFlipbookTable.push_back(new FlipbookNormal());
 
 	// Photograph registration
 	mPhotographTable.push_back(new PhotographNormal());
