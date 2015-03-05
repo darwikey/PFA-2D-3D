@@ -27,10 +27,10 @@ public:
 	void repositionCamera(float fBoundingSphereRadius);
 
 	//! \brief get an access to the image
-	QImage getColorMap();
+	QImage getColorMap(int fWidth, int fHeight);
 	
 	//! \brief get an access to the depth map
-	QImage getDepthMap();
+	QImage getDepthMap(int fWidth, int fHeight);
 
 	//! \brief get the view matrix associate with the camera
 	const QMatrix4x4& getViewMatrix();
