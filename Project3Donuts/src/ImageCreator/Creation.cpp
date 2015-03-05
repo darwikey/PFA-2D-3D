@@ -21,7 +21,7 @@ void Creation::launch(){
 void Creation::createWindow(){
 	// Window and layout
 	mWindow = new QWidget();
-	mWindow->setFixedSize(300, 150);
+	//mWindow->setFixedSize(300, 300);
 	mLayout = new QVBoxLayout();
 	mWindow->setLayout(mLayout);
 
@@ -36,6 +36,14 @@ void Creation::createWindow(){
 	mLayout->addWidget(mResolutionBox);
 
 	QObject::connect(mResolutionBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeResolution(int)));
+
+
+	// Preview Image
+	mPreviewImage = new QLabel(mWindow);
+	mPreviewImage->setFixedSize(200, 200);
+	mLayout->addWidget(mPreviewImage);
+
+	this->updatePreview();
 
 
 	// Render button
@@ -55,11 +63,26 @@ std::shared_ptr<QImage> Creation::getDepthMap(){
 }
 
 
+void Creation::updatePreview(){
+	QImage _image = this->render()->scaled(200, 200, Qt::AspectRatioMode::IgnoreAspectRatio);
+	QPixmap _pixmap = QPixmap::fromImage(_image);
+
+	if (mPreviewImage != nullptr) {
+		mPreviewImage->setPixmap(_pixmap);
+	}
+}
+
+
 void Creation::changeResolution(int fResolution){
 	std::cout << fResolution;
 }
 
 
 void Creation::startRender(){
-	this->render();
+	QString _file = QFileDialog::getSaveFileName(mWindow, "Save", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
+	std::cout << "save image : " << _file.toStdString();
+
+	std::shared_ptr<QImage> _image = this->render();
+
+	_image->save(_file);
 }

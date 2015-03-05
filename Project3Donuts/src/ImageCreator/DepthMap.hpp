@@ -15,7 +15,7 @@ protected:
 
 	virtual void createWindow() override;
 
-	virtual void render() override = 0;
+	virtual std::shared_ptr<QImage> render() override = 0;
 
 
 

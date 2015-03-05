@@ -6,9 +6,7 @@ void AutostereogramAlgorithm1::createWindow(){
 }
 
 
-void AutostereogramAlgorithm1::render(){
-	QString _file = QFileDialog::getSaveFileName(mWindow, "Save", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
-	std::cout << "save image : " << _file.toStdString();
+std::shared_ptr<QImage> AutostereogramAlgorithm1::render(){
 
 	float _DPI = 75.f;
 	/*if ( == COMPUTER_RESO)
@@ -19,7 +17,7 @@ void AutostereogramAlgorithm1::render(){
 
 	std::shared_ptr<QImage> _image = this->depthmapToAutostereogram(this->getDepthMap(), _E);
 
-	_image->save(_file);
+	return _image;
 }
 
 
@@ -45,7 +43,7 @@ std::vector<float> AutostereogramAlgorithm1::getDepth(std::shared_ptr<QImage> fI
 	std::vector<float> resultat(_width * _height, 0.);
 	for (int i = 0; i < _height; ++i) {
 		for (int j = 0; j < _width; ++j) {
-			resultat[i * _width + j] = qGray(fImg->pixel(j, i)) / 255.;
+			resultat[i * _width + j] = qGray(fImg->pixel(j, i)) / 255.f;
 		}
 	}
 	return resultat;
