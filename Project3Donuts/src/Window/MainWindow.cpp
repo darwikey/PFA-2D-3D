@@ -14,16 +14,23 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listView->setModel(modelList);
     ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     //ui->listView->setSelectionMode(QAbstractItemView::MultiSelection );
+    win_about = new QMainWindow();
+    win_about->setWindowFlags(Qt::WindowStaysOnTopHint);
+    win_about->setWindowModality (Qt::ApplicationModal);
+    _about_ui = new Ui::About();
+    _about_ui->setupUi(win_about);
 }
 
 MainWindow::~MainWindow()
 {
+    delete win_about;
+    delete _about_ui;
     delete ui;
 }
 
 void MainWindow::openfile()
 {
-    QString _qfile = QFileDialog::getOpenFileName(0, "import", QString(), "Modeles (*.obj *.ply)");
+    QString _qfile = QFileDialog::getOpenFileName(0, "Importer", QString(), "Modeles (*.obj *.ply)");
     std::string _file = _qfile.toStdString();
     if(_file!="")
     {
@@ -48,6 +55,42 @@ void MainWindow::openfile()
         while(Scene::getScene()->getObject(_num_name.append(std::to_string(_num))) != nullptr);
 
         Scene::getScene()->getLoader()->loadObject(_file, _num_name);
+    }
+}
+
+void MainWindow::newscene()
+{
+    QMessageBox::critical(0, "Error", "Not implemented yet");
+}
+
+void MainWindow::openlibfile()
+{
+    QMessageBox::critical(0, "Error", "Not implemented yet");
+
+}
+
+void MainWindow::open()
+{
+    QString _qfile = QFileDialog::getOpenFileName(0, "Ouvrir", QString(), "Scene (*.xml)");
+    if(_qfile!="")
+    {
+        Scene::getScene()->createScene(_qfile);
+    }
+}
+
+void MainWindow::save()
+{
+
+
+}
+
+void MainWindow::saveas()
+{
+    QString _qfile = QFileDialog::getSaveFileName(0, "Sauvegarder", QString(), "Scene (*.xml)");
+    std::string _file = _qfile.toStdString();
+    if(_file!="")
+    {
+        Scene::getScene()->saveScene(_file);
     }
 }
 
@@ -99,4 +142,14 @@ void MainWindow::invertwidgets()
 
         delete splitter;
     }
+}
+
+void MainWindow::editsettings()
+{
+    QMessageBox::critical(0, "Error", "Not implemented yet");
+}
+
+void MainWindow::about()
+{
+    win_about->show();
 }
