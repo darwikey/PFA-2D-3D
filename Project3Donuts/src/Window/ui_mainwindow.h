@@ -40,7 +40,7 @@ public:
     QAction *actionDegrader;
     QAction *actionNouveau;
     QAction *actionEnregistrer;
-    QAction *actionEnregister_sous;
+    QAction *actionEnregistrer_sous;
     QAction *actionDepuis_la_bibliotheque;
     QAction *actionDepuis_le_disque_dur;
     QAction *actionPr_f_rences;
@@ -78,8 +78,8 @@ public:
         actionNouveau->setObjectName(QStringLiteral("actionNouveau"));
         actionEnregistrer = new QAction(MainWindow);
         actionEnregistrer->setObjectName(QStringLiteral("actionEnregistrer"));
-        actionEnregister_sous = new QAction(MainWindow);
-        actionEnregister_sous->setObjectName(QStringLiteral("actionEnregister_sous"));
+        actionEnregistrer_sous = new QAction(MainWindow);
+        actionEnregistrer_sous->setObjectName(QStringLiteral("actionEnregistrer_sous"));
         actionDepuis_la_bibliotheque = new QAction(MainWindow);
         actionDepuis_la_bibliotheque->setObjectName(QStringLiteral("actionDepuis_la_bibliotheque"));
         actionDepuis_le_disque_dur = new QAction(MainWindow);
@@ -149,7 +149,7 @@ public:
         menuFichier->addAction(actionOuvrir);
         menuFichier->addAction(menuImporter->menuAction());
         menuFichier->addAction(actionEnregistrer);
-        menuFichier->addAction(actionEnregister_sous);
+        menuFichier->addAction(actionEnregistrer_sous);
         menuFichier->addAction(actionQuitter);
         menuImporter->addAction(actionDepuis_la_bibliotheque);
         menuImporter->addAction(actionDepuis_le_disque_dur);
@@ -163,7 +163,16 @@ public:
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
-        QObject::connect(actionDepuis_le_disque_dur, SIGNAL(triggered()), MainWindow, SLOT(openfile()));		
+        QObject::connect(actionNouveau, SIGNAL(triggered()), MainWindow, SLOT(newscene()));
+        QObject::connect(actionDepuis_le_disque_dur, SIGNAL(triggered()), MainWindow, SLOT(openfile()));
+        QObject::connect(actionDepuis_la_bibliotheque, SIGNAL(triggered()), MainWindow, SLOT(openlibfile()));
+        QObject::connect(actionOuvrir, SIGNAL(triggered()), MainWindow, SLOT(open()));	
+        QObject::connect(actionEnregistrer, SIGNAL(triggered()), MainWindow, SLOT(save()));	
+        QObject::connect(actionEnregistrer_sous, SIGNAL(triggered()), MainWindow, SLOT(saveas()));		
+        
+        QObject::connect(actionPr_f_rences, SIGNAL(triggered()), MainWindow, SLOT(editsettings()));	
+        QObject::connect(actionA_propos, SIGNAL(triggered()), MainWindow, SLOT(about()));	
+        	
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
         //QObject::connect(listView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
 		
@@ -174,18 +183,20 @@ public:
 		QObject::connect(actionFlipbook, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchFlipbook()));
 
 		QObject::connect(actionInverser_les_positions_des_fen_tres, SIGNAL(changed()), MainWindow, SLOT(invertwidgets()));
+		
+		
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Project3Donut", 0));
         actionOuvrir->setText(QApplication::translate("MainWindow", "Ouvrir", 0));
         actionQuitter->setText(QApplication::translate("MainWindow", "Quitter", 0));
 
         actionNouveau->setText(QApplication::translate("MainWindow", "Nouveau", 0));
         actionEnregistrer->setText(QApplication::translate("MainWindow", "Enregistrer", 0));
-        actionEnregister_sous->setText(QApplication::translate("MainWindow", "Enregister sous", 0));
+        actionEnregistrer_sous->setText(QApplication::translate("MainWindow", "Enregistrer sous", 0));
         actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "depuis la bibliotheque", 0));
         actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "depuis le disque dur", 0));
         actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
