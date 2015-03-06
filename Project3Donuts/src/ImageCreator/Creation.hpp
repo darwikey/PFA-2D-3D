@@ -2,8 +2,8 @@
 #define CREATION_HPP
 
 #include "global.hpp"
+#include "CreationFile.hpp"
 
-class PixelTab;
 class Creator;
 
 
@@ -25,7 +25,7 @@ protected:
 	virtual void createWindow();
 
 	//! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class.
-	virtual std::shared_ptr<QImage> render() = 0;
+	virtual CreationFile render() = 0;
 
 	std::shared_ptr<QImage> getColorMap();
 

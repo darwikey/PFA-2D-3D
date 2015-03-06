@@ -35,7 +35,7 @@ public:
 	// The GIFWriter should have been created by GIFBegin.
 	// AFAIK, it is legal to use different bit depths for different frames of an image -
 	// this may be handy to save bits in animations that don't change much.
-	bool GifWriteFrame(const QImage* fImage, uint32_t delay, int bitDepth = 8, bool dither = false);
+	bool GifWriteFrame(const QImage* fImage, int bitDepth = 8, bool dither = false);
 
 	// Writes the EOF code, closes the file handle, and frees temp memory used by a GIF.
 	// Many if not most viewers will still display a GIF properly if the EOF code is missing,
@@ -138,8 +138,9 @@ private:
 	std::shared_ptr<QImage> mOldImage;
     bool mFirstFrame = true;
 
-	int mWidth = 0;
-	int mHeight = 0;
+	uint32_t mWidth = 0;
+	uint32_t mHeight = 0;
+	uint32_t mDelay = 0;
 };
 
 

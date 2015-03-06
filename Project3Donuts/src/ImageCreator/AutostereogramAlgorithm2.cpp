@@ -40,21 +40,21 @@ void AutostereogramAlgorithm3::colorRandom(int fx, int fRed[], int * fGreen, int
     
     /* Because of resolution enhancement (which involves coloring real points with the average color of virtual points), black-and white images will actually be in shades of grey */
     
-    fRed[fx] = (random()&1) * 255 ;
+    fRed[fx] = (rand()&1) * 255 ;
     fGreen[fx] = fRed[fx] ;
     fBlue[fx] = fRed[fx] ;
     break ;
     
   case RANDGREY :
-    fRed[fx] = random() %256 ;
+    fRed[fx] = rand() %256 ;
     fGreen[fx] = fRed[fx] ;
     fBlue[fx] = fRed[fx] ;
     break ;
     
   case RANDCOLOR :
-    fRed[fx] = random() %256;
-    fGreen[fx] = random() %256;
-    fBlue[fx] = random() %256;
+    fRed[fx] = rand() %256;
+    fGreen[fx] = rand() %256;
+    fBlue[fx] = rand() %256;
     break ;
    
   }
@@ -169,7 +169,7 @@ std::vector<QImage> AutostereogramAlgorithm3::depthmapToAutostereogram(QImage * 
   /* Oversampling */
   
   int oversampling = 4 ;
-  int maxwidth = width * 6 ;
+  const int maxwidth = width * 6 ;
   int vwidth = width * oversampling ;
   int vE = E * oversampling ;
   int vmaxsep = maxsep * oversampling ;

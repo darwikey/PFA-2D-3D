@@ -11,9 +11,13 @@ void FlipbookNormal::createWindow(){
 }
 
 
-std::shared_ptr<QImage> FlipbookNormal::render(){
+CreationFile FlipbookNormal::render(){
 	std::shared_ptr<QImage> _image = this->getColorMap();
 
+	CreationFile _file(CreationFile::Type::ANIMATED_GIF);
+	_file.pushImage(_image);
 
-	return _image;
+	_file.pushImage(this->getDepthMap());
+
+	return _file;
 }

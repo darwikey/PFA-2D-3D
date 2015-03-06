@@ -11,7 +11,7 @@ void PhotographNormal::createWindow(){
 }
 
 
-std::shared_ptr<QImage> PhotographNormal::render(){
+CreationFile PhotographNormal::render(){
 	std::shared_ptr<QImage> _image = this->getColorMap();
 
 	if (mIsGrey) {
@@ -27,7 +27,10 @@ std::shared_ptr<QImage> PhotographNormal::render(){
 		}
 	}
 
-	return _image;
+	CreationFile _file(CreationFile::Type::IMAGE);
+	_file.pushImage(_image);
+
+	return _file;
 }
 
 

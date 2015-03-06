@@ -6,7 +6,7 @@ void AutostereogramAlgorithm1::createWindow(){
 }
 
 
-std::shared_ptr<QImage> AutostereogramAlgorithm1::render(){
+CreationFile AutostereogramAlgorithm1::render(){
 
 	float _DPI = 75.f;
 	/*if ( == COMPUTER_RESO)
@@ -17,7 +17,11 @@ std::shared_ptr<QImage> AutostereogramAlgorithm1::render(){
 
 	std::shared_ptr<QImage> _image = this->depthmapToAutostereogram(this->getDepthMap(), _E);
 
-	return _image;
+
+	CreationFile _file(CreationFile::Type::IMAGE);
+	_file.pushImage(_image);
+
+	return _file;
 }
 
 

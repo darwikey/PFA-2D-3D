@@ -76,11 +76,16 @@ std::shared_ptr<QImage> Creation::getDepthMap(){
 
 
 void Creation::updatePreview(){
-	QImage _image = this->render()->scaled(200, 200, Qt::AspectRatioMode::IgnoreAspectRatio);
-	QPixmap _pixmap = QPixmap::fromImage(_image);
+	std::shared_ptr<QImage> _render = this->render().getFirstImage();
+	
+	if (_render) {
 
-	if (mPreviewImage != nullptr) {
-		mPreviewImage->setPixmap(_pixmap);
+		QImage _image = _render->scaled(200, 200, Qt::AspectRatioMode::IgnoreAspectRatio);
+		QPixmap _pixmap = QPixmap::fromImage(_image);
+
+		if (mPreviewImage != nullptr) {
+			mPreviewImage->setPixmap(_pixmap);
+		}
 	}
 }
 
@@ -116,9 +121,9 @@ void Creation::startRender(){
 	QString _file = QFileDialog::getSaveFileName(mWindow, "Save", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
 	std::cout << "save image : " << _file.toStdString();
 
-	std::shared_ptr<QImage> _image = this->render();
+	CreationFile _image = this->render();
 
-	_image->save(_file);
+	_image.save(_file);
 }
 
 

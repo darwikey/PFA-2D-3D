@@ -8,6 +8,13 @@ void AnaglyphAlgorithm1::createWindow(){
 }
 
 
-std::shared_ptr<QImage> AnaglyphAlgorithm1::render(){
-	return this->getColorMap();
+CreationFile AnaglyphAlgorithm1::render(){
+	std::shared_ptr<QImage> _image = this->getColorMap();
+
+	// TODO 
+
+	CreationFile _file(CreationFile::Type::IMAGE);
+	_file.pushImage(_image);
+
+	return _file;
 }

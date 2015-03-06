@@ -4,6 +4,7 @@ bool GifWriter::GifBegin(const char* filename, uint32_t width, uint32_t height, 
 {
 	mWidth = width;
 	mHeight = height;
+	mDelay = delay;
 
 #if _MSC_VER >= 1400
 	mFile = nullptr;
@@ -61,7 +62,7 @@ bool GifWriter::GifBegin(const char* filename, uint32_t width, uint32_t height, 
 }
 
 
-bool GifWriter::GifWriteFrame(const QImage* fImage, uint32_t delay, int bitDepth, bool dither)
+bool GifWriter::GifWriteFrame(const QImage* fImage, int bitDepth, bool dither)
 {
 	if (!mFile){
 		std::cerr << "File not open" << std::endl;
@@ -88,7 +89,7 @@ bool GifWriter::GifWriteFrame(const QImage* fImage, uint32_t delay, int bitDepth
 	else
 		GifThresholdImage(oldImage, fImage->constBits(), mOldImage->bits(), &pal);
 
-	GifWriteLzwImage(mFile, mOldImage, 0, 0, delay, &pal);
+	GifWriteLzwImage(mFile, mOldImage, 0, 0, mDelay, &pal);
 
 	return true;
 }
