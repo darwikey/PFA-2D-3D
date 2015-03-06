@@ -11,7 +11,8 @@ class Photograph;
 
 //! \class Creator
 //! \brief Creator will be in charge of creating what the user asks
-class Creator{
+class Creator : public QObject{
+	Q_OBJECT
 public:
 
 	//! \brief get instance of Creator
@@ -33,6 +34,15 @@ public:
 	//! \param The id of the algorithm that will be used.
 	void launchPhotograph(unsigned int fAlgoNumber);
 
+
+public slots:
+	void launchAnaglyph();
+
+	void launchAutostereogram();
+
+	void launchFlipbook();
+
+	void launchPhotograph();
 
 
 private:

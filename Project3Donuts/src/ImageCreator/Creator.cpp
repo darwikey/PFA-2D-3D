@@ -63,3 +63,22 @@ void Creator::launchPhotograph(unsigned int fAlgoNumber){
 	}
 }
 
+
+void Creator::launchAnaglyph(){
+	this->launchAnaglyph(0);
+}
+
+
+void Creator::launchAutostereogram(){
+	this->launchAutostereogram(0);
+}
+
+
+void Creator::launchFlipbook(){
+	this->launchFlipbook(0);
+}
+
+
+void Creator::launchPhotograph(){
+	this->launchPhotograph(0);
+}

@@ -27,6 +27,7 @@
 #include <QGLWidget>
 #include "SceneRenderer.hpp"
 #include "Scene.hpp"
+#include "Creator.hpp"
 
 
 QT_BEGIN_NAMESPACE
@@ -45,7 +46,6 @@ public:
     QAction *actionPr_f_rences;
     QAction *actionA_propos;
     QAction *actionEffectuer_un_rendu;
-    QAction *actionAfficher_la_carte_de_profondeur;
 	QAction *actionAnaglyphes;
     QAction *actionAuto_st_r_ogrammes;
     QAction *actionFlipbook;
@@ -90,8 +90,6 @@ public:
         actionA_propos->setObjectName(QStringLiteral("actionA_propos"));
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
-        actionAfficher_la_carte_de_profondeur = new QAction(MainWindow);
-        actionAfficher_la_carte_de_profondeur->setObjectName(QStringLiteral("actionAfficher_la_carte_de_profondeur"));
         actionInverser_les_positions_des_fen_tres = new QAction(MainWindow);
         actionInverser_les_positions_des_fen_tres->setObjectName(QStringLiteral("actionInverser_les_positions_des_fen_tres"));
         actionInverser_les_positions_des_fen_tres->setCheckable(true);
@@ -158,7 +156,6 @@ public:
         menuEditer->addAction(actionPr_f_rences);
         menuAide->addAction(actionA_propos);
         menuOutils->addAction(actionEffectuer_un_rendu);
-        menuOutils->addAction(actionAfficher_la_carte_de_profondeur);
 		menuOutils->addAction(actionAnaglyphes);
         menuOutils->addAction(actionAuto_st_r_ogrammes);
         menuOutils->addAction(actionFlipbook);
@@ -169,6 +166,13 @@ public:
         QObject::connect(actionDepuis_le_disque_dur, SIGNAL(triggered()), MainWindow, SLOT(openfile()));		
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
         //QObject::connect(listView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
+		
+		// Render
+		QObject::connect(actionEffectuer_un_rendu, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchPhotograph()));
+		QObject::connect(actionAnaglyphes, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchAnaglyph()));
+		QObject::connect(actionAuto_st_r_ogrammes, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchAutostereogram()));
+		QObject::connect(actionFlipbook, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchFlipbook()));
+
 		QObject::connect(actionInverser_les_positions_des_fen_tres, SIGNAL(changed()), MainWindow, SLOT(invertwidgets()));
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -187,7 +191,6 @@ public:
         actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
         actionEffectuer_un_rendu->setText(QApplication::translate("MainWindow", "Effectuer un rendu", 0));
-        actionAfficher_la_carte_de_profondeur->setText(QApplication::translate("MainWindow", "Afficher la carte de profondeur", 0));
         actionInverser_les_positions_des_fen_tres->setText(QApplication::translate("MainWindow", "Inverser les positions des fen\303\252tres", 0));
         actionAnaglyphes->setText(QApplication::translate("MainWindow", "Anaglyphes", 0));
         actionAuto_st_r_ogrammes->setText(QApplication::translate("MainWindow", "Autost\303\251r\303\251ogrammes", 0));
