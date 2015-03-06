@@ -11,6 +11,7 @@ Creation::Creation(){
 void Creation::launch(){
 	if (mWindow == nullptr){
 		this->createWindow();
+		mWindow->show();
 	}
 	else{
 		mWindow->show();
