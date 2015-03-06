@@ -1,4 +1,4 @@
-#include "FlipBook.hpp"
+#include "Flipbook.hpp"
 
 
 void Flipbook::createWindow(){
