@@ -53,8 +53,8 @@ std::vector<float> AutostereogramAlgorithm1::getDepth(std::shared_ptr<QImage> fI
 /* as presented in their article "Displaying 3D Images : Algorithm for Single Image Random Dot Stereograms" which has */
 /* been publicated in IEEE Computer in 1994 */
 std::shared_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(std::shared_ptr<QImage> fDepthmap, int fE) {
-	int maxX = fDepthmap->width();
-	int maxY = fDepthmap->height();
+	const int maxX = fDepthmap->width();
+	const int maxY = fDepthmap->height();
 
 	std::vector<float> floatDepthMap = getDepth(fDepthmap);
 
