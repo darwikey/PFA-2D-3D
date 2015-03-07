@@ -4,10 +4,10 @@
 void FlipbookNormal::createWindow(){
 	Flipbook::createWindow();
 
-	//mGreyBox = new QCheckBox("Black and White", mWindow);
-	//mLayout->insertWidget(2, mGreyBox);
+	mGreyBox = new QCheckBox("Black and White", mWindow);
+	this->insertNewWidget(mGreyBox);
 
-	//QObject::connect(mGreyBox, SIGNAL(stateChanged(int)), this, SLOT(setGrey(int)));
+	QObject::connect(mGreyBox, SIGNAL(stateChanged(int)), this, SLOT(setGrey(int)));
 }
 
 
@@ -20,4 +20,10 @@ CreationFile FlipbookNormal::render(){
 	_file.pushImage(this->getDepthMap());
 
 	return _file;
+}
+
+
+void FlipbookNormal::setGrey(int fIsGrey){
+	mIsGrey = fIsGrey;
+	this->updatePreview();
 }

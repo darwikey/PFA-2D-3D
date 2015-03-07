@@ -27,14 +27,15 @@ protected:
 	//! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class.
 	virtual CreationFile render() = 0;
 
-	std::shared_ptr<QImage> getColorMap();
+	std::shared_ptr<QImage> getColorMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
 
-	std::shared_ptr<QImage> getDepthMap();
+	std::shared_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
 
 	void updatePreview();
 
 	void gammaCorrection(std::shared_ptr<QImage> fImage);
 
+	void insertNewWidget(QWidget* fWidget);
 
     //! \describe how large is the image to create in number of pixel
     //int mWidth; 
@@ -43,8 +44,9 @@ protected:
 
 	QWidget* mWindow = nullptr;
 	QVBoxLayout* mLayout = nullptr;
-	QLabel* mLabel = nullptr;
+	QLabel* mTitleLabel = nullptr;
 	QComboBox* mResolutionBox = nullptr;
+	QLabel* mGammaLabel = nullptr;
 	QSlider* mGammaSlider = nullptr;
 	QPushButton* mRenderButton = nullptr;
 	QLabel* mPreviewImage = nullptr;

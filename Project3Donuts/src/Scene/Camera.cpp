@@ -17,10 +17,22 @@ mAngleOfView(fAngleOfView){
 }
 
 
-void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
-	//warning wild TRIGO
+void Camera::moveCamera(float fHorizontalRotation, float fVerticalRotation, float fZoom){
 	
-	//mRotation += QVector3D(fHorizontalAxe, fVerticalAxe, 0.f);
+	//Rotation
+	QMatrix4x4 _mat;
+	_mat.rotate(fVerticalRotation, QVector3D(0.f, -1.f, 0.f));
+	_mat.rotate(fHorizontalRotation, QVector3D(-1.f, 0.f, 0.f));
+	mPosition = _mat * mPosition;
+
+	//Zoom
+	mPosition *= fZoom;
+
+	computeViewMatrix();
+}
+
+
+void Camera::moveCameraWithMouse(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
 
 	//Rotation
 	QMatrix4x4 _mat;
@@ -29,13 +41,14 @@ void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthVa
 	mPosition = _mat * mPosition;
 
 	//Zoom
-	if (fDepthValue < 0.f)
+	if (fDepthValue < -0.001f)
 		mPosition *= 1.1f;
-	else if (fDepthValue > 0.f)
+	else if (fDepthValue > 0.001f)
 		mPosition *= 0.9f;
 
 	computeViewMatrix();
 }
+
 
 void Camera::repositionCamera(float fBoundingSphereRadius){
 	mPosition.normalize();

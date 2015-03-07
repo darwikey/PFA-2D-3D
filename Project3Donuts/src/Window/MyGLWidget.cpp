@@ -70,7 +70,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 			Scene::getScene()->getTransformWidget()->activate(_mouse);
 		}
 		else {
-			Scene::getScene()->getCamera()->moveCamera(_dy, _dx, 0.f);
+			Scene::getScene()->getCamera()->moveCameraWithMouse(_dy, _dx, 0.f);
 		}
     }
 
@@ -82,7 +82,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 {
     float _dz = (float)fEvent->delta();
-	Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, _dz);
+	Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, _dz);
 
     update();
 }
@@ -109,11 +109,11 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
             break;
 
 		case Qt::Key_Plus:
-			Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, 0.1f);
+			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, 0.1f);
 			break;
 
 		case Qt::Key_Minus:
-			Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, -0.1f);
+			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
 			break;
 
 		case Qt::Key_A:

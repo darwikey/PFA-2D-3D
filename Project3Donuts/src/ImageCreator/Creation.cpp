@@ -26,9 +26,9 @@ void Creation::createWindow(){
 	mLayout = new QVBoxLayout();
 	mWindow->setLayout(mLayout);
 
-	// Text
-	mLabel = new QLabel("Parametrage du rendu...", mWindow);
-	mLayout->addWidget(mLabel);
+	// Title
+	mTitleLabel = new QLabel("Parametrage du rendu...", mWindow);
+	mLayout->addWidget(mTitleLabel);
 
 	// Resolution
 	mResolutionBox = new QComboBox(mWindow);
@@ -40,6 +40,9 @@ void Creation::createWindow(){
 
 
 	// Gamma corection
+	mGammaLabel = new QLabel("Correction gamma :", mWindow);
+	mLayout->addWidget(mGammaLabel);
+	
 	mGammaSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
 	mGammaSlider->setValue(50);
 	mLayout->addWidget(mGammaSlider);
@@ -55,23 +58,40 @@ void Creation::createWindow(){
 
 
 	// Render button
-	mRenderButton = new QPushButton("Render !", mWindow);
+	mRenderButton = new QPushButton("Rendre !", mWindow);
 	QObject::connect(mRenderButton, SIGNAL(clicked()), this, SLOT(startRender()));
 	mLayout->addWidget(mRenderButton);
 }
 
 
-std::shared_ptr<QImage> Creation::getColorMap(){
-	auto _image = Scene::getScene()->getCamera()->getColorMap(1920, 1080);
+std::shared_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float fVerticalRotation, float fZoom){
+	const Camera* _sceneCamera = Scene::getScene()->getCamera();
 	
+	// Create a new camera
+	Camera _camera(_sceneCamera->getPosition(), _sceneCamera->getRotation(), 60.f);
+	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
+
+	// Render
+	std::shared_ptr<QImage> _image = _camera.getColorMap(1920, 1080);
+	
+	// Image corrections
 	this->gammaCorrection(_image);
 	
 	return _image;
 }
 
 
-std::shared_ptr<QImage> Creation::getDepthMap(){
-	return Scene::getScene()->getCamera()->getDepthMap(1920, 1080);
+std::shared_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float fVerticalRotation, float fZoom){
+	const Camera* _sceneCamera = Scene::getScene()->getCamera();
+
+	// Create a new camera
+	Camera _camera(_sceneCamera->getPosition(), _sceneCamera->getRotation(), 60.f);
+	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
+
+	// Render
+	std::shared_ptr<QImage> _image = _camera.getDepthMap(1920, 1080);
+
+	return _image;
 }
 
 
@@ -109,6 +129,11 @@ void Creation::gammaCorrection(std::shared_ptr<QImage> fImage){
 			
 		}
 	}
+}
+
+
+void Creation::insertNewWidget(QWidget* fWidget){
+	mLayout->insertWidget(4, fWidget);
 }
 
 

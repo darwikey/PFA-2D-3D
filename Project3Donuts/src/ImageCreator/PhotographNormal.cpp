@@ -4,8 +4,8 @@
 void PhotographNormal::createWindow(){
 	Photograph::createWindow();
 
-	mGreyBox = new QCheckBox("Black and White", mWindow);
-	mLayout->insertWidget(2, mGreyBox);
+	mGreyBox = new QCheckBox("Rendu en nuance de gris", mWindow);
+	this->insertNewWidget(mGreyBox);
 
 	QObject::connect(mGreyBox, SIGNAL(stateChanged(int)), this, SLOT(setGrey(int)));
 }

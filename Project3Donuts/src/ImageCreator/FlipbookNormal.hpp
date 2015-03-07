@@ -8,7 +8,7 @@
 // ! \class FlipbookNormal
 // ! \brief Create a simple animation of the scene
 class FlipbookNormal : public Flipbook{
-	//Q_OBJECT
+	Q_OBJECT
 
 protected:
 
@@ -18,11 +18,13 @@ protected:
 
 
 private:
+	QCheckBox* mGreyBox = nullptr;
+
+	bool mIsGrey = false;
 
 
-
-//private slots:
-
+private slots:
+	void setGrey(int fIsGrey);
 
 
 };
