@@ -14,7 +14,7 @@ protected:
 
 	virtual void createWindow() override;
 
-	virtual CreationFile render() override;
+	virtual std::unique_ptr<CreationFile> render() override;
 
 
 private:
@@ -25,13 +25,15 @@ private:
 	QSlider* mVerticalSpeedSlider = nullptr;
 	QLabel* mZoomSpeedLabel = nullptr;
 	QSlider* mZoomSpeedSlider = nullptr;
+	QLabel* mFrameNumberLabel = nullptr;
+	QSpinBox* mFrameNumberBox = nullptr;
 
 	bool mIsGrey = false;
 
 	float mHorizontalSpeed = 0.f;
 	float mVerticalSpeed = 0.f;
 	float mZoomSpeed = 0.f;
-	int mNumberOfFrame = 10;
+	int mFrameNumber = 10;
 
 
 private slots:
@@ -42,6 +44,8 @@ private slots:
 	void changeVerticalSpeed(int fSpeed);
 
 	void changeZoomSpeed(int fSpeed);
+
+	void changeFrameNumber(int fValue);
 };
 
 #endif

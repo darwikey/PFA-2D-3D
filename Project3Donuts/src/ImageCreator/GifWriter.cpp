@@ -18,7 +18,8 @@ bool GifWriter::GifBegin(const char* filename, uint32_t width, uint32_t height, 
 	}
 
 	// allocate 
-	mOldImage = std::shared_ptr<QImage>(new QImage(width, height, QImage::Format_RGBA8888));
+	delete mOldImage;
+	mOldImage = new QImage(width, height, QImage::Format_RGBA8888);
 
 	fputs("GIF89a", mFile);
 
@@ -89,7 +90,7 @@ bool GifWriter::GifWriteFrame(const QImage* fImage, int bitDepth, bool dither)
 	else
 		GifThresholdImage(oldImage, fImage->constBits(), mOldImage->bits(), &pal);
 
-	GifWriteLzwImage(mFile, mOldImage, 0, 0, mDelay, &pal);
+	GifWriteLzwImage(mFile, 0, 0, mDelay, &pal);
 
 	return true;
 }
@@ -97,13 +98,15 @@ bool GifWriter::GifWriteFrame(const QImage* fImage, int bitDepth, bool dither)
 
 bool GifWriter::GifEnd()
 {
-	if (!mFile) return false;
+	if (!mFile) 
+		return false;
 
 	fputc(0x3b, mFile); // end of file
 	fclose(mFile);
 	
-	mFile = NULL;
-	mOldImage = NULL;
+	mFile = nullptr;
+	delete mOldImage;
+	mOldImage = nullptr;
 
 	return true;
 }
@@ -619,7 +622,7 @@ void GifWriter::GifWritePalette(const GifPalette* pPal, FILE* f)
 }
 
 
-void GifWriter::GifWriteLzwImage(FILE* f, std::shared_ptr<QImage> image, uint32_t left, uint32_t top, uint32_t delay, GifPalette* pPal)
+void GifWriter::GifWriteLzwImage(FILE* f, uint32_t left, uint32_t top, uint32_t delay, GifPalette* pPal)
 {
 	// graphics control extension
 	fputc(0x21, f);
@@ -672,7 +675,7 @@ void GifWriter::GifWriteLzwImage(FILE* f, std::shared_ptr<QImage> image, uint32_
 	{
 		for (uint32_t xx = 0; xx<mWidth; ++xx)
 		{
-			uint8_t nextValue = image->constBits()[(yy*mWidth + xx) * 4 + 3];
+			uint8_t nextValue = mOldImage->constBits()[(yy*mWidth + xx) * 4 + 3];
 
 			// "loser mode" - no compression, every single code is followed immediately by a clear
 			//WriteCode( f, stat, nextValue, codeSize );

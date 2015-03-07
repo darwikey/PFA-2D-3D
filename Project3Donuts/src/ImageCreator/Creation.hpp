@@ -25,20 +25,20 @@ protected:
 	virtual void createWindow();
 
 	//! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class.
-	virtual CreationFile render() = 0;
+	virtual std::unique_ptr<CreationFile> render() = 0;
 
 	//! \brief render the scene and return a color map
 	//! \param fHorizontalRotation in degree
 	//! \param fVerticalRotation in degree
 	//! \param fZoom should be > 0, 1 equals no zoom
-	std::shared_ptr<QImage> getColorMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
+	std::unique_ptr<QImage> getColorMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
 
 	//! brief render the scene and return a depath map
-	std::shared_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
+	std::unique_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
 
 	void updatePreview();
 
-	void gammaCorrection(std::shared_ptr<QImage> fImage);
+	void gammaCorrection(QImage& fImage);
 
 	void insertNewWidget(QWidget* fWidget);
 

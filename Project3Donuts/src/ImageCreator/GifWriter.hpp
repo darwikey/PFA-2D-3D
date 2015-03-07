@@ -23,7 +23,8 @@
 #include <stdint.h>
 
 
-
+//! \class GifWriter
+//! \brief use to create animated gif
 class GifWriter {
 public:
 	// Creates a gif file.
@@ -129,13 +130,13 @@ private:
 	void GifWritePalette(const GifPalette* pPal, FILE* f);
 
 	// write the image header, LZW-compress and write out the image
-	void GifWriteLzwImage(FILE* f, std::shared_ptr<QImage> image, uint32_t left, uint32_t top, uint32_t delay, GifPalette* pPal);
+	void GifWriteLzwImage(FILE* f, uint32_t left, uint32_t top, uint32_t delay, GifPalette* pPal);
 
 
 
 	const int mkGifTransIndex = 0;
     FILE* mFile;
-	std::shared_ptr<QImage> mOldImage;
+	QImage* mOldImage = nullptr;
     bool mFirstFrame = true;
 
 	uint32_t mWidth = 0;

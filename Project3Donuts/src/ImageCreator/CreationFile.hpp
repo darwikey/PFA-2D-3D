@@ -15,19 +15,25 @@ public:
 	//! \param the type of image that the class will contain
 	CreationFile(Type fType);
 
+	~CreationFile();
+
 	//! \brief add an image
-	void pushImage(std::shared_ptr<QImage> fImage);
+	void pushImage(std::unique_ptr<QImage> fImage);
 
 	//! \brief save the content of the class into a file
 	//! \param the path of the file
 	void save(const QString& fFileName);
 
 	//! \brief return the first image add 
-	std::shared_ptr<QImage> getFirstImage();
+	const QImage* getFirstImage() const;
 
 
 private:
-	std::vector<std::shared_ptr<QImage>> mImages;
+	//! \brief Copy constructor
+	CreationFile(const CreationFile& fInstance);
+
+
+	std::vector<QImage*> mImages;
 
 	Type mType;
 

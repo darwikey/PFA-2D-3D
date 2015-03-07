@@ -64,7 +64,7 @@ void Creation::createWindow(){
 }
 
 
-std::shared_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float fVerticalRotation, float fZoom){
+std::unique_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float fVerticalRotation, float fZoom){
 	const Camera* _sceneCamera = Scene::getScene()->getCamera();
 	
 	// Create a new camera
@@ -72,16 +72,16 @@ std::shared_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float f
 	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
 
 	// Render
-	std::shared_ptr<QImage> _image = _camera.getColorMap(1920, 1080);
+	std::unique_ptr<QImage> _image = _camera.getColorMap(1920, 1080);
 	
 	// Image corrections
-	this->gammaCorrection(_image);
+	this->gammaCorrection(*_image);
 	
 	return _image;
 }
 
 
-std::shared_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float fVerticalRotation, float fZoom){
+std::unique_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float fVerticalRotation, float fZoom){
 	const Camera* _sceneCamera = Scene::getScene()->getCamera();
 
 	// Create a new camera
@@ -89,7 +89,7 @@ std::shared_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float f
 	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
 
 	// Render
-	std::shared_ptr<QImage> _image = _camera.getDepthMap(1920, 1080);
+	std::unique_ptr<QImage> _image = _camera.getDepthMap(1920, 1080);
 
 	return _image;
 }
@@ -98,7 +98,8 @@ std::shared_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float f
 void Creation::updatePreview(){
 	if (mPreviewImage != nullptr) {
 
-		std::shared_ptr<QImage> _render = this->render().getFirstImage();
+		std::unique_ptr<CreationFile> _creation = this->render();
+		const QImage* _render = _creation->getFirstImage();
 
 		if (_render) {
 
@@ -112,12 +113,12 @@ void Creation::updatePreview(){
 }
 
 
-void Creation::gammaCorrection(std::shared_ptr<QImage> fImage){
+void Creation::gammaCorrection(QImage& fImage){
 	
-	for (int x = 0; x < fImage->width(); x++){
-		for (int y = 0; y < fImage->height(); y++){
+	for (int x = 0; x < fImage.width(); x++){
+		for (int y = 0; y < fImage.height(); y++){
 	
-			QRgb _p = fImage->pixel(x, y);
+			QRgb _p = fImage.pixel(x, y);
 		
 			float _red = qRed(_p) / 255.f;
 			float _green = qGreen(_p) / 255.f;
@@ -127,7 +128,7 @@ void Creation::gammaCorrection(std::shared_ptr<QImage> fImage){
 			_green = pow(_green, 1.f / mGamma);
 			_blue = pow(_blue, 1.f / mGamma);
 		
-			fImage->setPixel(x, y, qRgb((int)(_red * 255.f), (int)(_green * 255.f), (int)(_blue * 255.f)));
+			fImage.setPixel(x, y, qRgb((int)(_red * 255.f), (int)(_green * 255.f), (int)(_blue * 255.f)));
 			
 		}
 	}
@@ -149,9 +150,9 @@ void Creation::startRender(){
 	QString _file = QFileDialog::getSaveFileName(mWindow, "Save", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
 	std::cout << "save image : " << _file.toStdString();
 
-	CreationFile _image = this->render();
+	std::unique_ptr<CreationFile> _image = this->render();
 
-	_image.save(_file);
+	_image->save(_file);
 }
 
 

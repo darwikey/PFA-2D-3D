@@ -14,7 +14,7 @@ protected:
 
 	virtual void createWindow() override;
 
-	virtual CreationFile render() override;
+	virtual std::unique_ptr<CreationFile> render() override;
 
 
 private:

@@ -274,7 +274,6 @@ void writeScale(std::string &fStr, int fX, int fY, int fZ, int fTab) {
 
 void Scene::saveScene(const std::string& fPath) {
 	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);
-	int _i;
 
 	if (_ext != "xml") {
 		std::cerr << "File must have an XML extension !" << std::endl;

@@ -17,6 +17,12 @@ mAngleOfView(fAngleOfView){
 }
 
 
+Camera::~Camera(){
+	delete mColorPixelBuffer;
+	delete mDepthPixelBuffer;
+}
+
+
 void Camera::moveCamera(float fHorizontalRotation, float fVerticalRotation, float fZoom){
 	
 	//Rotation
@@ -58,7 +64,7 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 }
 
 
-std::shared_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
+std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mColorPixelBuffer == nullptr){
@@ -78,12 +84,12 @@ std::shared_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
 
 	_renderer->glFlush();
 
-	std::shared_ptr<QImage> _image(new QImage(mColorPixelBuffer->toImage()));
+	std::unique_ptr<QImage> _image(new QImage(mColorPixelBuffer->toImage()));
 	return _image;
 }
 
 
-std::shared_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
+std::unique_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mDepthPixelBuffer == nullptr){
@@ -102,7 +108,7 @@ std::shared_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 
 	_renderer->glFlush();
 	
-	std::shared_ptr<QImage> _image(new QImage(mDepthPixelBuffer->toImage()));
+	std::unique_ptr<QImage> _image(new QImage(mDepthPixelBuffer->toImage()));
 	return _image;
 }
 

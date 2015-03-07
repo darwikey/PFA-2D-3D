@@ -7,8 +7,19 @@ CreationFile::CreationFile(Type fType) : mType(fType){
 }
 
 
-void CreationFile::pushImage(std::shared_ptr<QImage> fImage){
-	mImages.push_back(fImage);
+CreationFile::CreationFile(const CreationFile& fInstance) {
+}
+
+
+CreationFile::~CreationFile(){
+	for (auto _im = mImages.begin(); _im != mImages.end(); ++_im){
+		delete *_im;
+	}
+}
+
+
+void CreationFile::pushImage(std::unique_ptr<QImage> fImage){
+	mImages.push_back(fImage.release());
 }
 
 
@@ -28,8 +39,8 @@ void CreationFile::save(const QString& fFileName){
 				GifWriter _gif;
 				_gif.GifBegin(fFileName.toStdString().c_str(), mImages.front()->width(), mImages.front()->height(), 50);
 
-				for (auto _im : mImages){
-					_gif.GifWriteFrame(_im.get());
+				for (auto _im = mImages.begin(); _im != mImages.end(); ++_im){
+					_gif.GifWriteFrame(*_im);
 				}
 
 				_gif.GifEnd();
@@ -43,9 +54,9 @@ void CreationFile::save(const QString& fFileName){
 }
 
 
-std::shared_ptr<QImage> CreationFile::getFirstImage(){
+const QImage* CreationFile::getFirstImage() const{
 	if (mImages.empty()){
-		return std::shared_ptr<QImage>();
+		return nullptr;
 	}
 	else{
 		return mImages.front();

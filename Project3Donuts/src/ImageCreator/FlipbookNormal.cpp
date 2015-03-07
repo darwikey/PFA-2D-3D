@@ -45,20 +45,29 @@ void FlipbookNormal::createWindow(){
 	QObject::connect(mHorizontalSpeedSlider, SIGNAL(valueChanged(int)), this, SLOT(changeHorizontalSpeed(int)));
 	QObject::connect(mVerticalSpeedSlider, SIGNAL(valueChanged(int)), this, SLOT(changeVerticalSpeed(int)));
 	QObject::connect(mZoomSpeedSlider, SIGNAL(valueChanged(int)), this, SLOT(changeZoomSpeed(int)));
+
+	// Number of Frame
+	mFrameNumberLabel = new QLabel("Nombre d'images", mWindow);
+	this->insertNewWidget(mFrameNumberLabel);
+
+	mFrameNumberBox = new QSpinBox(mWindow);
+	mFrameNumberBox->setValue(mFrameNumber);
+	this->insertNewWidget(mFrameNumberBox);
+
+	QObject::connect(mFrameNumberBox, SIGNAL(valueChanged(int)), this, SLOT(changeFrameNumber(int)));
 }
 
 
-CreationFile FlipbookNormal::render(){
-	CreationFile _file(CreationFile::Type::ANIMATED_GIF);
+std::unique_ptr<CreationFile> FlipbookNormal::render(){
+	std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::ANIMATED_GIF));
 
 	float _horizontalRotation = 0.f;
 	float _verticalRotation = 0.f;
 	float _zoom = 1.f;
 
-	for (int _frame = 0; _frame < mNumberOfFrame; _frame++)	{
-		std::shared_ptr<QImage> _image = this->getColorMap(_horizontalRotation, _verticalRotation, _zoom);
+	for (int _frame = 0; _frame < mFrameNumber; _frame++)	{
 		
-		_file.pushImage(_image);
+		_file->pushImage(this->getColorMap(_horizontalRotation, _verticalRotation, _zoom));
 
 		_horizontalRotation += 35.f * mHorizontalSpeed;
 		_verticalRotation += 8.f * mVerticalSpeed;
@@ -88,4 +97,9 @@ void FlipbookNormal::changeVerticalSpeed(int fSpeed){
 
 void FlipbookNormal::changeZoomSpeed(int fSpeed){
 	mZoomSpeed = (float)(fSpeed - 50) / 50.f;
+}
+
+
+void FlipbookNormal::changeFrameNumber(int fValue){
+	mFrameNumber = fValue;
 }
