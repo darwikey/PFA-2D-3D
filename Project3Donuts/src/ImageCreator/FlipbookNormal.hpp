@@ -19,14 +19,29 @@ protected:
 
 private:
 	QCheckBox* mGreyBox = nullptr;
+	QLabel* mHorizontalSpeedLabel = nullptr;
+	QSlider* mHorizontalSpeedSlider = nullptr;
+	QLabel* mVerticalSpeedLabel = nullptr;
+	QSlider* mVerticalSpeedSlider = nullptr;
+	QLabel* mZoomSpeedLabel = nullptr;
+	QSlider* mZoomSpeedSlider = nullptr;
 
 	bool mIsGrey = false;
+
+	float mHorizontalSpeed = 0.f;
+	float mVerticalSpeed = 0.f;
+	float mZoomSpeed = 0.f;
+	int mNumberOfFrame = 10;
 
 
 private slots:
 	void setGrey(int fIsGrey);
 
+	void changeHorizontalSpeed(int fSpeed);
 
+	void changeVerticalSpeed(int fSpeed);
+
+	void changeZoomSpeed(int fSpeed);
 };
 
 #endif

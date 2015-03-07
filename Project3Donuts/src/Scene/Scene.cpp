@@ -83,14 +83,18 @@ void Scene::show() {
 }
 
 
-void Scene::render(bool fRenderOnlyObject) {
+void Scene::render(bool fRenderOnlyObject, Camera* fCamera) {
+	if (fCamera == nullptr){
+		fCamera = mCamera;
+	}
+
 	for (auto _obj : *mObjects.load()) {
-		mSceneRenderer->render(_obj.second, false);
+		mSceneRenderer->render(_obj.second, fCamera, false);
 	}
 
 	if (!fRenderOnlyObject){
 		if (mSelectedObject.second != nullptr) {
-			mTransformWidget->render(mSceneRenderer, mSelectedObject.second);
+			mTransformWidget->render(mSceneRenderer, fCamera, mSelectedObject.second);
 		}
 	}
 }

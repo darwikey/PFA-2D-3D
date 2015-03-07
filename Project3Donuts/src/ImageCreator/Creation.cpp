@@ -96,14 +96,16 @@ std::shared_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float f
 
 
 void Creation::updatePreview(){
-	std::shared_ptr<QImage> _render = this->render().getFirstImage();
-	
-	if (_render) {
+	if (mPreviewImage != nullptr) {
 
-		QImage _image = _render->scaled(200, 200, Qt::AspectRatioMode::IgnoreAspectRatio);
-		QPixmap _pixmap = QPixmap::fromImage(_image);
+		std::shared_ptr<QImage> _render = this->render().getFirstImage();
 
-		if (mPreviewImage != nullptr) {
+		if (_render) {
+
+			// Create a low resolution image
+			QImage _image = _render->scaled(200, 200, Qt::AspectRatioMode::IgnoreAspectRatio);
+			QPixmap _pixmap = QPixmap::fromImage(_image);
+
 			mPreviewImage->setPixmap(_pixmap);
 		}
 	}
@@ -133,7 +135,8 @@ void Creation::gammaCorrection(std::shared_ptr<QImage> fImage){
 
 
 void Creation::insertNewWidget(QWidget* fWidget){
-	mLayout->insertWidget(4, fWidget);
+	mLayout->insertWidget(mPositionNewWidget, fWidget);
+	mPositionNewWidget++;
 }
 
 

@@ -35,7 +35,8 @@ public:
 
 	//! \brief render the scene, this function must be called each frame
 	//! \param fRenderOnlyObject, don't render widgets and lamps
-	void render(bool fRenderOnlyObject = false);
+	//! \param the camera used to render, if null the function use the scene camera
+	void render(bool fRenderOnlyObject = false, Camera* fCamera = nullptr);
 
 	//! \brief select all the object touched by the mouse
 	//! \param fMousePosition, position of the mouse in the screen

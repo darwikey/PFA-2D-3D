@@ -55,7 +55,7 @@ void SceneRenderer::paintGL() {
 
 }
 
-void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
+void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForeground) {
 
     if(! fModel->isVboInitialized()){
 		fModel->initVbo(this);
@@ -68,8 +68,8 @@ void SceneRenderer::render(Object* fModel, bool fRenderForeground) {
     }
 
 
-	QMatrix4x4 _viewMatrix = Scene::getScene()->getCamera()->getViewMatrix();
-	const QMatrix4x4& _projectionMatrix = Scene::getScene()->getCamera()->getProjectionMatrix();
+	QMatrix4x4 _viewMatrix = fCamera->getViewMatrix();
+	const QMatrix4x4& _projectionMatrix = fCamera->getProjectionMatrix();
 
 	QMatrix4x4 _modelMatrix = fModel->getModelMatrix();
 

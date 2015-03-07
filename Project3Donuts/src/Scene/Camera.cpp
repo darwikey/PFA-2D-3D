@@ -21,8 +21,8 @@ void Camera::moveCamera(float fHorizontalRotation, float fVerticalRotation, floa
 	
 	//Rotation
 	QMatrix4x4 _mat;
-	_mat.rotate(fVerticalRotation, QVector3D(0.f, -1.f, 0.f));
-	_mat.rotate(fHorizontalRotation, QVector3D(-1.f, 0.f, 0.f));
+	_mat.rotate(fVerticalRotation, QVector3D(-1.f, 0.f, 0.f));
+	_mat.rotate(fHorizontalRotation, QVector3D(0.f, 1.f, 0.f));
 	mPosition = _mat * mPosition;
 
 	//Zoom
@@ -74,7 +74,7 @@ std::shared_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
 
 	Object::switchShader(Object::Shader::COLORMAP);
 
-	Scene::getScene()->render(true);
+	Scene::getScene()->render(true, this);
 
 	_renderer->glFlush();
 
@@ -98,7 +98,7 @@ std::shared_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Object::switchShader(Object::Shader::DEPTHMAP);
-	Scene::getScene()->render(true);
+	Scene::getScene()->render(true, this);
 
 	_renderer->glFlush();
 	

@@ -6,6 +6,7 @@
 #include "global.hpp"
 
 class Object;
+class Camera;
 
 class SceneRenderer : public MyGLWidget{
 
@@ -16,7 +17,7 @@ public:
 	void initOpengl(QVector3D fColor);
 	void resizeGL(int width, int height) override;
 	void paintGL() override;
-	void render(Object* fModel, bool fRenderForeground);
+	void render(Object* fModel, Camera* fCamera, bool fRenderForeground);
 
 private:
 

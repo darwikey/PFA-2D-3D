@@ -13,7 +13,7 @@ TransformWidget::~TransformWidget(){
 }
 
 
-void TransformWidget::render(SceneRenderer* fRenderer, Object* fSelectedObject){
+void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera, Object* fSelectedObject){
 	if (mState != TransformWidget::State::HIDE
 		&& mObjectX != nullptr
 		&& fSelectedObject != nullptr) {
@@ -28,15 +28,15 @@ void TransformWidget::render(SceneRenderer* fRenderer, Object* fSelectedObject){
 		mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
 
 		// Scale
-		float _scale = Scene::getScene()->getCamera()->getPosition().length() / 7.f;
+		float _scale = fCamera->getPosition().length() / 7.f;
 		mObjectX->changeObjectScale(_scale);
 		mObjectY->changeObjectScale(_scale);
 		mObjectZ->changeObjectScale(_scale);
 
 		// Render
-		fRenderer->render(mObjectX, true);
-		fRenderer->render(mObjectY, true);
-		fRenderer->render(mObjectZ, true);
+		fRenderer->render(mObjectX, fCamera, true);
+		fRenderer->render(mObjectY, fCamera, true);
+		fRenderer->render(mObjectZ, fCamera, true);
 	}
 }
 
