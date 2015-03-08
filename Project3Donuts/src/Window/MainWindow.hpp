@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ui_about.h"
+#include "Settings.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +34,7 @@ public slots:
 
 private:
    QMainWindow * win_about;
+   Settings * _settingsWindow;
    Ui::About* _about_ui;
 
 };

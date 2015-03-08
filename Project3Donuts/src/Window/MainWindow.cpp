@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     win_about->setWindowModality (Qt::ApplicationModal);
     _about_ui = new Ui::About();
     _about_ui->setupUi(win_about);
+    _settingsWindow = new Settings(this);
 }
 
 MainWindow::~MainWindow()
@@ -146,7 +147,7 @@ void MainWindow::invertwidgets()
 
 void MainWindow::editsettings()
 {
-    QMessageBox::critical(0, "Error", "Not implemented yet");
+    _settingsWindow->show();
 }
 
 void MainWindow::about()
