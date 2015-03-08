@@ -42,11 +42,10 @@ protected:
 
 	void insertNewWidget(QWidget* fWidget);
 
-    //! \describe how large is the image to create in number of pixel
-    //int mWidth; 
-    //! \describe how high is the image to create in number of pixel
-    //int mHeight;
+	QPoint getImageSize();
 
+
+	// Widget
 	QWidget* mWindow = nullptr;
 	QVBoxLayout* mLayout = nullptr;
 	QLabel* mTitleLabel = nullptr;
@@ -60,6 +59,7 @@ protected:
 
 
 private:
+	float mResolution = 72.f;
 	float mGamma = 1.f;
 	int mPositionNewWidget = 6;
 	unsigned int mAntiAliasingIteration = 0;

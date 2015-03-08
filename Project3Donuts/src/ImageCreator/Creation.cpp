@@ -32,8 +32,11 @@ void Creation::createWindow(bool fHasPreview){
 
 	// Resolution
 	mResolutionBox = new QComboBox(mWindow);
-	mResolutionBox->addItem("75 dpi");
 	mResolutionBox->addItem("300 dpi");
+	mResolutionBox->addItem("200 dpi");
+	mResolutionBox->addItem("100 dpi");
+	mResolutionBox->addItem("72 dpi");
+	mResolutionBox->setCurrentIndex(3);
 	mLayout->addWidget(mResolutionBox);
 
 	QObject::connect(mResolutionBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeResolution(int)));
@@ -90,7 +93,8 @@ std::unique_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float f
 	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
 
 	// Render
-	std::unique_ptr<QImage> _image = _camera.getColorMap(1920, 1080);
+	QPoint _size = getImageSize();
+	std::unique_ptr<QImage> _image = _camera.getColorMap(_size.x(), _size.y());
 	
 	// Image corrections
 	CreationTools::gammaCorrection(*_image, mGamma);
@@ -113,7 +117,8 @@ std::unique_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float f
 	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
 
 	// Render
-	std::unique_ptr<QImage> _image = _camera.getDepthMap(1920, 1080);
+	QPoint _size = getImageSize();
+	std::unique_ptr<QImage> _image = _camera.getDepthMap(_size.x(), _size.y());
 
 	return _image;
 }
@@ -143,8 +148,30 @@ void Creation::insertNewWidget(QWidget* fWidget){
 }
 
 
+QPoint Creation::getImageSize(){
+	QPoint _point(11.69333f, 8.26666f);
+	return mResolution * _point;
+}
+
+
 void Creation::changeResolution(int fResolution){
-	//TODO
+	switch (fResolution){
+	case 0:
+		mResolution = 300.f;
+		break;
+
+	case 1:
+		mResolution = 200.f;
+		break;
+
+	case 2:
+		mResolution = 100.f;
+		break;
+
+	case 3:
+		mResolution = 72.f;
+		break;
+	}
 }
 
 
