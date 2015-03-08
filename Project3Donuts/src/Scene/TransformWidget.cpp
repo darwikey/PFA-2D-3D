@@ -59,12 +59,17 @@ void TransformWidget::changeState(TransformWidget::State fState) {
 			QMessageBox::critical(0, "Error", "Error opening " + QString(_objPath.c_str()));
 		}
 
-		mObjectX->computeColors(QVector3D(1.f, 0.f, 0.f));
-		mObjectY->computeColors(QVector3D(0.f, 1.f, 0.f));
-		mObjectZ->computeColors(QVector3D(0.f, 0.f, 1.f));
+		mObjectX->computeColors();
+		mObjectY->computeColors();
+		mObjectZ->computeColors();
+
 		mObjectX->normalizeData();
 		mObjectY->normalizeData();
 		mObjectZ->normalizeData();
+
+		mObjectX->setGlobalColor(QVector3D(1.f, 0.f, 0.f));
+		mObjectY->setGlobalColor(QVector3D(0.f, 1.f, 0.f));
+		mObjectZ->setGlobalColor(QVector3D(0.f, 0.f, 1.f));
 	}
 
 	mState = fState;
@@ -96,15 +101,15 @@ void TransformWidget::select(QVector2D fMousePosition){
 
 	if (_isCollisionX) {
 		mDirection = Direction::X;
-		mObjectX->computeColors(QVector3D(1.f, 1.f, 1.f));
+		mObjectX->setGlobalColor(QVector3D(1.f, 1.f, 1.f));
 	}
 	else if (_isCollisionY) {
 		mDirection = Direction::Y;
-		mObjectY->computeColors(QVector3D(1.f, 1.f, 1.f));
+		mObjectY->setGlobalColor(QVector3D(1.f, 1.f, 1.f));
 	}
 	else if (_isCollisionZ) {
 		mDirection = Direction::Z;
-		mObjectZ->computeColors(QVector3D(1.f, 1.f, 1.f));
+		mObjectZ->setGlobalColor(QVector3D(1.f, 1.f, 1.f));
 	}
 
 	mIsSelected = _isCollisionX || _isCollisionY || _isCollisionZ;
@@ -189,7 +194,9 @@ void TransformWidget::activate(QVector2D fMousePosition){
 
 void TransformWidget::unselect() {
 	mIsSelected = false;
-	/*mObjectX->computeColors(QVector3D(1.f, 0.f, 0.f));
-	mObjectY->computeColors(QVector3D(0.f, 1.f, 0.f));
-	mObjectZ->computeColors(QVector3D(0.f, 0.f, 1.f));*/
+	if (mObjectX != nullptr){
+		mObjectX->setGlobalColor(QVector3D(1.f, 0.f, 0.f));
+		mObjectY->setGlobalColor(QVector3D(0.f, 1.f, 0.f));
+		mObjectZ->setGlobalColor(QVector3D(0.f, 0.f, 1.f));
+	}
 }

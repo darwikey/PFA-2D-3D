@@ -76,6 +76,7 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 	fModel->getShader()->setUniformValue("viewProjectionMatrix", _projectionMatrix * _viewMatrix * _modelMatrix);
 	fModel->getShader()->setUniformValue("normalMatrix", _modelMatrix.inverted().transposed());
 	fModel->getShader()->setUniformValue("isSelected", fModel->isObjectSelected());
+	fModel->getShader()->setUniformValue("globalColor", fModel->getGlobalColor());
 	fModel->getShader()->setUniformValue("enableShading", !fRenderForeground);
 
 

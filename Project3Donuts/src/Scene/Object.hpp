@@ -20,7 +20,9 @@ public:
 
 	//! \brief Construction of the object before filling it with points
 	Object();
-    Object(const std::string &p);
+
+	//! \brief Construction of the object when it is loaded with a file
+	Object(const std::string &fPath);
 
 	//! \brief To move an object depending on three values on  x, y and z coordonates
 	//! \param fUpdateCamera, update the camera position
@@ -62,7 +64,7 @@ public:
 	void computeBoundingBox();
 
 	//! \brief find vertex colors
-	void computeColors(QVector3D fColor = QVector3D(0.5, 0.5, 0.5));
+	void computeColors(QVector3D fColor = QVector3D(1, 1, 1));
 
 	//! \brief normalize the stored data
 	void normalizeData();
@@ -117,6 +119,13 @@ public:
 	//! \brief add one texture coordinate in the model
 	void pushTextureCoordinate(QVector2D fValue);
 
+	//! \brief set the global colr of the object
+	void setGlobalColor(QVector3D fColor);
+
+	//! \brief set the global colr of the object
+	QVector3D getGlobalColor();
+
+	//! \brief return the path of the file 
     const std::string& getPath() const;
 
 
@@ -137,7 +146,8 @@ private:
     std::vector<QVector2D> mTextureCoordinates;
     std::vector<QVector3D> mNormals;
     std::vector<uint> mIndices;
-    std::vector<QVector3D> mColor;
+    std::vector<QVector3D> mVertexColor;
+	QVector3D mGlobalColor = QVector3D(0.5f, 0.5f, 0.5f);
 
 	bool mIsVboInitialized = false;
     QOpenGLVertexArrayObject mVAO;

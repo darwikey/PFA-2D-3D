@@ -14,10 +14,10 @@ mRotation(0.f, 0.f, 0.f),
 mScale(1.f, 1.f, 1.f){
 }
 
-Object::Object(const std::string &p) : mPosition(0.f,0.f,0.f),
+Object::Object(const std::string &fPath) : mPosition(0.f,0.f,0.f),
 mRotation(0.f, 0.f, 0.f),
 mScale(1.f, 1.f, 1.f),
-mPath(p){
+mPath(fPath){
 }
 
 
@@ -87,7 +87,7 @@ void Object::initVbo(SceneRenderer* fRenderer)
 		mColorbuffer.create();
 		mColorbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
 		mColorbuffer.bind();
-		mColorbuffer.allocate(mColor.data(), mColor.size() * sizeof(QVector3D));
+		mColorbuffer.allocate(mVertexColor.data(), mVertexColor.size() * sizeof(QVector3D));
 
 		// Create a buffer and Fill it the the index data
 		/*mIndexbuffer.create();
@@ -228,9 +228,9 @@ void Object::computeBoundingBox(){
 
 void Object::computeColors(QVector3D fColor) {
 	if (!mVertices.empty() && !mIndices.empty()) {
-		mColor.clear();
+		mVertexColor.clear();
 		for (unsigned int i = 0; i < mVertices.size(); i++) {
-			mColor.push_back(fColor);
+			mVertexColor.push_back(fColor);
 		}
 	}
 }
@@ -281,15 +281,15 @@ void Object::normalizeData(){
 			_normals.push_back(mNormals[_indice]);
 		}
 
-		if (_indice < mColor.size()) {
-			_color.push_back(mColor[_indice]);
+		if (_indice < mVertexColor.size()) {
+			_color.push_back(mVertexColor[_indice]);
 		}
 	}
 
 	mVertices = _vertices;
 	mTextureCoordinates = _vextureCoordinates;
 	mNormals = _normals;
-	mColor = _color;
+	mVertexColor = _color;
 }
 
 
@@ -365,11 +365,19 @@ void Object::pushIndice(uint fValue){
 }
 
 void Object::pushColor(QVector3D fValue){
-	mColor.push_back(fValue);
+	mVertexColor.push_back(fValue);
 }
 
 void Object::pushTextureCoordinate(QVector2D fValue){
 	mTextureCoordinates.push_back(fValue);
+}
+
+void Object::setGlobalColor(QVector3D fColor){
+	mGlobalColor = fColor;
+}
+
+QVector3D Object::getGlobalColor(){
+	return mGlobalColor;
 }
 
 const std::string& Object::getPath() const{

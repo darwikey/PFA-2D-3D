@@ -1,9 +1,9 @@
 
 varying vec3 fragmentColor;
 uniform bool isSelected;
-
+uniform vec3 globalColor;
 
 void main() {
-	//gl_FragColor = vec4(fragmentColor, 1.0);
-	gl_FragData[0] = vec4(fragmentColor, 1.0);
+	//gl_FragColor = vec4(globalColor * fragmentColor, 1.0);
+	gl_FragData[0] = vec4(globalColor * fragmentColor, 1.0);
 }

@@ -15,11 +15,10 @@ Settings::~Settings()
 
 void Settings::changecolor()
 {
-    QColor color;
-        color = QColorDialog::getColor(Qt::green, this, "Select Color", QColorDialog::DontUseNativeDialog);
+    QColor _color = QColorDialog::getColor(Qt::green, this, "Select Color", QColorDialog::DontUseNativeDialog);
 
-    if (color.isValid()) {
-        ui->colorLabel->setPalette(QPalette(color));
+    if (_color.isValid()) {
+        ui->colorLabel->setPalette(QPalette(_color));
         ui->colorLabel->setAutoFillBackground(true);
     }
 

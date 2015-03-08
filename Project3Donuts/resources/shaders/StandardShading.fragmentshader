@@ -1,11 +1,11 @@
 
 varying vec3 fragmentColor;
 uniform bool isSelected;
-
+uniform vec3 globalColor;
 
 void main() {
-	if (!isSelected || (mod(gl_FragCoord.x, 3.) > .5) && (mod(gl_FragCoord.y, 3.) > .5))
-		gl_FragColor = vec4(fragmentColor, 1.0);
+	if (!isSelected || (mod(gl_FragCoord.x, 3.) > .5) || (mod(gl_FragCoord.y, 3.) > .5))
+		gl_FragColor = vec4(globalColor * fragmentColor, 1.0);
 	else
-		gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+		gl_FragColor = vec4(1.0, 0.7, 0.0, 1.0);
 }

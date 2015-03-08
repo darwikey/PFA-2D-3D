@@ -60,7 +60,7 @@ void  MyGLWidget::mouseReleaseEvent(QMouseEvent *fEvent) {
 //mouse Move Event
 void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 
-    GLfloat _dx = (GLfloat)(fEvent->x() - mPrevMousePosition.x()) / 10;//viewport_size.width();
+    float _dx = (float)(fEvent->x() - mPrevMousePosition.x()) / 10;//viewport_size.width();
     float _dy = (float)(fEvent->y() - mPrevMousePosition.y()) / 7;//viewport_size.height();
 
 
@@ -104,6 +104,7 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
         case Qt::Key_R:
 			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::ROTATION);
             break;
+
         case Qt::Key_S:
 			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::SCALE);
             break;
@@ -140,6 +141,16 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 			Creator::getCreator()->launchFlipbook(0);
 			break;
 
+		case Qt::Key_C:
+		{
+			QColor _colorRGB = QColorDialog::getColor(QColor(128, 128, 128), nullptr, "Select Color", QColorDialog::DontUseNativeDialog);
+			QVector3D _color(_colorRGB.red(), _colorRGB.green(), _colorRGB.blue());
+			Object* _selectedObject = Scene::getScene()->getObject(Scene::getScene()->getNameSelectedObject());
+			if (_selectedObject){
+				_selectedObject->setGlobalColor(_color / 255.f);
+			}
+			break;
+		}
 
         default:
             QGLWidget::keyPressEvent( fEvent );
