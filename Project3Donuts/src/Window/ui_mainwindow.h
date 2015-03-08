@@ -202,7 +202,7 @@ public:
         actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
         actionEffectuer_un_rendu->setText(QApplication::translate("MainWindow", "Effectuer un rendu", 0));
-        actionInverser_les_positions_des_fen_tres->setText(QApplication::translate("MainWindow", "Inverser les positions des fen\303\252tres", 0));
+        actionInverser_les_positions_des_fen_tres->setText(QApplication::translate("MainWindow", "Mettre la fen\303\252tres de visualisation \303\240 droite", 0));
         actionAnaglyphes->setText(QApplication::translate("MainWindow", "Anaglyphes", 0));
         actionAuto_st_r_ogrammes->setText(QApplication::translate("MainWindow", "Autost\303\251r\303\251ogrammes", 0));
         actionFlipbook->setText(QApplication::translate("MainWindow", "flipbook", 0));
