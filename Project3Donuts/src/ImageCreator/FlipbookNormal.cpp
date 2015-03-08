@@ -1,12 +1,8 @@
 #include "FlipbookNormal.hpp"
 
 
-void FlipbookNormal::createWindow(){
-	Flipbook::createWindow();
-
-	// Delete the preview image
-	delete mPreviewImage;
-	mPreviewImage = nullptr;
+void FlipbookNormal::createWindow(bool fHasPreview){
+	Flipbook::createWindow(false);
 
 	// Shade of grey
 	mGreyBox = new QCheckBox("Rendu en nuances de gris", mWindow);
@@ -67,7 +63,13 @@ std::unique_ptr<CreationFile> FlipbookNormal::render(){
 
 	for (int _frame = 0; _frame < mFrameNumber; _frame++)	{
 		
-		_file->pushImage(this->getColorMap(_horizontalRotation, _verticalRotation, _zoom));
+		std::unique_ptr<QImage> _image = this->getColorMap(_horizontalRotation, _verticalRotation, _zoom);
+
+		if (mIsGrey){
+			CreationTools::convertToShadeOfGrey(*_image);
+		}
+
+		_file->pushImage(std::move(_image));
 
 		_horizontalRotation += 35.f * mHorizontalSpeed;
 		_verticalRotation += 8.f * mVerticalSpeed;
@@ -81,7 +83,6 @@ std::unique_ptr<CreationFile> FlipbookNormal::render(){
 
 void FlipbookNormal::setGrey(int fIsGrey){
 	mIsGrey = fIsGrey;
-	this->updatePreview();
 }
 
 

@@ -12,7 +12,7 @@ class FlipbookNormal : public Flipbook{
 
 protected:
 
-	virtual void createWindow() override;
+	virtual void createWindow(bool fHasPreview = false) override;
 
 	virtual std::unique_ptr<CreationFile> render() override;
 

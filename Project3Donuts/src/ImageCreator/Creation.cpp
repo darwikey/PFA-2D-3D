@@ -19,7 +19,7 @@ void Creation::launch(){
 }
 
 
-void Creation::createWindow(){
+void Creation::createWindow(bool fHasPreview){
 	// Window and layout
 	mWindow = new QWidget();
 	//mWindow->setFixedSize(300, 300);
@@ -49,16 +49,34 @@ void Creation::createWindow(){
 	QObject::connect(mGammaSlider, SIGNAL(valueChanged(int)), this, SLOT(changeGamma(int)));
 
 
-	// Preview Image
-	mPreviewImage = new QLabel(mWindow);
-	mPreviewImage->setFixedSize(200, 200);
-	mLayout->addWidget(mPreviewImage);
+	// Antialiasing iteration
+	mAntialiasingLabel = new QLabel("Anti aliasing :", mWindow);
+	mLayout->addWidget(mAntialiasingLabel);
 
-	this->updatePreview();
+	mAntialiasingBox = new QComboBox(mWindow);
+	mAntialiasingBox->addItem("aucun");
+	mAntialiasingBox->addItem("1 it\303\251ration");
+	mAntialiasingBox->addItem("2 it\303\251rations");
+	mAntialiasingBox->addItem("3 it\303\251rations");
+	mAntialiasingBox->addItem("4 it\303\251rations");
+	mAntialiasingBox->addItem("5 it\303\251rations");
+	mLayout->addWidget(mAntialiasingBox);
+
+	QObject::connect(mAntialiasingBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeAntialiasing(int)));
+
+
+	// Preview Image
+	if (fHasPreview){
+		mPreviewImage = new QLabel(mWindow);
+		mPreviewImage->setFixedSize(200, 200);
+		mLayout->addWidget(mPreviewImage);
+
+		this->updatePreview();
+	}
 
 
 	// Render button
-	mRenderButton = new QPushButton("Rendre !", mWindow);
+	mRenderButton = new QPushButton("Lancer le rendu !", mWindow);
 	QObject::connect(mRenderButton, SIGNAL(clicked()), this, SLOT(startRender()));
 	mLayout->addWidget(mRenderButton);
 }
@@ -75,7 +93,13 @@ std::unique_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float f
 	std::unique_ptr<QImage> _image = _camera.getColorMap(1920, 1080);
 	
 	// Image corrections
-	this->gammaCorrection(*_image);
+	CreationTools::gammaCorrection(*_image, mGamma);
+
+	// Anti aliasing
+	for (unsigned int i = 0; i < mAntiAliasingIteration; i++){
+		_image = CreationTools::antiAliasing(*_image);
+	}
+
 	
 	return _image;
 }
@@ -113,28 +137,6 @@ void Creation::updatePreview(){
 }
 
 
-void Creation::gammaCorrection(QImage& fImage){
-	
-	for (int x = 0; x < fImage.width(); x++){
-		for (int y = 0; y < fImage.height(); y++){
-	
-			QRgb _p = fImage.pixel(x, y);
-		
-			float _red = qRed(_p) / 255.f;
-			float _green = qGreen(_p) / 255.f;
-			float _blue = qBlue(_p) / 255.f;
-		
-			_red = pow(_red, 1.f / mGamma);
-			_green = pow(_green, 1.f / mGamma);
-			_blue = pow(_blue, 1.f / mGamma);
-		
-			fImage.setPixel(x, y, qRgb((int)(_red * 255.f), (int)(_green * 255.f), (int)(_blue * 255.f)));
-			
-		}
-	}
-}
-
-
 void Creation::insertNewWidget(QWidget* fWidget){
 	mLayout->insertWidget(mPositionNewWidget, fWidget);
 	mPositionNewWidget++;
@@ -164,4 +166,10 @@ void Creation::changeGamma(int fCursor){
 	}
 	
 	this->updatePreview();
+}
+
+
+void Creation::changeAntialiasing(int fIteration){
+	mAntiAliasingIteration = fIteration;
+	std::cout << mAntiAliasingIteration;
 }

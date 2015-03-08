@@ -10,7 +10,7 @@
 class AnaglyphAlgorithm1 : public Anaglyph{
 protected:
 
-	virtual void createWindow() override;
+	virtual void createWindow(bool fHasPreview = true) override;
 
 	virtual std::unique_ptr<CreationFile> render() override;
        

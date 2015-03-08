@@ -1,20 +1,3 @@
-//
-// gif.h
-// by Charlie Tangora
-// Public domain.
-// Email me : ctangora -at- gmail -dot- com
-//
-// This file offers a simple, very limited way to create animated GIFs directly in code.
-//
-// Those looking for particular cleverness are likely to be disappointed; it's pretty 
-// much a straight-ahead implementation of the GIF format with optional Floyd-Steinberg 
-// dithering. (It does at least use delta encoding - only the changed portions of each 
-// frame are saved.) 
-//
-// So resulting files are often quite large. The hope is that it will be handy nonetheless
-// as a quick and easily-integrated way for programs to spit out animations.
-//
-// Only RGBA8 is currently supported as an input format. (The alpha is ignored.)
 
 #ifndef GIF_WRITER_H
 #define GIF_WRITER_H
@@ -25,7 +8,11 @@
 
 //! \class GifWriter
 //! \brief use to create animated gif
+//! \note by Charlie Tangora
+//! \note Public domain.
+//! \note Email me : ctangora -at- gmail -dot- com
 class GifWriter {
+
 public:
 	// Creates a gif file.
 	// The input GIFWriter is assumed to be uninitialized.

@@ -1,7 +1,7 @@
 #include "Photograph.hpp"
 
 
-void Photograph::createWindow(){
-	Creation::createWindow();
+void Photograph::createWindow(bool fHasPreview){
+	Creation::createWindow(fHasPreview);
 }
 

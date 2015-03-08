@@ -1,7 +1,7 @@
 #include "Flipbook.hpp"
 
 
-void Flipbook::createWindow(){
-	Creation::createWindow();
+void Flipbook::createWindow(bool fHasPreview){
+	Creation::createWindow(fHasPreview);
 }
 

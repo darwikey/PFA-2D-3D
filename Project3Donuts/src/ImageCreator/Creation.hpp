@@ -3,6 +3,8 @@
 
 #include "global.hpp"
 #include "CreationFile.hpp"
+#include "CreationTools.hpp"
+
 
 class Creator;
 
@@ -22,7 +24,7 @@ public:
 
 protected:
 
-	virtual void createWindow();
+	virtual void createWindow(bool fHasPreview = true);
 
 	//! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class.
 	virtual std::unique_ptr<CreationFile> render() = 0;
@@ -38,8 +40,6 @@ protected:
 
 	void updatePreview();
 
-	void gammaCorrection(QImage& fImage);
-
 	void insertNewWidget(QWidget* fWidget);
 
     //! \describe how large is the image to create in number of pixel
@@ -53,13 +53,16 @@ protected:
 	QComboBox* mResolutionBox = nullptr;
 	QLabel* mGammaLabel = nullptr;
 	QSlider* mGammaSlider = nullptr;
+	QLabel* mAntialiasingLabel = nullptr;
+	QComboBox* mAntialiasingBox = nullptr;
 	QPushButton* mRenderButton = nullptr;
 	QLabel* mPreviewImage = nullptr;
 
 
 private:
 	float mGamma = 1.f;
-	int mPositionNewWidget = 4;
+	int mPositionNewWidget = 6;
+	unsigned int mAntiAliasingIteration = 0;
 
 
 private slots:
@@ -68,6 +71,8 @@ private slots:
 	void startRender();
 
 	void changeGamma(int fCursor);
+
+	void changeAntialiasing(int fIteration);
 
 };
 

@@ -1,8 +1,8 @@
 #include "AnaglyphAlgorithm1.hpp"
 
 
-void AnaglyphAlgorithm1::createWindow(){
-	Anaglyph::createWindow();
+void AnaglyphAlgorithm1::createWindow(bool fHasPreview){
+	Anaglyph::createWindow(fHasPreview);
 
 
 }

@@ -1,8 +1,8 @@
 #include "AutostereogramAlgorithm1.hpp"
 
 
-void AutostereogramAlgorithm1::createWindow(){
-	Autostereogram::createWindow();
+void AutostereogramAlgorithm1::createWindow(bool fHasPreview){
+	Autostereogram::createWindow(fHasPreview);
 }
 
 

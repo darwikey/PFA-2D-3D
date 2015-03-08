@@ -1,7 +1,7 @@
 #include "Anaglyph.hpp"
 
 
-void Anaglyph::createWindow(){
-	Creation::createWindow();
+void Anaglyph::createWindow(bool fHasPreview){
+	Creation::createWindow(fHasPreview);
 }
 

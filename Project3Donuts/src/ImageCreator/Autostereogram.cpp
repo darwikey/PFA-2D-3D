@@ -1,7 +1,7 @@
 #include "Autostereogram.hpp"
 
 
-void Autostereogram::createWindow(){
-	Creation::createWindow();
+void Autostereogram::createWindow(bool fHasPreview){
+	Creation::createWindow(fHasPreview);
 }
 
