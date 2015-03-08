@@ -19,7 +19,7 @@ protected:
 	virtual std::unique_ptr<CreationFile> render() override = 0;
 
 	//! \brief extract the depth of a depthmap 
-	std::vector<float> Autostereogram::getDepth(const QImage& fImg);
+	std::vector<float> getDepth(const QImage& fImg);
 
 
 };

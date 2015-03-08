@@ -2,7 +2,7 @@
 #define FLIPBOOK_NORMAL_HPP
 
 #include "global.hpp"
-#include "FlipBook.hpp"
+#include "Flipbook.hpp"
 
 
 // ! \class FlipbookNormal
