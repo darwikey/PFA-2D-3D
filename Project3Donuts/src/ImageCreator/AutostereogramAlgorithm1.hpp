@@ -19,7 +19,6 @@ protected:
 
 
 private :
-	std::vector<float> getDepth(const QImage& fImg);
 
 	int separation(float fZ, int fE) ;
 	std::unique_ptr<QImage> depthmapToAutostereogram(const QImage& fDepthmap, int fE);

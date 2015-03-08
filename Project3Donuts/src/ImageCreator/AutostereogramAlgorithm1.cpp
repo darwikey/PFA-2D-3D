@@ -42,19 +42,6 @@ int AutostereogramAlgorithm1::separation(float fZ, int fE) {
 }
 
 
-std::vector<float> AutostereogramAlgorithm1::getDepth(const QImage& fImg) {
-	int _width = fImg.width();
-	int _height = fImg.height();
-
-	std::vector<float> resultat(_width * _height, 0.);
-	for (int i = 0; i < _height; ++i) {
-		for (int j = 0; j < _width; ++j) {
-			resultat[i * _width + j] = qGray(fImg.pixel(j, i)) / 255.f;
-		}
-	}
-	return resultat;
-}
-
 /* This is a retranscription in C++ of the algorithm of Harold W. Thimbleby, Stuart Inglis and Ian H. Witten */
 /* as presented in their article "Displaying 3D Images : Algorithm for Single Image Random Dot Stereograms" which has */
 /* been publicated in IEEE Computer in 1994 */
