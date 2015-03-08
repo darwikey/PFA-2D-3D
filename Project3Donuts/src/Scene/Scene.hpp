@@ -46,7 +46,17 @@ public:
     //! \param List of the objects
     void selectObjectsByName(QStringList fObjectList);
 
+	//! \brief return the name of the selected object
 	std::string getNameSelectedObject();
+
+	//! \brief delete the selected object
+	void deleteSelectedObject();
+
+	//! \brief register an new action
+	void registerAction(std::function<void()> fAction);
+
+	//! \brief revert the previous action
+	void revertPreviousAction();
 
 	//! \brief get scene renderer instance
 	SceneRenderer* getSceneRenderer();
@@ -105,6 +115,9 @@ private:
 
 	std::atomic<std::map<std::string, Object*>*> mObjects;
     std::pair<std::string, Object*> mSelectedObject = std::make_pair(std::string(), nullptr);
+	std::map<std::string, Object*> mDeletedObjects;
+
+	std::vector<std::function<void()>> mActionTable;
 };
 
 #endif

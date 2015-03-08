@@ -177,7 +177,7 @@ void Creation::changeResolution(int fResolution){
 
 void Creation::startRender(){
 	QString _file = QFileDialog::getSaveFileName(mWindow, "Save", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
-	std::cout << "save image : " << _file.toStdString();
+	std::cout << "save image : " << _file.toStdString() << std::endl;
 
 	std::unique_ptr<CreationFile> _image = this->render();
 
@@ -198,5 +198,4 @@ void Creation::changeGamma(int fCursor){
 
 void Creation::changeAntialiasing(int fIteration){
 	mAntiAliasingIteration = fIteration;
-	std::cout << mAntiAliasingIteration;
 }

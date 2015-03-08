@@ -116,14 +116,12 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
 			break;
 
-		case Qt::Key_A:
-			std::cout << "rendu..." << std::endl;
-			Scene::getScene()->getCamera()->getColorMap(1920, 1080)->save("colormap.png");
-			Scene::getScene()->getCamera()->getDepthMap(1920, 1080)->save("depthmap.png");
-			/*Object::switchShader((Object::Shader)a);//Object::Shader::DEBUG_NORMAL);
-			a++;
-			if (a > Object::Shader::DEPTHMAP)
-				a = 0;*/
+		case Qt::Key_Delete:
+			Scene::getScene()->deleteSelectedObject();
+			break;
+
+		case Qt::Key_Z:
+			Scene::getScene()->revertPreviousAction();
 			break;
 
 		case Qt::Key_N:

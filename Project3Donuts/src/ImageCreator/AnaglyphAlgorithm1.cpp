@@ -10,7 +10,7 @@ void AnaglyphAlgorithm1::createWindow(bool fHasPreview){
 
 std::unique_ptr<CreationFile> AnaglyphAlgorithm1::render(){
 	std::unique_ptr<QImage> _left = this->getColorMap();
-	std::unique_ptr<QImage> _right = this->getColorMap(0.0, 7.0, 1.0);
+	std::unique_ptr<QImage> _right = this->getColorMap(7.0, 0.0, 1.0);
 
 	std::unique_ptr<QImage> _image(new QImage(_left->size().width(),
 																						_left->size().height(),
