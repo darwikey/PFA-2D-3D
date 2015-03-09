@@ -3,6 +3,7 @@
 #include "AnaglyphAlgorithm1.hpp"
 #include "Autostereogram.hpp"
 #include "AutostereogramAlgorithm1.hpp"
+#include "AutostereogramAlgorithm2.hpp"
 #include "Flipbook.hpp"
 #include "FlipbookNormal.hpp"
 #include "Photograph.hpp"
@@ -18,6 +19,7 @@ Creator::Creator(){
 
 	// Autostereogram registration
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm1());
+	mAutostereogramTable.push_back(new AutostereogramAlgorithm2());
 
 	// Flipbook registration
 	mFlipbookTable.push_back(new FlipbookNormal());
@@ -82,3 +84,44 @@ void Creator::launchFlipbook(){
 void Creator::launchPhotograph(){
 	this->launchPhotograph(0);
 }
+
+
+std::vector<QString> Creator::getListAnaglyph() const{
+	std::vector<QString> _str;
+	for (auto it : mAnaglyphTable){
+		_str.push_back(it->metaObject()->className());
+	}
+
+	return _str;
+}
+
+
+std::vector<QString> Creator::getListAutostereogram() const{
+	std::vector<QString> _str;
+	for (auto it : mAutostereogramTable){
+		_str.push_back(it->metaObject()->className());
+	}
+
+	return _str;
+}
+
+
+std::vector<QString> Creator::getListFlipbook() const{
+	std::vector<QString> _str;
+	for (auto it : mFlipbookTable){
+		_str.push_back(it->metaObject()->className());
+	}
+
+	return _str;
+}
+
+
+std::vector<QString> Creator::getListPhotograph() const{
+	std::vector<QString> _str;
+	for (auto it : mPhotographTable){
+		_str.push_back(it->metaObject()->className());
+	}
+
+	return _str;
+}
+

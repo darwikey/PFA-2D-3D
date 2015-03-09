@@ -30,7 +30,14 @@ void Creation::createWindow(bool fHasPreview){
 	mTitleLabel = new QLabel("Parametrage du rendu...", mWindow);
 	mLayout->addWidget(mTitleLabel);
 
+	// Algo type
+	mAlgoTypeBox = new QComboBox(mWindow);
+	mLayout->addWidget(mAlgoTypeBox);
+
 	// Resolution
+	mResolutionLabel = new QLabel("R\303\251solution : ", mWindow);
+	mLayout->addWidget(mResolutionLabel);
+
 	mResolutionBox = new QComboBox(mWindow);
 	mResolutionBox->addItem("300 dpi");
 	mResolutionBox->addItem("200 dpi");

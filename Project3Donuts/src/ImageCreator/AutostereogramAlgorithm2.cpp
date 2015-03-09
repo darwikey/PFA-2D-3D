@@ -1,12 +1,12 @@
 #include "AutostereogramAlgorithm2.hpp"
 
 
-void AutostereogramAlgorithm3::createWindow(bool fHasPreview){
+void AutostereogramAlgorithm2::createWindow(bool fHasPreview){
 	Autostereogram::createWindow(fHasPreview);
 }
 
 
-std::unique_ptr<CreationFile> AutostereogramAlgorithm3::render(){
+std::unique_ptr<CreationFile> AutostereogramAlgorithm2::render(){
 
 	std::unique_ptr<QImage> _depthmap = this->getDepthMap();
 
@@ -20,7 +20,7 @@ std::unique_ptr<CreationFile> AutostereogramAlgorithm3::render(){
 }
 
 
-void AutostereogramAlgorithm3::colorBase(int fx, int fy, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle, QImage * fTexture, int fOversamp) {
+void AutostereogramAlgorithm2::colorBase(int fx, int fy, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle, QImage * fTexture, int fOversamp) {
 	switch (fTextureStyle) {
 		int xpat, ypat;
 	case TEXTUREMAP:
@@ -49,7 +49,7 @@ void AutostereogramAlgorithm3::colorBase(int fx, int fy, std::vector<int>& fRed,
 }
 
 
-void AutostereogramAlgorithm3::colorRandom(int fx, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle) {
+void AutostereogramAlgorithm2::colorRandom(int fx, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle) {
 	switch (fTextureStyle) {
 
 	case TEXTUREMAP:
@@ -80,7 +80,7 @@ void AutostereogramAlgorithm3::colorRandom(int fx, std::vector<int>& fRed, std::
 }
 
 
-void AutostereogramAlgorithm3::colorPixel(int fx, int fy, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle, QImage * fTexture, std::vector<int>& fSameLeft, std::vector<int>& fSameRight, int fOversamp, int fMaxsep, int fPoffset, int fCenter, int * fLastLinked, int fyShift) {
+void AutostereogramAlgorithm2::colorPixel(int fx, int fy, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle, QImage * fTexture, std::vector<int>& fSameLeft, std::vector<int>& fSameRight, int fOversamp, int fMaxsep, int fPoffset, int fCenter, int * fLastLinked, int fyShift) {
 	int xpat, ypat;
 	if (fx >= fCenter) {
 		if (fSameLeft[fx] == fx) {
@@ -139,12 +139,12 @@ void AutostereogramAlgorithm3::colorPixel(int fx, int fy, std::vector<int>& fRed
 }
 
 
-int AutostereogramAlgorithm3::caseXY(int x, int y, int width) {
+int AutostereogramAlgorithm2::caseXY(int x, int y, int width) {
 	return y * width + x;
 }
 
 
-std::unique_ptr<QImage>AutostereogramAlgorithm3::depthmapToAutostereogram(const QImage& fImage, int fDPI, enum Texture fTextureStyle, char * fTexture) {
+std::unique_ptr<QImage>AutostereogramAlgorithm2::depthmapToAutostereogram(const QImage& fImage, int fDPI, enum Texture fTextureStyle, char * fTexture) {
 
 	/* Core variables */
 

@@ -1,8 +1,15 @@
 #include "Autostereogram.hpp"
+#include "Creator.hpp"
 
 
 void Autostereogram::createWindow(bool fHasPreview){
 	Creation::createWindow(fHasPreview);
+
+	// Fill the list of algorithm
+	std::vector<QString> _list = Creator::getCreator()->getListAutostereogram();
+	for (auto _str : _list)	{
+		mAlgoTypeBox->addItem(_str);
+	}
 }
 
 

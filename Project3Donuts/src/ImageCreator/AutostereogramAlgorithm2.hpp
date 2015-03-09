@@ -6,9 +6,10 @@
 #include "Autostereogram.hpp"
 
 
-// ! \class AutostereogramAlgorithm3
+// ! \class AutostereogramAlgorithm2
 // ! \brief First algorithm to create an autostereogram
-class AutostereogramAlgorithm3 : public Autostereogram {
+class AutostereogramAlgorithm2 : public Autostereogram {
+	Q_OBJECT
 public:
 
 

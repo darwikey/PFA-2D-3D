@@ -9,6 +9,7 @@
 // ! \class AutostereogramAlgorithm1
 // ! \brief First algorithm to create an autostereogram
 class AutostereogramAlgorithm1 : public Autostereogram {
+	Q_OBJECT
 public:
 
 

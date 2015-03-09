@@ -49,6 +49,8 @@ protected:
 	QWidget* mWindow = nullptr;
 	QVBoxLayout* mLayout = nullptr;
 	QLabel* mTitleLabel = nullptr;
+	QComboBox* mAlgoTypeBox = nullptr;
+	QLabel* mResolutionLabel = nullptr;
 	QComboBox* mResolutionBox = nullptr;
 	QLabel* mGammaLabel = nullptr;
 	QSlider* mGammaSlider = nullptr;

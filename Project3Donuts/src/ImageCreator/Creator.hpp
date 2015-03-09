@@ -34,6 +34,14 @@ public:
 	//! \param The id of the algorithm that will be used.
 	void launchPhotograph(unsigned int fAlgoNumber);
 
+	std::vector<QString> getListAnaglyph() const;
+
+	std::vector<QString> getListAutostereogram() const;
+
+	std::vector<QString> getListFlipbook() const;
+
+	std::vector<QString> getListPhotograph() const;
+
 
 public slots:
 	void launchAnaglyph();
