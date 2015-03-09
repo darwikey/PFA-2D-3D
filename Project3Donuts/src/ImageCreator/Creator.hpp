@@ -31,19 +31,19 @@ public slots:
 
 	//! \brief display a window where the user is able to configure and render
 	//! \param The id of the algorithm that will be used.
-	void launchAnaglyph(int fAlgoNumber);
+	void launchAnaglyph(int fAlgoNumber = 0);
 
 	//! \brief display a window where the user is able to configure and render
 	//! \param The id of the algorithm that will be used.
-	void launchAutostereogram(int fAlgoNumber);
+	void launchAutostereogram(int fAlgoNumber = 0);
 
 	//! \brief display a window where the user is able to configure and render
 	//! \param The id of the algorithm that will be used.
-	void launchFlipbook(int fAlgoNumber);
+	void launchFlipbook(int fAlgoNumber = 0);
 
 	//! \brief display a window where the user is able to configure and render
 	//! \param The id of the algorithm that will be used.
-	void launchPhotograph(int fAlgoNumber);
+	void launchPhotograph(int fAlgoNumber = 0);
 
 
 	/*void launchAnaglyph();
