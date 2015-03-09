@@ -25,12 +25,12 @@ void Anaglyph::createWindow(bool fHasPreview){
 	// Eyes distance
 	mHorizontalRotationLabel = new QLabel("Rotation horizontale",
 																				mWindow);
-	mLayout->addWidget(mHorizontalRotationLabel);
+	insertNewWidget(mHorizontalRotationLabel);
 
 	mHorizontalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
 																					mWindow);
 	mHorizontalRotationSlider->setValue(10);
-	mLayout->addWidget(mHorizontalRotationSlider);
+	insertNewWidget(mHorizontalRotationSlider);
 	QObject::connect(mHorizontalRotationSlider,
 									 SIGNAL(valueChanged(int)),
 									 this,
@@ -38,12 +38,12 @@ void Anaglyph::createWindow(bool fHasPreview){
 
 	mVerticalRotationLabel = new QLabel("Rotation verticale",
 																			mWindow);
-	mLayout->addWidget(mVerticalRotationLabel);
+	insertNewWidget(mVerticalRotationLabel);
 
 	mVerticalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
 																				mWindow);
 	mVerticalRotationSlider->setValue(10);
-	mLayout->addWidget(mVerticalRotationSlider);
+	insertNewWidget(mVerticalRotationSlider);
 	QObject::connect(mVerticalRotationSlider,
 									 SIGNAL(valueChanged(int)),
 									 this,

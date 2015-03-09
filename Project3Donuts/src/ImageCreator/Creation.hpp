@@ -64,7 +64,7 @@ protected:
 private:
 	float mResolution = 72.f;
 	float mGamma = 1.f;
-	int mPositionNewWidget = 6;
+	int mPositionNewWidget = 8;
 	unsigned int mAntiAliasingIteration = 0;
 
 
