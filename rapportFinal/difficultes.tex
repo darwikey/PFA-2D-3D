@@ -1,5 +1,3 @@
-Liste des difficultés rencontrées au cours du projet
-- pbm des threads
 lien avec les contraintes (utilisation d'outils pas optimums pour qtcreator pour rester dans la contrainte de portabilité
 plus de temps que prévu sur les algos
 difficultés à démarrer
@@ -8,3 +6,36 @@ visualisation de quoi utiliser quand et pour quoi
 gant remodelé
 
 \paragraph{}
+Au cours de ce projet, certaines difficultés rencontrées auront parfois ralenti l'avancement initialement prévu.
+
+\subsubsection{Implémentation des algorithmes}
+\paragraph{}
+L'implémentation des algorithmes d'anaglyphes et d'autostéréogrammes était le coeur de notre projet et du logiciel que nous avions à mettre en place. Il était donc important que nous lui accordions un temps conséquent durant notre projet, et c'est pour cela que nous avions initialement prévu de faire travailler deux personnes sur ces algorithmes durant un mois, en partant des recherches qui avaient été effectuées pour le cahier des charges. Toutefois, l'implémentation de deux algorithmes étant nécessaire pour chacun de ces rendus, ce mois a finalement été trop court pour nos équipes de programmeurs.
+
+\paragraph{}
+Pour les autostéréogrammes, le rendu donné par le premier algorithme choisi était découpé en tranches et ne donnait pas suffisament l'impression de profondeur comme il aurait dû [figure]. Cet effet avait en effet été souligné dans l'article de [NOMS DES AUTEURS], mais l'utilisation de points aléatoires pour le fond de l'image accentuait cet effet de tranches. 
+Il a alors fallu mettre en place le second algorithme que nous avons présenté dans la partie Cahier des charges de ce rapport, ce qui a allongé la période de réalisation. De plus, l'optimisation proposé pour cet algorithme par [NOMS DES AUTEURS] posait dans un premier temps problème pour la génération de l'autostéréogramme. Il aura alors fallu procéder étape par étape pour obtenir un premier rendu sans l'optimisation de l'algorithme, qui aura été ajoutée par la suite.
+
+\paragraph{}
+Pour les anaglyphes, la première difficulté était pour la récupération de paires d'images sur lesquelles travailler. Notre équipe a tout d'abord essayé de travailler sur la scène avec OpenGL pour récupérer des images qu'ils pourraient utiliser. Toutefois, une autre difficulté, liée aux shaders comme nous le présenterons dans la partie qui suit, les a empêché de poursuivre dans cette voie. Ils ont donc choisi de travailler sur des images trouvées sur Internet afin d'avancer dans l'implémentation. 
+Une autre difficulté de l'algorithme des anaglyphes est le travail sur la [saturation gamma ?]. Pour permettre un rendu agréable à visualiser, notre équipe a cherché à travailler sur cette saturation, mais l'effet obtenu n'était pas toujours celui qu'ils espéraient. [FINALEMENT?]
+Enfin, nos clients souhaitant pouvoir imprimer les anaglyphes, il était très important que les couleurs lors de l'impression révèlent aussi bien l'anaglyphe. En effet, si un écran d'ordinateur possède les composantes rouge, verte et bleue pour son affichage, la plupart des imprimantes utilisent le pattern cyan, magenta, jaune et noir. Pour éviter d'éventuels artefacts qui auraient pu être causés par la transformation automatique des couleurs, il a fallu traiter celles-ci pour que l'impression soit le plus parfaite possible.
+
+\subsubsection{L'utilisation de shaders}
+\paragraph{}
+On appelle shaders des programmes informatiques qui vont travailler directement sur la carte graphique ou le processeur graphique d'un ordinateur pour permettre un rendu meilleur et plus rapide. Ces shaders sont souvent utilisés en imagerie numérique, notamment par le logiciel Blender qui aura été un des logiciels-modèle pour la création du nôtre. L'utilisation de ces shaders nous paraissait importante pour permettre un rendu agréable dans notre logiciel, et pour atteindre nos objectifs de fluidité énoncés dans notre Cahier des charges.
+
+\paragraph{}
+Dans certains ordinateurs, et surtout dans la plupart des ordinateurs portables, il n'existe pas de carte graphique à proprement parlé. Un processeur est entièrement utilisé pour permettre un certain niveau de compétences graphiques, bien que celles-ci soient largement inférieures à celles de cartes graphiques de même récence. Toutefois, les processeurs graphiques empêchent parfois l'utilisation de shaders, car des processeurs trop anciens ne reconnaîtront pas les versions de shaders les plus récentes.
+
+\paragraph{}
+Dans une première version de notre logiciel, nous avions souhaité utiliser une version assez récente de shaders. Toutefois, celle-ci posait problèmes car elles n'étaient pas reconnue sous des machines Linux. La portabilité du logiciel étant primordiale, du moins sous les environnements Windows et Linux, nous avons dû effectuer une modification de l'ensemble du code déjà construit afin de passer à une version plus ancienne des shaders et permettre la portabilité du logiciel.
+
+\subsubsection{Les outils utilisés pour la réalisation du projet}
+\paragraph{}
+Pour permettre la portabilité et la maintenabilité du projet, nous avons choisi de l'implémenter en C++11, en utilisant Qt5 et la bibliothèque OpenGL pour Qt, et en compilant avec l'outil CMake.
+
+\paragraph{}
+Malgré sa récence, la communauté Internet sur la bibliothèque Qt et son module OpenGL est très importante et de nombreux problèmes rencontrés ont pu être résolus facilement grâce à des recherches sur certains forums. A l'inverse, l'utilisation de CMake pour la bibliothèque Qt est très rare.
+En effet, l'outil le plus souvent dans la réalisation de projet Qt est QMake. [VOIR POURQUOI ON L'A PAS UTILISE, PARCE QUE VISIBLEMENT ON AURAIT PU]
+CMake étant très peu utilisé pour la bibliothèque Qt, il est parfois difficile de trouver sur Internet de l'aide pour inclure des modules, par exemple le module QtXml. La plupart de la documentation relative à ce problème est très simplement géré dans QMake, mais il aura fallu beaucoup de recherches pour parvenir à trouver les bons noms de bibliothèques et de modules pour l'inclure avec CMake.
