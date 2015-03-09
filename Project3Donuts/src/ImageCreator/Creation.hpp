@@ -21,6 +21,7 @@ public:
 	//! \brief show the window
 	void launch();
 
+	void hide();
 
 protected:
 

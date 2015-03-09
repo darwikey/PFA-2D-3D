@@ -38,35 +38,27 @@ Creator* Creator::getCreator(){
 }
 
 
-void Creator::launchAnaglyph(unsigned int fAlgoNumber){
-	if (fAlgoNumber < mAnaglyphTable.size()){
-		mAnaglyphTable[fAlgoNumber]->launch();
-	}
+void Creator::launchAnaglyph(int fAlgoNumber){
+	launchAlgorithm(mAnaglyphTable, fAlgoNumber);
 }
 
 
-void Creator::launchAutostereogram(unsigned int fAlgoNumber){
-	if (fAlgoNumber < mAutostereogramTable.size()){
-		mAutostereogramTable[fAlgoNumber]->launch();
-	}
+void Creator::launchAutostereogram(int fAlgoNumber){
+	launchAlgorithm(mAutostereogramTable, fAlgoNumber);
 }
 
 
-void Creator::launchFlipbook(unsigned int fAlgoNumber){
-	if (fAlgoNumber < mFlipbookTable.size()){
-		mFlipbookTable[fAlgoNumber]->launch();
-	}
+void Creator::launchFlipbook(int fAlgoNumber){
+	launchAlgorithm(mFlipbookTable, fAlgoNumber);
 }
 
 
-void Creator::launchPhotograph(unsigned int fAlgoNumber){
-	if (fAlgoNumber < mPhotographTable.size()){
-		mPhotographTable[fAlgoNumber]->launch();
-	}
+void Creator::launchPhotograph(int fAlgoNumber){
+	launchAlgorithm(mPhotographTable, fAlgoNumber);
 }
 
 
-void Creator::launchAnaglyph(){
+/*void Creator::launchAnaglyph(){
 	this->launchAnaglyph(0);
 }
 
@@ -83,7 +75,7 @@ void Creator::launchFlipbook(){
 
 void Creator::launchPhotograph(){
 	this->launchPhotograph(0);
-}
+}*/
 
 
 std::vector<QString> Creator::getListAnaglyph() const{

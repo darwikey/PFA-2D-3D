@@ -18,22 +18,6 @@ public:
 	//! \brief get instance of Creator
 	static Creator* getCreator();
 
-	//! \brief display a window where the user is able to configure and render
-	//! \param The id of the algorithm that will be used.
-	void launchAnaglyph(unsigned int fAlgoNumber);
-
-	//! \brief display a window where the user is able to configure and render
-	//! \param The id of the algorithm that will be used.
-	void launchAutostereogram(unsigned int fAlgoNumber);
-
-	//! \brief display a window where the user is able to configure and render
-	//! \param The id of the algorithm that will be used.
-	void launchFlipbook(unsigned int fAlgoNumber);
-
-	//! \brief display a window where the user is able to configure and render
-	//! \param The id of the algorithm that will be used.
-	void launchPhotograph(unsigned int fAlgoNumber);
-
 	std::vector<QString> getListAnaglyph() const;
 
 	std::vector<QString> getListAutostereogram() const;
@@ -44,19 +28,47 @@ public:
 
 
 public slots:
-	void launchAnaglyph();
+
+	//! \brief display a window where the user is able to configure and render
+	//! \param The id of the algorithm that will be used.
+	void launchAnaglyph(int fAlgoNumber);
+
+	//! \brief display a window where the user is able to configure and render
+	//! \param The id of the algorithm that will be used.
+	void launchAutostereogram(int fAlgoNumber);
+
+	//! \brief display a window where the user is able to configure and render
+	//! \param The id of the algorithm that will be used.
+	void launchFlipbook(int fAlgoNumber);
+
+	//! \brief display a window where the user is able to configure and render
+	//! \param The id of the algorithm that will be used.
+	void launchPhotograph(int fAlgoNumber);
+
+
+	/*void launchAnaglyph();
 
 	void launchAutostereogram();
 
 	void launchFlipbook();
 
-	void launchPhotograph();
+	void launchPhotograph();*/
 
 
 private:
 	//! \brief Creator only has a default constructor
 	Creator();
 
+	template <class T>
+	void launchAlgorithm(std::vector<T*>& fTable, int fAlgoNumber){
+		for (auto _it : fTable){
+			_it->hide();
+		}
+
+		if (fAlgoNumber < fTable.size()){
+			fTable[fAlgoNumber]->launch();
+		}
+	}
 
 	static Creator* mInstance;
 

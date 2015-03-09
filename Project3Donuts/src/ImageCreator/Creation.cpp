@@ -19,6 +19,13 @@ void Creation::launch(){
 }
 
 
+void Creation::hide(){
+	if (mWindow != nullptr)	{
+		mWindow->hide();
+	}
+}
+
+
 void Creation::createWindow(bool fHasPreview){
 	// Window and layout
 	mWindow = new QWidget();

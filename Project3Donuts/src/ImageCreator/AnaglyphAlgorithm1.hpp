@@ -8,6 +8,8 @@
 // ! \class AnaglyphAlgo1
 // ! \brief First algorithm to create an anaglyph
 class AnaglyphAlgorithm1 : public Anaglyph{
+	Q_OBJECT
+
 protected:
 
 	virtual void createWindow(bool fHasPreview = true) override;
