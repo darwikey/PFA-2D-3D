@@ -1,6 +1,7 @@
 #include "Creator.hpp"
 #include "Anaglyph.hpp"
 #include "AnaglyphAlgorithm1.hpp"
+#include "AnaglyphAlgorithm2.hpp"
 #include "Autostereogram.hpp"
 #include "AutostereogramAlgorithm1.hpp"
 #include "AutostereogramAlgorithm2.hpp"
@@ -16,6 +17,7 @@ Creator* Creator::mInstance = nullptr;
 Creator::Creator(){
 	// Anaglypth registration
 	mAnaglyphTable.push_back(new AnaglyphAlgorithm1());
+	mAnaglyphTable.push_back(new AnaglyphAlgorithm2());
 
 	// Autostereogram registration
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm1());
