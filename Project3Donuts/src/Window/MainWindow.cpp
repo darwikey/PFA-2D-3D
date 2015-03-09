@@ -3,6 +3,8 @@
 #include <QFileDialog>
 #include "Scene.hpp"
 #include "Loader.hpp"
+#include "Object.hpp"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -109,6 +111,19 @@ void MainWindow::selectObject(const QModelIndex &index)
     //come back to the list
     ui->listView->setFocus();
 }
+
+
+void MainWindow::changeObjectColor(){
+	QColor _colorRGB = QColorDialog::getColor(QColor(128, 128, 128), nullptr, "Select Color", QColorDialog::DontUseNativeDialog);
+	QVector3D _color(_colorRGB.red(), _colorRGB.green(), _colorRGB.blue());
+	
+	Object* _selectedObject = Scene::getScene()->getObject(Scene::getScene()->getNameSelectedObject());
+	if (_selectedObject){
+		_selectedObject->setGlobalColor(_color / 255.f);
+	}
+}
+
+
 void MainWindow::invertwidgets()
 {
     if(ui->actionInverser_les_positions_des_fen_tres->isChecked())

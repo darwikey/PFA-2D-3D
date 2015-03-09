@@ -43,6 +43,7 @@ public:
     QAction *actionEnregistrer_sous;
     QAction *actionDepuis_la_bibliotheque;
     QAction *actionDepuis_le_disque_dur;
+	QAction* action_changer_couleur;
     QAction *actionPr_f_rences;
     QAction *actionA_propos;
     QAction *actionEffectuer_un_rendu;
@@ -64,6 +65,7 @@ public:
     QMenu *menuOutils;
     QMenu *menuFen_tre;
     QToolBar *toolBar;
+
     void setupUi(MainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
@@ -84,6 +86,8 @@ public:
         actionDepuis_la_bibliotheque->setObjectName(QStringLiteral("actionDepuis_la_bibliotheque"));
         actionDepuis_le_disque_dur = new QAction(MainWindow);
         actionDepuis_le_disque_dur->setObjectName(QStringLiteral("actionDepuis_le_disque_dur"));
+		action_changer_couleur = new QAction(MainWindow);
+		action_changer_couleur->setObjectName(QStringLiteral("action_changer_couleur"));
         actionPr_f_rences = new QAction(MainWindow);
         actionPr_f_rences->setObjectName(QStringLiteral("actionPr_f_rences"));
         actionA_propos = new QAction(MainWindow);
@@ -153,7 +157,8 @@ public:
         menuFichier->addAction(actionQuitter);
         menuImporter->addAction(actionDepuis_la_bibliotheque);
         menuImporter->addAction(actionDepuis_le_disque_dur);
-        menuEditer->addAction(actionPr_f_rences);
+		menuEditer->addAction(action_changer_couleur);
+		menuEditer->addAction(actionPr_f_rences);
         menuAide->addAction(actionA_propos);
         menuOutils->addAction(actionEffectuer_un_rendu);
 		menuOutils->addAction(actionAnaglyphes);
@@ -170,13 +175,14 @@ public:
         QObject::connect(actionEnregistrer, SIGNAL(triggered()), MainWindow, SLOT(save()));	
         QObject::connect(actionEnregistrer_sous, SIGNAL(triggered()), MainWindow, SLOT(saveas()));		
         
-        QObject::connect(actionPr_f_rences, SIGNAL(triggered()), MainWindow, SLOT(editsettings()));	
+		QObject::connect(action_changer_couleur, SIGNAL(triggered()), MainWindow, SLOT(changeObjectColor()));
+        QObject::connect(actionPr_f_rences, SIGNAL(triggered()), MainWindow, SLOT(editsettings()));
+
         QObject::connect(actionA_propos, SIGNAL(triggered()), MainWindow, SLOT(about()));	
         	
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
         //QObject::connect(listView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
 		
-		// Render
 		QObject::connect(actionEffectuer_un_rendu, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchPhotograph()));
 		QObject::connect(actionAnaglyphes, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchAnaglyph()));
 		QObject::connect(actionAuto_st_r_ogrammes, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchAutostereogram()));
@@ -199,13 +205,14 @@ public:
         actionEnregistrer_sous->setText(QApplication::translate("MainWindow", "Enregistrer sous", 0));
         actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "depuis la bibliotheque", 0));
         actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "depuis le disque dur", 0));
-        actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
+		action_changer_couleur->setText(QApplication::translate("MainWindow", "Couleur de l'objet", 0));
+		actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
         actionEffectuer_un_rendu->setText(QApplication::translate("MainWindow", "Effectuer un rendu", 0));
         actionInverser_les_positions_des_fen_tres->setText(QApplication::translate("MainWindow", "Mettre la fen\303\252tres de visualisation \303\240 droite", 0));
         actionAnaglyphes->setText(QApplication::translate("MainWindow", "Anaglyphes", 0));
         actionAuto_st_r_ogrammes->setText(QApplication::translate("MainWindow", "Autost\303\251r\303\251ogrammes", 0));
-        actionFlipbook->setText(QApplication::translate("MainWindow", "flipbook", 0));
+        actionFlipbook->setText(QApplication::translate("MainWindow", "Flipbook", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menuImporter->setTitle(QApplication::translate("MainWindow", "Importer", 0));
         menuEditer->setTitle(QApplication::translate("MainWindow", "Editer", 0));

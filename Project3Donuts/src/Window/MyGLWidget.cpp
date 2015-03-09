@@ -141,16 +141,6 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 			Creator::getCreator()->launchFlipbook(0);
 			break;
 
-		case Qt::Key_C:
-		{
-			QColor _colorRGB = QColorDialog::getColor(QColor(128, 128, 128), nullptr, "Select Color", QColorDialog::DontUseNativeDialog);
-			QVector3D _color(_colorRGB.red(), _colorRGB.green(), _colorRGB.blue());
-			Object* _selectedObject = Scene::getScene()->getObject(Scene::getScene()->getNameSelectedObject());
-			if (_selectedObject){
-				_selectedObject->setGlobalColor(_color / 255.f);
-			}
-			break;
-		}
 
         default:
             QGLWidget::keyPressEvent( fEvent );
