@@ -53,13 +53,9 @@ void Anaglyph::createWindow(bool fHasPreview){
 void Anaglyph::changeHorizontalRotation(int fHorizontalRotation){
 
 	mHorizontalRotation = fHorizontalRotation / 10.f;
-
-	this->updatePreview();
 }
 
 void Anaglyph::changeVerticalRotation(int fVerticalRotation){
 
 	mVerticalRotation = fVerticalRotation / 10.f;
-
-	this->updatePreview();
 }
