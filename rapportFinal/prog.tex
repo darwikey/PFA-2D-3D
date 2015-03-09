@@ -1,24 +1,18 @@
-Explications du déroulement de la réalisation
-Présentation du Gant prévisionnel
-Point de départ
-Idée sur la chronologie (pas trop)
-
-\subsection{Choix de programmation pour la réalisation du projet}
 \paragraph{}
-        Pour la réalisation du projet, nos clients nous proposaient des langages comme C, C++ ou encore Python. C++ nous est apparu comme le choix le plus judicieux pour notre logiciel, afin de faciliter l'utilisation de bibliothèques telles que OpenGL et Qt et de pouvoir bénéficier de l'aide d'une grande communauté internet en cas de difficultés.
-        //pourquoi c++ 11 : voir avec xavier
-        //pourquoi qt5 : maintenabilité, prendre les bibliothèques les plus récentes pour qu'elles soient le plus durable possible
-        //pourquoi opengl es 2 : maintenabilité, extensibilité du projet
-
-\subsection{Création du diagramme de Gantt}
-\paragraph{}
-        Une fois le cahier des charges mis en place et l'accord des clients donnés, la première étape du projet consistait à réfléchir au diagramme de Gantt prévisionnel pour les trois mois destinés à la réalisation du projet.
-        La priorité était donnée aux algorithmes de réalisation des différents rendus espérés grâce au logiciel, et plus particulièrement aux anaglyphes et aux autostéréogrammes. Il fallait revenir sur les algorithmes choisis et présentés dans le cahier des charges, approfondir les recherches pour être sûr de ne passer à côté d'aucun autre algorithme plus performant, et s'approprier le fonctionnement des algorithmes pour les comprendre puis les retranscrire.
-        En parallèle, d'autres personnes pouvaient travailler sur une partie plus proche du logiciel finale, à savoir la manipulation de la scène ou encore les parseurs de fichiers pour le chargement des objets.
-        Une fois les manipulations premières de la scène effectuées, les travaux prioritaires seraient le chargement et la sauvegarde de la scène grâce à des fichiers d'extension XML, la création de prises de vue simples ou de folioscopes à partir de la scène et leur sauvegarde, et enfin l'assemblage complet du logiciel avec une interface d'utilisation permettant d'utiliser les différents modules.
+La partie Réalisation de ce projet se sera étalée sur les mois de Décembre, Janvier, Février et Mars. Grâce à la réflexion effectuée durant la phase de rédaction du cahier des charges, nous avons pu aborder notre projet avec une idée claire des priorités.
 
 \paragraph{}
-        Un récapitulatif du diagramme de Gantt prévisionnel du projet est donné en annexe.
+La partie réalisation des algorithmes était très importante pour nos clients, c'est pourquoi nous avons dès le début de la réalisation mis en place deux équipes de deux personnes pour les deux algorithmes principaux : les anaglyphes et les autostéréogrammes. Les folioscopes quand à eux ne demandaient pas d'algorithme particulier de réalisation, si ce n'est la manipulation de la caméra vis à vis de la scène qui allait être mise en place grâce à la troisième équipe.
 
 \paragraph{}
-        
+En effet, notre troisième équipe, constituée des trois derniers membres, a pu continuer de travailler sur le prototype généré lors de la phase du cahier des charges. Il a ainsi été amélioré pour mettre en place les parseurs de fichiers qui allaient être nécessaires pour la génération des objets de la scène, et améliorer la manipulation de la scène.
+
+\paragraph{}
+Malheureusement, l'implémenation des algorithmes s'est révélée plus longue que nous l'avions initialement prévue. En effet, cette partie étant l'une des plus importantes pour nos clients, nous avons eu besoin d'aller plus loin que ce que nous avions envisagé dans un premier temps. Il a également fallu que nous fassions davantage de recherches pour compléter celles qui avaient été effectuées pour la rédaction du cahier des charges. De plus amples explications seront données dans la partie Difficultés rencontrées de ce rapport. 
+Au final, l'implémentation des algorithmes Anaglyphe et Autostéréogramme aura duré environ deux mois et demi au lieu du mois initialement prévu, avant de pouvoir les intégrer au reste du projet.
+
+\paragraph{}
+En parallèle, la troisième équipe, appuyée parfois par l'un ou l'autre des autres membres en cas de besoin, a continué d'avancer sur la partie Scène du logiciel. L'implémentation de certaines manipulations de scène (déplacements de la caméra ou des objets notamment) auront parfois étaient plus rapides que prévu, mêmes si quelques retours en arrière ont été nécessaires au milieu du projet comme nous l'expliqueront dans la partie Difficultés rencontrées. L'ordre chronologique initialement prévu dans le diagramme de Gantt n'aura finalement pas toujours été respecté. Par exemple, la différence de travail entre l'ajout d'un objet dans la scène et l'ajout de plusieurs objets n'étant pas énorme, ces deux parties auront été effectuées simultanément. Il en est de même pour la sauvegarde automatique qui aura été ajoutée en même temps que la sauvegarde classique de la scène, ou encore pour les manipulations de la scène et de l'objet dont l'implémentation était grandement facilitée par l'utilisation de la bibliothèque OpenGL pour Qt.
+
+\paragraph{}
+Au final, la totalité des tâcjes prévues jusqu'au début du mois de Mars auront pu être effectuées dans les temps, nous laissant le mois de Mars pour l'intégration des algorithmes au logiciel, l'amélioration de certaines fonctionnalités, le développement de l'interface et la rédaction de ce rapport.
