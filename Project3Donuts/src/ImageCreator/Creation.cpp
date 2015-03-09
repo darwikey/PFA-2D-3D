@@ -30,20 +30,26 @@ void Creation::createWindow(bool fHasPreview){
 	// Window and layout
 	mWindow = new QWidget();
 	//mWindow->setFixedSize(300, 300);
-	mLayout = new QVBoxLayout();
-	mWindow->setLayout(mLayout);
+	mHLayout = new QHBoxLayout();
+	mWindow->setLayout(mHLayout);
+
+	mVLayoutMenu   = new QVBoxLayout();
+	mVLayoutRender = new QVBoxLayout();
+
+	mHLayout->addLayout(mVLayoutMenu);
+	mHLayout->addLayout(mVLayoutRender);
 
 	// Title
 	mTitleLabel = new QLabel("Parametrage du rendu...", mWindow);
-	mLayout->addWidget(mTitleLabel);
+	mVLayoutMenu->addWidget(mTitleLabel);
 
 	// Algo type
 	mAlgoTypeBox = new QComboBox(mWindow);
-	mLayout->addWidget(mAlgoTypeBox);
+	mVLayoutMenu->addWidget(mAlgoTypeBox);
 
 	// Resolution
 	mResolutionLabel = new QLabel("R\303\251solution : ", mWindow);
-	mLayout->addWidget(mResolutionLabel);
+	mVLayoutMenu->addWidget(mResolutionLabel);
 
 	mResolutionBox = new QComboBox(mWindow);
 	mResolutionBox->addItem("300 dpi");
@@ -51,24 +57,24 @@ void Creation::createWindow(bool fHasPreview){
 	mResolutionBox->addItem("100 dpi");
 	mResolutionBox->addItem("72 dpi");
 	mResolutionBox->setCurrentIndex(3);
-	mLayout->addWidget(mResolutionBox);
+	mVLayoutMenu->addWidget(mResolutionBox);
 
 	QObject::connect(mResolutionBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeResolution(int)));
 
 
 	// Gamma corection
 	mGammaLabel = new QLabel("Correction gamma :", mWindow);
-	mLayout->addWidget(mGammaLabel);
+	mVLayoutMenu->addWidget(mGammaLabel);
 	
 	mGammaSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
 	mGammaSlider->setValue(50);
-	mLayout->addWidget(mGammaSlider);
+	mVLayoutMenu->addWidget(mGammaSlider);
 	QObject::connect(mGammaSlider, SIGNAL(valueChanged(int)), this, SLOT(changeGamma(int)));
 
 
 	// Antialiasing iteration
 	mAntialiasingLabel = new QLabel("Anti aliasing :", mWindow);
-	mLayout->addWidget(mAntialiasingLabel);
+	mVLayoutMenu->addWidget(mAntialiasingLabel);
 
 	mAntialiasingBox = new QComboBox(mWindow);
 	mAntialiasingBox->addItem("aucun");
@@ -77,7 +83,7 @@ void Creation::createWindow(bool fHasPreview){
 	mAntialiasingBox->addItem("3 it\303\251rations");
 	mAntialiasingBox->addItem("4 it\303\251rations");
 	mAntialiasingBox->addItem("5 it\303\251rations");
-	mLayout->addWidget(mAntialiasingBox);
+	mVLayoutMenu->addWidget(mAntialiasingBox);
 
 	QObject::connect(mAntialiasingBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeAntialiasing(int)));
 
@@ -85,17 +91,22 @@ void Creation::createWindow(bool fHasPreview){
 	// Preview Image
 	if (fHasPreview){
 		mPreviewImage = new QLabel(mWindow);
-		mPreviewImage->setFixedSize(200, 200);
-		mLayout->addWidget(mPreviewImage);
+		mPreviewImage->setFixedSize(mWindow->width(), mWindow->height());
+		mVLayoutRender->addWidget(mPreviewImage);
+
+		// Render button
+		mRenderButton = new QPushButton("Prévisualiser", mWindow);
+		QObject::connect(mRenderButton, SIGNAL(clicked()), this, SLOT(updatePreview()));
+		mVLayoutMenu->addWidget(mRenderButton);
 
 		this->updatePreview();
 	}
 
 
-	// Render button
-	mRenderButton = new QPushButton("Lancer le rendu !", mWindow);
-	QObject::connect(mRenderButton, SIGNAL(clicked()), this, SLOT(startRender()));
-	mLayout->addWidget(mRenderButton);
+	// Save button
+	mSaveButton = new QPushButton("Sauvegarder", mWindow);
+	QObject::connect(mSaveButton, SIGNAL(clicked()), this, SLOT(startRender()));
+	mVLayoutMenu->addWidget(mSaveButton);
 }
 
 
@@ -147,7 +158,7 @@ void Creation::updatePreview(){
 		if (_render) {
 
 			// Create a low resolution image
-			QImage _image = _render->scaled(200, 200, Qt::AspectRatioMode::IgnoreAspectRatio);
+			QImage _image = _render->scaled(mWindow->width(), mWindow->height(), Qt::AspectRatioMode::IgnoreAspectRatio);
 			QPixmap _pixmap = QPixmap::fromImage(_image);
 
 			mPreviewImage->setPixmap(_pixmap);
@@ -157,7 +168,7 @@ void Creation::updatePreview(){
 
 
 void Creation::insertNewWidget(QWidget* fWidget){
-	mLayout->insertWidget(mPositionNewWidget, fWidget);
+	mVLayoutMenu->insertWidget(mPositionNewWidget, fWidget);
 	mPositionNewWidget++;
 }
 
@@ -205,8 +216,6 @@ void Creation::changeGamma(int fCursor){
 	if (mGamma > 1.f){
 		mGamma *= 2.f;
 	}
-	
-	this->updatePreview();
 }
 
 

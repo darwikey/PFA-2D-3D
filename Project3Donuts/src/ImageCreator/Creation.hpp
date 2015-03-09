@@ -39,8 +39,6 @@ protected:
 	//! brief render the scene and return a depath map
 	std::unique_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
 
-	void updatePreview();
-
 	void insertNewWidget(QWidget* fWidget);
 
 	QPoint getImageSize();
@@ -48,7 +46,9 @@ protected:
 
 	// Widget
 	QWidget* mWindow = nullptr;
-	QVBoxLayout* mLayout = nullptr;
+	QVBoxLayout* mVLayoutMenu   = nullptr;
+	QVBoxLayout* mVLayoutRender = nullptr;
+	QHBoxLayout* mHLayout = nullptr;
 	QLabel* mTitleLabel = nullptr;
 	QComboBox* mAlgoTypeBox = nullptr;
 	QLabel* mResolutionLabel = nullptr;
@@ -58,16 +58,19 @@ protected:
 	QLabel* mAntialiasingLabel = nullptr;
 	QComboBox* mAntialiasingBox = nullptr;
 	QPushButton* mRenderButton = nullptr;
+	QPushButton* mSaveButton = nullptr;
 	QLabel* mPreviewImage = nullptr;
 
 
 private:
 	float mResolution = 72.f;
 	float mGamma = 1.f;
-	int mPositionNewWidget = 6;
+	int mPositionNewWidget = 8;
 	unsigned int mAntiAliasingIteration = 0;
 
-
+public slots:
+	void updatePreview();										
+																				 
 private slots:
 	void changeResolution(int fResolution);
 
