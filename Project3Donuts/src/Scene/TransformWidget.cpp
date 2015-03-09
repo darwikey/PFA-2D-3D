@@ -141,9 +141,55 @@ void TransformWidget::select(QVector2D fMousePosition){
 void TransformWidget::activate(QVector2D fMousePosition){
 	Object* _object = Scene::getScene()->getObject(mNameSelectedObject);
 
+
+	Camera* _camera = Scene::getScene()->getCamera();
+	// matrix to project a scene vector on the screen
+	QMatrix4x4 _matrix = _camera->getProjectionMatrix() * _camera->getViewMatrix();
+	QVector4D _dirMouse = _matrix * QVector4D(getDirection(mDirection), 1.f);
+
+	// translation of the mouse
+	QVector2D _deltaMouse = fMousePosition - mInitialMousePosition;
+	
+	// translation of the mouse along the axis of the transform widget
+	float _delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.x(), _dirMouse.y()));
+
+	if (mState == State::TRANSLATION){
+		_delta *= _camera->getPosition().length();
+	}
+
+	applyTransformation(_object, mInitialSelectedObject, mState, mDirection, _delta);
+}
+
+
+void TransformWidget::unselect() {
+	mIsSelected = false;
+	// change the widget colors
+	if (mObjectX != nullptr){
+		mObjectX->setGlobalColor(QVector3D(1.f, 0.f, 0.f));
+		mObjectY->setGlobalColor(QVector3D(0.f, 1.f, 0.f));
+		mObjectZ->setGlobalColor(QVector3D(0.f, 0.f, 1.f));
+	}
+
+	Object* _object = Scene::getScene()->getObject(mNameSelectedObject);
+	
+	if (_object != nullptr){
+		QVector3D _init = mInitialSelectedObject;
+		Direction _dir = mDirection;
+		State _state = mState;
+
+		std::function<void()> _action = [this, _object, _init, _state, _dir](){
+			this->applyTransformation(_object, _init, _state, _dir, 0.f);
+		};
+
+		Scene::getScene()->registerAction(_action);
+	}
+}
+
+
+QVector3D TransformWidget::getDirection(Direction fDirection) const{
 	QVector3D _dir;
 
-	switch (mDirection) {
+	switch (fDirection) {
 	default:
 	case Direction::X:
 		_dir = QVector3D(1.f, 0.f, 0.f);
@@ -158,45 +204,27 @@ void TransformWidget::activate(QVector2D fMousePosition){
 		break;
 	}
 
-	Camera* _camera = Scene::getScene()->getCamera();
-	// matrix to project a scene vector on the screen
-	QMatrix4x4 _matrix = _camera->getProjectionMatrix() * _camera->getViewMatrix();
-	QVector4D _dirMouse = _matrix * QVector4D(_dir, 1.f);
+	return _dir;
+}
 
-	// translation of the mouse
-	QVector2D _deltaMouse = fMousePosition - mInitialMousePosition;
-	// translation of the mouse along the axis of the transform widget
-	float _delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.x(), _dirMouse.y()));
 
-	if (_object != nullptr) {
-		switch (mState) {
+void TransformWidget::applyTransformation(Object* fObject, QVector3D fInitialSelectedObject, State fState, Direction fDirection, float fDelta) const{
+	if (fObject != nullptr) {
+		switch (fState) {
 		case State::TRANSLATION:
-			_delta *= _camera->getPosition().length();
-			_object->moveObject(mInitialSelectedObject + _delta * _dir);
+			fObject->moveObject(fInitialSelectedObject + fDelta * getDirection(fDirection));
 			break;
 
 		case State::ROTATION:
-			_delta *= 5.f;
-			_object->changeObjectOrientation(mInitialSelectedObject + _delta * _dir);
+			fObject->changeObjectOrientation(fInitialSelectedObject + 5.f * fDelta * getDirection(fDirection));
 			break;
 
 		case State::SCALE:
-			_delta *= 2.f;
-			_object->changeObjectScale(mInitialSelectedObject.x() + _delta);
+			fObject->changeObjectScale(fInitialSelectedObject.x() + 2.f * fDelta);
 			break;
 
 		default:
 			break;
 		}
-	}
-}
-
-
-void TransformWidget::unselect() {
-	mIsSelected = false;
-	if (mObjectX != nullptr){
-		mObjectX->setGlobalColor(QVector3D(1.f, 0.f, 0.f));
-		mObjectY->setGlobalColor(QVector3D(0.f, 1.f, 0.f));
-		mObjectZ->setGlobalColor(QVector3D(0.f, 0.f, 1.f));
 	}
 }

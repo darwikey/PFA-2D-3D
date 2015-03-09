@@ -41,6 +41,9 @@ public:
 
 
 private:
+	QVector3D getDirection(Direction fDirection) const;
+	void applyTransformation(Object* fObject, QVector3D fInitialSelectedObject, State fState, Direction fDirection, float fDelta) const;
+
 	State mState = State::HIDE;
 	bool mIsSelected = false;
 	std::string mNameSelectedObject;
