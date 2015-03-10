@@ -69,7 +69,7 @@ private:
 	float mGamma = 1.f;
 	int mPositionNewWidget = 8;
 	unsigned int mAntiAliasingIteration = 0;
-	const QSize mPreviewImageSize = QSize(450, 450);
+	const QSize mPreviewImageSize = QSize(600, 600);
 										
 																				 
 private slots:

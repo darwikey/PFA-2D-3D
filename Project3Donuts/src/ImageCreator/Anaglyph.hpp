@@ -19,8 +19,8 @@ protected:
 	QLabel*  mVerticalRotationLabel    = nullptr;
 	QSlider* mVerticalRotationSlider   = nullptr;
 
-	float mHorizontalRotation = 0.f;
-	float mVerticalRotation   = 0.f;
+	double mHorizontalRotation = 0.f;
+	double mVerticalRotation   = 0.f;
 																 
 private slots:
 	void changeHorizontalRotation(int fHorizontalRotation);
