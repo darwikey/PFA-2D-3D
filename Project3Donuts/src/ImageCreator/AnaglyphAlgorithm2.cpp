@@ -13,11 +13,12 @@ void AnaglyphAlgorithm2::createWindow(bool fHasPreview){
 	Anaglyph::createWindow(fHasPreview);
 
 	// Eyes distance
-	mGammaFilterLabel = new QLabel("Gamma filter", mWindow);
+	mGammaFilterLabel = new QLabel(QString("Filtre Gamma %1").arg(mGammaFilter), mWindow);
 	insertNewWidget(mGammaFilterLabel);
 
 	mGammaFilterSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
-	mGammaFilterSlider->setValue(10);
+	mGammaFilterSlider->setValue(0);
+	mGammaFilterSlider->setRange(10,30);
 	insertNewWidget(mGammaFilterSlider);
 	QObject::connect(mGammaFilterSlider,
 									 SIGNAL(valueChanged(int)),
@@ -97,9 +98,9 @@ void AnaglyphAlgorithm2::applyGamma(QRgb fPixel, float *fRgb){
 
 QRgb AnaglyphAlgorithm2::applyGammaRevert(float *fRgb){
 
-	QRgb value = qRgb(qPow(fRgb[0] * 255, 1 / mGammaFilter),
-										qPow(fRgb[1] * 255, 1 / mGammaFilter),
-										qPow(fRgb[2] * 255, 1 / mGammaFilter));
+	QRgb value = qRgb(255 * qPow(fRgb[0], 1 / mGammaFilter),
+										255 * qPow(fRgb[1], 1 / mGammaFilter),
+										255 * qPow(fRgb[2], 1 / mGammaFilter));
 
 	return value;
 }
@@ -107,4 +108,6 @@ QRgb AnaglyphAlgorithm2::applyGammaRevert(float *fRgb){
 void AnaglyphAlgorithm2::changeGammaFilter(int fGammaFilter){
 
 	mGammaFilter = fGammaFilter / 10.f;
+
+	mGammaFilterLabel->setText(QString("Filtre Gamma %1").arg(mGammaFilter));
 }
