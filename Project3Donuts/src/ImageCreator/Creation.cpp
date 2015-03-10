@@ -91,7 +91,7 @@ void Creation::createWindow(bool fHasPreview){
 	// Preview Image
 	if (fHasPreview){
 		mPreviewImage = new QLabel(mWindow);
-		mPreviewImage->setFixedSize(mWindow->width(), mWindow->height());
+		mPreviewImage->setFixedSize(mPreviewImageSize);
 		mVLayoutRender->addWidget(mPreviewImage);
 
 		// Render button
@@ -158,7 +158,7 @@ void Creation::updatePreview(){
 		if (_render) {
 
 			// Create a low resolution image
-			QImage _image = _render->scaled(mWindow->width(), mWindow->height(), Qt::AspectRatioMode::IgnoreAspectRatio);
+			QImage _image = _render->scaled(mPreviewImageSize.width(), mPreviewImageSize.height(), Qt::AspectRatioMode::IgnoreAspectRatio);
 			QPixmap _pixmap = QPixmap::fromImage(_image);
 
 			mPreviewImage->setPixmap(_pixmap);

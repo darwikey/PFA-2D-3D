@@ -28,5 +28,4 @@ std::unique_ptr<CreationFile> PhotographNormal::render(){
 
 void PhotographNormal::setGrey(int fIsGrey){
 	mIsGrey = fIsGrey;
-	this->updatePreview();
 }
