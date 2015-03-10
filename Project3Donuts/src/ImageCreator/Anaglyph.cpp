@@ -23,26 +23,29 @@ void Anaglyph::createWindow(bool fHasPreview){
 	QObject::connect(mAlgoTypeBox, SIGNAL(currentIndexChanged(int)), Creator::getCreator(), SLOT(launchAnaglyph(int)));
 
 	// Eyes distance
-	mHorizontalRotationLabel = new QLabel("Rotation horizontale",
+	
+	mHorizontalRotationLabel = new QLabel(QString("Rotation horizontale %1").arg(mHorizontalRotation),
 																				mWindow);
 	insertNewWidget(mHorizontalRotationLabel);
 
 	mHorizontalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
 																					mWindow);
-	mHorizontalRotationSlider->setValue(10);
+	mHorizontalRotationSlider->setValue(0);
+	mHorizontalRotationSlider->setRange(0,200);
 	insertNewWidget(mHorizontalRotationSlider);
 	QObject::connect(mHorizontalRotationSlider,
 									 SIGNAL(valueChanged(int)),
 									 this,
 									 SLOT(changeHorizontalRotation(int)));
-
-	mVerticalRotationLabel = new QLabel("Rotation verticale",
+	
+	mVerticalRotationLabel = new QLabel(QString("Rotation verticale %1").arg(mVerticalRotation),
 																			mWindow);
 	insertNewWidget(mVerticalRotationLabel);
 
 	mVerticalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
 																				mWindow);
-	mVerticalRotationSlider->setValue(10);
+	mVerticalRotationSlider->setValue(0);
+	mVerticalRotationSlider->setRange(0,200);
 	insertNewWidget(mVerticalRotationSlider);
 	QObject::connect(mVerticalRotationSlider,
 									 SIGNAL(valueChanged(int)),
@@ -53,9 +56,13 @@ void Anaglyph::createWindow(bool fHasPreview){
 void Anaglyph::changeHorizontalRotation(int fHorizontalRotation){
 
 	mHorizontalRotation = fHorizontalRotation / 10.f;
+
+	mHorizontalRotationLabel->setText(QString("Rotation horizontal %1").arg(mHorizontalRotation));
 }
 
 void Anaglyph::changeVerticalRotation(int fVerticalRotation){
 
 	mVerticalRotation = fVerticalRotation / 10.f;
+
+	mVerticalRotationLabel->setText(QString("Rotation vertical %1").arg(mVerticalRotation));
 }
