@@ -26,10 +26,18 @@ Camera::~Camera(){
 void Camera::moveCamera(float fHorizontalRotation, float fVerticalRotation, float fZoom){
 	
 	//Rotation
-	QMatrix4x4 _mat;
-	_mat.rotate(fVerticalRotation, QVector3D(-1.f, 0.f, 0.f));
-	_mat.rotate(fHorizontalRotation, QVector3D(0.f, 1.f, 0.f));
-	mPosition = _mat * mPosition;
+	mRotation.setX(mRotation.x() + fHorizontalRotation);
+	mRotation.setY(mRotation.y() + fVerticalRotation);
+
+	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
+
+	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.length()));
+
+	QVector3D _vector = _quat.rotatedVector(QVector3D(-1.f, 0.f, 0.f));
+
+	_quat = QQuaternion::fromAxisAndAngle(_vector, mRotation.y());
+
+	mPosition = _quat.rotatedVector(_point);
 
 	//Zoom
 	mPosition *= fZoom;
@@ -41,10 +49,18 @@ void Camera::moveCamera(float fHorizontalRotation, float fVerticalRotation, floa
 void Camera::moveCameraWithMouse(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
 
 	//Rotation
-	QMatrix4x4 _mat;
-	_mat.rotate(5.f * fVerticalAxe, QVector3D(0.f, -1.f, 0.f));
-	_mat.rotate(5.f * fHorizontalAxe, QVector3D(-1.f, 0.f, 0.f));
-	mPosition = _mat * mPosition;
+	mRotation.setX(mRotation.x() + 5.f * fHorizontalAxe);
+	mRotation.setY(mRotation.y() + 5.f * fVerticalAxe);
+
+	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
+	
+	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.length()));
+
+	QVector3D _vector = _quat.rotatedVector(QVector3D(-1.f, 0.f, 0.f));
+
+	_quat = QQuaternion::fromAxisAndAngle(_vector, mRotation.y());
+	
+	mPosition = _quat.rotatedVector(_point);
 
 	//Zoom
 	if (fDepthValue < -0.001f)

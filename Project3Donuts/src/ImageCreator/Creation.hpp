@@ -39,8 +39,10 @@ protected:
 	//! brief render the scene and return a depath map
 	std::unique_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
 
+	//! \brief put a new widget in the interface window
 	void insertNewWidget(QWidget* fWidget);
 
+	//! \brief compute the size of render image with the resolution
 	QPoint getImageSize();
 
 

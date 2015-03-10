@@ -70,7 +70,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 			Scene::getScene()->getTransformWidget()->activate(_mouse);
 		}
 		else {
-			Scene::getScene()->getCamera()->moveCameraWithMouse(_dy, _dx, 0.f);
+			Scene::getScene()->getCamera()->moveCameraWithMouse(_dx, _dy, 0.f);
 		}
     }
 
