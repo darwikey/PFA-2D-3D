@@ -27,15 +27,9 @@ protected:
 	
 private:
 
-	float mLeftFilter[9] = { 0.437,  0.449,  0.164,
-													-0.062, -0.062, -0.024,
-													-0.048, -0.050, -0.017};
-	
+	static const float mLeftFilter[9];
 
-
-	float mRightFilter[9] = {-0.011, -0.032, -0.007,
-													  0.377,  0.761,  0.009,
-													 -0.026, -0.093,  1.234};
+	static const float mRightFilter[9];
 
 	float mGammaFilter = 1.f;
 

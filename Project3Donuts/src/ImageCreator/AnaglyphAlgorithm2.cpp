@@ -1,5 +1,13 @@
 #include "AnaglyphAlgorithm2.hpp"
 
+const float AnaglyphAlgorithm2::mLeftFilter[9] = { 0.437, 0.449, 0.164,
+-0.062, -0.062, -0.024,
+-0.048, -0.050, -0.017 };
+
+const float AnaglyphAlgorithm2::mRightFilter[9] = { -0.011, -0.032, -0.007,
+0.377, 0.761, 0.009,
+-0.026, -0.093, 1.234 };
+
 
 void AnaglyphAlgorithm2::createWindow(bool fHasPreview){
 	Anaglyph::createWindow(fHasPreview);
@@ -8,8 +16,7 @@ void AnaglyphAlgorithm2::createWindow(bool fHasPreview){
 	mGammaFilterLabel = new QLabel("Gamma filter", mWindow);
 	insertNewWidget(mGammaFilterLabel);
 
-	mGammaFilterSlider = new QSlider(Qt::Orientation::Horizontal,
-														       mWindow);
+	mGammaFilterSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
 	mGammaFilterSlider->setValue(10);
 	insertNewWidget(mGammaFilterSlider);
 	QObject::connect(mGammaFilterSlider,
