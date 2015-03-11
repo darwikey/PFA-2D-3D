@@ -12,5 +12,5 @@ uniform bool enableShading;
 void main() {
 	gl_Position = viewProjectionMatrix * vec4(vertexPosition, 1.0);
 
-	fragmentColor = vertexNormal;	
+	fragmentColor = vec3(abs(vertexNormal));	
 }

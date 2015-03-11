@@ -47,7 +47,7 @@ void SceneRenderer::resizeGL(int fWidth, int fHeight){
 
 void SceneRenderer::paintGL() {
 
-	//this->makeCurrent();
+	this->makeCurrent();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Object::switchShader(Object::Shader::STANDARD_SHADING);
 
@@ -73,11 +73,21 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 
 	QMatrix4x4 _modelMatrix = fModel->getModelMatrix();
 
+	// Matrices
 	fModel->getShader()->setUniformValue("viewProjectionMatrix", _projectionMatrix * _viewMatrix * _modelMatrix);
+	fModel->getShader()->setUniformValue("modelMatrix", _viewMatrix * _modelMatrix);
 	fModel->getShader()->setUniformValue("normalMatrix", _modelMatrix.inverted().transposed());
+	fModel->getShader()->setUniformValue("lampMatrix", _viewMatrix);
+
+	// Parameters
 	fModel->getShader()->setUniformValue("isSelected", fModel->isObjectSelected());
 	fModel->getShader()->setUniformValue("globalColor", fModel->getGlobalColor());
 	fModel->getShader()->setUniformValue("enableShading", !fRenderForeground);
+
+	QVector4D _lamps[8];
+	_lamps[0] = QVector4D(0,3,3,1);
+
+	fModel->getShader()->setUniformValueArray("lamps", _lamps, 8);
 
 
 	if (fRenderForeground) {

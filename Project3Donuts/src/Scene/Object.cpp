@@ -254,11 +254,16 @@ void Object::computeNormals(){
 				}
 
 				// one normal for each vertex
-				mNormals[_indice0] = _normal;
-				mNormals[_indice1] = _normal;
-				mNormals[_indice2] = _normal;
+				mNormals[_indice0] += _normal;
+				mNormals[_indice1] += _normal;
+				mNormals[_indice2] += _normal;
 			}
 		}
+	}
+
+	// normalize each normal
+	for (auto& _n : mNormals){
+		_n.normalize();
 	}
 }
 
