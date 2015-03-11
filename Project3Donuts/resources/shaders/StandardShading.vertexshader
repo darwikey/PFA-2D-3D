@@ -4,36 +4,23 @@ attribute vec3 vertexNormal;
 attribute vec3 vertexColor;
 
 
-varying vec3 fragmentColor;
-
-// Matrices
 uniform mat4 viewProjectionMatrix;
 uniform mat4 modelMatrix;
-uniform mat4 normalMatrix;
-uniform mat4 lampMatrix;
+uniform mat3 normalMatrix;
+uniform vec3 globalColor;
 
-uniform bool enableShading;
-uniform vec4 lamps[8];
+
+varying vec3 varPosition;
+varying vec3 varColor;
+varying vec3 varNormal;
+
 
 void main() {
 	gl_Position = viewProjectionMatrix * vec4(vertexPosition, 1.0);
 
-	if (enableShading){
-		vec3 normal = mat3(normalMatrix) * vertexNormal;
-		
-		vec3 modelPosition = (modelMatrix * vec4(lamps[0].xyz, 1.0)).xyz;
-		vec3 lampPosition = lamps[0].xyz - modelPosition;
-		
-		vec3 lightDir = normalize(lampPosition);
-		
-		//****Color****
-		// ambient color
-		vec3 ambientColor = 0.15 * vec3(1.0, 1.0, 1.0);
-
-		float angle = clamp(dot(normal.xyz, lightDir), 0, 1);
-		fragmentColor = vertexColor * (angle + ambientColor);
-	}
-	else{
-		fragmentColor = vertexColor;
-	}
+	varPosition = (modelMatrix * vec4(vertexPosition, 1.0)).xyz;
+	
+	varColor = globalColor * vertexColor;
+	
+	varNormal = normalMatrix * vertexNormal;
 }

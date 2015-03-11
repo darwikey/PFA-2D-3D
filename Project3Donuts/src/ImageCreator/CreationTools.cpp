@@ -132,15 +132,9 @@ namespace CreationTools{
 
 		for (int x = 0; x < fImage.width(); x++){
 			for (int y = 0; y < fImage.height(); y++){
-				if (x > fImage.width() / 2)
-				{
-					QRgb _p = antiAliasingPixel(x, y, fImage);
-					_image->setPixel(x, y, _p);
-				}
-				else
-				{
-					_image->setPixel(x, y, fImage.pixel(x, y));
-				}
+				QRgb _p = antiAliasingPixel(x, y, fImage);
+				_image->setPixel(x, y, _p);
+
 			}
 		}
 
