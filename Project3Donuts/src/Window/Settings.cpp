@@ -61,7 +61,6 @@ void Settings::resetparameters()
 
 void Settings::generaltodefault()
 {
-    QSettings settings("settings.ini", QSettings::IniFormat);
     int ret = QMessageBox::question(this, tr("Project3Donut"),
                                    tr("Etes vous sûr de vouloir restaurer les valeurs par défauts ?\n"),
                                    QMessageBox::Yes | QMessageBox::No);
