@@ -71,17 +71,13 @@ void Settings::generaltodefault()
       case QMessageBox::Yes:
 
         //resolution
-        settings.setValue("General/prog_x",782);
-        settings.setValue("General/prog_y",486);
         ui->ResBox_x->setValue(782);
         ui->ResBox_y->setValue(486);
 
         //window position
-        settings.setValue("General/invertedwindows",false);
         ui->WindowBox->setChecked(false);
 
         //background color
-        settings.setValue("Viewer/background_color",QColor(0,0,102));
         ui->colorLabel->setPalette(QColor(0,0,102));
         break;
       default:
