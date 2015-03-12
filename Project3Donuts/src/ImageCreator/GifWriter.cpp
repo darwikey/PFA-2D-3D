@@ -392,7 +392,13 @@ void GifWriter::GifMakePalette(const uint8_t* lastFrame, const QImage* nextFrame
 
 	// SplitPalette is destructive (it sorts the pixels by color) so
 	// we must create a copy of the image for it to destroy
-	QImage _destroyableImage(*nextFrame);
+	QImage _destroyableImage(nextFrame->size(), QImage::Format_RGBA8888);
+
+	for (int x = 0; x < nextFrame->width(); x++){
+		for (int y = 0; y < nextFrame->height(); y++){
+			_destroyableImage.setPixel(x, y, nextFrame->pixel(x, y));
+		}
+	}
 
 	int _numPixels = mWidth*mHeight;
 	if (lastFrame)
