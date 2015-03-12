@@ -40,8 +40,7 @@ private:
 
     QTimer *mTimer;
 	// mouse position at the lastest mouse click 
-	QPoint mPrevMousePosition;
-    QSize viewport_size;
+    QPoint mPrevMousePosition;
 };
 
 

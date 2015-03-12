@@ -25,6 +25,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 #include <QGLWidget>
+#include <QSettings>
 #include "SceneRenderer.hpp"
 #include "Scene.hpp"
 #include "Creator.hpp"
@@ -51,6 +52,9 @@ public:
     QAction *actionAuto_st_r_ogrammes;
     QAction *actionFlipbook;
     QAction *actionInverser_les_positions_des_fen_tres;
+
+    QAction * actionRotate;
+
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
 	
@@ -70,7 +74,24 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(782, 486);
+            
+        QSettings settings("settings.ini", QSettings::IniFormat);    
+        
+        int res_x = settings.value("General/prog_x", 0).toInt();
+        if(res_x == 0)
+        {
+			settings.setValue("General/prog_x",782);
+			res_x=782;
+		}
+		
+        int res_y = settings.value("General/prog_y", 0).toInt();
+        if(res_y == 0)
+        {
+			settings.setValue("General/prog_y",486);
+			res_y=486;
+		}
+        
+        MainWindow->resize(res_x, res_y);
         actionOuvrir = new QAction(MainWindow);
         actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
         actionOuvrir->setMenuRole(QAction::ApplicationSpecificRole);
@@ -103,6 +124,14 @@ public:
         actionAuto_st_r_ogrammes->setObjectName(QStringLiteral("actionAuto_st_r_ogrammes"));
         actionFlipbook = new QAction(MainWindow);
         actionFlipbook->setObjectName(QStringLiteral("actionFlipbook"));
+        
+        actionRotate = new QAction(MainWindow);
+        actionRotate->setObjectName(QStringLiteral("actionRotate"));
+        actionRotate->setCheckable(true);
+        QIcon icon;
+        icon.addFile(QStringLiteral("resources/icones/icone_rotation.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRotate->setIcon(icon);
+        
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -165,6 +194,7 @@ public:
         menuOutils->addAction(actionAuto_st_r_ogrammes);
         menuOutils->addAction(actionFlipbook);
         menuFen_tre->addAction(actionInverser_les_positions_des_fen_tres);
+        toolBar->addAction(actionRotate);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -220,6 +250,10 @@ public:
         menuOutils->setTitle(QApplication::translate("MainWindow", "Outils", 0));
         menuFen_tre->setTitle(QApplication::translate("MainWindow", "Fen\303\252tres", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
+        actionRotate->setText(QApplication::translate("MainWindow", "Rotate", 0));
+#ifndef QT_NO_TOOLTIP
+        actionRotate->setToolTip(QApplication::translate("MainWindow", "Mode Rotation", 0));
+#endif // QT_NO_TOOLTIP
     } // retranslateUi
 
 };

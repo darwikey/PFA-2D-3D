@@ -10,9 +10,13 @@ SceneRenderer::SceneRenderer(QWidget *fParent):MyGLWidget(60, fParent, "Render W
 }
 
 void SceneRenderer::initializeGL(){
+    QSettings settings("settings.ini", QSettings::IniFormat);
     makeCurrent();
     initializeOpenGLFunctions();
-	initOpengl(QVector3D(0.f, 0.f, 0.4f));
+
+    QColor _colorRGB = settings.value("Viewer/background_color",QColor(0,0,102)).value<QColor>();
+    QVector3D _color(_colorRGB.red(), _colorRGB.green(), _colorRGB.blue());
+    initOpengl(_color/255.f);
 
 	/*GLint dims[2];
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, &dims[0]);
@@ -105,4 +109,11 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 	// Unbind the shader
 	fModel->getShader()->release();
 
+}
+
+void SceneRenderer::ChangeBackground(QColor fColor)
+{
+    QVector3D _color(fColor.red(), fColor.green(), fColor.blue());
+    _color = _color/ 255.f;
+    glClearColor(_color.x(), _color.y(), _color.z(), 1.f);
 }

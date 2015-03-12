@@ -18,6 +18,7 @@ public:
 	void resizeGL(int width, int height) override;
 	void paintGL() override;
 	void render(Object* fModel, Camera* fCamera, bool fRenderForeground);
+    void ChangeBackground(QColor fColor);
 
 private:
 

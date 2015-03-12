@@ -10,7 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QSettings settings("settings.ini", QSettings::IniFormat);
     ui->setupUi(this);
+    if(settings.value("General/invertedwindows",false).toBool())
+        ui->actionInverser_les_positions_des_fen_tres->toggle();
+
     QStringListModel* modelList = Scene::getScene()->getListObjects();
     printf("count : %d\n", modelList->rowCount());
     ui->listView->setModel(modelList);

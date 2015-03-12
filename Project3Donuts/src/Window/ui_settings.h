@@ -88,6 +88,9 @@ public:
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QStringLiteral("Dialog"));
+            
+        QSettings settings("settings.ini", QSettings::IniFormat);
+        
         Dialog->resize(687, 603);
         verticalLayout = new QVBoxLayout(Dialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -110,9 +113,12 @@ public:
         widget->setObjectName(QStringLiteral("widget"));
         horizontalLayout_2 = new QHBoxLayout(widget);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        
         ResBox_x = new QSpinBox(widget);
         ResBox_x->setObjectName(QStringLiteral("ResBox_x"));
 		ResBox_x->setRange(0,4000);
+		ResBox_x->setValue(settings.value("General/prog_x", 782).toInt());
+		
         horizontalLayout_2->addWidget(ResBox_x);
 
         label_3 = new QLabel(widget);
@@ -123,6 +129,8 @@ public:
         ResBox_y = new QSpinBox(widget);
         ResBox_y->setObjectName(QStringLiteral("ResBox_y"));
 		ResBox_y->setRange(0,4000);
+		ResBox_y->setValue(settings.value("General/prog_y", 486).toInt());
+		
         horizontalLayout_2->addWidget(ResBox_y);
 
 
@@ -144,6 +152,7 @@ public:
 
         WindowBox = new QCheckBox(groupBox);
         WindowBox->setObjectName(QStringLiteral("WindowBox"));
+        WindowBox->setChecked(settings.value("General/invertedwindows",false).toBool());
 
         gridLayout->addWidget(WindowBox, 2, 1, 1, 1);
 
@@ -201,6 +210,10 @@ public:
 
         colorLabel = new ClickLabel(QPalette(Qt::black),groupBox_2);
         colorLabel->setObjectName(QStringLiteral("colorLabel"));
+
+        QColor _color = settings.value("Viewer/background_color",QColor(0,0,102)).value<QColor>();
+        colorLabel->setPalette(QPalette(_color));
+        colorLabel->setAutoFillBackground(true);
 
         gridLayout_2->addWidget(colorLabel, 0, 2, 1, 1);
 
@@ -305,9 +318,12 @@ public:
 
 
         retranslateUi(Dialog);
+        QObject::connect(buttonBox, SIGNAL(accepted()), Dialog, SLOT(editparameters()));
         QObject::connect(buttonBox, SIGNAL(accepted()), Dialog, SLOT(accept()));
+        QObject::connect(buttonBox, SIGNAL(rejected()), Dialog, SLOT(resetparameters()));
         QObject::connect(buttonBox, SIGNAL(rejected()), Dialog, SLOT(reject()));
 		QObject::connect(colorLabel, SIGNAL(clicked()), Dialog, SLOT(changecolor()));
+		QObject::connect(DefaultGeneralButton, SIGNAL(clicked()), Dialog, SLOT(generaltodefault()));
 
         tabWidget->setCurrentIndex(0);
 

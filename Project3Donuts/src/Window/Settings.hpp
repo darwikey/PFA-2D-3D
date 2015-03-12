@@ -13,6 +13,9 @@ public:
     Ui::Dialog *ui;
 public slots:
     void changecolor();
+    void editparameters();
+    void resetparameters();
+    void generaltodefault();
 };
 
 #endif // SETTINGS_HPP

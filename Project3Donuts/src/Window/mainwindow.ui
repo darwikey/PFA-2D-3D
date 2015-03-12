@@ -62,6 +62,18 @@
    <addaction name="menuFichier"/>
    <addaction name="menuEditer"/>
   </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionRotate"/>
+  </widget>
   <action name="actionOuvrir">
    <property name="text">
     <string>Ouvrir</string>
@@ -81,6 +93,21 @@
    </property>
    <property name="text">
     <string>Degrader</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../PFA-builds/resources/icones/icone_rotation.png</normaloff>../../../../PFA-builds/resources/icones/icone_rotation.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+   <property name="toolTip">
+    <string>Mode Rotation</string>
    </property>
   </action>
  </widget>
