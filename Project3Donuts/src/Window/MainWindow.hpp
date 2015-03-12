@@ -33,6 +33,11 @@ public slots:
    void editsettings();
    void about();
 
+   void checkSettings(int);
+   void changeModeToTranslate();
+   void changeModeToRotate();
+   void changeModeToScale();
+
 private:
    QMainWindow * win_about;
    Settings * _settingsWindow;

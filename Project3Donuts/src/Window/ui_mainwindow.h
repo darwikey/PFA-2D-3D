@@ -53,7 +53,9 @@ public:
     QAction *actionFlipbook;
     QAction *actionInverser_les_positions_des_fen_tres;
 
+	QAction * actionTranslate;
     QAction * actionRotate;
+    QAction * actionScale;
 
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
@@ -95,42 +97,89 @@ public:
         actionOuvrir = new QAction(MainWindow);
         actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
         actionOuvrir->setMenuRole(QAction::ApplicationSpecificRole);
+        actionOuvrir->setShortcut(QKeySequence::Open);
+        
         actionQuitter = new QAction(MainWindow);
         actionQuitter->setObjectName(QStringLiteral("actionQuitter"));
+        actionQuitter->setShortcut(QKeySequence::Quit);
+        
         actionNouveau = new QAction(MainWindow);
         actionNouveau->setObjectName(QStringLiteral("actionNouveau"));
+        actionNouveau->setShortcut(QKeySequence::New);
+        
         actionEnregistrer = new QAction(MainWindow);
         actionEnregistrer->setObjectName(QStringLiteral("actionEnregistrer"));
+        actionEnregistrer->setShortcut(QKeySequence::Save);
+        
         actionEnregistrer_sous = new QAction(MainWindow);
         actionEnregistrer_sous->setObjectName(QStringLiteral("actionEnregistrer_sous"));
+        actionEnregistrer_sous->setShortcut(QKeySequence::SaveAs);
+        
         actionDepuis_la_bibliotheque = new QAction(MainWindow);
         actionDepuis_la_bibliotheque->setObjectName(QStringLiteral("actionDepuis_la_bibliotheque"));
+        
         actionDepuis_le_disque_dur = new QAction(MainWindow);
         actionDepuis_le_disque_dur->setObjectName(QStringLiteral("actionDepuis_le_disque_dur"));
+        
 		action_changer_couleur = new QAction(MainWindow);
 		action_changer_couleur->setObjectName(QStringLiteral("action_changer_couleur"));
+		
         actionPr_f_rences = new QAction(MainWindow);
         actionPr_f_rences->setObjectName(QStringLiteral("actionPr_f_rences"));
+        actionPr_f_rences->setShortcut(QKeySequence::Preferences);
+        
         actionA_propos = new QAction(MainWindow);
         actionA_propos->setObjectName(QStringLiteral("actionA_propos"));
+        
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
+        actionEffectuer_un_rendu->setShortcut(settings.value("Shortcuts/render",QKeySequence("P")).value<QKeySequence>());
+        
         actionInverser_les_positions_des_fen_tres = new QAction(MainWindow);
         actionInverser_les_positions_des_fen_tres->setObjectName(QStringLiteral("actionInverser_les_positions_des_fen_tres"));
         actionInverser_les_positions_des_fen_tres->setCheckable(true);
+        
         actionAnaglyphes = new QAction(MainWindow);
         actionAnaglyphes->setObjectName(QStringLiteral("actionAnaglyphes"));
+        actionAnaglyphes->setShortcut(settings.value("Shortcuts/anaglyphes",QKeySequence("N")).value<QKeySequence>());
+        QIcon icon_anagl;
+        icon_anagl.addFile(QStringLiteral("resources/icones/icone_anaglyphe.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAnaglyphes->setIcon(icon_anagl);
+        
         actionAuto_st_r_ogrammes = new QAction(MainWindow);
         actionAuto_st_r_ogrammes->setObjectName(QStringLiteral("actionAuto_st_r_ogrammes"));
+        actionAuto_st_r_ogrammes->setShortcut(settings.value("Shortcuts/autostereogramme",QKeySequence("U")).value<QKeySequence>());
+        
         actionFlipbook = new QAction(MainWindow);
         actionFlipbook->setObjectName(QStringLiteral("actionFlipbook"));
+        actionFlipbook->setShortcut(settings.value("Shortcuts/flipbook",QKeySequence("F")).value<QKeySequence>());
+        QIcon icon_flip;
+        icon_flip.addFile(QStringLiteral("resources/icones/icone_flipbook.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionFlipbook->setIcon(icon_flip);
+        
+        actionTranslate = new QAction(MainWindow);
+        actionTranslate->setObjectName(QStringLiteral("actionTranslate"));
+        actionTranslate->setCheckable(true);
+        actionTranslate->setShortcut(settings.value("Shortcuts/translate",QKeySequence("T")).value<QKeySequence>());
+        QIcon icon_t;
+        icon_t.addFile(QStringLiteral("resources/icones/icone_transl.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionTranslate->setIcon(icon_t);
         
         actionRotate = new QAction(MainWindow);
         actionRotate->setObjectName(QStringLiteral("actionRotate"));
         actionRotate->setCheckable(true);
-        QIcon icon;
-        icon.addFile(QStringLiteral("resources/icones/icone_rotation.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionRotate->setIcon(icon);
+        actionRotate->setShortcut(settings.value("Shortcuts/rotate",QKeySequence("R")).value<QKeySequence>());
+        QIcon icon_r;
+        icon_r.addFile(QStringLiteral("resources/icones/icone_rotation.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRotate->setIcon(icon_r);
+        
+        actionScale = new QAction(MainWindow);
+        actionScale->setObjectName(QStringLiteral("actionScale"));
+        actionScale->setCheckable(true);
+        actionScale->setShortcut(settings.value("Shortcuts/scale",QKeySequence("S")).value<QKeySequence>());
+        QIcon icon_s;
+        icon_s.addFile(QStringLiteral("resources/icones/icone_scale.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionScale->setIcon(icon_s);
         
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -194,7 +243,11 @@ public:
         menuOutils->addAction(actionAuto_st_r_ogrammes);
         menuOutils->addAction(actionFlipbook);
         menuFen_tre->addAction(actionInverser_les_positions_des_fen_tres);
+        toolBar->addAction(actionTranslate);
         toolBar->addAction(actionRotate);
+        toolBar->addAction(actionScale);
+        toolBar->addAction(actionAnaglyphes);
+        toolBar->addAction(actionFlipbook);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -219,6 +272,11 @@ public:
 		QObject::connect(actionFlipbook, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchFlipbook()));
 
 		QObject::connect(actionInverser_les_positions_des_fen_tres, SIGNAL(changed()), MainWindow, SLOT(invertwidgets()));
+		
+		
+		QObject::connect(actionTranslate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToTranslate()));
+		QObject::connect(actionRotate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToRotate()));
+		QObject::connect(actionScale, SIGNAL(triggered()), MainWindow, SLOT(changeModeToScale()));
 		
 		
         QMetaObject::connectSlotsByName(MainWindow);
@@ -250,7 +308,9 @@ public:
         menuOutils->setTitle(QApplication::translate("MainWindow", "Outils", 0));
         menuFen_tre->setTitle(QApplication::translate("MainWindow", "Fen\303\252tres", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
-        actionRotate->setText(QApplication::translate("MainWindow", "Rotate", 0));
+        actionTranslate->setText(QApplication::translate("MainWindow", "Mode Translation", 0));
+        actionRotate->setText(QApplication::translate("MainWindow", "Mode Rotation", 0));
+        actionScale->setText(QApplication::translate("MainWindow", "Mode Redimensionnement", 0));
 #ifndef QT_NO_TOOLTIP
         actionRotate->setToolTip(QApplication::translate("MainWindow", "Mode Rotation", 0));
 #endif // QT_NO_TOOLTIP

@@ -237,6 +237,7 @@ public:
 
         Translate_keySequenceEdit = new QKeySequenceEdit(shortcuts);
         Translate_keySequenceEdit->setObjectName(QStringLiteral("Translate_keySequenceEdit"));
+        Translate_keySequenceEdit->setKeySequence(settings.value("Shortcuts/translate",QKeySequence("T")).value<QKeySequence>());
 
         formLayout->setWidget(0, QFormLayout::FieldRole, Translate_keySequenceEdit);
 
@@ -247,6 +248,7 @@ public:
 
         Rotate_keySequenceEdit = new QKeySequenceEdit(shortcuts);
         Rotate_keySequenceEdit->setObjectName(QStringLiteral("Rotate_keySequenceEdit"));
+        Rotate_keySequenceEdit->setKeySequence(settings.value("Shortcuts/rotate",QKeySequence("R")).value<QKeySequence>());
 
         formLayout->setWidget(1, QFormLayout::FieldRole, Rotate_keySequenceEdit);
 
@@ -257,6 +259,7 @@ public:
 
         Scale_keySequenceEdit = new QKeySequenceEdit(shortcuts);
         Scale_keySequenceEdit->setObjectName(QStringLiteral("Scale_keySequenceEdit"));
+        Scale_keySequenceEdit->setKeySequence(settings.value("Shortcuts/scale",QKeySequence("S")).value<QKeySequence>());
 
         formLayout->setWidget(2, QFormLayout::FieldRole, Scale_keySequenceEdit);
 
@@ -277,16 +280,19 @@ public:
 
         ColorMap_keySequenceEdit = new QKeySequenceEdit(shortcuts);
         ColorMap_keySequenceEdit->setObjectName(QStringLiteral("ColorMap_keySequenceEdit"));
+        ColorMap_keySequenceEdit->setKeySequence(settings.value("Shortcuts/render",QKeySequence("P")).value<QKeySequence>());
 
         formLayout->setWidget(3, QFormLayout::FieldRole, ColorMap_keySequenceEdit);
 
         AutoStereogramme_keySequenceEdit = new QKeySequenceEdit(shortcuts);
         AutoStereogramme_keySequenceEdit->setObjectName(QStringLiteral("AutoStereogramme_keySequenceEdit"));
+        AutoStereogramme_keySequenceEdit->setKeySequence(settings.value("Shortcuts/autostereogramme",QKeySequence("U")).value<QKeySequence>());
 
         formLayout->setWidget(6, QFormLayout::FieldRole, AutoStereogramme_keySequenceEdit);
 
         Anaglyphe_keySequenceEdit = new QKeySequenceEdit(shortcuts);
         Anaglyphe_keySequenceEdit->setObjectName(QStringLiteral("Anaglyphe_keySequenceEdit"));
+        Anaglyphe_keySequenceEdit->setKeySequence(settings.value("Shortcuts/anaglyphes",QKeySequence("N")).value<QKeySequence>());
 
         formLayout->setWidget(4, QFormLayout::FieldRole, Anaglyphe_keySequenceEdit);
 
@@ -297,6 +303,7 @@ public:
 
         Flipbook_keySequenceEdit = new QKeySequenceEdit(shortcuts);
         Flipbook_keySequenceEdit->setObjectName(QStringLiteral("Flipbook_keySequenceEdit"));
+        Flipbook_keySequenceEdit->setKeySequence(settings.value("Shortcuts/flipbook",QKeySequence("F")).value<QKeySequence>());
 
         formLayout->setWidget(7, QFormLayout::FieldRole, Flipbook_keySequenceEdit);
 
@@ -324,6 +331,7 @@ public:
         QObject::connect(buttonBox, SIGNAL(rejected()), Dialog, SLOT(reject()));
 		QObject::connect(colorLabel, SIGNAL(clicked()), Dialog, SLOT(changecolor()));
 		QObject::connect(DefaultGeneralButton, SIGNAL(clicked()), Dialog, SLOT(generaltodefault()));
+        QObject::connect(DefaultShortcutsButton, SIGNAL(clicked()), Dialog, SLOT(shortcutstodefault()));
 
         tabWidget->setCurrentIndex(0);
 

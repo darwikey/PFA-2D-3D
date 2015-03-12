@@ -55,8 +55,8 @@ public:
 	//! \brief register an new action
 	void registerAction(std::function<void()> fAction);
 
-	//! \brief revert the previous action
-	void revertPreviousAction();
+    //! \brief revert the previous action
+    void revertPreviousAction();
 
 	//! \brief get scene renderer instance
 	SceneRenderer* getSceneRenderer();
@@ -117,7 +117,7 @@ private:
     std::pair<std::string, Object*> mSelectedObject = std::make_pair(std::string(), nullptr);
 	std::map<std::string, Object*> mDeletedObjects;
 
-	std::vector<std::function<void()>> mActionTable;
+    std::vector<std::function<void()>> mActionTable;
 };
 
 #endif

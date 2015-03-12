@@ -16,6 +16,7 @@ public slots:
     void editparameters();
     void resetparameters();
     void generaltodefault();
+    void shortcutstodefault();
 };
 
 #endif // SETTINGS_HPP
