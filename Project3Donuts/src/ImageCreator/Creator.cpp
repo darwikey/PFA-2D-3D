@@ -60,26 +60,6 @@ void Creator::launchPhotograph(int fAlgoNumber){
 }
 
 
-/*void Creator::launchAnaglyph(){
-	this->launchAnaglyph(0);
-}
-
-
-void Creator::launchAutostereogram(){
-	this->launchAutostereogram(0);
-}
-
-
-void Creator::launchFlipbook(){
-	this->launchFlipbook(0);
-}
-
-
-void Creator::launchPhotograph(){
-	this->launchPhotograph(0);
-}*/
-
-
 std::vector<QString> Creator::getListAnaglyph() const{
 	std::vector<QString> _str;
 	for (auto it : mAnaglyphTable){
