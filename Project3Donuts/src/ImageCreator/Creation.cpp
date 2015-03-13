@@ -58,9 +58,8 @@ void Creation::createWindow(bool fHasPreview){
 	mResolutionBox->addItem("72 dpi");
 	mResolutionBox->setCurrentIndex(3);
 	mVLayoutMenu->addWidget(mResolutionBox);
-
+	
 	QObject::connect(mResolutionBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeResolution(int)));
-
 
 	// Gamma corection
 	mGammaLabel = new QLabel("Correction gamma :", mWindow);

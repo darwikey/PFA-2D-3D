@@ -70,7 +70,9 @@ private:
 	int mPositionNewWidget = 8;
 	unsigned int mAntiAliasingIteration = 0;
 	const QSize mPreviewImageSize = QSize(600, 600);
-										
+
+public slots:
+	void updatePreview();
 																				 
 private slots:
 	void changeResolution(int fResolution);
@@ -80,9 +82,6 @@ private slots:
 	void changeGamma(int fCursor);
 
 	void changeAntialiasing(int fIteration);
-
-	void updatePreview();
-
 };
 
 #endif
