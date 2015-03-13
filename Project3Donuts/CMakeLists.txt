@@ -30,7 +30,7 @@ include_directories(${Qt5Widgets_INCLUDES} src src/ImageCreator src/Scene src/To
 
 # We need add -DQT_WIDGETS_LIB when using QtWidgets in Qt 5.
 add_definitions(${Qt5Widgets_DEFINITIONS})
-add_definitions(-std=c++11)
+add_definitions(-Wall -std=c++11)
 ADD_DEFINITIONS(${QT_DEFINITIONS})
 
 
