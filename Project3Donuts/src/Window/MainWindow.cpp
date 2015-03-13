@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionTranslate->toggle();
 
     QStringListModel* modelList = Scene::getScene()->getListObjects();
-    printf("count : %d\n", modelList->rowCount());
     ui->listView->setModel(modelList);
     ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     //ui->listView->setSelectionMode(QAbstractItemView::MultiSelection );
