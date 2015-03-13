@@ -18,19 +18,27 @@ public:
 	Camera(QVector3D fPosition, QVector3D fRotation, float fAngleOfView);
 
 
+	//! \brief destructor
+	~Camera();
+
+
 	//! \brief move the camera from its initial position with asked values
 	//! \param params are about directions and values of move in those directions. horizontalAxe is about x value, verticalAxe is about y value and depthValue is about z value.
-	void moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthValue);
+	void moveCamera(float fHorizontalRotation, float fVerticalRotation, float fZoom);
+
+	//! \brief move the camera from its initial position with the value of the mouse
+	//! \param params are about directions and values of move in those directions. horizontalAxe is about x value, verticalAxe is about y value and depthValue is about z value.
+	void moveCameraWithMouse(float fHorizontalAxe, float fVerticalAxe, float fDepthValue);
 
 	//! \brief move the camera in order to see all the object
 	//! \param the bounding sphere radius of the scene objects
 	void repositionCamera(float fBoundingSphereRadius);
 
 	//! \brief get an access to the image
-	std::shared_ptr<QImage> getColorMap(int fWidth, int fHeight);
+	std::unique_ptr<QImage> getColorMap(int fWidth, int fHeight);
 	
 	//! \brief get an access to the depth map
-	std::shared_ptr<QImage> getDepthMap(int fWidth, int fHeight);
+	std::unique_ptr<QImage> getDepthMap(int fWidth, int fHeight);
 
 	//! \brief get the view matrix associate with the camera
 	const QMatrix4x4& getViewMatrix();

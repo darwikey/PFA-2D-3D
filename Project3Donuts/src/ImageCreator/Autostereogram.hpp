@@ -4,20 +4,23 @@
 #include "global.hpp"
 #include "Creation.hpp"
 
-enum Texture {RANDNB, RANDGREY, RANDCOLOR, TEXTUREMAP} ;
 
 // ! \class Autostereogram
 // ! \brief virtual Autostereogram class to define every methods that will be needed in classes that will inherit from this one and that will define different algorithms
 class Autostereogram : public Creation {
+	Q_OBJECT
 public:
+	enum Texture { RANDNB, RANDGREY, RANDCOLOR, TEXTUREMAP };
 
 
 protected:
 
-	virtual void createWindow() override;
+	virtual void createWindow(bool fHasPreview) override;
 
-	virtual std::shared_ptr<QImage> render() override = 0;
+	virtual std::unique_ptr<CreationFile> render() override = 0;
 
+	//! \brief extract the depth of a depthmap 
+	std::vector<float> getDepth(const QImage& fImg);
 
 
 };

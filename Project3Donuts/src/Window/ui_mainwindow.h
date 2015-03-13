@@ -25,8 +25,10 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 #include <QGLWidget>
+#include <QSettings>
 #include "SceneRenderer.hpp"
 #include "Scene.hpp"
+#include "Creator.hpp"
 
 
 QT_BEGIN_NAMESPACE
@@ -42,14 +44,19 @@ public:
     QAction *actionEnregistrer_sous;
     QAction *actionDepuis_la_bibliotheque;
     QAction *actionDepuis_le_disque_dur;
+	QAction* action_changer_couleur;
     QAction *actionPr_f_rences;
     QAction *actionA_propos;
     QAction *actionEffectuer_un_rendu;
-    QAction *actionAfficher_la_carte_de_profondeur;
 	QAction *actionAnaglyphes;
     QAction *actionAuto_st_r_ogrammes;
     QAction *actionFlipbook;
     QAction *actionInverser_les_positions_des_fen_tres;
+
+	QAction * actionTranslate;
+    QAction * actionRotate;
+    QAction * actionScale;
+
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
 	
@@ -64,43 +71,116 @@ public:
     QMenu *menuOutils;
     QMenu *menuFen_tre;
     QToolBar *toolBar;
+
     void setupUi(MainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(782, 486);
+            
+        QSettings settings("settings.ini", QSettings::IniFormat);    
+        
+        int res_x = settings.value("General/prog_x", 0).toInt();
+        if(res_x == 0)
+        {
+			settings.setValue("General/prog_x",782);
+			res_x=782;
+		}
+		
+        int res_y = settings.value("General/prog_y", 0).toInt();
+        if(res_y == 0)
+        {
+			settings.setValue("General/prog_y",486);
+			res_y=486;
+		}
+        
+        MainWindow->resize(res_x, res_y);
         actionOuvrir = new QAction(MainWindow);
         actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
         actionOuvrir->setMenuRole(QAction::ApplicationSpecificRole);
+        actionOuvrir->setShortcut(QKeySequence::Open);
+        
         actionQuitter = new QAction(MainWindow);
         actionQuitter->setObjectName(QStringLiteral("actionQuitter"));
+        actionQuitter->setShortcut(QKeySequence::Quit);
+        
         actionNouveau = new QAction(MainWindow);
         actionNouveau->setObjectName(QStringLiteral("actionNouveau"));
+        actionNouveau->setShortcut(QKeySequence::New);
+        
         actionEnregistrer = new QAction(MainWindow);
         actionEnregistrer->setObjectName(QStringLiteral("actionEnregistrer"));
+        actionEnregistrer->setShortcut(QKeySequence::Save);
+        
         actionEnregistrer_sous = new QAction(MainWindow);
         actionEnregistrer_sous->setObjectName(QStringLiteral("actionEnregistrer_sous"));
+        actionEnregistrer_sous->setShortcut(QKeySequence::SaveAs);
+        
         actionDepuis_la_bibliotheque = new QAction(MainWindow);
         actionDepuis_la_bibliotheque->setObjectName(QStringLiteral("actionDepuis_la_bibliotheque"));
+        
         actionDepuis_le_disque_dur = new QAction(MainWindow);
         actionDepuis_le_disque_dur->setObjectName(QStringLiteral("actionDepuis_le_disque_dur"));
+        
+		action_changer_couleur = new QAction(MainWindow);
+		action_changer_couleur->setObjectName(QStringLiteral("action_changer_couleur"));
+		
         actionPr_f_rences = new QAction(MainWindow);
         actionPr_f_rences->setObjectName(QStringLiteral("actionPr_f_rences"));
+        actionPr_f_rences->setShortcut(QKeySequence::Preferences);
+        
         actionA_propos = new QAction(MainWindow);
         actionA_propos->setObjectName(QStringLiteral("actionA_propos"));
+        
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
-        actionAfficher_la_carte_de_profondeur = new QAction(MainWindow);
-        actionAfficher_la_carte_de_profondeur->setObjectName(QStringLiteral("actionAfficher_la_carte_de_profondeur"));
+        actionEffectuer_un_rendu->setShortcut(settings.value("Shortcuts/render",QKeySequence("P")).value<QKeySequence>());
+        
         actionInverser_les_positions_des_fen_tres = new QAction(MainWindow);
         actionInverser_les_positions_des_fen_tres->setObjectName(QStringLiteral("actionInverser_les_positions_des_fen_tres"));
         actionInverser_les_positions_des_fen_tres->setCheckable(true);
+        
         actionAnaglyphes = new QAction(MainWindow);
         actionAnaglyphes->setObjectName(QStringLiteral("actionAnaglyphes"));
+        actionAnaglyphes->setShortcut(settings.value("Shortcuts/anaglyphes",QKeySequence("N")).value<QKeySequence>());
+        QIcon icon_anagl;
+        icon_anagl.addFile(QStringLiteral("resources/icones/icone_anaglyphe.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAnaglyphes->setIcon(icon_anagl);
+        
         actionAuto_st_r_ogrammes = new QAction(MainWindow);
         actionAuto_st_r_ogrammes->setObjectName(QStringLiteral("actionAuto_st_r_ogrammes"));
+        actionAuto_st_r_ogrammes->setShortcut(settings.value("Shortcuts/autostereogramme",QKeySequence("U")).value<QKeySequence>());
+        
         actionFlipbook = new QAction(MainWindow);
         actionFlipbook->setObjectName(QStringLiteral("actionFlipbook"));
+        actionFlipbook->setShortcut(settings.value("Shortcuts/flipbook",QKeySequence("F")).value<QKeySequence>());
+        QIcon icon_flip;
+        icon_flip.addFile(QStringLiteral("resources/icones/icone_flipbook.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionFlipbook->setIcon(icon_flip);
+        
+        actionTranslate = new QAction(MainWindow);
+        actionTranslate->setObjectName(QStringLiteral("actionTranslate"));
+        actionTranslate->setCheckable(true);
+        actionTranslate->setShortcut(settings.value("Shortcuts/translate",QKeySequence("T")).value<QKeySequence>());
+        QIcon icon_t;
+        icon_t.addFile(QStringLiteral("resources/icones/icone_transl.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionTranslate->setIcon(icon_t);
+        
+        actionRotate = new QAction(MainWindow);
+        actionRotate->setObjectName(QStringLiteral("actionRotate"));
+        actionRotate->setCheckable(true);
+        actionRotate->setShortcut(settings.value("Shortcuts/rotate",QKeySequence("R")).value<QKeySequence>());
+        QIcon icon_r;
+        icon_r.addFile(QStringLiteral("resources/icones/icone_rotation.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRotate->setIcon(icon_r);
+        
+        actionScale = new QAction(MainWindow);
+        actionScale->setObjectName(QStringLiteral("actionScale"));
+        actionScale->setCheckable(true);
+        actionScale->setShortcut(settings.value("Shortcuts/scale",QKeySequence("S")).value<QKeySequence>());
+        QIcon icon_s;
+        icon_s.addFile(QStringLiteral("resources/icones/icone_scale.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionScale->setIcon(icon_s);
+        
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -155,14 +235,19 @@ public:
         menuFichier->addAction(actionQuitter);
         menuImporter->addAction(actionDepuis_la_bibliotheque);
         menuImporter->addAction(actionDepuis_le_disque_dur);
-        menuEditer->addAction(actionPr_f_rences);
+		menuEditer->addAction(action_changer_couleur);
+		menuEditer->addAction(actionPr_f_rences);
         menuAide->addAction(actionA_propos);
         menuOutils->addAction(actionEffectuer_un_rendu);
-        menuOutils->addAction(actionAfficher_la_carte_de_profondeur);
 		menuOutils->addAction(actionAnaglyphes);
         menuOutils->addAction(actionAuto_st_r_ogrammes);
         menuOutils->addAction(actionFlipbook);
         menuFen_tre->addAction(actionInverser_les_positions_des_fen_tres);
+        toolBar->addAction(actionTranslate);
+        toolBar->addAction(actionRotate);
+        toolBar->addAction(actionScale);
+        toolBar->addAction(actionAnaglyphes);
+        toolBar->addAction(actionFlipbook);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -173,12 +258,25 @@ public:
         QObject::connect(actionEnregistrer, SIGNAL(triggered()), MainWindow, SLOT(save()));	
         QObject::connect(actionEnregistrer_sous, SIGNAL(triggered()), MainWindow, SLOT(saveas()));		
         
-        QObject::connect(actionPr_f_rences, SIGNAL(triggered()), MainWindow, SLOT(editsettings()));	
+		QObject::connect(action_changer_couleur, SIGNAL(triggered()), MainWindow, SLOT(changeObjectColor()));
+        QObject::connect(actionPr_f_rences, SIGNAL(triggered()), MainWindow, SLOT(editsettings()));
+
         QObject::connect(actionA_propos, SIGNAL(triggered()), MainWindow, SLOT(about()));	
         	
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
         //QObject::connect(listView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
+		
+		QObject::connect(actionEffectuer_un_rendu, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchPhotograph()));
+		QObject::connect(actionAnaglyphes, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchAnaglyph()));
+		QObject::connect(actionAuto_st_r_ogrammes, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchAutostereogram()));
+		QObject::connect(actionFlipbook, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchFlipbook()));
+
 		QObject::connect(actionInverser_les_positions_des_fen_tres, SIGNAL(changed()), MainWindow, SLOT(invertwidgets()));
+		
+		
+		QObject::connect(actionTranslate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToTranslate()));
+		QObject::connect(actionRotate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToRotate()));
+		QObject::connect(actionScale, SIGNAL(triggered()), MainWindow, SLOT(changeModeToScale()));
 		
 		
         QMetaObject::connectSlotsByName(MainWindow);
@@ -195,14 +293,14 @@ public:
         actionEnregistrer_sous->setText(QApplication::translate("MainWindow", "Enregistrer sous", 0));
         actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "depuis la bibliotheque", 0));
         actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "depuis le disque dur", 0));
-        actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
+		action_changer_couleur->setText(QApplication::translate("MainWindow", "Couleur de l'objet", 0));
+		actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
         actionEffectuer_un_rendu->setText(QApplication::translate("MainWindow", "Effectuer un rendu", 0));
-        actionAfficher_la_carte_de_profondeur->setText(QApplication::translate("MainWindow", "Afficher la carte de profondeur", 0));
-        actionInverser_les_positions_des_fen_tres->setText(QApplication::translate("MainWindow", "Inverser les positions des fen\303\252tres", 0));
+        actionInverser_les_positions_des_fen_tres->setText(QApplication::translate("MainWindow", "Mettre la fen\303\252tres de visualisation \303\240 droite", 0));
         actionAnaglyphes->setText(QApplication::translate("MainWindow", "Anaglyphes", 0));
         actionAuto_st_r_ogrammes->setText(QApplication::translate("MainWindow", "Autost\303\251r\303\251ogrammes", 0));
-        actionFlipbook->setText(QApplication::translate("MainWindow", "flipbook", 0));
+        actionFlipbook->setText(QApplication::translate("MainWindow", "Flipbook", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menuImporter->setTitle(QApplication::translate("MainWindow", "Importer", 0));
         menuEditer->setTitle(QApplication::translate("MainWindow", "Editer", 0));
@@ -210,6 +308,12 @@ public:
         menuOutils->setTitle(QApplication::translate("MainWindow", "Outils", 0));
         menuFen_tre->setTitle(QApplication::translate("MainWindow", "Fen\303\252tres", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
+        actionTranslate->setText(QApplication::translate("MainWindow", "Mode Translation", 0));
+        actionRotate->setText(QApplication::translate("MainWindow", "Mode Rotation", 0));
+        actionScale->setText(QApplication::translate("MainWindow", "Mode Redimensionnement", 0));
+#ifndef QT_NO_TOOLTIP
+        actionRotate->setToolTip(QApplication::translate("MainWindow", "Mode Rotation", 0));
+#endif // QT_NO_TOOLTIP
     } // retranslateUi
 
 };

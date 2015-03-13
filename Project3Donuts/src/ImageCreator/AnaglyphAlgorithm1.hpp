@@ -8,11 +8,13 @@
 // ! \class AnaglyphAlgo1
 // ! \brief First algorithm to create an anaglyph
 class AnaglyphAlgorithm1 : public Anaglyph{
+	Q_OBJECT
+
 protected:
 
-	virtual void createWindow() override;
+	virtual void createWindow(bool fHasPreview = true) override;
 
-	virtual std::shared_ptr<QImage> render() override;
+	virtual std::unique_ptr<CreationFile> render() override;
        
 };
 

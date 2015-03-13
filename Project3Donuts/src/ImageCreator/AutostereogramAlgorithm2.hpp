@@ -6,17 +6,18 @@
 #include "Autostereogram.hpp"
 
 
-
 // ! \class AutostereogramAlgorithm2
 // ! \brief Second algorithm to create an autostereogram
 class AutostereogramAlgorithm2 : public Autostereogram {
+  Q_OBJECT
 public:
 
-  static std::vector<QImage> dummyCreate(QImage * fImage, int fDPI, enum Texture fTextureStyle, char * fTexture) ;
+  //  static std::vector<QImage> dummyCreate(QImage * fImage, int fDPI, enum Texture fTextureStyle, char * fTexture) ;
 
 protected:
-  virtual void createWindow() override;
-  virtual std::shared_ptr<QImage> render() override;
+
+  virtual void createWindow(bool fHasPreview = true) override;
+  virtual std::unique_ptr<CreationFile> render() override;
 
   
 private :
@@ -24,7 +25,7 @@ private :
   AutostereogramAlgorithm2() ;
   void colorBase(int fx, int fy) ;
   AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
-  std::shared_ptr<QImage> depthmapToAutostereogram() ; 
+
   void colorPixel(int fx, int fy, int * fLastLinked) ;
   void colorRandom(int fx) ;
 
@@ -37,7 +38,7 @@ private :
   vector<int> _red ;
   vector<int> _green ;
   vector<int> _blue ;
-
+  std::unique_ptr<QImage> depthmapToAutostereogram() ;
   vector<int> _sameLeft ;
   vector<int> _sameRight ;
 
@@ -47,4 +48,5 @@ private :
   int _yShift ;
   
 } ;
+
 #endif

@@ -1,22 +1,20 @@
 #include "AutostereogramAlgorithm2.hpp"
 
-void AutostereogramAlgorithm2::createWindow(){
-	Autostereogram::createWindow();
+void AutostereogramAlgorithm2::createWindow(bool fHasPreview){
+	Autostereogram::createWindow(fHasPreview);
 }
 
+std::unique_ptr<CreationFile> AutostereogramAlgorithm2::render(){
 
-std::shared_ptr<QImage> AutostereogramAlgorithm2::render(){
+	std::unique_ptr<QImage> _depthmap = this->getDepthMap();
 
-	float _DPI = 75.f;
-	/*if ( == COMPUTER_RESO)
-		_DPI = 75;
-	else if (fReso == PRINT_RESO)
-		_DPI = 300;*/
-	int _E = this->round(2.5 * _DPI);
+	//TODO std::unique_ptr<QImage> _image = this->depthmapToAutostereogram(*_depthmap, 75,  );
 
-	std::shared_ptr<QImage> _image = this->depthmapToAutostereogram(this->getDepthMap(), _E);
 
-	return _image;
+	std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
+	//TODO _file->pushImage(std::move(_image));
+
+	return _file;
 }
 
 void AutostereogramAlgorithm2::colorBase(int fx, int fy) {
@@ -147,15 +145,8 @@ static std::vector<float> getDepth(QImage fImg) {
   return resultat ;
 }
 
-static int caseXY(int x, int y, int width) {
-  return y * width + x ;
-}
 
-std::vector<QImage> AutostereogramAlgorithm2::dummyCreate(QImage * fImage, int fDPI, enum Texture fTextureStyle, char * fTexture) {
-  return depthmapToAutostereogram(fImage, fDPI, fTextureStyle, fTexture) ;
-}
-
-std::vector<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram(QImage * fImage, enum Texture fTextureStyle, char * fTexture) {
+std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram(QImage * fImage, enum Texture fTextureStyle, char * fTexture) {
 
   /* Core variables */
   
@@ -164,7 +155,7 @@ std::vector<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram(QImage * 
   int width = fImage->width() ;
   int height = fImage->height() ;
 
-  std::shared_ptr<QImage> toReturn (new QImage(maxX, maxY, QImage::Format_RGB888));
+  std::unique_ptr<QImage> toReturn (new QImage(maxX, maxY, QImage::Format_RGB888));
 
   if (ftextureStyle == TEXTUREMAP)
     _texture->load(fTexture) ;

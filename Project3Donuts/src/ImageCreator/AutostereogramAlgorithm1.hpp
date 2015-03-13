@@ -9,20 +9,20 @@
 // ! \class AutostereogramAlgorithm1
 // ! \brief First algorithm to create an autostereogram
 class AutostereogramAlgorithm1 : public Autostereogram {
+	Q_OBJECT
 public:
 
 
 protected:
-	virtual void createWindow() override;
+	virtual void createWindow(bool fHasPreview = true) override;
 
-	virtual std::shared_ptr<QImage> render() override;
+	virtual std::unique_ptr<CreationFile> render() override;
 
 
 private :
-	std::vector<float> getDepth(std::shared_ptr<QImage> fImg);
 
 	int separation(float fZ, int fE) ;
-	std::shared_ptr<QImage> depthmapToAutostereogram(std::shared_ptr<QImage>, int fE);
+	std::unique_ptr<QImage> depthmapToAutostereogram(const QImage& fDepthmap, int fE);
 
 	int round(float fX);
 	int caseXY(int fx, int fy, int fwidth);

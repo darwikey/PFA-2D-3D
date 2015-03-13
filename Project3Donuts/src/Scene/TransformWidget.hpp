@@ -5,6 +5,7 @@
 
 class Object;
 class SceneRenderer;
+class Camera;
 
 class TransformWidget
 {
@@ -21,7 +22,7 @@ public:
 	~TransformWidget();
 
 	//! \brief render the widget
-	void render(SceneRenderer* fRenderer, Object* fSelectedObject);
+	void render(SceneRenderer* fRenderer, Camera* fCamera, Object* fSelectedObject);
 
 	//! \brief show the widget, and choose the transformation
 	void changeState(TransformWidget::State fState);
@@ -40,6 +41,9 @@ public:
 
 
 private:
+	QVector3D getDirection(Direction fDirection) const;
+	void applyTransformation(Object* fObject, QVector3D fInitialSelectedObject, State fState, Direction fDirection, float fDelta) const;
+
 	State mState = State::HIDE;
 	bool mIsSelected = false;
 	std::string mNameSelectedObject;

@@ -2,13 +2,21 @@
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 #include "Scene.hpp"
+#include "TransformWidget.hpp"
 #include "Loader.hpp"
+#include "Object.hpp"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QSettings settings("settings.ini", QSettings::IniFormat);
     ui->setupUi(this);
+    if(settings.value("General/invertedwindows",false).toBool())
+        ui->actionInverser_les_positions_des_fen_tres->toggle();
+    ui->actionTranslate->toggle();
+
     QStringListModel* modelList = Scene::getScene()->getListObjects();
     printf("count : %d\n", modelList->rowCount());
     ui->listView->setModel(modelList);
@@ -19,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
     win_about->setWindowModality (Qt::ApplicationModal);
     _about_ui = new Ui::About();
     _about_ui->setupUi(win_about);
+    _settingsWindow = new Settings(this);
+    QObject::connect(_settingsWindow, SIGNAL(finished (int)), this, SLOT(checkSettings(int)));
 }
 
 MainWindow::~MainWindow()
@@ -108,6 +118,19 @@ void MainWindow::selectObject(const QModelIndex &index)
     //come back to the list
     ui->listView->setFocus();
 }
+
+
+void MainWindow::changeObjectColor(){
+	QColor _colorRGB = QColorDialog::getColor(QColor(128, 128, 128), nullptr, "Select Color", QColorDialog::DontUseNativeDialog);
+	QVector3D _color(_colorRGB.red(), _colorRGB.green(), _colorRGB.blue());
+	
+	Object* _selectedObject = Scene::getScene()->getObject(Scene::getScene()->getNameSelectedObject());
+	if (_selectedObject){
+		_selectedObject->setGlobalColor(_color / 255.f);
+	}
+}
+
+
 void MainWindow::invertwidgets()
 {
     if(ui->actionInverser_les_positions_des_fen_tres->isChecked())
@@ -146,10 +169,48 @@ void MainWindow::invertwidgets()
 
 void MainWindow::editsettings()
 {
-    QMessageBox::critical(0, "Error", "Not implemented yet");
+    _settingsWindow->exec();
 }
 
 void MainWindow::about()
 {
     win_about->show();
+}
+
+void MainWindow::checkSettings(int result){ //this is a slot
+   if(result == QDialog::Accepted){
+       //change keyboard bindings
+       QSettings settings("settings.ini", QSettings::IniFormat);
+       ui->actionEffectuer_un_rendu->setShortcut(settings.value("Shortcuts/render", QKeySequence("P")).value<QKeySequence>());
+       ui->actionAnaglyphes->setShortcut(settings.value("Shortcuts/anaglyphes",QKeySequence("N")).value<QKeySequence>());
+       ui->actionAuto_st_r_ogrammes->setShortcut(settings.value("Shortcuts/autostereogramme",QKeySequence("U")).value<QKeySequence>());
+       ui->actionFlipbook->setShortcut(settings.value("Shortcuts/flipbook",QKeySequence("F")).value<QKeySequence>());
+       ui->actionTranslate->setShortcut(settings.value("Shortcuts/translate",QKeySequence("T")).value<QKeySequence>());
+       ui->actionRotate->setShortcut(settings.value("Shortcuts/rotate",QKeySequence("R")).value<QKeySequence>());
+       ui->actionScale->setShortcut(settings.value("Shortcuts/scale",QKeySequence("S")).value<QKeySequence>());
+   }
+}
+
+void MainWindow::changeModeToTranslate()
+{
+    Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::TRANSLATION);
+    ui->actionTranslate->setChecked(true);
+    ui->actionRotate->setChecked(false);
+    ui->actionScale->setChecked(false);
+}
+
+void MainWindow::changeModeToRotate()
+{
+    Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::ROTATION);
+    ui->actionTranslate->setChecked(false);
+    ui->actionRotate->setChecked(true);
+    ui->actionScale->setChecked(false);
+}
+
+void MainWindow::changeModeToScale()
+{
+    Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::SCALE);
+    ui->actionTranslate->setChecked(false);
+    ui->actionRotate->setChecked(false);
+    ui->actionScale->setChecked(true);
 }

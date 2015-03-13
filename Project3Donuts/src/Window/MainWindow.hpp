@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ui_about.h"
+#include "Settings.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -26,13 +27,20 @@ public slots:
    void saveas();
 
    void selectObject(const QModelIndex &index);
+   void changeObjectColor();
    void invertwidgets();
 
    void editsettings();
    void about();
 
+   void checkSettings(int);
+   void changeModeToTranslate();
+   void changeModeToRotate();
+   void changeModeToScale();
+
 private:
    QMainWindow * win_about;
+   Settings * _settingsWindow;
    Ui::About* _about_ui;
 
 };

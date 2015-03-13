@@ -17,25 +17,60 @@ mAngleOfView(fAngleOfView){
 }
 
 
-void Camera::moveCamera(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
-	//warning wild TRIGO
-	
-	//mRotation += QVector3D(fHorizontalAxe, fVerticalAxe, 0.f);
+Camera::~Camera(){
+	delete mColorPixelBuffer;
+	delete mDepthPixelBuffer;
+}
 
+
+void Camera::moveCamera(float fHorizontalRotation, float fVerticalRotation, float fZoom){
+	
 	//Rotation
-	QMatrix4x4 _mat;
-	_mat.rotate(5.f * fVerticalAxe, QVector3D(0.f, -1.f, 0.f));
-	_mat.rotate(5.f * fHorizontalAxe, QVector3D(-1.f, 0.f, 0.f));
-	mPosition = _mat * mPosition;
+	mRotation.setX(mRotation.x() + fHorizontalRotation);
+	mRotation.setY(mRotation.y() + fVerticalRotation);
+
+	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
+
+	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.length()));
+
+	QVector3D _vector = _quat.rotatedVector(QVector3D(-1.f, 0.f, 0.f));
+
+	_quat = QQuaternion::fromAxisAndAngle(_vector, mRotation.y());
+
+	mPosition = _quat.rotatedVector(_point);
 
 	//Zoom
-	if (fDepthValue < 0.f)
+	mPosition *= fZoom;
+
+	computeViewMatrix();
+}
+
+
+void Camera::moveCameraWithMouse(float fHorizontalAxe, float fVerticalAxe, float fDepthValue){
+
+	//Rotation
+	mRotation.setX(mRotation.x() + 5.f * fHorizontalAxe);
+	mRotation.setY(mRotation.y() + 5.f * fVerticalAxe);
+
+	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
+	
+	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.length()));
+
+	QVector3D _vector = _quat.rotatedVector(QVector3D(-1.f, 0.f, 0.f));
+
+	_quat = QQuaternion::fromAxisAndAngle(_vector, mRotation.y());
+	
+	mPosition = _quat.rotatedVector(_point);
+
+	//Zoom
+	if (fDepthValue < -0.001f)
 		mPosition *= 1.1f;
-	else if (fDepthValue > 0.f)
+	else if (fDepthValue > 0.001f)
 		mPosition *= 0.9f;
 
 	computeViewMatrix();
 }
+
 
 void Camera::repositionCamera(float fBoundingSphereRadius){
 	mPosition.normalize();
@@ -45,7 +80,7 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 }
 
 
-std::shared_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
+std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mColorPixelBuffer == nullptr){
@@ -61,16 +96,16 @@ std::shared_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
 
 	Object::switchShader(Object::Shader::COLORMAP);
 
-	Scene::getScene()->render(true);
+	Scene::getScene()->render(true, this);
 
 	_renderer->glFlush();
 
-	std::shared_ptr<QImage> _image(new QImage(mColorPixelBuffer->toImage()));
+	std::unique_ptr<QImage> _image(new QImage(mColorPixelBuffer->toImage()));
 	return _image;
 }
 
 
-std::shared_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
+std::unique_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mDepthPixelBuffer == nullptr){
@@ -85,11 +120,11 @@ std::shared_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Object::switchShader(Object::Shader::DEPTHMAP);
-	Scene::getScene()->render(true);
+	Scene::getScene()->render(true, this);
 
 	_renderer->glFlush();
 	
-	std::shared_ptr<QImage> _image(new QImage(mDepthPixelBuffer->toImage()));
+	std::unique_ptr<QImage> _image(new QImage(mDepthPixelBuffer->toImage()));
 	return _image;
 }
 

@@ -7,14 +7,16 @@
 // ! \class Flipbook
 // ! \brief virtual Flipbook class to define every methods that will be needed in classes that will inherit from this one and that will define different algorithms
 class Flipbook : public Creation{
+	Q_OBJECT
+
 public:
 
 
 protected:
 
-	virtual void createWindow() override;
+	virtual void createWindow(bool fHasPreview = false) override;
 
-	virtual std::shared_ptr<QImage> render() override = 0;
+	virtual std::unique_ptr<CreationFile> render() override = 0;
 
 
 

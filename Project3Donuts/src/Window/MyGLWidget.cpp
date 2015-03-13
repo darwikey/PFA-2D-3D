@@ -24,6 +24,11 @@ MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
         connect(mTimer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));
         mTimer->start( timerInterval );
     }
+    mUndo = new QAction(this);
+    mUndo->setObjectName(QStringLiteral("undo"));
+    mUndo->setShortcut(QKeySequence::Undo);
+    addAction(mUndo);
+    QObject::connect(mUndo, SIGNAL(triggered()), this, SLOT(revertPreviousAction()));
 }
 
 MyGLWidget::~MyGLWidget(){
@@ -34,6 +39,13 @@ void MyGLWidget::timeOutSlot()
 {
 
 }
+
+void MyGLWidget::revertPreviousAction()
+{
+    Scene::getScene()->revertPreviousAction();
+    update();
+}
+
 //mouse Press Event
 void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 {
@@ -60,7 +72,7 @@ void  MyGLWidget::mouseReleaseEvent(QMouseEvent *fEvent) {
 //mouse Move Event
 void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 
-    GLfloat _dx = (GLfloat)(fEvent->x() - mPrevMousePosition.x()) / 10;//viewport_size.width();
+    float _dx = (float)(fEvent->x() - mPrevMousePosition.x()) / 10;//viewport_size.width();
     float _dy = (float)(fEvent->y() - mPrevMousePosition.y()) / 7;//viewport_size.height();
 
 
@@ -70,7 +82,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 			Scene::getScene()->getTransformWidget()->activate(_mouse);
 		}
 		else {
-			Scene::getScene()->getCamera()->moveCamera(_dy, _dx, 0.f);
+			Scene::getScene()->getCamera()->moveCameraWithMouse(_dx, _dy, 0.f);
 		}
     }
 
@@ -82,7 +94,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 {
     float _dz = (float)fEvent->delta();
-	Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, _dz);
+	Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, _dz);
 
     update();
 }
@@ -91,51 +103,31 @@ void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 //key Press Event
 void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 {
+    int ret;
     switch( fEvent->key() )
     {
         case Qt::Key_Escape:
+        ret = QMessageBox::question(this, tr("Project3Donut"),
+                                       tr("Etes vous sûr de vouloir quitter ?\n"),
+                                       QMessageBox::Yes | QMessageBox::No);
+        if (ret == QMessageBox::Yes) {
             exit(0);
-            break;
+        }
 
-		case Qt::Key_T:
-			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::TRANSLATION);
-			break;
-
-        case Qt::Key_R:
-			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::ROTATION);
             break;
-        case Qt::Key_S:
-			Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::SCALE);
-            break;
-
+    case Qt::Key_Z:
+        //Scene::getScene()->revertPreviousAction();
+        break;
 		case Qt::Key_Plus:
-			Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, 0.1f);
+			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, 0.1f);
 			break;
 
 		case Qt::Key_Minus:
-			Scene::getScene()->getCamera()->moveCamera(0.f, 0.f, -0.1f);
+			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
 			break;
 
-		case Qt::Key_A:
-			std::cout << "rendu..." << std::endl;
-			Scene::getScene()->getCamera()->getColorMap(1920, 1080)->save("colormap.png");
-			Scene::getScene()->getCamera()->getDepthMap(1920, 1080)->save("depthmap.png");
-			/*Object::switchShader((Object::Shader)a);//Object::Shader::DEBUG_NORMAL);
-			a++;
-			if (a > Object::Shader::DEPTHMAP)
-				a = 0;*/
-			break;
-
-		case Qt::Key_N:
-			Creator::getCreator()->launchAnaglyph(0);
-			break;
-
-		case Qt::Key_U:
-			Creator::getCreator()->launchAutostereogram(0);
-			break;
-
-		case Qt::Key_P:
-			Creator::getCreator()->launchPhotograph(0);
+		case Qt::Key_Delete:
+			Scene::getScene()->deleteSelectedObject();
 			break;
 
         default:

@@ -23,26 +23,18 @@ mTransformWidget(new TransformWidget),
 mObjects(new std::map<std::string, Object*>()){
 }
 
+
 Scene::~Scene()
 {
-	/*  tester...
-	if(mSceneInstance != nullptr)
-		delete mSceneInstance;
-	if(mLoader!= nullptr)
-		delete mLoader;
-	if(mWindow!= nullptr)
-		delete mWindow;
-	if(mSceneRenderer != nullptr)
-		delete mSceneRenderer;
-	if(mCamera != nullptr)
-		delete mCamera;
-	if(mTransformWidget!= nullptr)
-		delete mTransformWidget;
-	if(mModelList != nullptr)
-		delete mModelList;
-	*/
-
+	delete mLoader;
+	delete mWindow;
+	delete mSceneRenderer;
+	delete mCamera;
+	delete mTransformWidget;
+	delete mModelList;
+	delete mObjects.load();
 }
+
 
 Scene* Scene::getScene() {
 	if (mSceneInstance == nullptr) {
@@ -83,14 +75,18 @@ void Scene::show() {
 }
 
 
-void Scene::render(bool fRenderOnlyObject) {
+void Scene::render(bool fRenderOnlyObject, Camera* fCamera) {
+	if (fCamera == nullptr){
+		fCamera = mCamera;
+	}
+
 	for (auto _obj : *mObjects.load()) {
-		mSceneRenderer->render(_obj.second, false);
+		mSceneRenderer->render(_obj.second, fCamera, false);
 	}
 
 	if (!fRenderOnlyObject){
 		if (mSelectedObject.second != nullptr) {
-			mTransformWidget->render(mSceneRenderer, mSelectedObject.second);
+			mTransformWidget->render(mSceneRenderer, fCamera, mSelectedObject.second);
 		}
 	}
 }
@@ -130,17 +126,73 @@ void Scene::selectObjectsByName(QStringList fObjectList)
 
         foreach(QString str, fObjectList)
         {
-                it.second->selectObject(it.first == str.toStdString());
-                if (it.first == str.toStdString()) {
-                    mSelectedObject = it;
-                }
+            it.second->selectObject(it.first == str.toStdString());
+            if (it.first == str.toStdString()) {
+                mSelectedObject = it;
+            }
         }
 
     }
 }
 
+
 std::string Scene::getNameSelectedObject() {
 	return mSelectedObject.first;
+}
+
+
+void Scene::deleteSelectedObject(){
+	if (mSelectedObject.second != nullptr){
+		// erase in the object list
+		auto _it = mObjects.load()->find(mSelectedObject.first);
+		
+		if (_it != mObjects.load()->end()) {
+			mObjects.load()->erase(_it);
+
+
+			// add in the deleted object list
+			mDeletedObjects.insert(mSelectedObject);
+			std::string _name = mSelectedObject.first;
+
+			mSelectedObject.first = std::string();
+			mSelectedObject.second = nullptr;
+
+			// Update the object list
+			mObjectList.clear();
+			for (auto _object : *mObjects.load()){
+				mObjectList << QString::fromStdString(_object.first);
+			}
+			updateListObjects();
+
+			// save the action in order to revert it
+			std::function<void()> _action = [this, _name](){
+				auto _object = this->mDeletedObjects.find(_name);
+
+				if (_object != this->mDeletedObjects.end()){
+					this->addObject(_object->first, _object->second);
+
+					this->mDeletedObjects.erase(_object);
+				}
+			};
+
+			this->registerAction(_action);
+		}
+	}
+}
+
+
+void Scene::registerAction(std::function<void()> fAction){
+	mActionTable.push_back(fAction);
+}
+
+
+void Scene::revertPreviousAction(){
+	if (!mActionTable.empty()){
+		// call the lambda function
+		mActionTable.back()();
+
+		mActionTable.pop_back();
+	}
 }
 
 
@@ -270,7 +322,6 @@ void writeScale(std::string &fStr, int fX, int fY, int fZ, int fTab) {
 
 void Scene::saveScene(const std::string& fPath) {
 	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);
-	int _i;
 
 	if (_ext != "xml") {
 		std::cerr << "File must have an XML extension !" << std::endl;

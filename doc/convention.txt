@@ -38,7 +38,7 @@ Méthode Publique : int getTrue() {
 		   ...
 		   }
 
-Méthode Privée / Protégée : int _myMethod() {
+Méthode Privée / Protégée : int myMethod() {
 			    ...
 		            }
 
@@ -50,7 +50,7 @@ Méthode Getter / Setter : int getTrue() / void setTrue(int true)
 
 ----------------------------------------------------------------------------------------------------------
 
-Variable locale : myVariable
+Variable locale : _myVariable
 
 Variable statique : sMyVariable
 

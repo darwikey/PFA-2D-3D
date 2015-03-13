@@ -1,23 +1,29 @@
 #include "AutostereogramAlgorithm1.hpp"
 
 
-void AutostereogramAlgorithm1::createWindow(){
-	Autostereogram::createWindow();
+void AutostereogramAlgorithm1::createWindow(bool fHasPreview){
+	Autostereogram::createWindow(fHasPreview);
 }
 
 
-std::shared_ptr<QImage> AutostereogramAlgorithm1::render(){
+std::unique_ptr<CreationFile> AutostereogramAlgorithm1::render(){
 
 	float _DPI = 75.f;
+	//TODO
 	/*if ( == COMPUTER_RESO)
 		_DPI = 75;
 	else if (fReso == PRINT_RESO)
 		_DPI = 300;*/
 	int _E = this->round(2.5 * _DPI);
 
-	std::shared_ptr<QImage> _image = this->depthmapToAutostereogram(this->getDepthMap(), _E);
+	std::unique_ptr<QImage> _depthmap = this->getDepthMap();
+	std::unique_ptr<QImage> _image = this->depthmapToAutostereogram(*_depthmap, _E);
 
-	return _image;
+
+	std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
+	_file->pushImage(std::move(_image));
+
+	return _file;
 }
 
 
@@ -36,29 +42,16 @@ int AutostereogramAlgorithm1::separation(float fZ, int fE) {
 }
 
 
-std::vector<float> AutostereogramAlgorithm1::getDepth(std::shared_ptr<QImage> fImg) {
-	int _width = fImg->width();
-	int _height = fImg->height();
-
-	std::vector<float> resultat(_width * _height, 0.);
-	for (int i = 0; i < _height; ++i) {
-		for (int j = 0; j < _width; ++j) {
-			resultat[i * _width + j] = qGray(fImg->pixel(j, i)) / 255.f;
-		}
-	}
-	return resultat;
-}
-
 /* This is a retranscription in C++ of the algorithm of Harold W. Thimbleby, Stuart Inglis and Ian H. Witten */
 /* as presented in their article "Displaying 3D Images : Algorithm for Single Image Random Dot Stereograms" which has */
 /* been publicated in IEEE Computer in 1994 */
-std::shared_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(std::shared_ptr<QImage> fDepthmap, int fE) {
-	const int maxX = fDepthmap->width();
-	const int maxY = fDepthmap->height();
+std::unique_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(const QImage& fDepthmap, int fE) {
+	const int maxX = fDepthmap.width();
+	const int maxY = fDepthmap.height();
 
 	std::vector<float> floatDepthMap = getDepth(fDepthmap);
 
-	std::shared_ptr<QImage> toReturn (new QImage(maxX, maxY, QImage::Format_RGB888));
+	std::unique_ptr<QImage> toReturn (new QImage(maxX, maxY, QImage::Format_RGB888));
 
 	for (int y = 0; y < maxY; y++){
 		int* pix = new int[maxX];
@@ -116,15 +109,3 @@ std::shared_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(std::
 	return toReturn;
 }
 
-// int main(int argc, char ** argv) {
-//   QImage depthtest ;
-//   if (!depthtest.load("../../../cahierDesCharges/cartePronfondeurs.png"))
-//     std::cout << "impossible de trouver l'image" << endl ;
-//   else {
-//     QImage out = depthmapToAutostereogram(depthtest)[0] ;
-//     QLabel mylabel ;
-//     mylabel.setPixmap(QPixmap::fronmImage(myImage));
-//     mylabel.show() ;
-//   }
-//   return 0 ;
-// }
