@@ -1,27 +1,50 @@
-#ifndef AUTOSTEREOGRAM_ALGO3_HPP
-#define AUTOSTEREOGRAM_ALGO3_HPP
+#ifndef AUTOSTEREOGRAM_ALGO2_HPP
+#define AUTOSTEREOGRAM_ALGO2_HPP
 
 #include "global.hpp"
 
 #include "Autostereogram.hpp"
 
-const static int oversampling = 4 ;
 
-// ! \class AutostereogramAlgorithm3
-// ! \brief First algorithm to create an autostereogram
-class AutostereogramAlgorithm3 : public Autostereogram {
+
+// ! \class AutostereogramAlgorithm2
+// ! \brief Second algorithm to create an autostereogram
+class AutostereogramAlgorithm2 : public Autostereogram {
 public:
-  //! \brief no specific constructors for autostereograms, creation constructors will be called
-  
-  //! \brief redefinition of virtual create method. This method can be redefined in Algorithms
-  virtual std::vector<QImage> create(int fDPI, int fHeight, int fWidth) override ;
+
   static std::vector<QImage> dummyCreate(QImage * fImage, int fDPI, enum Texture fTextureStyle, char * fTexture) ;
+
+protected:
+  virtual void createWindow() override;
+  virtual std::shared_ptr<QImage> render() override;
+
   
 private :
-  static void colorBase(int fx, int fy, int * fRed, int * fGreen, int * fBlue, enum Texture fTextureStyle, QImage * fTexture, int fOversamp) ;
-  static AutostereogramAlgorithm3 * getAutostereogramAlgorithm() ;
-  static std::vector<QImage> depthmapToAutostereogram(QImage * fDepthmap, int fDPI, enum Texture fTextureStyle, char * fTexture) ; 
-  static void colorPixel(int fx, int fy, int * fRed, int * fGreen, int * fBlue, enum Texture fTextureStyle, QImage * fTexture, int * fSameLeft, int * fSameRight, int fOversamp, int fMaxsep, int fPoffset, int fCenter, int * fLastLinked, int fyShift) ;
-  static void colorRandom(int fx, int * fRed, int * fGreen, int * fBlue, enum Texture fTextureStyle) ;
+
+  AutostereogramAlgorithm2() ;
+  void colorBase(int fx, int fy) ;
+  AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
+  std::shared_ptr<QImage> depthmapToAutostereogram() ; 
+  void colorPixel(int fx, int fy, int * fLastLinked) ;
+  void colorRandom(int fx) ;
+
+  const int _dpi = 75 ;
+  const int _oversampling = 4 ;
+  const float _mu = (1. / 3.) ;
+
+  QImage * _texture ;
+
+  vector<int> _red ;
+  vector<int> _green ;
+  vector<int> _blue ;
+
+  vector<int> _sameLeft ;
+  vector<int> _sameRight ;
+
+  int _maxsep ;
+  int _poffset ;
+  int _center ;
+  int _yShift ;
+  
 } ;
 #endif
