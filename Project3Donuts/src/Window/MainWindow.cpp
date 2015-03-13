@@ -70,7 +70,7 @@ void MainWindow::openfile()
 
 void MainWindow::newscene()
 {
-    QMessageBox::critical(0, "Error", "Not implemented yet");
+	Scene::getScene()->clearScene();
 }
 
 void MainWindow::openlibfile()
