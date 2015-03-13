@@ -71,6 +71,12 @@ void Creation::createWindow(bool fHasPreview){
 	QObject::connect(mGammaSlider, SIGNAL(valueChanged(int)), this, SLOT(changeGamma(int)));
 
 
+	// Background color
+	QPushButton* mBackgroundColorButton = new QPushButton("Couleur du fond", mWindow);
+	mVLayoutMenu->addWidget(mBackgroundColorButton);
+	QObject::connect(mBackgroundColorButton, SIGNAL(clicked()), this, SLOT(changeBackgroundColor()));
+
+
 	// Antialiasing iteration
 	mAntialiasingLabel = new QLabel("Anti aliasing :", mWindow);
 	mVLayoutMenu->addWidget(mAntialiasingLabel);
@@ -118,7 +124,7 @@ std::unique_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float f
 
 	// Render
 	QPoint _size = getImageSize();
-	std::unique_ptr<QImage> _image = _camera.getColorMap(_size.x(), _size.y());
+	std::unique_ptr<QImage> _image = _camera.getColorMap(_size.x(), _size.y(), mBackgroundColor);
 	
 	// Image corrections
 	CreationTools::gammaCorrection(*_image, mGamma);
@@ -220,4 +226,11 @@ void Creation::changeGamma(int fCursor){
 
 void Creation::changeAntialiasing(int fIteration){
 	mAntiAliasingIteration = fIteration;
+}
+
+
+void Creation::changeBackgroundColor(){
+	QColor _color = QColorDialog::getColor(Qt::white, mWindow, "Select Color", QColorDialog::DontUseNativeDialog);
+
+	mBackgroundColor = QVector3D(_color.red() / 255.f, _color.green() / 255.f, _color.blue() / 255.f);
 }

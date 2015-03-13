@@ -80,14 +80,14 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 }
 
 
-std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight){
+std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight, QVector3D fBackgroundColor){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mColorPixelBuffer == nullptr){
 		mColorPixelBuffer = new QGLPixelBuffer(fWidth, fHeight, _renderer->format(), _renderer);
 
 		mColorPixelBuffer->makeCurrent();
-		_renderer->initOpengl(QVector3D(1.f, 1.f, 1.0f));
+		_renderer->initOpengl(fBackgroundColor);
 	}
 
 	mColorPixelBuffer->makeCurrent();

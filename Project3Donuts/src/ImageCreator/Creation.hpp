@@ -57,6 +57,7 @@ protected:
 	QComboBox* mResolutionBox = nullptr;
 	QLabel* mGammaLabel = nullptr;
 	QSlider* mGammaSlider = nullptr;
+	QPushButton* mBackgroundColorButton = nullptr;
 	QLabel* mAntialiasingLabel = nullptr;
 	QComboBox* mAntialiasingBox = nullptr;
 	QPushButton* mRenderButton = nullptr;
@@ -67,10 +68,11 @@ protected:
 private:
 	float mResolution = 72.f;
 	float mGamma = 1.f;
-	int mPositionNewWidget = 8;
+	int mPositionNewWidget = 9;
 	unsigned int mAntiAliasingIteration = 0;
 	const QSize mPreviewImageSize = QSize(600, 600);
-
+	QVector3D mBackgroundColor = QVector3D(1.f, 1.f, 1.f);
+				
 public slots:
 	void updatePreview();
 																				 
@@ -82,6 +84,8 @@ private slots:
 	void changeGamma(int fCursor);
 
 	void changeAntialiasing(int fIteration);
+
+	void changeBackgroundColor();
 };
 
 #endif

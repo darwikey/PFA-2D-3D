@@ -35,7 +35,7 @@ public:
 	void repositionCamera(float fBoundingSphereRadius);
 
 	//! \brief get an access to the image
-	std::unique_ptr<QImage> getColorMap(int fWidth, int fHeight);
+	std::unique_ptr<QImage> getColorMap(int fWidth, int fHeight, QVector3D fBackgroundColor);
 	
 	//! \brief get an access to the depth map
 	std::unique_ptr<QImage> getDepthMap(int fWidth, int fHeight);
