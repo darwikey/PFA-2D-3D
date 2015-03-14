@@ -244,6 +244,7 @@ float Scene::getBoundingSphereRadius() {
 
 
 void Scene::clearScene(){
+	// delete objects
 	for (auto it = mObjects.load()->begin(); it != mObjects.load()->end(); ++it){
 		delete it->second;
 	}
@@ -259,8 +260,10 @@ void Scene::clearScene(){
 
 	mSelectedObject = std::make_pair(std::string(), nullptr);
 
+	//delete actions
 	mActionTable.clear();
 
+	// new camera
 	delete mCamera;
 	mCamera = new Camera();
 }

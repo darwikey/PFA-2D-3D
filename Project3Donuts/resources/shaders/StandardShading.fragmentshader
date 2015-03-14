@@ -25,14 +25,15 @@ void main() {
 		// ambient color
 		vec3 ambientColor = 0.15 * vec3(1.0, 1.0, 1.0);
 
-		float angle = clamp(dot(varNormal.xyz, lightDir), 0, 1);
+		vec3 normal = normalize(varNormal);
+		float angle = clamp(dot(normal, lightDir), 0, 1);
 		color = color * (angle + ambientColor);
 	
 
 		// light source on the right side
-		if (dot(varNormal.xyz, lightDir) > 0.0) // light source on the wrong side?
+		if (dot(normal.xyz, lightDir) > 0.0) // light source on the wrong side?
 		{
-			color += 0.5 * pow(clamp(dot(reflect(-lightDir, varNormal.xyz), viewDirection), 0.0, 1.0), shininess);
+			color += 0.5 * pow(clamp(dot(reflect(-lightDir, normal.xyz), viewDirection), 0.0, 1.0), shininess);
 		}
 		
 	}

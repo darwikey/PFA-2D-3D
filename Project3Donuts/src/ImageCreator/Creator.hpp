@@ -18,12 +18,16 @@ public:
 	//! \brief get instance of Creator
 	static Creator* getCreator();
 
+	//! \brief return the list of the name of anaglyph algorithm
 	std::vector<QString> getListAnaglyph() const;
 
+	//! \brief return the list of the name of autostereogram algorithm
 	std::vector<QString> getListAutostereogram() const;
 
+	//! \brief return the list of the name of flipbook algorithm
 	std::vector<QString> getListFlipbook() const;
 
+	//! \brief return the list of the name of photograph algorithm
 	std::vector<QString> getListPhotograph() const;
 
 
@@ -44,15 +48,6 @@ public slots:
 	//! \brief display a window where the user is able to configure and render
 	//! \param The id of the algorithm that will be used.
 	void launchPhotograph(int fAlgoNumber = 0);
-
-
-	/*void launchAnaglyph();
-
-	void launchAutostereogram();
-
-	void launchFlipbook();
-
-	void launchPhotograph();*/
 
 
 private:
