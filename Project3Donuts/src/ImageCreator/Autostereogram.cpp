@@ -31,7 +31,7 @@ void Autostereogram::createWindow(bool fHasPreview){
 	mChooseTextureStyle->addItem("Texture") ;
 	insertNewWidget(mChooseTextureStyle) ;
 	
-chocolate river	//mtexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString(), "Fichiers image");
+//mtexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString(), "Fichiers image");
 
 }
 
