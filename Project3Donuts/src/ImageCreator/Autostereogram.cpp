@@ -30,8 +30,8 @@ void Autostereogram::createWindow(bool fHasPreview){
 	mChooseTextureStyle->addItem("Aléatoire couleur") ;
 	mChooseTextureStyle->addItem("Texture") ;
 	insertNewWidget(mChooseTextureStyle) ;
-
-	//mtexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString(), "Fichiers image");
+	
+chocolate river	//mtexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString(), "Fichiers image");
 
 }
 
