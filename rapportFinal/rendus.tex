@@ -71,14 +71,5 @@ Des algorithmes plus poussés ont été développés, comme celui présenté par
 \end{figure}
 \footnotetext{\url{http://www.david-romeuf.fr/3D/Anaglyphes/TCAnaglypheLSDubois/TransformationCouleursPourAnaglyphe.html}}
 
-\paragraph{}
-	Le paragraphe précédent concernent la création d’un anaglyphe depuis deux prises de vue d’une même scène avec un léger décalage. Mais il est également possible de le faire à partir d’une image en deux dimensions grâce à l’algorithme de Dubois \cite{algoDubois}, qui définit une vision matricielle de l’anaglyphe (cf. figure \ref{fig:algoDubois}). Dès lors, une matrice de transformation est introduite, qui permet de passer du taux RGB d’un pixel de l’image originale,  aux deux taux RGB des anaglyphes gauche/droite. Les coefficients de cette matrice sont calculés pour satisfaire une bonne restitution de l’image originale, tout en supprimant les rivalités colorées induites par des lunettes bicolores. Ainsi, pour visualiser une image rouge pure, il faudra changer le taux RGB de ce pixel pour que les deux yeux puissent le voir après les filtres. Sinon l’information ne circulera que dans un œil, et l’on perdra la vision stéréoscopique, et donc la notion de profondeur. 
-	
-\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.9]{algoDubois.png}
-		\caption{\label{fig:algoDubois} Rendu final d’une image par l’algorithme de Dubois \protect \footnotemark }
-\end{figure}
-\footnotetext{\url{http://zour.deviantart.com/art/Wernigerode-Boulevard-Dubois-Anaglyph-HDR-3D-276542278}}
 	
 	
