@@ -22,6 +22,17 @@ void Anaglyph::createWindow(bool fHasPreview){
 
 	QObject::connect(mAlgoTypeBox, SIGNAL(currentIndexChanged(int)), Creator::getCreator(), SLOT(launchAnaglyph(int)));
 
+	mChooseViewLabel = new QLabel("Type de vue :", mWindow);
+	insertNewWidget(mChooseViewLabel);
+	
+	mChooseView = new QComboBox(mWindow);
+	mChooseView->addItem("Vue compos\303\251e");
+	mChooseView->addItem("Vue gauche");
+	mChooseView->addItem("Vue droite");
+	insertNewWidget(mChooseView);
+
+	QObject::connect(mChooseView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeChoosenView(int)));
+	
 	// Eyes distance
 	
 	mHorizontalRotationLabel = new QLabel(QString("Rotation horizontale %1").arg(mHorizontalRotation),
@@ -66,3 +77,56 @@ void Anaglyph::changeVerticalRotation(int fVerticalRotation){
 
 	mVerticalRotationLabel->setText(QString("Rotation vertical %1").arg(mVerticalRotation));
 }
+
+void Anaglyph::changeChoosenView(int fViewSelected){
+
+	mViewSelected = fViewSelected;
+
+	updatePreview();
+}
+
+std::unique_ptr<CreationFile> Anaglyph::render(){
+
+	switch(mViewSelected) {
+
+	case 1:
+		return renderLeft();
+		break;
+
+	case 2:
+		return renderRight();
+		break;
+
+	default:
+		return renderAnaglyph();
+		break;
+	}
+}
+
+std::unique_ptr<CreationFile> Anaglyph::renderLeft(){
+
+	std::unique_ptr<QImage> _left = this->getColorMap(-this->mHorizontalRotation / 2, -this->mVerticalRotation / 2, 1.0);
+	
+	std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
+	_file->pushImage(std::move(_left));
+		
+	return _file;
+}
+
+std::unique_ptr<CreationFile> Anaglyph::renderRight(){
+
+	std::unique_ptr<QImage> _right = this->getColorMap(this->mHorizontalRotation / 2, this->mVerticalRotation / 2, 1.0);
+
+	std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
+	_file->pushImage(std::move(_right));
+
+	return _file;
+}
+
+
+
+
+
+
+
+

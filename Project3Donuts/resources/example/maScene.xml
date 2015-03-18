@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scene>
+	<object name="donut1" src="resources/example/donut.obj">
+		<scale>
+			<coordinates>
+				<x>1.000000</x>
+				<y>1.000000</y>
+				<z>1.000000</z>
+			</coordinates>
+		</scale>
+		<translation>
+			<coordinates>
+				<x>0.000000</x>
+				<y>0.477957</y>
+				<z>1.000000</z>
+			</coordinates>
+		</translation>
+		<rotation>
+			<coordinates>
+				<x>0.579173</x>
+				<y>2.000000</y>
+				<z>0.000000</z>
+			</coordinates>
+		</rotation>
+	</object>
+	<object name="donut2" src="resources/example/donut.obj">
+		<scale>
+			<coordinates>
+				<x>1.000000</x>
+				<y>1.000000</y>
+				<z>1.000000</z>
+			</coordinates>
+		</scale>
+		<translation>
+			<coordinates>
+				<x>0.000000</x>
+				<y>0.000000</y>
+				<z>0.000000</z>
+			</coordinates>
+		</translation>
+		<rotation>
+			<coordinates>
+				<x>0.000000</x>
+				<y>0.000000</y>
+				<z>0.000000</z>
+			</coordinates>
+		</rotation>
+	</object>
+	<camera angle="60.000000">
+		<translation>
+			<coordinates>
+				<x>-4.202265</x>
+				<y>2.309302</y>
+				<z>2.049582</z>
+			</coordinates>
+		</translation>
+		<rotation>
+			<coordinates>
+				<x>64.000000</x>
+				<y>26.285728</y>
+				<z>0.000000</z>
+			</coordinates>
+		</rotation>
+	</camera>
+</scene>

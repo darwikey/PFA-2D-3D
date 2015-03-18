@@ -21,6 +21,7 @@ public:
 	//! \brief show the window
 	void launch();
 
+	//! \brief hide the window (and lost the focus)
 	void hide();
 
 protected:

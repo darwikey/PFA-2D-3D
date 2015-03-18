@@ -7,10 +7,7 @@
 #include "Camera.hpp"
 #include "ObjLoader.hpp"
 #include "TransformWidget.hpp"
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomNamedNodeMap>
-#include <QtXml/QDomNodeList>
-#include <QFile>
+#include "XmlTools.hpp"
 
 
 Scene* Scene::mSceneInstance = nullptr;
@@ -246,79 +243,36 @@ float Scene::getBoundingSphereRadius() {
 }
 
 
+void Scene::clearScene(){
+	// delete objects
+	for (auto it = mObjects.load()->begin(); it != mObjects.load()->end(); ++it){
+		delete it->second;
+	}
+	mObjects.load()->clear();
+	mObjectList.clear();
+
+	updateListObjects();
+
+	for (auto it : mDeletedObjects){
+		delete &it;
+	}
+	mDeletedObjects.clear();
+
+	mSelectedObject = std::make_pair(std::string(), nullptr);
+
+	//delete actions
+	mActionTable.clear();
+
+	// new camera
+	delete mCamera;
+	mCamera = new Camera();
+}
+
+
 bool Scene::isEmptyScene(){
 	return mObjects.load()->empty();
 }
 
-
-void writeCoordinates(std::string &fStr, int fX, int fY, int fZ, int fTab) {
-	int _i;
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("<coordinates>\n");
-	for (_i = 0; _i<fTab + 1; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("<x>");
-	fStr.append(std::to_string(fX));
-	fStr.append("</x>\n");
-	for (_i = 0; _i<fTab + 1; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("<y>");
-	fStr.append(std::to_string(fY));
-	fStr.append("</y>\n");
-	for (_i = 0; _i<fTab + 1; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("<z>");
-	fStr.append(std::to_string(fZ));
-	fStr.append("</z>\n");
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("</coordinates>\n");
-}
-
-void writeTranslation(std::string &fStr, int fX, int fY, int fZ, int fTab) {
-	int _i;
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("<translation>\n");
-	writeCoordinates(fStr, fX, fY, fZ, fTab + 1);
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("</translation>\n");
-}
-
-void writeRotation(std::string &fStr, int fX, int fY, int fZ, int fTab) {
-	int _i;
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("<rotation>\n");
-	writeCoordinates(fStr, fX, fY, fZ, fTab + 1);
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("</rotation>\n");
-}
-
-void writeScale(std::string &fStr, int fX, int fY, int fZ, int fTab) {
-	int _i;
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("<scale>\n");
-	writeCoordinates(fStr, fX, fY, fZ, fTab + 1);
-	for (_i = 0; _i<fTab; _i++) {
-		fStr.append("\t");
-	}
-	fStr.append("</scale>\n");
-}
 
 void Scene::saveScene(const std::string& fPath) {
 	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);
@@ -344,9 +298,9 @@ void Scene::saveScene(const std::string& fPath) {
         _data.append("\" src=\"");
         _data.append(_obj->getPath().c_str());
         _data.append("\">\n");
-		writeScale(_data, _oScale.x(), _oScale.y(), _oScale.z(), 2);
-		writeTranslation(_data, _oPosition.x(), _oPosition.y(), _oPosition.z(), 2);
-		writeRotation(_data, _oRotation.x(), _oRotation.y(), _oRotation.z(), 2);
+		XmlTools::writeScale(_data, _oScale.x(), _oScale.y(), _oScale.z(), 2);
+		XmlTools::writeTranslation(_data, _oPosition.x(), _oPosition.y(), _oPosition.z(), 2);
+		XmlTools::writeRotation(_data, _oRotation.x(), _oRotation.y(), _oRotation.z(), 2);
 		_data.append("\t</object>\n");
 	}
 
@@ -357,8 +311,8 @@ void Scene::saveScene(const std::string& fPath) {
     _data.append("\t<camera angle=\"");
     _data.append(std::to_string(mCamera->getAngleOfView()));
     _data.append("\">\n");
-	writeTranslation(_data, _CPosition.x(), _CPosition.y(), _CPosition.z(), 2);
-	writeRotation(_data, _CRotation.x(), _CRotation.y(), _CRotation.z(), 2);
+	XmlTools::writeTranslation(_data, _CPosition.x(), _CPosition.y(), _CPosition.z(), 2);
+	XmlTools::writeRotation(_data, _CRotation.x(), _CRotation.y(), _CRotation.z(), 2);
     _data.append("\t</camera>\n\
 </scene>");
 
@@ -415,22 +369,14 @@ bool Scene::cameraTreatment(QDomNode *fcurrent){
         return false;
     }
     QDomNode _att = _attributes.item(0);
-    float _angle = _att.toElement().text().toFloat();
-
-    printf("FLOAT %f\n",_angle);
-
-	if (_angle < 1.f){
-		_angle = 60.f;
-	}
-
+  
     delete mCamera;
-    mCamera = new Camera(_t, _r,_angle);
+    mCamera = new Camera(_t, _r, 60.f);
 
     return true;
 }
 
 bool Scene::objectTreatment(QDomNode *fcurrent){
-    printf("OBJECT\n");
 
     QDomNodeList _subNodes = fcurrent->childNodes();
     if (_subNodes.length() != 3){

@@ -76,6 +76,9 @@ public:
 	//! \brief get the radius of the bounding sphere including all objects in the scene
 	float getBoundingSphereRadius();
 
+	//! \brief clear scene
+	void clearScene();
+
     //! \brief to know if the actual scene is empty or not
     bool isEmptyScene();
 

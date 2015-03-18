@@ -90,7 +90,7 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 
 	QVector4D _lamps[8];
 	_lamps[0] = QVector4D(Scene::getScene()->getCamera()->getPosition(),1);
-
+	//_lamps[0] = QVector4D(QVector3D(0, 5, 5), 1);
 	fModel->getShader()->setUniformValueArray("lamps", _lamps, 8);
 
 
