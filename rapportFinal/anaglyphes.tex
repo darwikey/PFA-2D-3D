@@ -1,0 +1,65 @@
+algo cherchés, trouvés, implémentés
+  raisons des choix, difficultés rencontrées
+  (dire pourquoi on a utilisé Dubois mais pas celui du cahier des charges
+
+
+comment générer des anaglyphes 
+
+les problèmes (qui permettent d'en évaluer la qualité)
+
+description brève des algos (comme dans l'article)
+
+pour chaque algo : 
+	explication/description
+	difficultés rencontrées
+ 	les résultats comparés (pour chaque algo, les points positifs et négatifs avec l'image)
+
+\subsubsection{La génération des anaglyphes et ses défauts}
+La génération des anaglyphes passe par trois étapes :
+	\begin{enumerate}
+	\item prise de vue stereoscopique
+		Deux prises de vues d'une scène 3D éloignées d'une distance proche à celle entre les yeux, de manière à obtenir une vue pour chaque oeil.
+	\item 
+		Traitement des deux images composé au minimum des deux filtres magenta et cyan (ou deux autres couleurs correspondants à celles des lunettes).
+	\item
+		Superposition des deux vues.
+	\end{enumerate}
+	
+	Les algorithmes de génération des anaglyphes proposent des traitements d'image différents (étape 2) et chaque algorithme a ses défauts. Le défaut principal retrouvé dans tous les algorithmes (de façon plus ou moins prononcé) est la présence d'artefacts. Ce défaut permet de juger de la qualité de l'anaglyphe généré. D'autres défauts peuvent être rencontrés telles que les rivalités binoculaires et la fusion des couleurs. 
+  
+  AJOUTER ? peut etre parler du fait que certains fatiguent plus les yeux que d'autres
+\subsubsection{Les algorithmes}
+
+\subsubsection{La méthode Photoshop}
+	Le premier algorithme implémenté est le plus basique : la méthode dite Photoshop qui se contente d'appliquer les deux filtres de couleur sans réaliser d'autres traitements d'image. 
+	
+	En pratique, ce ne sont pas des filtres de couleur qui sont appliqués, mais pour chaque image seules les composantes rouges pour l'une et les composantes bleues et vertes sont recupérées (et restituées dans chaque image).
+	
+	 insérer ICI l'image pour la méthode photoshop
+	
+
+	--> la méthode la plus simple mais la qualité en couleur est mauvaise et il y a un peu de artefact
+\subsubsection{La méthode des moindres carrés avec correction gamma}
+A REDIGER
+- méthode de Dubois least square approach
+--> génère des anaglyphes un peu sombre avec moins de détails (que la méthode Midpoint) mais cela peut être corrigé en appliquant une correction gamma. Le point fort de cette méthode réside en le peu de artefact dans le résultat.
+http://www.site.uottawa.ca/~edubois/anaglyph/LeastSquaresHowToPhotoshop.pdf
+
+mettre image resultat
+
+\subsubsection{La méthode des moindres carrés avec saturation}
+A REDIGER
+même algo que la partie précédente principalement, sauf qu'il n'y pas de correction gamma et qu'il y des modifications de la saturation.
+
+image resultat
+
+\subsubsection{Comparaison des différents algorithmes}
+
+lequel a le moins d'artefact ?
+methode photoshop -> resultat moyen (moins fatiguant pour les yeux mais la 3D est moyen-normale)
+l'algo dubois avec correction gamma -> meilleure 3D mais fatiguant pour les yeux
+l'algo dubois avec saturation -> la diminution de saturation, atténue trop les couleurs : moins bonne 3D mais moins fatiguant pour les yeux 
+
+
+
+

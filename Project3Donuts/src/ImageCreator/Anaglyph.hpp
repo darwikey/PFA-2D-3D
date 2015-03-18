@@ -12,12 +12,19 @@ protected:
 	
 	virtual void createWindow(bool fHasPreview = true) override;
 	
-	virtual std::unique_ptr<CreationFile> render() override = 0;
+	virtual std::unique_ptr<CreationFile> render() override;
+	virtual std::unique_ptr<CreationFile> renderAnaglyph() = 0;
+	virtual std::unique_ptr<CreationFile> renderLeft();
+	virtual std::unique_ptr<CreationFile> renderRight();
 	
 	QLabel*  mHorizontalRotationLabel  = nullptr;
 	QSlider* mHorizontalRotationSlider = nullptr;
 	QLabel*  mVerticalRotationLabel    = nullptr;
 	QSlider* mVerticalRotationSlider   = nullptr;
+
+	QLabel*    mChooseViewLabel = nullptr;
+	QComboBox* mChooseView      = nullptr;
+	int        mViewSelected    = 0;
 
 	double mHorizontalRotation = 0.f;
 	double mVerticalRotation   = 0.f;
@@ -25,6 +32,7 @@ protected:
 private slots:
 	void changeHorizontalRotation(int fHorizontalRotation);
 	void changeVerticalRotation(int fVerticalRotation);
+	void changeChoosenView(int fViewSelected);
 };
 
 #endif

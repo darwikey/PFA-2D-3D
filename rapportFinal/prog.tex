@@ -1,3 +1,4 @@
+\subsubsection{Présentation générale de la réalisation}
 \paragraph{}
 La partie Réalisation de ce projet se sera étalée sur les mois de Décembre, Janvier, Février et Mars. Grâce à la réflexion effectuée durant la phase de rédaction du cahier des charges, nous avons pu aborder notre projet avec une idée claire des priorités.
 
@@ -15,4 +16,56 @@ Au final, l'implémentation des algorithmes Anaglyphe et Autostéréogramme aura
 En parallèle, la troisième équipe, appuyée parfois par l'un ou l'autre des autres membres en cas de besoin, a continué d'avancer sur la partie Scène du logiciel. L'implémentation de certaines manipulations de scène (déplacements de la caméra ou des objets notamment) auront parfois étaient plus rapides que prévu, mêmes si quelques retours en arrière ont été nécessaires au milieu du projet comme nous l'expliqueront dans la partie Difficultés rencontrées. L'ordre chronologique initialement prévu dans le diagramme de Gantt n'aura finalement pas toujours été respecté. Par exemple, la différence de travail entre l'ajout d'un objet dans la scène et l'ajout de plusieurs objets n'étant pas énorme, ces deux parties auront été effectuées simultanément. Il en est de même pour la sauvegarde automatique qui aura été ajoutée en même temps que la sauvegarde classique de la scène, ou encore pour les manipulations de la scène et de l'objet dont l'implémentation était grandement facilitée par l'utilisation de la bibliothèque OpenGL pour Qt.
 
 \paragraph{}
-Au final, la totalité des tâcjes prévues jusqu'au début du mois de Mars auront pu être effectuées dans les temps, nous laissant le mois de Mars pour l'intégration des algorithmes au logiciel, l'amélioration de certaines fonctionnalités, le développement de l'interface et la rédaction de ce rapport.
+Au final, la totalité des tâches prévues jusqu'au début du mois de Mars auront pu être effectuées dans les temps, nous laissant le mois de Mars pour l'intégration des algorithmes au logiciel, l'amélioration de certaines fonctionnalités, le développement de l'interface et la rédaction de ce rapport.
+
+
+\subsubsection{Les algorithmes du logiciel}
+\paragraph{}
+Pour pouvoir permettre à l'utilisateur de notre logiciel d'obtenir des anaglyphes, des autostéréogrammes, ou encore des folioscopes, il aura fallu à nos programmeurs un ensemble de recherches pour comprendre le fonctionnement de ces illusions d'optique, collecter un ensemble d'algorithmes permettant de les obtenir, puis sélectionner les meilleurs d'entre eux avant de les implémenter.
+
+\paragraph{}
+Cet exercice s'est révélé assez complexe car le travail de recherche qui s'y rapporte a été long, et il était parfois difficile de trouver les bonnes informations pour répondre à nos interrogations. Nos clients nous auront longuement accompagné dans notre travail de recherche, et nous aurons conseillé sur des outils pour trouver des articles pertinants. Cette partie Recherche de l'existant, qui s'est principalement déroulée durant la phase de rédaction du cahier des charges, aura été formateur car il nous aura appris à utiliser les bons outils et les bons mots-clés pour rendre nos recherches fructueuses, plutôt que de devoir ré-inventer la roue.
+
+\paragraph{}
+Une fois les algorithmes sélectionnés, leur implémentation s'est déoulée en parallèle de l'édition du logiciel. Il a donc fallu que nous nous mettions d'accord sur les éléments à prendre en entrée et en sortie pour leurs fonctions, afin de satisfaire l'architecture du projet et de faciliter par la suite l'intégration des algorithmes dans le logiciel.
+Cet exercice nous aura obligé à trouver des astuces pour pouvoir tester nos algorithmes sans pouvoir utiliser la scène qui était mise en place en parallèle. On considère alors nos algorithmes comme des boîtes noires, indépendantes du logiciel, ce qui montre bien la modularité du projet final.
+L'utilisation de cartes de profondeurs et de paires d'images stéréoscopiques trouvées sur Internet auront permis de tester et de corriger les algorithmes pour qu'ils soient prêts pour leur intégration au logiciel.
+
+\paragraph{}
+Lors du dernier mois de notre projet, nous avons pu intégrer nos algorithmes au logiciel qui avait été implémenté aux parallèles. Malgré les tests qui avaient été effectuées sur le module des algorithmes, quelques problèmes sont apparus avec les anaglyphes : les rendus étaient faux car les couleurs bleu et rouge étaient parfois inversées.
+[SOLUTION]
+
+\paragraph{}
+Au final, le travail sur les algorithmes aura été très enrichissant car il aura demandé de nombreuses recherches d'articles, un esprit critique pour comparer les algorithmes, puis un travail d'implémentation pour faire correspondre les algorithmes à notre logiciel.
+
+
+\subsubsection{La manipulation de la scène}
+\paragraph{}
+Grâce à la rédaction du cahier des charges, les notions de scène en trois dimensions, de caméra et d'objet avait été acquise par notre équipe avant la phase d'implémentation. Un premier prototype de la scène, présenté dans la partie Cahier des charges, aura permis une première manipulation de ces notions et des bibliothèques Qt et OpenGL pour Qt afin de créer une première scène constituée d'un première objet. Les manipulations premières de la scène, notamment la rotation de la caméra tout autour de la scène, auront ainsi été mise en place pour pouvoir juger des capacités des bibliothèques, et déterminer la faisabilité de nos objectifs.
+
+\paragraph{}
+Dès la fin du cahier des charges, la scène aura été grandement modifiée. Les parseurs auront été finalisés pour pouvoir charger l'ensemble des fichiers objets demandés par les clients, et le stockage des objets de la scène aura été implémenté de telle façon que la gestion de plusieurs objets dans la scène a directement été opérationnelle. D'autres fonctionnalités, relatives à la scène et demandées par le cahier des charges, ont été implémentées peu à peu au cours de la phase de réalisation du projet. Au niveau de la scène, les rotations autour de la scène sont toujours possibles, ainsi qu'une fonction de zoom pour s'approcher ou se reculer de la scène. Au niveau des objets, la sélection d'un objet est possible soit en cliquant directement sur l'objet avec le bouton droit de la souris, soit en le sélectionnant dans la liste des objets donnée sur la fenêtre principale du logiciel. Une fois un objet choisi, on peut le déplacer, le faire tourner, modifier sa taille, sa couleur, [ou encore le SUPPRIMER].
+
+\paragraph{}
+Grâce à l'ensemble des manipulations à mettre en place sur la scène, notre équipe a pu se familiariser et apprendre à utiliser les bibliothèques Qt et OpenGL pour Qt. De plus, la communauté Internet de la bibliothèque Qt nous aura été fort utile car elle aura permis de trouver des réponses à d'éventuels problèmes rencontrés, voire de poser des questions dans des cas particuliers.
+
+\subsubsection{Les sauvegardes et chargement de la scène}
+\paragraph{}
+Pour satisfaire la portabilité du logiciel, le nombre de bibliothèques utilisées devait être le plus faible possible. Fort heureusement, la bibliothèque Qt, portable sur la plupart des plateformes, propose une grande quantité de fonctionnalités, y compris le module QtXml qui permet la lecture et le découpage d'un fichier XML. Au cours de la phase de rédaction du Cahier des charges, nous avions mis au point un prototype de fichier XML pour permettre la sauvegarde et le chargement de la scène, que nous avons pu utiliser comme nous l'avions prévu grâce à Qt. Un exemple de fichier utilisé pour le chargement d'une scène effective dans notre logiciel, nommé 'MaScene.xml', est donné en Annexe.
+
+[FICHIER EXAMPLE MA SCENE.XML EN ANNEXE]
+
+\paragraph{}
+La sauvegarde d'une scène consiste principalement à écrire dans un fichier texte, en respactant le format souhaité par le format XML et en récupérant les bonnes informations des Objets et de la Caméra de la scène. Toutefois, deux types de sauvegarde ont été mises en place : une sauvegarde manuelle et une sauvegarde automatique.
+La sauvegarde manuelle s'effectue de la même façon que dans la plupart des logiciels. A la demande de l'utilisateur, le logiciel va lancer une sauvegarde dans un fichier dont le nom est donné, et une fois que celle-ci sera achevée l'utilisateur pourra recommencer à travailler sur sa scène.
+Pour la deuxième sauvegarde, nous avons dû utiliser nos connaissances acquises au cours des enseignements de Programmation Système et de Système d'Exploitation. Nous avons en effet vu d'une part comment utiliser des Threads, et d'autre part qu'un Thread en train de dormir ne demande pas d'intervention du processeur. Nous avons ainsi mis en place la création d'un Thread dès l'ajout d'un premier objet dans une scène, et ce Thread va dormir durant un certain temps avant d'effectuer une sauvegarde automatique puis de se rendormir. Cette attente passive permet ainsi de ne pas gaspiller de temps du processeur, et de sauvegarder les avancées de la scène en cas d'arrêt non souhaité du logiciel. [DE PLUS, le temps d'attente entre deux sauvegardes automatiques peut être choisie par l'utilisateur grâce aux paramètres du logiciel.]
+
+\paragraph{}
+La difficulté principale du chargement de la scène est de s'assurer de la validité du fichier XML passé en paramètre. Ainsi, de nombreuses vérifications, au fur et à mesure de la lecture du fichier, sont nécessaires afin de pouvoir créer une scène fonctionnelle. La bibliothèque QtXml aura été assez simple d'utilisation, et le chargement aura donc pu être rapidement mis en place, tout d'abord en parallèle du projet pour s'assurer que seuls les fichiers XML valides sont acceptés, puis après intégration pour s'assurer de l'appel des constructeurs et de la génération de la scène souhaitée.
+
+\paragraph{}
+L'utilisation du module QtXMl aura toutefois posé problème avec l'utilisation de CMake. En effet, la plupart des informations données sur Internet permette l'utilisation de ces modules avec QMake, et l'intégration est alors relativement simple. Pour l'intégrer à CMake, il aura fallu comprendre précisément le fonctionnement de CMake et trouver les bons noms de paquetages à intégrer afin que le module puisse être utilisé dans le logiciel.
+
+\subsubsection{Architecture finale du projet}
+\paragraph{}
+L'architecture prévisionnelle de notre projet n'aura que peu été modifiée au fil de notre projet.

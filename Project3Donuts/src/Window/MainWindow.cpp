@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionTranslate->toggle();
 
     QStringListModel* modelList = Scene::getScene()->getListObjects();
-    printf("count : %d\n", modelList->rowCount());
     ui->listView->setModel(modelList);
     ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     //ui->listView->setSelectionMode(QAbstractItemView::MultiSelection );
@@ -70,7 +69,7 @@ void MainWindow::openfile()
 
 void MainWindow::newscene()
 {
-    QMessageBox::critical(0, "Error", "Not implemented yet");
+	Scene::getScene()->clearScene();
 }
 
 void MainWindow::openlibfile()

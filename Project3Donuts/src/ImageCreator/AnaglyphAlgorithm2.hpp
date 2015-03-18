@@ -14,7 +14,7 @@ protected:
 
 	virtual void createWindow(bool fHasPreview = true) override;
 
-	virtual std::unique_ptr<CreationFile> render() override;
+	virtual std::unique_ptr<CreationFile> renderAnaglyph() override;
 
 	void modifyLeftImage (float *fRgb);
 	void modifyRightImage(float *fRgb);

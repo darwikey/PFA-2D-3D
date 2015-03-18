@@ -152,7 +152,6 @@ Project3Donuts-build/CMakeFiles/Project3Donut.dir/src/ImageCreator/Creator.cpp.o
 Project3Donuts-build/autoSave.xml
 Project3Donuts-build/CMakeFiles/Project3Donut.dir/src/ImageCreator/Creation.cpp.obj
 Project3Donuts-build/colormap.png
-*.obj
 Project3Donuts-build/moc_Creation.cpp
 Project3Donuts-build/resources/shaders/DebugNormal.vertexshader
 *.fragmentshader

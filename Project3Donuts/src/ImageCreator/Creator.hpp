@@ -18,12 +18,16 @@ public:
 	//! \brief get instance of Creator
 	static Creator* getCreator();
 
+	//! \brief return the list of the name of anaglyph algorithm
 	std::vector<QString> getListAnaglyph() const;
 
+	//! \brief return the list of the name of autostereogram algorithm
 	std::vector<QString> getListAutostereogram() const;
 
+	//! \brief return the list of the name of flipbook algorithm
 	std::vector<QString> getListFlipbook() const;
 
+	//! \brief return the list of the name of photograph algorithm
 	std::vector<QString> getListPhotograph() const;
 
 
@@ -46,15 +50,6 @@ public slots:
 	void launchPhotograph(int fAlgoNumber = 0);
 
 
-	/*void launchAnaglyph();
-
-	void launchAutostereogram();
-
-	void launchFlipbook();
-
-	void launchPhotograph();*/
-
-
 private:
 	//! \brief Creator only has a default constructor
 	Creator();
@@ -67,6 +62,7 @@ private:
 
 		if (fAlgoNumber < fTable.size()){
 			fTable[fAlgoNumber]->launch();
+			fTable[fAlgoNumber]->updatePreview();
 		}
 	}
 

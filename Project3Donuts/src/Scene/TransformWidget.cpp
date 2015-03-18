@@ -151,7 +151,14 @@ void TransformWidget::activate(QVector2D fMousePosition){
 	QVector2D _deltaMouse = fMousePosition - mInitialMousePosition;
 	
 	// translation of the mouse along the axis of the transform widget
-	float _delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.x(), _dirMouse.y()));
+	float _delta = 0.f;
+	
+	if (mState == State::ROTATION){
+		_delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.y(), _dirMouse.x()));
+	}
+	else{
+		_delta = QVector2D::dotProduct(_deltaMouse, QVector2D(_dirMouse.x(), _dirMouse.y()));
+	}
 
 	if (mState == State::TRANSLATION){
 		_delta *= _camera->getPosition().length();
