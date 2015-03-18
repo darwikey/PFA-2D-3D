@@ -25,8 +25,6 @@ private :
 	std::unique_ptr<QImage> depthmapToAutostereogram(const QImage& fDepthmap, int fE);
 
 	int round(float fX);
-	int caseXY(int fx, int fy, int fwidth);
-
 
 	const float mu = (1. / 3.);
 };

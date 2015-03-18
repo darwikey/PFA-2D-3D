@@ -1,5 +1,5 @@
-#ifndef AUTOSTEREOGRAM_ALGO3_HPP
-#define AUTOSTEREOGRAM_ALGO3_HPP
+#ifndef AUTOSTEREOGRAM_ALGO2_HPP
+#define AUTOSTEREOGRAM_ALGO2_HPP
 
 #include "global.hpp"
 
@@ -7,31 +7,43 @@
 
 
 // ! \class AutostereogramAlgorithm2
-// ! \brief First algorithm to create an autostereogram
+// ! \brief Second algorithm to create an autostereogram
 class AutostereogramAlgorithm2 : public Autostereogram {
-	Q_OBJECT
+  Q_OBJECT
 public:
-
+  AutostereogramAlgorithm2() ;
 
 protected:
-	virtual void createWindow(bool fHasPreview = true) override;
 
-	virtual std::unique_ptr<CreationFile> render() override;
+  virtual void createWindow(bool fHasPreview = true) override;
+  virtual std::unique_ptr<CreationFile> render() override;
 
-	
-private:
-	void colorBase(int fx, int fy, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle, QImage * fTexture, int fOversamp);
+  
+private :
 
-	std::unique_ptr<QImage> depthmapToAutostereogram(const QImage& fDepthmap, int fDPI, enum Texture fTextureStyle, char * fTexture) ; 
-	
-	void colorPixel(int fx, int fy, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle, QImage * fTexture, std::vector<int>& fSameLeft, std::vector<int>& fSameRight, int fOversamp, int fMaxsep, int fPoffset, int fCenter, int * fLastLinked, int fyShift);
-	
-	void colorRandom(int fx, std::vector<int>& fRed, std::vector<int>& fGreen, std::vector<int>& fBlue, enum Texture fTextureStyle);
+  void colorBase(int fx, int fy) ;
+  AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
 
-	int caseXY(int x, int y, int width);
+  void colorPixel(int fx, int fy, int * fLastLinked) ;
+  void colorRandom(int fx) ;
 
+  const int mdpi = 75 ;
+  const int moversampling = 4 ;
+  const float mmu = (1. / 3.) ;
 
-	const int oversampling = 4;
-	const float mu = (1.f / 3.f);
-};
+  
+  std::vector<int> mred ;
+  std::vector<int> mgreen ;
+  std::vector<int> mblue ;
+  std::unique_ptr<QImage> depthmapToAutostereogram() ;
+  std::vector<int> msameLeft ;
+  std::vector<int> msameRight ;
+
+  int mmaxsep ;
+  int mpoffset ;
+  int mcenter ;
+  int myShift ;
+
+} ;
+
 #endif
