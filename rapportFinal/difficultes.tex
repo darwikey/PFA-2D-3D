@@ -26,16 +26,16 @@ Enfin, nos clients souhaitant pouvoir imprimer les anaglyphes, il était très i
 On appelle shaders des programmes informatiques qui vont travailler directement sur la carte graphique ou le processeur graphique d'un ordinateur pour permettre un rendu meilleur et plus rapide. Ces shaders sont souvent utilisés en imagerie numérique, notamment par le logiciel Blender qui aura été un des logiciels-modèle pour la création du nôtre. L'utilisation de ces shaders nous paraissait importante pour permettre un rendu agréable dans notre logiciel, et pour atteindre nos objectifs de fluidité énoncés dans notre Cahier des charges.
 
 \paragraph{}
-Dans certains ordinateurs, et surtout dans la plupart des ordinateurs portables, il n'existe pas de carte graphique à proprement parlé. Un processeur est entièrement utilisé pour permettre un certain niveau de compétences graphiques, bien que celles-ci soient largement inférieures à celles de cartes graphiques de même récence. Toutefois, les processeurs graphiques empêchent parfois l'utilisation de shaders, car des processeurs trop anciens ne reconnaîtront pas les versions de shaders les plus récentes.
+Dans certains ordinateurs, et surtout dans les ordinateurs portables, il n'existe pas de carte graphique à proprement parlé. Un chipset graphique en général peu puissant le remplace. Toutefois, ces chipsets empêchent parfois l'utilisation de shaders trop récent.
 
 \paragraph{}
-Dans une première version de notre logiciel, nous avions souhaité utiliser une version assez récente de shaders. Toutefois, celle-ci posait problèmes car elles n'étaient pas reconnue sous des machines Linux. La portabilité du logiciel étant primordiale, du moins sous les environnements Windows et Linux, nous avons dû effectuer une modification de l'ensemble du code déjà construit afin de passer à une version plus ancienne des shaders et permettre la portabilité du logiciel.
+Dans une première version de notre logiciel, nous avions souhaité utiliser la version 3.3 des shaders. Toutefois, celle-ci posait problèmes car elles n'étaient pas reconnue sous des machines Linux. La portabilité du logiciel étant primordiale, du moins sous les environnements Windows et Linux, nous avons dû effectuer une modification de l'ensemble du code déjà construit afin de passer à la version 2.0 des shaders qui est bien plus ancienne qui permet la portabilité du logiciel sur quasiment toute les machines.
 
 \subsubsection{Les outils utilisés pour la réalisation du projet}
 \paragraph{}
 Pour permettre la portabilité et la maintenabilité du projet, nous avons choisi de l'implémenter en C++11, en utilisant Qt5 et la bibliothèque OpenGL pour Qt, et en compilant avec l'outil CMake.
 
 \paragraph{}
-Malgré sa récence, la communauté Internet sur la bibliothèque Qt et son module OpenGL est très importante et de nombreux problèmes rencontrés ont pu être résolus facilement grâce à des recherches sur certains forums. A l'inverse, l'utilisation de CMake pour la bibliothèque Qt est très rare.
-En effet, l'outil le plus souvent dans la réalisation de projet Qt est QMake. [VOIR POURQUOI ON L'A PAS UTILISE, PARCE QUE VISIBLEMENT ON AURAIT PU]
+La communauté Internet sur la bibliothèque Qt et son module OpenGL est très importante et de nombreux problèmes rencontrés ont pu être résolus facilement grâce à des recherches sur certains forums. 
+L'outil souvent utilisé dans la réalisation de projet Qt est QMake qui permet une compilation simplifiée avec Qt. Mais nous avons choisi de prendre CMake comme nous savions déjà l'utiliser.
 CMake étant très peu utilisé pour la bibliothèque Qt, il est parfois difficile de trouver sur Internet de l'aide pour inclure des modules, par exemple le module QtXml. La plupart de la documentation relative à ce problème est très simplement géré dans QMake, mais il aura fallu beaucoup de recherches pour parvenir à trouver les bons noms de bibliothèques et de modules pour l'inclure avec CMake.
