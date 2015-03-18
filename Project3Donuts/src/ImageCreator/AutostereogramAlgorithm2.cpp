@@ -1,5 +1,10 @@
 #include "AutostereogramAlgorithm2.hpp"
 
+AutostereogramAlgorithm2::AutostereogramAlgorithm2() :
+  msameLeft (0, 0),
+  msameRight(0, 0)
+{}
+
 void AutostereogramAlgorithm2::createWindow(bool fHasPreview){
 	Autostereogram::createWindow(fHasPreview);
 }
@@ -8,45 +13,43 @@ std::unique_ptr<CreationFile> AutostereogramAlgorithm2::render(){
 
 	std::unique_ptr<QImage> _depthmap = this->getDepthMap();
 
-	//TODO std::unique_ptr<QImage> _image = this->depthmapToAutostereogram(*_depthmap, 75,  );
-
-
+	std::unique_ptr<QImage> _image = this->depthmapToAutostereogram();
 	std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
-	//TODO _file->pushImage(std::move(_image));
+	_file->pushImage(std::move(_image));
 
 	return _file;
 }
 
 void AutostereogramAlgorithm2::colorBase(int fx, int fy) {
-  switch (this->_TextureStyle) {
+  switch (this->mtextureStyle) {
     int xpat, ypat ;
   case TEXTUREMAP :
-    xpat = (fx/_oversampling) % _texture->width() ;
-    ypat = fy % _texture->height() ;
-    _red[fx] = qRed(_texture->pixel(xpat, ypat)) ;
-    _green[fx] = qGreen(_texture->pixel(xpat, ypat)) ;
-    _blue[fx] = qBlue(_texture->pixel(xpat, ypat)) ;
+    xpat = (fx/moversampling) % mtexture->width() ;
+    ypat = fy % mtexture->height() ;
+    mred[fx] = qRed(mtexture->pixel(xpat, ypat)) ;
+    mgreen[fx] = qGreen(mtexture->pixel(xpat, ypat)) ;
+    mblue[fx] = qBlue(mtexture->pixel(xpat, ypat)) ;
     break ;
   case RANDNB :
-    _red[fx] = (random() & 1) * 255 ;
-    _green[fx] = _red[fx] ;
-    _blue[fx] = _red[fx] ;
+    mred[fx] = (random() & 1) * 255 ;
+    mgreen[fx] = mred[fx] ;
+    mblue[fx] = mred[fx] ;
     break ;
   case RANDGREY :
-    _red[fx] = random() % 255 ;
-    _green[fx] = _red[fx] ;
-    _blue[fx] = _red[fx] ;
+    mred[fx] = random() % 255 ;
+    mgreen[fx] = mred[fx] ;
+    mblue[fx] = mred[fx] ;
     break ;
   case RANDCOLOR :
-    _red[fx] = random() % 255 ;
-    _green[fx] = random() % 255 ;
-    _blue[fx] = random() % 255 ;
+    mred[fx] = random() % 255 ;
+    mgreen[fx] = random() % 255 ;
+    mblue[fx] = random() % 255 ;
     break ;
   }
 }
 
 void AutostereogramAlgorithm2::colorRandom(int fx) {
-  switch (fTextureStyle) {
+  switch (mtextureStyle) {
 
   case TEXTUREMAP :
     break ;
@@ -55,69 +58,69 @@ void AutostereogramAlgorithm2::colorRandom(int fx) {
     
     /* Because of resolution enhancement (which involves coloring real points with the average color of virtual points), black-and white images will actually be in shades of grey */
     
-    _red[fx] = (random()&1) * 255 ;
-    _green[fx] = _red[fx] ;
-    _blue[fx] = _red[fx] ;
+    mred[fx] = (random()&1) * 255 ;
+    mgreen[fx] = mred[fx] ;
+    mblue[fx] = mred[fx] ;
     break ;
     
   case RANDGREY :
-    _red[fx] = random() %256 ;
-    _green[fx] = _red[fx] ;
-    _blue[fx] = _red[fx] ;
+    mred[fx] = random() %256 ;
+    mgreen[fx] = mred[fx] ;
+    mblue[fx] = mred[fx] ;
     break ;
     
   case RANDCOLOR :
-    _red[fx] = random() %256;
-    _green[fx] = random() %256;
-    _blue[fx] = random() %256;
+    mred[fx] = random() %256;
+    mgreen[fx] = random() %256;
+    mblue[fx] = random() %256;
     break ;
    
   }
 }
 
-void AutostereogramAlgorithm2::colorPixel(int fx, int fy, int * LastLinked) {
+void AutostereogramAlgorithm2::colorPixel(int fx, int fy, int * fLastLinked) {
   int xpat, ypat ;
-  if (fx >= _center) {
-    if (_sameLeft[fx] == fx) {
-      if (_textureStyle == TEXTUREMAP) {
+  if (fx >= mcenter) {
+    if (msameLeft[fx] == fx) {
+      if (mtextureStyle == TEXTUREMAP) {
 	if (*fLastLinked == (fx - 1)) {
-	  _red[fx] = _red[fx - 1] ;
-	  _green[fx] = _green[fx - 1] ;
-	  _blue[fx] = _blue[fx - 1] ;
+	  mred[fx] = mred[fx - 1] ;
+	  mgreen[fx] = mgreen[fx - 1] ;
+	  mblue[fx] = mblue[fx - 1] ;
 	}
 	else {
-	  xpat = (((fx + _poffset) % _maxsep)/_oversampling) % _texture->width() ;
-	  ypat = (fy + ((fx - _center)/_maxsep) * _yShift) % _texture->height() ;
-	  _red[fx] = qRed(_texture->pixel(xpat, ypat)) ;
-	  _green[fx] = qGreen(_texture->pixel(xpat, ypat)) ;
-	  _blue[fx] = qBlue(_texture->pixel(xpat, ypat)) ;
+	  xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mtexture->width() ;
+	  ypat = (fy + ((fx - mcenter)/mmaxsep) * myShift) % mtexture->height() ;
+	  mred[fx] = qRed(mtexture->pixel(xpat, ypat)) ;
+	  mgreen[fx] = qGreen(mtexture->pixel(xpat, ypat)) ;
+	  mblue[fx] = qBlue(mtexture->pixel(xpat, ypat)) ;
 	}
       }
       else
-	colorRandom(fx, _red, _green, _blue, _textureStyle) ;
+	colorRandom(fx) ;
     }
     
     else {
-      _red[fx] = _red[_sameLeft[fx]] ;
-      _green[fx] = _green[_sameLeft[fx]] ;
-      _blue[fx] = _blue[_sameLeft[fx]] ;
+      mred[fx] = mred[msameLeft[fx]] ;
+      mgreen[fx] = mgreen[msameLeft[fx]] ;
+      mblue[fx] = mblue[msameLeft[fx]] ;
       *fLastLinked = fx ;
     }
   }
   else {
-    if (_sameRight[fx] == fx) {
-      if (_textureStyle == TEXTUREMAP) {
+    if (msameRight[fx] == fx) {
+      if (mtextureStyle == TEXTUREMAP) {
 	if (*fLastLinked == (fx + 1)) {
-    	    _red[fx] = _red[fx + 1] ;
-    	    _green[fx] = _green[fx + 1] ;
-    	    _blue[fx] = _blue[fx + 1] ;
+    	    mred[fx] = mred[fx + 1] ;
+    	    mgreen[fx] = mgreen[fx + 1] ;
+    	    mblue[fx] = mblue[fx + 1] ;
 	}
 	else {
-	  xpat = (((fx + _poffset) % _maxsep)/_oversampling) % _texture->width() ;
-	  ypat = (fy + ((_center - fx)/_maxsep + 1) * _yShift) % _texture->height() ;
-	  _red[fx] = qRed(_texture->pixel(xpat, ypat)) ;
-	  _green[fx] = qGreen(_texture->pixel(xpat, ypat)) ;
-	  _blue[fx] = qBlue(_texture->pixel(xpat, ypat)) ;
+	  xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mtexture->width() ;
+	  ypat = (fy + ((mcenter - fx)/mmaxsep + 1) * myShift) % mtexture->height() ;
+	  mred[fx] = qRed(mtexture->pixel(xpat, ypat)) ;
+	  mgreen[fx] = qGreen(mtexture->pixel(xpat, ypat)) ;
+	  mblue[fx] = qBlue(mtexture->pixel(xpat, ypat)) ;
 	}
       }
       
@@ -125,120 +128,112 @@ void AutostereogramAlgorithm2::colorPixel(int fx, int fy, int * LastLinked) {
 	colorRandom(fx) ;
     }
     else {
-      _red[fx] = _red[_sameRight[fx]] ;
-      _green[fx] = _green[_sameRight[fx]] ;
-      _blue[fx] = _blue[_sameRight[fx]] ;
+      mred[fx] = mred[msameRight[fx]] ;
+      mgreen[fx] = mgreen[msameRight[fx]] ;
+      mblue[fx] = mblue[msameRight[fx]] ;
       *fLastLinked = fx ;
     }
   }
 }
   
-static std::vector<float> getDepth(QImage fImg) {
-  const int myWidth = fImg.width() ;
-  const int myHeight = fImg.height() ;
-  std::vector<float> resultat (myWidth * myHeight, 0.) ;
-  for (int i = 0 ; i < myHeight ; ++i) {
-    for (int j = 0 ; j < myWidth ; ++j) {
-      resultat[i * myWidth + j] = (float)qGray(fImg.pixel(j, i))/255. ;
-    }
-  }
-  return resultat ;
-}
-
-
-std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram(QImage * fImage, enum Texture fTextureStyle, char * fTexture) {
+std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 
   /* Core variables */
   
-  std::vector<float> floatDepthmap = getDepth(*fImage) ;
+  std::vector<float> floatDepthmap = getDepth(*(this->getDepthMap())) ;
 
+  std::unique_ptr<QImage> fImage = this->depthmapToAutostereogram();
+  
   int width = fImage->width() ;
   int height = fImage->height() ;
 
-  std::unique_ptr<QImage> toReturn (new QImage(maxX, maxY, QImage::Format_RGB888));
-
-  if (ftextureStyle == TEXTUREMAP)
-    _texture->load(fTexture) ;
+  std::unique_ptr<QImage> toReturn (new QImage(width, height, QImage::Format_RGB888));
   
-  int obsDist = _dpi * 12 ;
-  int E = _dpi * 2.5 ;
+  if (mtextureStyle == TEXTUREMAP)
+    mtexture->load(mtexturePath) ;
+  
+  int obsDist = mdpi * 12 ;
+  int E = mdpi * 2.5 ;
 
-  _yShift = _dpi/16 ;
-  int maxdepth = _dpi * 12 ; // maximum depth used
+  myShift = mdpi/16 ;
+  int maxdepth = mdpi * 12 ; // maximum depth used
   int maxsep = (int)(((long)E * maxdepth) / (maxdepth + obsDist)); 
-  if (fTextureStyle == TEXTUREMAP && maxsep > _texture->width())
+  if (mtextureStyle == TEXTUREMAP && maxsep > mtexture->width())
     std::cout << "Texture is too narrow (should be at least " << maxsep << " pixels large); results may be affected" << std::endl ;
 
   /* Oversampling */
   
-  _oversampling = 4 ;
   int maxwidth = width * 6 ;
-  int vwidth = width * _oversampling ;
-  int vE = E * _oversampling ;
-  _maxsep = maxsep * _oversampling ;
+  int vwidth = width * moversampling ;
+  int vE = E * moversampling ;
+  mmaxsep = maxsep * moversampling ;
   
   /* Linking */
-  
-  _sameLeft = new vector<int>(maxwidth, 0) ;
-  _sameRight = new vector<int>(maxwidth, 0) ;
+
+  msameRight.std::vector<int>::resize(maxwidth) ;
+  msameLeft.std::vector<int>::resize(maxwidth) ;
 
   /* Coloration */
   
-  int _red[maxwidth] ;
-  int _green[maxwidth] ;
-  int _blue[maxwidth] ;
-  int center = (vwidth - vmaxsep)/2 ;
-  int poffset = vmaxsep - (center % vmaxsep) ;
+  mred.std::vector<int>::resize(maxwidth) ;
+  mgreen.std::vector<int>::resize(maxwidth) ;
+  mblue.std::vector<int>::resize(maxwidth) ;
+  mcenter = (vwidth - mmaxsep)/2 ;
+  mpoffset = mmaxsep - (mcenter % mmaxsep) ;
   
   for (int y = 0 ; y < height ; ++y) {
     
     int s = 0 ;
     int left, right ;
+
+    /* Initialisation of the image : each pixel is linked with itself and the image is either completely random or set to the chosen texture */
     
     for (int x = 0 ; x < vwidth ; ++x) {
-      _sameLeft[x] = x ;
-      _sameRight[x] = x ;
-      colorBase(x, y, _red, _green, _blue, fTextureStyle, &_texture, oversampling) ;
+      msameLeft[x] = x ;
+      msameRight[x] = x ;
+      colorBase(x, y) ;
     }
 
-    float zValue ;
+    float zValue = 0.f ;
     
     for (int x = 0 ; x < vwidth ; ++x) {
-      if (x % oversampling == 0) {
+      if (x % moversampling == 0) {
 
 	/* zValue (and thus s, the stereo separation between points) will stay the same for all virtual points representing the same real point */
 	
-	zValue = floatDepthmap[caseXY(x/oversampling, y, width)] ;
-	s = vE * ((1. - mu * zValue) / (2. - mu * zValue)) ;
+	zValue = floatDepthmap[Autostereogram::caseXY(x/moversampling, y, width)] ;
+	s = vE * ((1. - mmu * zValue) / (2. - mmu * zValue)) ;
       }
 
       left = x - (s + (s&y&1)) / 2;
       right = left + s;
 
       /* Linking points (with hidden surfaces removal) */
+      /* If a pair of pixels exists for a point of the 3D surface that is not visible, it will be unlinked */
+      /* This is done by checking if a shorter link exists for a given pixel of the 2D image */
       
       bool isVisible = true ;
 
       if (left >= 0 && right < vwidth) {
-	if (_sameLeft[right] != right) {
-	  if (_sameLeft[right] < left) {
-	    _sameRight[_sameLeft[right]] = _sameLeft[right] ;
-	    _sameLeft[right] = right ;
+	if (msameLeft[right] != right) {
+	  if (msameLeft[right] < left) {
+	    msameRight[msameLeft[right]] = msameLeft[right] ;
+	    msameLeft[right] = right ;
 	  }
 	  else isVisible = false ;
 	}
 
-	if (_sameRight[left] != left) {
-	  if (_sameRight[left] > right) {
-	    _sameLeft[_sameRight[left]] = _sameRight[left] ;
-	    _sameRight[left] = left ;
+	if (msameRight[left] != left) {
+	  if (msameRight[left] > right) {
+	    msameLeft[msameRight[left]] = msameRight[left] ;
+	    msameRight[left] = left ;
 	  }
 	  else isVisible = false ;
 	}
 
 	if (isVisible) {
-	  _sameLeft[right] = left ;
-	  _sameRight[left] = right ;
+	  msameLeft[right] = left ;
+	  msameRight[left] = right ;
 	}
 
       }
@@ -246,7 +241,7 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram(QImag
       /* Linking points without hidden surfaces removal */
 	    
       // if (left >= 0 && right < vwidth) {
-      // 	_sameLeft[right] = left ;
+      // 	msameLeft[right] = left ;
       // }
     }
 
@@ -254,28 +249,27 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram(QImag
     
     int lastLinked = -10 ;
 
-    //    poffset = 0 ; center = 0 ; // test stuff w/o coloration from center
-    for (int x = center - 1 ; x >= 0 ; --x) {
+    for (int x = mcenter - 1 ; x >= 0 ; --x) {
       colorPixel(x, y, &lastLinked) ;
     }
 
     lastLinked = -10 ;
     
-    for (int x = center ; x < vwidth ; ++x) {
-      colorPixel(x, y) ;
+    for (int x = mcenter ; x < vwidth ; ++x) {
+      colorPixel(x, y, &lastLinked) ;
     }  
 
 
     /* Fusion of virtual pixels in order to obtain the final image */
     
-    for (int x = 0 ; x < vwidth ; x += oversampling) {
+    for (int x = 0 ; x < vwidth ; x += moversampling) {
       int red = 0, green = 0, blue = 0 ;
-      for (int i = 0 ; i < oversampling ; ++i) {
-	red += _red[x + i] ;
-	green += _green[x + i] ;
-	blue += _blue[x + i] ;
+      for (int i = 0 ; i < moversampling ; ++i) {
+	red += mred[x + i] ;
+	green += mgreen[x + i] ;
+	blue += mblue[x + i] ;
       }
-      toReturn->setPixel(x/oversampling, y, qRgb(red/oversampling, green/oversampling, blue/oversampling)) ;
+      toReturn->setPixel(x/moversampling, y, qRgb(red/moversampling, green/moversampling, blue/moversampling)) ;
     }
   }  
 

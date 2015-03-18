@@ -1,11 +1,14 @@
 #include "Autostereogram.hpp"
 #include "Creator.hpp"
 
+int Autostereogram::caseXY(int fx, int fy, int fwidth) {
+	return fy * fwidth + fx;
+}
 
 void Autostereogram::createWindow(bool fHasPreview){
 	Creation::createWindow(fHasPreview);
 
-	// Fill the list of algorithm
+	// Fill the list of algorithms
 	std::vector<QString> _list = Creator::getCreator()->getListAutostereogram();
 
 	int i = 0;
@@ -20,6 +23,16 @@ void Autostereogram::createWindow(bool fHasPreview){
 	}
 
 	QObject::connect(mAlgoTypeBox, SIGNAL(currentIndexChanged(int)), Creator::getCreator(), SLOT(launchAutostereogram(int)));
+	
+	mChooseTextureStyle = new QComboBox(mWindow) ;
+	mChooseTextureStyle->addItem("Aléatoire noir et blanc") ;
+	mChooseTextureStyle->addItem("Aléatoire niveaux de gris") ;
+	mChooseTextureStyle->addItem("Aléatoire couleur") ;
+	mChooseTextureStyle->addItem("Texture") ;
+	insertNewWidget(mChooseTextureStyle) ;
+
+	//mtexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString(), "Fichiers image");
+
 }
 
 

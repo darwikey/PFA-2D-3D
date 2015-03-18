@@ -32,11 +32,6 @@ int AutostereogramAlgorithm1::round(float fX) {
 }
 
 
-int AutostereogramAlgorithm1::caseXY(int fx, int fy, int fwidth) {
-	return fy * fwidth + fx;
-}
-
-
 int AutostereogramAlgorithm1::separation(float fZ, int fE) {
 	return round(1 - mu * fZ) * fE / (2 - mu * fZ);
 }

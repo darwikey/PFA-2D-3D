@@ -22,6 +22,19 @@ protected:
 	//! \brief extract the depth of a depthmap 
 	std::vector<float> getDepth(const QImage& fImg);
 
+  //! \brief utilitary function to facilitate data access in a vector or array
+	int caseXY(int fx, int fy, int fwidth);
+  
+  enum Texture mtextureStyle = RANDNB ;
+  QComboBox * mChooseTextureStyle = nullptr ;
+  QString mtexturePath = nullptr ;
+  QImage * mtexture ;
+  
+  QLabel * mtextureStyleLabel = nullptr ;
+  QLabel * mtexturePathLabel = nullptr ;
+  
+private :
+  
 
 };
 

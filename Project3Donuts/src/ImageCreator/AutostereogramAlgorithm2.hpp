@@ -11,8 +11,7 @@
 class AutostereogramAlgorithm2 : public Autostereogram {
   Q_OBJECT
 public:
-
-  //  static std::vector<QImage> dummyCreate(QImage * fImage, int fDPI, enum Texture fTextureStyle, char * fTexture) ;
+  AutostereogramAlgorithm2() ;
 
 protected:
 
@@ -22,31 +21,29 @@ protected:
   
 private :
 
-  AutostereogramAlgorithm2() ;
   void colorBase(int fx, int fy) ;
   AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
 
   void colorPixel(int fx, int fy, int * fLastLinked) ;
   void colorRandom(int fx) ;
 
-  const int _dpi = 75 ;
-  const int _oversampling = 4 ;
-  const float _mu = (1. / 3.) ;
+  const int mdpi = 75 ;
+  const int moversampling = 4 ;
+  const float mmu = (1. / 3.) ;
 
-  QImage * _texture ;
-
-  vector<int> _red ;
-  vector<int> _green ;
-  vector<int> _blue ;
-  std::unique_ptr<QImage> depthmapToAutostereogram() ;
-  vector<int> _sameLeft ;
-  vector<int> _sameRight ;
-
-  int _maxsep ;
-  int _poffset ;
-  int _center ;
-  int _yShift ;
   
+  std::vector<int> mred ;
+  std::vector<int> mgreen ;
+  std::vector<int> mblue ;
+  std::unique_ptr<QImage> depthmapToAutostereogram() ;
+  std::vector<int> msameLeft ;
+  std::vector<int> msameRight ;
+
+  int mmaxsep ;
+  int mpoffset ;
+  int mcenter ;
+  int myShift ;
+
 } ;
 
 #endif
