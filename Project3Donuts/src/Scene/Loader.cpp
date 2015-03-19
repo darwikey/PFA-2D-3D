@@ -6,6 +6,13 @@
 
 
 Loader::Loader(){
+    QSettings settings("settings.ini", QSettings::IniFormat);
+    mTimer = new int(settings.value("General/timeautosave",60).toInt());
+}
+
+Loader::~Loader()
+{
+    delete mTimer;
 }
 
 void Loader::createScene(){
@@ -14,9 +21,14 @@ void Loader::createScene(){
 void Loader::createScene(std::string fPath){
 }
 
-void autoSave(){
+void Loader::changeAutoSaveTimer(int fTimer)
+{
+    *mTimer = fTimer;
+}
+
+void autoSave(int * fTimer){
     while(true){
-		std::this_thread::sleep_for(std::chrono::seconds(60));
+        std::this_thread::sleep_for(std::chrono::seconds(*fTimer));
         Scene::getScene()->saveScene("autoSave.xml");
     }
 }
@@ -24,7 +36,7 @@ void autoSave(){
 Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectName){
     /* When we first load an object, we start a new thread in order to activate automatic save*/
     if (Scene::getScene()->isEmptyScene())
-        mAutomaticSave = new std::thread(autoSave);
+        mAutomaticSave = new std::thread(autoSave, mTimer);
 
 	//detect file type
 	// get extension

@@ -63,6 +63,7 @@ public:
 	QSplitter *splitter;
     SceneRenderer *widget;
     QListView *listView;
+    QAction * deleteObject;
     QMenuBar *menubar;
     QMenu *menuFichier;
     QMenu *menuImporter;
@@ -200,6 +201,12 @@ public:
         listView = new QListView(splitter);
         listView->setObjectName(QStringLiteral("listView"));
 
+
+        deleteObject = new QAction(listView);
+        deleteObject->setObjectName(QStringLiteral("deleteObject"));
+        deleteObject->setShortcut(QKeySequence::Delete);
+        deleteObject->setShortcutContext(Qt::WidgetShortcut);
+
         horizontalLayout->addWidget(splitter);
 
         MainWindow->setCentralWidget(centralwidget);
@@ -248,6 +255,7 @@ public:
         toolBar->addAction(actionScale);
         toolBar->addAction(actionAnaglyphes);
         toolBar->addAction(actionFlipbook);
+        listView->addAction(deleteObject);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -264,6 +272,7 @@ public:
         QObject::connect(actionA_propos, SIGNAL(triggered()), MainWindow, SLOT(about()));	
         	
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
+        QObject::connect(deleteObject, SIGNAL(triggered()), MainWindow, SLOT(deleteSelectedObject()));
         //QObject::connect(listView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
 		
 		QObject::connect(actionEffectuer_un_rendu, SIGNAL(triggered()), Creator::getCreator(), SLOT(launchPhotograph()));
@@ -277,6 +286,7 @@ public:
 		QObject::connect(actionTranslate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToTranslate()));
 		QObject::connect(actionRotate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToRotate()));
 		QObject::connect(actionScale, SIGNAL(triggered()), MainWindow, SLOT(changeModeToScale()));
+
 		
 		
         QMetaObject::connectSlotsByName(MainWindow);

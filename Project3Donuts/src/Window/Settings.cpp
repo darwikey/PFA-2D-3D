@@ -2,6 +2,7 @@
 #include <QColorDialog>
 #include "Scene.hpp"
 #include "SceneRenderer.hpp"
+#include "Loader.hpp"
 
 Settings::Settings(QWidget *parent) :
     QDialog(parent),
@@ -38,6 +39,10 @@ void Settings::editparameters()
     //window position
     settings.setValue("General/invertedwindows",ui->WindowBox->isChecked());
 
+    //timer autosave
+    settings.setValue("General/timeautosave", ui->autoTimer->value());
+    Scene::getScene()->getLoader()->changeAutoSaveTimer(ui->autoTimer->value());
+
     //background color
     QColor _color = ui->colorLabel->palette().color(QPalette::Window);
     settings.setValue("Viewer/background_color",_color);
@@ -64,6 +69,9 @@ void Settings::resetparameters()
 
     //window position
     ui->WindowBox->setChecked(settings.value("General/invertedwindows",false).toBool());
+
+    //timer autosave
+    ui->autoTimer->setValue(settings.value("General/timeautosave", 60).toInt());
 
     //background color
     ui->colorLabel->setPalette(QPalette(settings.value("Viewer/background_color",QColor(0,0,102)).value<QColor>()));
@@ -94,6 +102,9 @@ void Settings::generaltodefault()
 
         //window position
         ui->WindowBox->setChecked(false);
+
+        //timer autosave
+        ui->autoTimer->setValue(60);
 
         //background color
         ui->colorLabel->setPalette(QColor(0,0,102));

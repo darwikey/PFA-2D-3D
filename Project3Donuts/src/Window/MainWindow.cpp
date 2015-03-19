@@ -83,6 +83,7 @@ void MainWindow::open()
     QString _qfile = QFileDialog::getOpenFileName(0, "Ouvrir", QString(), "Scene (*.xml)");
     if(_qfile!="")
     {
+        Scene::getScene()->clearScene();
         Scene::getScene()->createScene(_qfile);
     }
 }
@@ -118,6 +119,21 @@ void MainWindow::selectObject(const QModelIndex &index)
     ui->listView->setFocus();
 }
 
+void MainWindow::deleteSelectedObject()
+{
+    std::cout<<"deleting..."<<std::endl;
+    QModelIndexList localList =ui->listView->selectionModel()->selectedIndexes();
+    QStringList stringList;
+    foreach(const QModelIndex &index, localList){
+        stringList.append( index.data(Qt::DisplayRole ).toString());
+    }
+    Scene::getScene()->deleteObjectsByName(stringList);
+    //refresh widget
+    ui->widget->setFocus();
+    //come back to the list
+    ui->listView->setFocus();
+
+}
 
 void MainWindow::changeObjectColor(){
 	QColor _colorRGB = QColorDialog::getColor(QColor(128, 128, 128), nullptr, "Select Color", QColorDialog::DontUseNativeDialog);

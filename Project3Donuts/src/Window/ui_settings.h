@@ -52,6 +52,9 @@ public:
     QSpacerItem *horizontalSpacer;
     QLabel *label_5;
     QCheckBox *WindowBox;
+    QSpinBox *autoTimer;
+    QLabel *label_16;
+    QLabel *label_17;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_2;
     QSpinBox *ObjectLimitBox;
@@ -156,6 +159,22 @@ public:
 
         gridLayout->addWidget(WindowBox, 2, 1, 1, 1);
 
+        autoTimer = new QSpinBox(groupBox);
+        autoTimer->setObjectName(QStringLiteral("autoTimer"));
+        autoTimer->setRange(1,3600);
+        autoTimer->setValue(settings.value("General/timeautosave", 60).toInt());
+
+        gridLayout->addWidget(autoTimer, 1, 1, 1, 1);
+
+        label_16 = new QLabel(groupBox);
+        label_16->setObjectName(QStringLiteral("label_16"));
+
+        gridLayout->addWidget(label_16, 1, 0, 1, 1);
+
+        label_17 = new QLabel(groupBox);
+        label_17->setObjectName(QStringLiteral("label_17"));
+
+        gridLayout->addWidget(label_17, 1, 2, 1, 1);
 
         verticalLayout_2->addWidget(groupBox);
 
@@ -347,6 +366,9 @@ public:
         label->setText(QApplication::translate("Dialog", "R\303\251solution au d\303\251marrage", 0));
         label_5->setText(QApplication::translate("Dialog", "Mettre la fen\303\252tres de visualisation \303\240 droite au d\303\251marrage", 0));
         WindowBox->setText(QString());
+
+        label_16->setText(QApplication::translate("Dialog", "Temps entre deux sauvegardes automatiques ", 0));
+        label_17->setText(QApplication::translate("Dialog", "secondes", 0));
         groupBox_2->setTitle(QApplication::translate("Dialog", "Visualiseur", 0));
         label_2->setText(QApplication::translate("Dialog", "Proposer la d\303\251gradation d'objets \303\240 partir de :", 0));
         label_6->setText(QApplication::translate("Dialog", "sommets", 0));

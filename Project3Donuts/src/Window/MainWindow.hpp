@@ -27,6 +27,8 @@ public slots:
    void saveas();
 
    void selectObject(const QModelIndex &index);
+   void deleteSelectedObject();
+
    void changeObjectColor();
    void invertwidgets();
 

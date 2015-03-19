@@ -46,6 +46,10 @@ public:
     //! \param List of the objects
     void selectObjectsByName(QStringList fObjectList);
 
+    //! \brief delete all the object given in parmameters
+    //! \param List of the objects
+    void deleteObjectsByName(QStringList fObjectList);
+
 	//! \brief return the name of the selected object
 	std::string getNameSelectedObject();
 

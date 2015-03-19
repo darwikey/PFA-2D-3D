@@ -89,6 +89,23 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="spinBox"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Temps entre deux sauvegardes automatiques </string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>secondes</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -185,7 +202,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QKeySequenceEdit" name="Translate_keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="Translate_keySequenceEdit" native="true"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_10">
@@ -195,7 +212,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QKeySequenceEdit" name="Rotate_keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="Rotate_keySequenceEdit" native="true"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_11">
@@ -205,7 +222,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QKeySequenceEdit" name="Scale_keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="Scale_keySequenceEdit" native="true"/>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_12">
@@ -229,13 +246,13 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QKeySequenceEdit" name="ColorMap_keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="ColorMap_keySequenceEdit" native="true"/>
        </item>
        <item row="6" column="1">
-        <widget class="QKeySequenceEdit" name="AutoStereogramme_keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="AutoStereogramme_keySequenceEdit" native="true"/>
        </item>
        <item row="4" column="1">
-        <widget class="QKeySequenceEdit" name="Anaglyphe_keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="Anaglyphe_keySequenceEdit" native="true"/>
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="label_15">
@@ -245,7 +262,7 @@
         </widget>
        </item>
        <item row="7" column="1">
-        <widget class="QKeySequenceEdit" name="Flipbook_keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="Flipbook_keySequenceEdit" native="true"/>
        </item>
        <item row="8" column="1">
         <widget class="QPushButton" name="DefaultShortcutsButton">
@@ -270,6 +287,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QKeySequenceEdit</class>
+   <extends>QWidget</extends>
+   <header>qkeysequenceedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

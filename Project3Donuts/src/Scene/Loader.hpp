@@ -11,7 +11,7 @@ class Loader{
 public:
 	// ! \brief There is only one default constructor for Loader which will initialize what we potentially need for using it
 	Loader();
-
+    ~Loader();
 	//! \brief Loader can create a new scene from nothing
 	void createScene();
 	//! \brief It can also create a scene from an XML file that will be given by the user. It will parse it and create the associate objects and scene
@@ -23,8 +23,11 @@ public:
 	//! \param name of the object in the scene
 	Object* loadObject(const std::string& fPath, const std::string& fObjectName);
 
+    void changeAutoSaveTimer(int fTimer);
+
 private:
     std::thread *mAutomaticSave = nullptr;
+    int * mTimer;
 };
 
 

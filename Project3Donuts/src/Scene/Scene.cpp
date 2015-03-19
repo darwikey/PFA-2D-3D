@@ -132,6 +132,46 @@ void Scene::selectObjectsByName(QStringList fObjectList)
     }
 }
 
+void Scene::deleteObjectsByName(QStringList fObjectList)
+{
+    foreach(QString str, fObjectList)
+    {
+        std::string _name = str.toStdString();
+        auto _it = mObjects.load()->find(_name);
+        if (_it != mObjects.load()->end()) {
+            if (_it->first == _name) {
+
+
+                // add in the deleted object list
+                mDeletedObjects.insert(std::make_pair(_name, _it->second));
+                if(_it->first == mSelectedObject.first){
+                    mSelectedObject.first = std::string();
+                    mSelectedObject.second = nullptr;
+                }
+                mObjects.load()->erase(_it);
+                // Update the object list
+                mObjectList.clear();
+                for (auto _object : *mObjects.load()){
+                    mObjectList << QString::fromStdString(_object.first);
+                }
+                updateListObjects();
+
+                // save the action in order to revert it
+                std::function<void()> _action = [this, _name](){
+                    auto _object = this->mDeletedObjects.find(_name);
+
+                    if (_object != this->mDeletedObjects.end()){
+                        this->addObject(_object->first, _object->second);
+
+                        this->mDeletedObjects.erase(_object);
+                    }
+                };
+                this->registerAction(_action);
+
+            }
+        }
+    }
+}
 
 std::string Scene::getNameSelectedObject() {
 	return mSelectedObject.first;
@@ -144,8 +184,7 @@ void Scene::deleteSelectedObject(){
 		auto _it = mObjects.load()->find(mSelectedObject.first);
 		
 		if (_it != mObjects.load()->end()) {
-			mObjects.load()->erase(_it);
-
+            mObjects.load()->erase(_it);
 
 			// add in the deleted object list
 			mDeletedObjects.insert(mSelectedObject);
@@ -172,7 +211,7 @@ void Scene::deleteSelectedObject(){
 				}
 			};
 
-			this->registerAction(_action);
+            this->registerAction(_action);
 		}
 	}
 }
