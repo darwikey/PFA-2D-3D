@@ -24,18 +24,27 @@ protected:
 
   //! \brief utilitary function to facilitate data access in a vector or array
 	int caseXY(int fx, int fy, int fwidth);
-  
-  enum Texture mtextureStyle = RANDNB ;
-  QComboBox * mChooseTextureStyle = nullptr ;
-  QString mtexturePath = nullptr ;
-  QImage * mtexture ;
-  
-  QLabel * mtextureStyleLabel = nullptr ;
-  QLabel * mtexturePathLabel = nullptr ;
-  
-private :
-  
 
+  //! \brief colors a pixel randomly according to the chosen texture option
+  void colorRandom(int fx) ;
+  
+  enum Texture mTextureStyle = RANDNB ;
+  QComboBox * mChooseTextureStyle = nullptr ;
+  QString mTexturePath = nullptr ;
+  QImage mTexture ;
+  
+  QLabel * mTextureStyleLabel = nullptr ;
+  QLabel * mTexturePathLabel = nullptr ;
+
+  std::vector<int> mred ;
+  std::vector<int> mgreen ;
+  std::vector<int> mblue ;
+				       
+private slots :
+  
+  void changeTextureStyle(int fSelectedTextureStyle) ;
+
+  
 };
 
 

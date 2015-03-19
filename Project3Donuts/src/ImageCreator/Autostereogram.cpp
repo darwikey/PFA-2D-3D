@@ -23,6 +23,9 @@ void Autostereogram::createWindow(bool fHasPreview){
 	}
 
 	QObject::connect(mAlgoTypeBox, SIGNAL(currentIndexChanged(int)), Creator::getCreator(), SLOT(launchAutostereogram(int)));
+
+	mTextureStyleLabel = new QLabel("Type de rendu : ", mWindow) ;
+	insertNewWidget(mTextureStyleLabel) ;
 	
 	mChooseTextureStyle = new QComboBox(mWindow) ;
 	mChooseTextureStyle->addItem("Aléatoire noir et blanc") ;
@@ -30,9 +33,8 @@ void Autostereogram::createWindow(bool fHasPreview){
 	mChooseTextureStyle->addItem("Aléatoire couleur") ;
 	mChooseTextureStyle->addItem("Texture") ;
 	insertNewWidget(mChooseTextureStyle) ;
-	
-//mtexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString(), "Fichiers image");
 
+	QObject::connect(mChooseTextureStyle, SIGNAL(currentIndexChanged(int)), SLOT(changeTextureStyle(int))) ;
 }
 
 
@@ -47,4 +49,53 @@ std::vector<float> Autostereogram::getDepth(const QImage& fImg) {
 		}
 	}
 	return resultat;
+}
+
+void Autostereogram::changeTextureStyle(int fSelectedTextureStyle){
+  switch (fSelectedTextureStyle) {
+  case 0 :
+    mTextureStyle = RANDNB ;
+    break ;
+  case 1 :
+    mTextureStyle = RANDGREY ;
+    break ;
+  case 2 :
+    mTextureStyle = RANDCOLOR ;
+    break ;
+  case 3 :
+    mTextureStyle = TEXTUREMAP ;
+    mTexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString());
+    break ;
+  }    
+  updatePreview();
+}
+
+void Autostereogram::colorRandom(int fx) {
+  switch (mTextureStyle) {
+
+  case TEXTUREMAP :
+    break ;
+    
+  case RANDNB :
+    
+    /* Because of resolution enhancement (which involves coloring real points with the average color of virtual points), black-and white images will actually be in shades of grey */
+    
+    mred[fx] = (random()&1) * 255 ;
+    mgreen[fx] = mred[fx] ;
+    mblue[fx] = mred[fx] ;
+    break ;
+    
+  case RANDGREY :
+    mred[fx] = random() %256 ;
+    mgreen[fx] = mred[fx] ;
+    mblue[fx] = mred[fx] ;
+    break ;
+    
+  case RANDCOLOR :
+    mred[fx] = random() %256;
+    mgreen[fx] = random() %256;
+    mblue[fx] = random() %256;
+    break ;
+   
+  }
 }

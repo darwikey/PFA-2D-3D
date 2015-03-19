@@ -22,11 +22,11 @@ protected:
 private :
 
   void colorBase(int fx, int fy) ;
-  AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
-
   void colorPixel(int fx, int fy, int * fLastLinked) ;
-  void colorRandom(int fx) ;
 
+  AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
+  std::unique_ptr<QImage> depthmapToAutostereogram() ;
+  
   const int mdpi = 75 ;
   const int moversampling = 4 ;
   const float mmu = (1. / 3.) ;
@@ -35,7 +35,6 @@ private :
   std::vector<int> mred ;
   std::vector<int> mgreen ;
   std::vector<int> mblue ;
-  std::unique_ptr<QImage> depthmapToAutostereogram() ;
   std::vector<int> msameLeft ;
   std::vector<int> msameRight ;
 
