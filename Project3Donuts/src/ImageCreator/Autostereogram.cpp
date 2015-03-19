@@ -80,21 +80,21 @@ void Autostereogram::colorRandom(int fx) {
     
     /* Because of resolution enhancement (which involves coloring real points with the average color of virtual points), black-and white images will actually be in shades of grey */
     
-    mred[fx] = (random()&1) * 255 ;
+    mred[fx] = (rand()&1) * 255 ;
     mgreen[fx] = mred[fx] ;
     mblue[fx] = mred[fx] ;
     break ;
     
   case RANDGREY :
-    mred[fx] = random() %256 ;
+    mred[fx] = rand() %256 ;
     mgreen[fx] = mred[fx] ;
     mblue[fx] = mred[fx] ;
     break ;
     
   case RANDCOLOR :
-    mred[fx] = random() %256;
-    mgreen[fx] = random() %256;
-    mblue[fx] = random() %256;
+    mred[fx] = rand() %256;
+    mgreen[fx] = rand() %256;
+    mblue[fx] = rand() %256;
     break ;
    
   }
