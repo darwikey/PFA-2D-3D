@@ -15,41 +15,44 @@ pour chaque algo :
  	les résultats comparés (pour chaque algo, les points positifs et négatifs avec l'image)
 
 \subsubsection{La génération des anaglyphes et ses défauts}
-La génération des anaglyphes passe par trois étapes :
-	\begin{enumerate}
-	\item prise de vue stereoscopique
-		Deux prises de vues d'une scène 3D éloignées d'une distance proche à celle entre les yeux, de manière à obtenir une vue pour chaque oeil.
-	\item 
-		Traitement des deux images composé au minimum des deux filtres magenta et cyan (ou deux autres couleurs correspondants à celles des lunettes).
-	\item
-		Superposition des deux vues.
-	\end{enumerate}
+	L'anaglyphe est une image issue d'un traitement particulier sur deux prises de vue stéréoscopiques et qui nécessite des lunettes particulières composées d'un filtre rouge (ou magenta ou jaune) pour un oeil et cyan (respectivement vert ou bleu) pour l'autre. 
 	
-	Les algorithmes de génération des anaglyphes proposent des traitements d'image différents (étape 2) et chaque algorithme a ses défauts. Le défaut principal retrouvé dans tous les algorithmes (de façon plus ou moins prononcé) est la présence d'artefacts. Ce défaut permet de juger de la qualité de l'anaglyphe généré. D'autres défauts peuvent être rencontrés telles que les rivalités binoculaires et la fusion des couleurs. 
-  
-  AJOUTER ? peut etre parler du fait que certains fatiguent plus les yeux que d'autres
-\subsubsection{Les algorithmes}
+	La génération des anaglyphes passe par trois étapes essentiellement. Tous d'abord, une prise de vue stéréoscopique d'une scène 3D avec les deux points de vue éloignées d'une distance proche à celle entre les yeux, de manière à obtenir une vue pour chaque oeil, est nécessaire. Ensuite, un traitement d'image est opéré sur ces deux images obtenues, avec au minimum deux filtres rouge et cyan (ou deux autres couleurs correspondants à celles des lunettes)sont appliquées. Finalement, les deux images résultantes sont superposées pour n'obtenir qu'une seule image qui pourra être visionnée à travers les lunettes avec une impression de trois dimensions.
+	
+	Les algorithmes de génération des anaglyphes proposent des traitements d'image différents (deuxième étape) ayant pour but d'améliorer la qualité des anaglyphes. Un critère important pour juger de la qualité des anaglyphes est l'absence des artefacts. Ces derniers sont des perceptions d'un phénomène de diaphonie qui est le résultat d'une mauvaise séparation des deux vues (un oeil perçoit un détail de la vue destinée à l'autre oeil), et dégradent l'impression de trois dimensions. %parler des rivalités binoculaire..? 
 
-\subsubsection{La méthode Photoshop}
-	Le premier algorithme implémenté est le plus basique : la méthode dite Photoshop qui se contente d'appliquer les deux filtres de couleur sans réaliser d'autres traitements d'image. 
+	Cependant, aucun algorithme ne peut être parfait, comme il est expliqué dans l'article d' Andrew J. Woods et Chris R. Harris \cite{anaglypheDefaut}  : la qualité de l'anaglyphe dépend de l'image, des lunettes employées et du support affichant l'image (l'article traite principalement les écrans mais il en va de même pour des anaglyphes imprimés avec le choix du papier). Hormis les lunettes, les deux autres facteurs ont toujours été problématique pour le traitement d'image en général.  
 	
-	En pratique, ce ne sont pas des filtres de couleur qui sont appliqués, mais pour chaque image seules les composantes rouges pour l'une et les composantes bleues et vertes sont recupérées (et restituées dans chaque image).
+	Pour obtenir des algorithmes très performants, il faudrait prendre en compte tous ces facteurs et adapter au cas par cas. En effet, étant donné que les différentes caractéristiques (luminosité, résolution,) varient pour chaque écran, obtenir une même couleur sur deux écrans distincts (produits par des entreprises différentes) supposent un calibrage au préalable ou l'utilisation d'une palette de couleur limitée. Ainsi, les techniques employés dans le domaine de recherche de la génération des anaglyphes restent très souvent basées sur des connaissances empiriques.
+		
+	Nous avons choisi d'implémenter trois méthodes qui permettent d'obtenir des images de qualité différentes, pour que l'utilisateur puisse choisir pour chaque donnée entrée l'algortihme qui rendra l'anaglyphe de meilleure qualité. %phrase a reprendre...
+	  
+\subsubsection{La méthode Photoshop}
+	Le premier algorithme implémenté est le plus basique : c'est la méthode dite Photoshop qui se contente d'appliquer les deux filtres de couleur sans réaliser d'autres traitements d'image. Cette méthode est décrite dans l'article rédigé par W. Alkhadour, S. Ipson, J. Zraqou, R. Qahwaji et J. Haigh \cite{steteroAnaglyph}.
+		
+	En pratique, ce ne sont pas des filtres de couleur qui sont appliqués, mais pour chaque image seules les composantes rouges pour l'une et les composantes bleues et vertes pour l'autre sont recupérées et restituées dans chaque image respectivement. Ces deux images sont ensuite "superposées", c'est-à-dire que celles-ci sont parcourues et pour chaque pixel les composantes en couleur (RGB) sont récupérés, additionnées deux à deux et réinsérées dans les canaux de couleurs du pixel correspondant dans l'image résultat. %phrase à simplifier ?
 	
 	 insérer ICI l'image pour la méthode photoshop
 		% %ne pas oublier de mettre une référence à l'article
 
-	--> la méthode la plus simple mais la qualité en couleur est mauvaise et il y a un peu de artefact
+	Au niveau du résultat, on constate la présence de quelques d'artefacts et que l'impression de 3D est bien présente.
+%	--> la méthode la plus simple mais la qualité en couleur est mauvaise et il y a un peu de artefact
 \subsubsection{La méthode des moindres carrés avec correction gamma}
+%gamma -> prend en compte le support : écran
+	Le deuxième algorithme implémenté est basée sur la méthode des moindres carrés présentée dans l'article \cite{algoDubois} par Eric Dubois. Dans cet article, comme David Romeuf l'explique \cite{explicationAlgoDubois} l'approche consiste à prendre en compte le spectre d'absorption des filtres des lunettes, la densité spectrale des sources primaires des écrans d'ordinateur et de la sensibilité spectrale de l'œil humain, pour reproduire au mieux une image anaglyphe dont les couleurs sont proches de celles contenues dans l'image originale. L'ensemble des couleurs visibles sur l'écran à travers les lunettes étant un sous ensemble de celui de l'écran, une transformation particulière est nécessaire et c'est pour cette raison que les moindres carrés interviennent dans la projection pour minimiser la distance entre les deux couleurs (celle obtenue et l'originale) dans le diagramme colorimétrique.
+	
+	L'algorithme implémenté met en oeuvre une partie de la méthode décrite plus précisément dans cet article par Eric Dubois \cite{algoMoindreCarres} : notre algorithme utilise les matrices issues du calcul par projection avec la méthode des moindres carrés, et une correction gamma mais ne modifie pas la saturation.
+	
+	La correction gamma permet d'augmenter la luminosité, appliquée aux anaglyphes rouge-cyan le rouge est plus visible et l'impression de trois dimensions est renforcée. Cependant, l'augmentation de la luminosité implique une réduction des contrastes et peut résulter en une image avec les détails peu soignés.
 
-	La méthode des moindres carrés proposée par Dubois (REFERENCE A L'ARTICLE).
-A REDIGER
-- méthode de Dubois least square approach
---> génère des anaglyphes un peu sombre avec moins de détails (que la méthode Midpoint) mais cela peut être corrigé en appliquant une correction gamma. Le point fort de cette méthode réside en le peu de artefact dans le résultat.
-http://www.site.uottawa.ca/~edubois/anaglyph/LeastSquaresHowToPhotoshop.pdf
-
-mettre image resultat
+	INSERER IMAGE
+	
+	On constate qu'il y a très peu d'artefact et la 3D est de meileure qualité que pour la méthode Photoshop. Toutefois, la qualité en couleur est légèrement perdue et les détails de l'image sont peu visibles. 
+	
 
 \subsubsection{La méthode des moindres carrés avec saturation}
+
+
 A REDIGER
 même algo que la partie précédente principalement, sauf qu'il n'y pas de correction gamma et qu'il y des modifications de la saturation.
 
@@ -57,11 +60,20 @@ image resultat
 
 \subsubsection{Comparaison des différents algorithmes}
 
-lequel a le moins d'artefact ?
-methode photoshop -> resultat moyen (moins fatiguant pour les yeux mais la 3D est moyen-normale)
-l'algo dubois avec correction gamma -> meilleure 3D mais fatiguant pour les yeux
-l'algo dubois avec saturation -> la diminution de saturation, atténue trop les couleurs : moins bonne 3D mais moins fatiguant pour les yeux 
+En comparant les algorithmes, bien que la méthode Photoshop présente un résultat satisfaisant, il semblerait que la méthode de Dubois \cite{algoDubois}  soit celle qui produit un anaglyphe avec le moins d'artefact et qui donne la meilleure impression 3D. 
 
+Cependant, après plusieurs comparaisons des images (et ce par différentes personnes) la correction gamma employée dans la méthode de Dubois qui améliore l'impression 3D rendrait l'image plus difficile à percevoir la trois dimensions rapidement et fatiguerait plus vite les yeux que pour la méthode Photshop.
 
+%l'algo dubois avec saturation -> la diminution de saturation, atténue trop les couleurs : moins bonne 3D mais moins fatiguant pour les yeux 
 
+\subsubsection{L'impression des anaglyphes}
+Dans ce projet, les anaglyphes générées par le logiciel étaient destinées à être visionnés sur écran mais aussi être imprimés sur papier. Le système de colorimétrie d'une imprimante est en CMJN (Cyan Magenta Jaune Noir) et son ensemble de couleur est plus réduit que celui des écrans. 
 
+INSERER Diagramme comparatif pour illustrer ?
+
+Par conséquent, le problème pour l'impression réside tout d'abord en la conversion du système RVB au CMJN. Tout comme l'algortihme de Dubois avec la méthode des moindres carrés \cite{algoDubois}, il faudrait pouvoir convertir en CMJN en essayant d'obtenir une couleur qui sera la plus proche possible de celle en RVB. 
+
+ICI ??? Lorsque ce problème a été exposé en réunion avec les clients, il nous a été spécifié que nous n'avions pas besoin d'implémenter des méthodes pour améliorer l'impression. 
+
+Par ailleurs, la conversion n'est pas le seul problème puisque comme expliqué avec l'article Andrew J. Woods et Chris R. Harris \cite{anaglypheDefaut}, le support d'affichage est aussi important : dans ce cas, le type de papier rentre aussi en compte dans la qualité de l'anaglyphe. 
+%peut etre en conclu de cette partie anagyphe ? AJOUTER : certains fatiguent plus les yeux que d'autres
