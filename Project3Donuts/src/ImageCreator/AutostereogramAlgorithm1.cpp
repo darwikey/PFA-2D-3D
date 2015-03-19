@@ -50,12 +50,9 @@ std::unique_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(const
   mblue.std::vector<int>::resize(maxX) ;
 
   if (mTextureStyle == TEXTUREMAP) {
-    if (mTexturePath != nullptr) {
-      std::cout << "Texture at " << mTexturePath.toUtf8().constData() << std::endl ;
-      mTexture.load(mTexturePath) ;
-    }
-    else {
-      std::cout << "No texture selected; switching to random colors" << std::endl ;
+    bool _isLoaded = (mTexturePath != nullptr) && mTexture.load(mTexturePath) ;
+    if (!_isLoaded) {
+      std::cout << "Impossible to load selected texture; switching to random colors" << std::endl ;
       mTextureStyle = RANDCOLOR ;
     }
   }

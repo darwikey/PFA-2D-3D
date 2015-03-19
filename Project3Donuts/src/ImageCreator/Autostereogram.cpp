@@ -28,16 +28,13 @@ void Autostereogram::createWindow(bool fHasPreview){
 	insertNewWidget(mTextureStyleLabel) ;
 	
 	mChooseTextureStyle = new QComboBox(mWindow) ;
-	mChooseTextureStyle->addItem("Aleatoire noir et blanc") ;
-	mChooseTextureStyle->addItem("Aleatoire niveaux de gris") ;
-	mChooseTextureStyle->addItem("Aleatoire couleur") ;
+	mChooseTextureStyle->addItem("Aléatoire noir et blanc") ;
+	mChooseTextureStyle->addItem("Aléatoire niveaux de gris") ;
+	mChooseTextureStyle->addItem("Aléatoire couleur") ;
 	mChooseTextureStyle->addItem("Texture") ;
 	insertNewWidget(mChooseTextureStyle) ;
 
 	QObject::connect(mChooseTextureStyle, SIGNAL(currentIndexChanged(int)), SLOT(changeTextureStyle(int))) ;
-	
-	
-
 }
 
 
