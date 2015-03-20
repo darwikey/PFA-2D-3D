@@ -3,6 +3,7 @@
 #include "AnaglyphAlgorithm1.hpp"
 #include "AnaglyphAlgorithm2.hpp"
 #include "Autostereogram.hpp"
+#include "AutostereogramDepthMap.hpp"
 #include "AutostereogramAlgorithm1.hpp"
 #include "AutostereogramAlgorithm2.hpp"
 #include "Flipbook.hpp"
@@ -20,6 +21,7 @@ Creator::Creator(){
 	mAnaglyphTable.push_back(new AnaglyphAlgorithm2());
 
 	// Autostereogram registration
+	mAutostereogramTable.push_back(new AutostereogramDepthMap()) ;
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm1());
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm2());
 

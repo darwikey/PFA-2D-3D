@@ -77,9 +77,12 @@ void Autostereogram::colorRandom(int fx) {
     break ;
     
   case RANDNB :
-    
-    /* Because of resolution enhancement (which involves coloring real points with the average color of virtual points), black-and white images will actually be in shades of grey */
-    
+
+    /* 
+       Black-and white images will actually 
+       be in shades of grey if there is oversampling 
+    */
+
     mred[fx] = (rand()&1) * 255 ;
     mgreen[fx] = mred[fx] ;
     mblue[fx] = mred[fx] ;

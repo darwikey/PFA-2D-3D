@@ -49,68 +49,70 @@ void AutostereogramAlgorithm2::colorBase(int fx, int fy) {
 	}
 }
 void AutostereogramAlgorithm2::colorPixel(int fx, int fy, int * fLastLinked) {
+  
+  int xpat, ypat;
 
-	int xpat, ypat;
-
-	if (fx >= mcenter) {
-		if (msameLeft[fx] == fx) {
-			if (mTextureStyle == TEXTUREMAP) {
-				if (*fLastLinked == (fx - 1)) {
-					mred[fx] = mred[fx - 1];
-					mgreen[fx] = mgreen[fx - 1];
-					mblue[fx] = mblue[fx - 1];
-				}
+  if (fx >= mcenter) {
+    if (msameLeft[fx] == fx) {
+      if (mTextureStyle == TEXTUREMAP) {
+	if (*fLastLinked == (fx - 1)) {
+	  mred[fx] = mred[fx - 1];
+	  mgreen[fx] = mgreen[fx - 1];
+	  mblue[fx] = mblue[fx - 1];
+	}
 				
-				else {
-					xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mTexture.width();
-					ypat = (fy + ((fx - mcenter)/mmaxsep) * myShift) % mTexture.height();
-					mred[fx] = qRed(mTexture.pixel(xpat, ypat));
-					mgreen[fx] = qGreen(mTexture.pixel(xpat, ypat));
-					mblue[fx] = qBlue(mTexture.pixel(xpat, ypat));
-				}
-			}
-			
-			else
-				colorRandom(fx);
-		}
-		
-		else {
-			mred[fx] = mred[msameLeft[fx]];
-			mgreen[fx] = mgreen[msameLeft[fx]];
-			mblue[fx] = mblue[msameLeft[fx]];
-			*fLastLinked = fx;
-		}
-	}
-	
 	else {
-		if (msameRight[fx] == fx) {
-			if (mTextureStyle == TEXTUREMAP) {
-				if (*fLastLinked == (fx + 1)) {
-					mred[fx] = mred[fx + 1];
-					mgreen[fx] = mgreen[fx + 1];
-					mblue[fx] = mblue[fx + 1];
-				}
-
-				else {
-					xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mTexture.width();
-					ypat = (fy + ((mcenter - fx)/mmaxsep + 1) * myShift) % mTexture.height();
-					mred[fx] = qRed(mTexture.pixel(xpat, ypat));
-					mgreen[fx] = qGreen(mTexture.pixel(xpat, ypat));
-					mblue[fx] = qBlue(mTexture.pixel(xpat, ypat));
-				}
-			}
-			
-			else
-				colorRandom(fx);
-		}
-		
-		else {
-			mred[fx] = mred[msameRight[fx]];
-			mgreen[fx] = mgreen[msameRight[fx]];
-			mblue[fx] = mblue[msameRight[fx]];
-			*fLastLinked = fx;
-		}
+	  xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mTexture.width();
+	  ypat = (fy + ((fx - mcenter)/mmaxsep) * myShift) % mTexture.height();
+	  mred[fx] = qRed(mTexture.pixel(xpat, ypat));
+	  mgreen[fx] = qGreen(mTexture.pixel(xpat, ypat));
+	  mblue[fx] = qBlue(mTexture.pixel(xpat, ypat));
 	}
+      }
+			
+      else
+	colorRandom(fx);
+      
+    }
+		
+    else {
+      mred[fx] = mred[msameLeft[fx]];
+      mgreen[fx] = mgreen[msameLeft[fx]];
+      mblue[fx] = mblue[msameLeft[fx]];
+      *fLastLinked = fx;
+    }
+  }
+	
+  else {
+    if (msameRight[fx] == fx) {
+      if (mTextureStyle == TEXTUREMAP) {
+	if (*fLastLinked == (fx + 1)) {
+	  mred[fx] = mred[fx + 1];
+	  mgreen[fx] = mgreen[fx + 1];
+	  mblue[fx] = mblue[fx + 1];
+	}
+
+	else {
+	  xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mTexture.width();
+	  ypat = (fy + ((mcenter - fx)/mmaxsep + 1) * myShift) % mTexture.height();
+	  mred[fx] = qRed(mTexture.pixel(xpat, ypat));
+	  mgreen[fx] = qGreen(mTexture.pixel(xpat, ypat));
+	  mblue[fx] = qBlue(mTexture.pixel(xpat, ypat));
+	}
+      }
+			
+      else
+	colorRandom(fx);
+
+    }
+		
+    else {
+      mred[fx] = mred[msameRight[fx]];
+      mgreen[fx] = mgreen[msameRight[fx]];
+      mblue[fx] = mblue[msameRight[fx]];
+      *fLastLinked = fx;
+    }
+  }
 }
 std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 
@@ -149,6 +151,7 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 	msameLeft.std::vector<int>::resize(maxwidth);
 	
 	/* Coloration */
+
 	mred.std::vector<int>::resize(maxwidth);
 	mgreen.std::vector<int>::resize(maxwidth);
 	mblue.std::vector<int>::resize(maxwidth);
@@ -160,8 +163,6 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 	
 	for (int y = 0; y < height; ++y) {
 
-		std::cout << y << " " << height << std::endl;
-		
 		int s = 0;
 		int left, right;
 
@@ -185,7 +186,7 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 					all virtual points representing the same real point
 				*/
 				
-				zValue = _floatDepthMap[Autostereogram::caseXY(x/moversampling, y, width)];
+				zValue = 1. - _floatDepthMap[Autostereogram::caseXY(x/moversampling, y, width)];
 				s = vE * ((1. - mmu * zValue) / (2. - mmu * zValue));
 			}
 			

@@ -31,10 +31,6 @@ private :
   const int moversampling = 4 ;
   const float mmu = (1. / 3.) ;
 
-  
-  std::vector<int> mred ;
-  std::vector<int> mgreen ;
-  std::vector<int> mblue ;
   std::vector<int> msameLeft ;
   std::vector<int> msameRight ;
 
