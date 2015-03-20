@@ -46,7 +46,7 @@ void Settings::editparameters()
     //background color
     QColor _color = ui->colorLabel->palette().color(QPalette::Window);
     settings.setValue("Viewer/background_color",_color);
-    Scene::getScene()->getSceneRenderer()->ChangeBackground(_color);
+    Scene::getScene()->getSceneRenderer()->setBackgroundColor(_color);
 
     //shortcuts
     settings.setValue("Shortcuts/render", ui->ColorMap_keySequenceEdit->keySequence());
