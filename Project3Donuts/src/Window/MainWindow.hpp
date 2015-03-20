@@ -21,6 +21,7 @@ public:
 public slots:
    void newscene();
    void openfile();
+   void revertPreviousAction();
    void openlibfile();
    void open();
    void save();

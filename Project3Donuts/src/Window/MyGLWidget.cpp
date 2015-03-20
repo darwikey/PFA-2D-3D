@@ -24,11 +24,7 @@ MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
         connect(mTimer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));
         mTimer->start( timerInterval );
     }
-    mUndo = new QAction(this);
-    mUndo->setObjectName(QStringLiteral("undo"));
-    mUndo->setShortcut(QKeySequence::Undo);
-    addAction(mUndo);
-    QObject::connect(mUndo, SIGNAL(triggered()), this, SLOT(revertPreviousAction()));
+
 }
 
 MyGLWidget::~MyGLWidget(){
@@ -38,12 +34,6 @@ MyGLWidget::~MyGLWidget(){
 void MyGLWidget::timeOutSlot()
 {
 
-}
-
-void MyGLWidget::revertPreviousAction()
-{
-    Scene::getScene()->revertPreviousAction();
-    update();
 }
 
 //mouse Press Event
