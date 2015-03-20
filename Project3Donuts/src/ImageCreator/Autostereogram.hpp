@@ -30,7 +30,7 @@ protected:
   
   enum Texture mTextureStyle = RANDNB ;
   QComboBox * mChooseTextureStyle = nullptr ;
-  QString mTexturePath = nullptr ;
+  QString mTexturePath = "" ;
   QImage mTexture ;
   
   QLabel * mTextureStyleLabel = nullptr ;
