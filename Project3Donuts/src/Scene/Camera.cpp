@@ -84,13 +84,13 @@ std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight, QVector3D f
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
 	if (mColorPixelBuffer == nullptr){
-		mColorPixelBuffer = new QGLPixelBuffer(fWidth, fHeight, _renderer->format(), _renderer);
+		mColorPixelBuffer = new QOpenGLFramebufferObject(QSize(fWidth, fHeight));
 
-		mColorPixelBuffer->makeCurrent();
+		mColorPixelBuffer->bind();
 		_renderer->initOpengl(fBackgroundColor);
 	}
 
-	mColorPixelBuffer->makeCurrent();
+	mColorPixelBuffer->bind();
 	_renderer->glViewport(0, 0, fWidth, fHeight);
 	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -101,6 +101,8 @@ std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight, QVector3D f
 	_renderer->glFlush();
 
 	std::unique_ptr<QImage> _image(new QImage(mColorPixelBuffer->toImage()));
+
+
 	return _image;
 }
 
