@@ -3,6 +3,7 @@
 void main() {
 	float ndcDepth = (2.0 * gl_FragCoord.z - gl_DepthRange.near - gl_DepthRange.far) / (gl_DepthRange.far - gl_DepthRange.near);
 	float clipDepth = ndcDepth / gl_FragCoord.w;
-	 
-	gl_FragData[0] = vec4(clipDepth*0.08); 
+	clipDepth = clipDepth*0.08;
+	
+	gl_FragColor = vec4(clipDepth, clipDepth, clipDepth, 1); 
 }
