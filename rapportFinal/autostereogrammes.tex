@@ -11,12 +11,6 @@ algo cherchés, trouvés, implémentés
 
   Les résultats obtenus sont cependant assez peu satisfaisants pour la représentation d'objets complexes : l'image est assez plate, et l'objet en relief est fait de paliers superposés plutôt que d'avoir une surface lisse. De ce fait, représenter des détails ou des courbes est ardu. L'utilisation de textures peut permettre d'atténuer certains défauts visuels, mais pas de les effacer totalement.
 
-  \begin{center}
-    \includegraphics{autostereogramme1texture.png}
-    \label{img:algo1texture}
-    \caption{La même image qu'en \ref{img:algo1random}}
-  \end{center}
-  
   \subsubsection{Algorithme de W. A. Steer}
   
   L'algorithme de W. A. Steer a été choisi à cause des nombreuses améliorations qu'il apporte par rapport à l'algorithme précédent. En effet, il utilise une méthode de suréchantillonnage de l'image : dans une première étape, un autostéréogramme $n$ fois plus large que l'image de base est construit puis les pixels sont fusionnés par groupes de $n$. Ces étapes permettent d'améliorer la résolution en profondeur de l'autostéréogramme.
