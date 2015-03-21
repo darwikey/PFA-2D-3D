@@ -42,6 +42,8 @@ public:
     QAction *actionNouveau;
     QAction *actionEnregistrer;
     QAction *actionEnregistrer_sous;
+    QAction * actionUndo;
+
     QAction *actionDepuis_la_bibliotheque;
     QAction *actionDepuis_le_disque_dur;
 	QAction* action_changer_couleur;
@@ -95,10 +97,15 @@ public:
 		}
         
         MainWindow->resize(res_x, res_y);
+
+        QCommonStyle* windowStyle = new QCommonStyle;
+
+
         actionOuvrir = new QAction(MainWindow);
         actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
         actionOuvrir->setMenuRole(QAction::ApplicationSpecificRole);
         actionOuvrir->setShortcut(QKeySequence::Open);
+        actionOuvrir->setIcon(windowStyle->standardIcon(QStyle::SP_DialogOpenButton));
         
         actionQuitter = new QAction(MainWindow);
         actionQuitter->setObjectName(QStringLiteral("actionQuitter"));
@@ -107,15 +114,24 @@ public:
         actionNouveau = new QAction(MainWindow);
         actionNouveau->setObjectName(QStringLiteral("actionNouveau"));
         actionNouveau->setShortcut(QKeySequence::New);
+        QIcon icon_new;
+        icon_new.addFile(QStringLiteral("resources/icones/icone_nouveau.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionNouveau->setIcon(icon_new);
         
         actionEnregistrer = new QAction(MainWindow);
         actionEnregistrer->setObjectName(QStringLiteral("actionEnregistrer"));
         actionEnregistrer->setShortcut(QKeySequence::Save);
+        actionEnregistrer->setIcon(windowStyle->standardIcon(QStyle::SP_DialogSaveButton));
         
         actionEnregistrer_sous = new QAction(MainWindow);
         actionEnregistrer_sous->setObjectName(QStringLiteral("actionEnregistrer_sous"));
         actionEnregistrer_sous->setShortcut(QKeySequence::SaveAs);
         
+        actionUndo = new QAction(MainWindow);
+        actionUndo->setObjectName(QStringLiteral("actionUndo"));
+        actionUndo->setShortcut(QKeySequence::Undo);
+        actionUndo->setIcon(windowStyle->standardIcon(QStyle::SP_FileDialogBack));
+
         actionDepuis_la_bibliotheque = new QAction(MainWindow);
         actionDepuis_la_bibliotheque->setObjectName(QStringLiteral("actionDepuis_la_bibliotheque"));
         
@@ -135,6 +151,9 @@ public:
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
         actionEffectuer_un_rendu->setShortcut(settings.value("Shortcuts/render",QKeySequence("P")).value<QKeySequence>());
+        QIcon icon_color;
+        icon_color.addFile(QStringLiteral("resources/icones/base_donut.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionEffectuer_un_rendu->setIcon(icon_color);
         
         actionInverser_les_positions_des_fen_tres = new QAction(MainWindow);
         actionInverser_les_positions_des_fen_tres->setObjectName(QStringLiteral("actionInverser_les_positions_des_fen_tres"));
@@ -150,6 +169,9 @@ public:
         actionAuto_st_r_ogrammes = new QAction(MainWindow);
         actionAuto_st_r_ogrammes->setObjectName(QStringLiteral("actionAuto_st_r_ogrammes"));
         actionAuto_st_r_ogrammes->setShortcut(settings.value("Shortcuts/autostereogramme",QKeySequence("U")).value<QKeySequence>());
+        QIcon icon_auto;
+        icon_auto.addFile(QStringLiteral("resources/icones/icone_autostereogramme.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAuto_st_r_ogrammes->setIcon(icon_auto);
         
         actionFlipbook = new QAction(MainWindow);
         actionFlipbook->setObjectName(QStringLiteral("actionFlipbook"));
@@ -250,16 +272,27 @@ public:
         menuOutils->addAction(actionAuto_st_r_ogrammes);
         menuOutils->addAction(actionFlipbook);
         menuFen_tre->addAction(actionInverser_les_positions_des_fen_tres);
+        toolBar->addAction(actionNouveau);
+        toolBar->addAction(actionOuvrir);
+        toolBar->addAction(actionEnregistrer);
+        toolBar->addSeparator();
+        toolBar->addAction(actionUndo);
+        toolBar->addSeparator();
         toolBar->addAction(actionTranslate);
         toolBar->addAction(actionRotate);
         toolBar->addAction(actionScale);
+        toolBar->addSeparator();
+        toolBar->addAction(actionEffectuer_un_rendu);
         toolBar->addAction(actionAnaglyphes);
+        toolBar->addAction(actionAuto_st_r_ogrammes);
         toolBar->addAction(actionFlipbook);
         listView->addAction(deleteObject);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
         QObject::connect(actionNouveau, SIGNAL(triggered()), MainWindow, SLOT(newscene()));
+        QObject::connect(actionUndo, SIGNAL(triggered()), MainWindow, SLOT(revertPreviousAction()));
+
         QObject::connect(actionDepuis_le_disque_dur, SIGNAL(triggered()), MainWindow, SLOT(openfile()));
         QObject::connect(actionDepuis_la_bibliotheque, SIGNAL(triggered()), MainWindow, SLOT(openlibfile()));
         QObject::connect(actionOuvrir, SIGNAL(triggered()), MainWindow, SLOT(open()));	
@@ -301,6 +334,7 @@ public:
         actionNouveau->setText(QApplication::translate("MainWindow", "Nouveau", 0));
         actionEnregistrer->setText(QApplication::translate("MainWindow", "Enregistrer", 0));
         actionEnregistrer_sous->setText(QApplication::translate("MainWindow", "Enregistrer sous", 0));
+        actionUndo->setText(QApplication::translate("MainWindow", "Annuler la derniere action", 0));
         actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "depuis la bibliotheque", 0));
         actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "depuis le disque dur", 0));
 		action_changer_couleur->setText(QApplication::translate("MainWindow", "Couleur de l'objet", 0));
