@@ -3,13 +3,13 @@
 La partie Réalisation de ce projet se sera étalée sur les mois de Décembre, Janvier, Février et Mars. Grâce à la réflexion effectuée durant la phase de rédaction du cahier des charges, nous avons pu aborder notre projet avec une idée claire des priorités.
 
 \paragraph{}
-La partie réalisation des algorithmes était très importante pour nos clients, c'est pourquoi nous avons dès le début de la réalisation mis en place deux équipes de deux personnes pour les deux algorithmes principaux : les anaglyphes et les autostéréogrammes. Les folioscopes quand à eux ne demandaient pas d'algorithme particulier de réalisation, si ce n'est la manipulation de la caméra vis à vis de la scène qui allait être mise en place grâce à la troisième équipe.
+La partie Algorithmique était primordiale pour nos clients, c'est pourquoi nous avons dès le début de la réalisation mis en place deux équipes de deux personnes pour les deux algorithmes principaux : les anaglyphes et les autostéréogrammes. Les folioscopes quand à eux ne demandaient pas d'algorithme particulier de réalisation, si ce n'est la manipulation de la caméra vis à vis de la scène qui allait être mise en place grâce à la troisième équipe.
 
 \paragraph{}
 En effet, notre troisième équipe, constituée des trois derniers membres, a pu continuer de travailler sur le prototype généré lors de la phase du cahier des charges. Il a ainsi été amélioré pour mettre en place les parseurs de fichiers qui allaient être nécessaires pour la génération des objets de la scène, et améliorer la manipulation de la scène.
 
 \paragraph{}
-Malheureusement, l'implémenation des algorithmes s'est révélée plus longue que nous l'avions initialement prévue. En effet, cette partie étant l'une des plus importantes pour nos clients, nous avons eu besoin d'aller plus loin que ce que nous avions envisagé dans un premier temps. Il a également fallu que nous fassions davantage de recherches pour compléter celles qui avaient été effectuées pour la rédaction du cahier des charges. De plus amples explications seront données dans la partie Difficultés rencontrées de ce rapport. 
+Malheureusement, l'implémentation des algorithmes s'est révélée plus longue que nous l'avions initialement prévue. En effet, cette partie étant l'une des plus importantes pour nos clients, nous avons eu besoin d'aller plus loin que ce que nous avions envisagé dans un premier temps. Il a également fallu que nous fassions davantage de recherches pour compléter celles qui avaient été effectuées pour la rédaction du cahier des charges. De plus amples explications seront données dans la partie Difficultés rencontrées de ce rapport. 
 Au final, l'implémentation des algorithmes Anaglyphe et Autostéréogramme aura duré environ deux mois et demi au lieu du mois initialement prévu, avant de pouvoir les intégrer au reste du projet.
 
 \paragraph{}
@@ -83,6 +83,44 @@ L'utilisation du module QtXMl aura toutefois posé problème avec l'utilisation 
 
 \subsubsection{Architecture finale du projet}
 \paragraph{}
-L'architecture prévisionnelle de notre projet n'aura que peu été modifiée au fil de notre projet.
+L'architecture prévisionnelle de notre projet n'aura que peu été modifiée au fil de notre projet. La structure principale du projet est resté la même, avec les différents paquetages initialement prévus, mais comme le montre la figure \ref{fig:archi}, le Chargeur n'est plus le point d'entrée du paquetage Scene.
 
-[...]
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{diag_packages.jpg}
+%                \includegraphics[scale=0.27]{proto_m60_linux.png}
+		\caption{\label{fig:archi} Comparaison du diagramme des paquetages au début et en fin de projet \protect \footnotemark}
+\end{figure}
+\footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
+
+
+Le paquetage Création tel que présenté dans la figure \ref{fig:creation} n'a pas connu de modifications particulières. En effet, les dépendances entre les différentes classes étaient très importantes pour l'extensibilité du logiciel. Toutefois, de nouvelles classes ont été ajoutées, pour permettre la création des images et des folioscopes.
+
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{package_creation.jpg}
+%                \includegraphics[scale=0.27]{proto_m60_linux.png}
+		\caption{\label{fig:creation} Comparaison du paquetage Creation au début et en fin de projet \protect \footnotemark}
+\end{figure}
+\footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
+
+
+Le paquetage Interface contient les classes permettant la génération des fenêtres du logiciel. Le logiciel QtCreator aura été utilisé pour aider à la génération des ces fichiers sources. L'architecture finale du paquetage est donné dans la figure \ref{fig:interface}.
+
+
+\begin{figure}[h]
+		\centering
+%		\includegraphics[scale=0.26]{package_creation.jpg}
+		\caption{\label{fig:interface} Architecture du paquetage Interface en fin de projet \protect \footnotemark}
+\end{figure}
+\footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
+
+Le paquetage Scène a toutefois été modifié. Si nous avions initialement prévu que ce soit le Loader qui se charge de créer la scène et les objets qui s'y trouvent, c'est finalement la classe Scene en elle-même qui est devenue le point d'entrée du paquetage Scène. Elle se charge ensuite de transférer les informations nécessaires au Loader pour qu'il se charge de charger les objets. Le paquetage final de la Scene est présenté dans la figure \ref{fig:scene}.
+
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{paquetage_scene.jpg}
+%                \includegraphics[scale=0.27]{proto_m60_linux.png}
+		\caption{\label{fig:scene} Comparaison du paquetage Scene au début et en fin de projet \protect \footnotemark}
+\end{figure}
+\footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
