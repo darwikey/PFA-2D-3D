@@ -29,7 +29,7 @@
 \usepackage{xcolor}
 \usepackage{enumitem}
 \renewcommand\descriptionlabel[1]{\textbf{#1 :}}
-\usepackage[final]{pdfpages}
+\usepackage{rotating}
 
 %%% Custom sectioning
 %\usepackage{sectsty}
@@ -125,29 +125,34 @@
   \subsection{Présentation des rendus souhaités}
   Nous présenterons dans cette partie les trois rendus que nos clients nous ont demandé d'implémenter dans notre logiciel : les autostéréogrammes, les folioscopes ou flipbooks, et les anaglyphes.
   \input{rendus.tex}
-  \newpage
-
-  \section{Cahier des charges}
-  Nous reviendrons dans cette partie sur la création du cahier des charges et les recherches qui ont été effectuées pour les algorithmes des rendus présentés dans la partie ci-dessus.
   \subsection{Résumé du cahier des charges}
   \input{cdc.tex}
-  \subsection{Rendu 2D}
-  \input{rendu2D.tex}
-  \subsection{Anaglyphes}
-  \input{anaglyphes.tex}
-  \subsection{Autostéréogrammes}
-  \input{autostereogrammes.tex}
+  \newpage
+
+
+  \section{Déroulement de la réalisation technique}
+  Nous présenterons dans cette partie les choix faits pour la réalisation du logiciel concernant le langage, les bibliothèques et les algorithmes des rendus, et nous détaillerons les étapes de la réalisation
   \subsection{Choix de programmation}
   \input{choix.tex}
-  \newpage
-  
-  \section{Déroulement de la réalisation}
-  \subsection{Diagramme de Gantt prévisionnel}
-  \input{gant_p.tex}
+  \subsection{Choix des algorithmes d'anaglyphes}
+  \input{anaglyphes.tex}
+  \subsection{Choix des algorithmes d'autostéréogrammes}
+  \input{autostereogrammes.tex}  
   \subsection{Réalisation du projet}
   \input{prog.tex}
   \subsection{Difficultés rencontrées}
   \input{difficultes.tex}
+  \newpage
+
+  \section{Retour sur la gestion de projet}
+  Dans cette partie, nous reviendrons plus en détails sur la partie gestion de projet de notre PFA, depuis sa préparation avec le cahier des charges jusqu'à sa réalisation.
+  \subsection{Cahier des charges}
+  acquis grâce au cahier des charges
+  apprentissage de la rédaction / mise en forme
+  compréhension du but
+  objectifs fixés
+  \subsection{Diagramme de Gantt prévisionnel}
+  \input{gant_p.tex}
   \subsection{Bilan final}
   \input{bilan.tex}
   \newpage

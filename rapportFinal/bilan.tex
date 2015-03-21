@@ -1,10 +1,23 @@
 \paragraph{}
 Comme nous l'avons expliqué dans la partie Réalisation, le diagramme de Gantt a dû être remanié au fil de l'avancement du projet car certaines tâches, plus faciles que prévues, ont été anticipées alors que d'autres, posant plus de problèmes, ont été allongées.
-Le diagramme de Gantt final est donné page suivante et peut être comparé au diagramme fourni dans la [FIGURE].
+Le diagramme de Gantt final est donné page suivante et peut être comparé au diagramme fourni dans les figures \ref{fig:gantGraphF} et \ref{fig:gantF}.
 
 \newpage
-\includepdf[turn=false]{gantf.pdf}
-\newpage
+\begin{figure}[h]
+	\centering
+        \begin{sideways}
+                \includegraphics[scale=0.42]{graphGantF.jpg}
+        \end{sideways}
+	\caption{\label{fig:graphGantF} Graphe temporel du déroulement du projet \protect \footnotemark }
+\end{figure}
+\footnotetext{Réalisé grâce au logiciel GanttProject : http://www.ganttproject.biz/}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{gantf.pdf}
+	\caption{\label{fig:gantF} Récapitulatif des tâches et des périodes par tâche \protect \footnotemark }
+\end{figure}
+\footnotetext{Réalisé grâce au logiciel GanttProject : http://www.ganttproject.biz/}
 
 \paragraph{}
 La principale modification consiste ainsi en l'allongement de la période destinée à la recherche d'algorithmes pour les rendus et à leur implémentation. Les raisons de cette différence ont été expliquées dans la partie Difficultés rencontrées ci-dessus.
@@ -18,7 +31,8 @@ Au final, l'ensemble des manipulations de la scène et de ses objets qui avaient
 Au niveau des besoins non fonctionnels, la portabilité aura été respectée malgré l'utilisation des shaders qui auraient pu poser problème sur certaines machines. Grâce aux nombreux modules proposés par la bibliothèque Qt, portable et très complète, des solutions auront été trouvées pour l'ensemble des modules et des cas d'utilisation sans avoir à sacrifier de fonctionnalité pour permettre l'utilisation du logiciel aussi bien sous Windows que sous Linux.
 
 \paragraph{}
-Bien que l'indication ne soit pas donnée dans le logiciel, l'utilisation de [NOM DU LOGICIEL] en parallèle de l'utilisation du logiciel nous a permis de vérifier la fluidité du logiciel. Grâce notamment au modèle 'happy.ply' présenté dans le cahier des charges, les valeurs de frames par seconde données dans le cahier des charges ont été validées.
+Bien que l'indication ne soit pas donnée dans le logiciel, l'utilisation de Project3Donuts en parallèle de l'utilisation du logiciel nous a permis de vérifier la fluidité du logiciel. Grâce notamment au modèle 'happy.ply' présenté dans le cahier des charges, les valeurs de frames par seconde données dans le cahier des charges ont été validées.
+
 [Redonner les valeurs]
 [Vérifier sur plusieurs machines]
 
