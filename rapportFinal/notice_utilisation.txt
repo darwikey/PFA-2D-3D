@@ -1,0 +1,17 @@
+NOTICE D'UTILISATION DU LOGICIEL PROJECT3DONUTS
+_______________________________________________
+
+Le logiciel Project3Donuts est un logiciel de synthèse d'images permettant la visualisation d'une scène en trois dimensions et la génération de photographies, d'anaglyphes, d'autostéréogrammes et de folioscopes à partir d'elle.
+
+Au démarrage du logiciel, une scène vide est créée. Si l'utilisateur le souhaite, il peut choisir d'ouvrir une scène déjà existante 
+
+//Scène vide au démarrage
+//Ouverture d'une scène
+//Ajout d'objets
+//Manipulation des objets
+//Manipulation de la scène
+//Les rendus
+//Photographie
+//Anaglyphes
+//Autostéréogrammes
+//Folioscopes
