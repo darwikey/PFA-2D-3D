@@ -164,7 +164,7 @@ void Object::loadShader(SceneRenderer* fRenderer, Object::Shader fShader, QStrin
 	}
 	_shader->link();
 
-	if (fShader >= mShaders.size()){
+	if (fShader >= (int)mShaders.size()){
 		mShaders.resize(fShader + 1);
 	}
 

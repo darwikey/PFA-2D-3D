@@ -86,7 +86,7 @@ namespace CreationTools{
 		QVector3D _rgbSE = getPixel(_coord + QVector2D(0.5f, 0.5f), fImage);
 		QVector3D _rgbM = getPixel(_coord, fImage);
 
-		const QVector3D _luma(0.299, 0.587, 0.114);
+		const QVector3D _luma(0.299f, 0.587f, 0.114f);
 		float _lumaNW = QVector3D::dotProduct(_rgbNW, _luma);
 		float _lumaNE = QVector3D::dotProduct(_rgbNE, _luma);
 		float _lumaSW = QVector3D::dotProduct(_rgbSW, _luma);
@@ -108,8 +108,8 @@ namespace CreationTools{
 		_dir = QVector2D(std::max(std::min(8.f, _dir.x()), -8.f), std::max(std::min(8.f, _dir.y()), -8.f));
 
 
-		QVector2D _pos1 = _coord + _dir * (1.0 / 3.0 - 0.5);
-		QVector2D _pos2 = _coord + _dir * (2.0 / 3.0 - 0.5);
+		QVector2D _pos1 = _coord + _dir * (1.f / 3.f - 0.5f);
+		QVector2D _pos2 = _coord + _dir * (2.f / 3.f - 0.5f);
 		QVector3D _rgbA = (getPixel(_pos1, fImage) + getPixel(_pos2, fImage)) / 2.f;
 
 		_pos1 = _coord + _dir * (0.0 / 3.0 - 0.5);
