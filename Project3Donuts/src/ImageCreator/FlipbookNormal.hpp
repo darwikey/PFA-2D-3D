@@ -27,14 +27,17 @@ private:
 	QSlider* mZoomSpeedSlider = nullptr;
 	QLabel* mFrameNumberLabel = nullptr;
 	QSpinBox* mFrameNumberBox = nullptr;
+	QLabel* mFramePerSecondLabel = nullptr;
+	QSpinBox* mFramePerSecondBox = nullptr;
+	QCheckBox* mSeparateImageBox = nullptr;
 
 	bool mIsGrey = false;
-
 	float mHorizontalSpeed = 0.f;
 	float mVerticalSpeed = 0.f;
 	float mZoomSpeed = 0.f;
 	int mFrameNumber = 10;
-
+	int mFramePerSecond = 5;
+	bool mIsSeparateImage = false;
 
 private slots:
 	void setGrey(int fIsGrey);
@@ -46,6 +49,10 @@ private slots:
 	void changeZoomSpeed(int fSpeed);
 
 	void changeFrameNumber(int fValue);
+
+	void changeFramePerSecond(int fValue);
+
+	void setSeparateImage(int fValue);
 };
 
 #endif

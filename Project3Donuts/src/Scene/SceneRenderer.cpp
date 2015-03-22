@@ -11,47 +11,46 @@ SceneRenderer::SceneRenderer(QWidget *fParent):MyGLWidget(60, fParent, "Render W
 
 void SceneRenderer::initializeGL(){
     QSettings settings("settings.ini", QSettings::IniFormat);
-    makeCurrent();
+	QColor _colorRGB = settings.value("Viewer/background_color", QColor(0, 0, 102)).value<QColor>();
+	setBackgroundColor(_colorRGB);
+
+	makeCurrent();
     initializeOpenGLFunctions();
 
-    QColor _colorRGB = settings.value("Viewer/background_color",QColor(0,0,102)).value<QColor>();
-    QVector3D _color(_colorRGB.red(), _colorRGB.green(), _colorRGB.blue());
-    initOpengl(_color/255.f);
-
-	/*GLint dims[2];
-	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, &dims[0]);
-	int _MaxTexSize = 0;
-	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &_MaxTexSize);
-	int _MaxRenderBufferSize = 0;
-	glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &_MaxRenderBufferSize);
-	std::cout << "dims  " << dims[0] << " " << dims[1] << "tex " << _MaxTexSize << " render " << _MaxRenderBufferSize << std::endl;*/
+    initOpengl();
 
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, context()->device()->width() * retinaScale, context()->device()->height() * retinaScale);
 }
 
 
-void SceneRenderer::initOpengl(QVector3D fColor){
-	glClearColor(fColor.x(), fColor.y(), fColor.z(), 1.f);
-
+void SceneRenderer::initOpengl(){
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_DEPTH_CLAMP);
 	glCullFace(GL_BACK);
-
 }
 
 
 void SceneRenderer::resizeGL(int fWidth, int fHeight){
     if(fHeight == 0)
         fHeight = 1;
-    glViewport(0, 0, fWidth, fHeight);
+	mScreenWidth = fWidth;
+	mScreenHeight = fHeight;
 }
+
 
 void SceneRenderer::paintGL() {
 
 	this->makeCurrent();
+
+	// Viewport
+	glViewport(0, 0, mScreenWidth, mScreenHeight);
+
+	// BackgroundColor
+	changeBackground(mBackGroundColor);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Object::switchShader(Object::Shader::STANDARD_SHADING);
 
@@ -111,9 +110,20 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 
 }
 
-void SceneRenderer::ChangeBackground(QColor fColor)
-{
+
+void SceneRenderer::changeBackground(QColor fColor){
     QVector3D _color(fColor.red(), fColor.green(), fColor.blue());
     _color = _color/ 255.f;
     glClearColor(_color.x(), _color.y(), _color.z(), 1.f);
+}
+
+
+void SceneRenderer::changeBackground(QVector3D fColor){
+	glClearColor(fColor.x(), fColor.y(), fColor.z(), 1.f);
+}
+
+
+void SceneRenderer::setBackgroundColor(QColor fColor){
+	mBackGroundColor = QVector3D(fColor.red(), fColor.green(), fColor.blue());
+	mBackGroundColor /= 255.f;
 }

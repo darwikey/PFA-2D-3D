@@ -24,11 +24,7 @@ MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
         connect(mTimer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));
         mTimer->start( timerInterval );
     }
-    mUndo = new QAction(this);
-    mUndo->setObjectName(QStringLiteral("undo"));
-    mUndo->setShortcut(QKeySequence::Undo);
-    addAction(mUndo);
-    QObject::connect(mUndo, SIGNAL(triggered()), this, SLOT(revertPreviousAction()));
+
 }
 
 MyGLWidget::~MyGLWidget(){
@@ -38,12 +34,6 @@ MyGLWidget::~MyGLWidget(){
 void MyGLWidget::timeOutSlot()
 {
 
-}
-
-void MyGLWidget::revertPreviousAction()
-{
-    Scene::getScene()->revertPreviousAction();
-    update();
 }
 
 //mouse Press Event
@@ -106,32 +96,36 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
     int ret;
     switch( fEvent->key() )
     {
-        case Qt::Key_Escape:
+    case Qt::Key_Escape:
         ret = QMessageBox::question(this, tr("Project3Donut"),
                                        tr("Etes vous sûr de vouloir quitter ?\n"),
                                        QMessageBox::Yes | QMessageBox::No);
         if (ret == QMessageBox::Yes) {
             exit(0);
         }
-
-            break;
-    case Qt::Key_Z:
-        //Scene::getScene()->revertPreviousAction();
         break;
-		case Qt::Key_Plus:
-			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, 0.1f);
-			break;
 
-		case Qt::Key_Minus:
-			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
-			break;
+	case Qt::Key_Z:
+		{
+			auto i = Scene::getScene()->getCamera()->getDepthMap(1000, 1000);
+			i->save("plop.png");
+		}
+        break;
 
-		case Qt::Key_Delete:
-			Scene::getScene()->deleteSelectedObject();
-			break;
+	case Qt::Key_Plus:
+		Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, 0.1f);
+		break;
 
-        default:
-            QGLWidget::keyPressEvent( fEvent );
+	case Qt::Key_Minus:
+		Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
+		break;
+
+	case Qt::Key_Delete:
+		Scene::getScene()->deleteSelectedObject();
+		break;
+
+    default:
+        QGLWidget::keyPressEvent( fEvent );
     }
     update();
 }

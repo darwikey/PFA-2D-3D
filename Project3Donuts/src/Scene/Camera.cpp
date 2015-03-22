@@ -83,15 +83,19 @@ void Camera::repositionCamera(float fBoundingSphereRadius){
 std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight, QVector3D fBackgroundColor){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
+	// create the FBO
 	if (mColorPixelBuffer == nullptr){
-		mColorPixelBuffer = new QGLPixelBuffer(fWidth, fHeight, _renderer->format(), _renderer);
+		mColorPixelBuffer = new QOpenGLFramebufferObject(fWidth, fHeight, QOpenGLFramebufferObject::Depth);
 
-		mColorPixelBuffer->makeCurrent();
-		_renderer->initOpengl(fBackgroundColor);
+		mColorPixelBuffer->bind();
+		_renderer->initOpengl();
 	}
 
-	mColorPixelBuffer->makeCurrent();
+	mColorPixelBuffer->bind();
+	
+	// Opengl configuration
 	_renderer->glViewport(0, 0, fWidth, fHeight);
+	_renderer->changeBackground(fBackgroundColor);
 	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Object::switchShader(Object::Shader::COLORMAP);
@@ -101,6 +105,9 @@ std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight, QVector3D f
 	_renderer->glFlush();
 
 	std::unique_ptr<QImage> _image(new QImage(mColorPixelBuffer->toImage()));
+
+	mColorPixelBuffer->release();
+
 	return _image;
 }
 
@@ -108,15 +115,19 @@ std::unique_ptr<QImage> Camera::getColorMap(int fWidth, int fHeight, QVector3D f
 std::unique_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 	SceneRenderer* _renderer = Scene::getScene()->getSceneRenderer();
 
+	// Create the FBO
 	if (mDepthPixelBuffer == nullptr){
-		mDepthPixelBuffer = new QGLPixelBuffer(fWidth, fHeight, _renderer->format(), _renderer);
+		mDepthPixelBuffer = new QOpenGLFramebufferObject(fWidth, fHeight, QOpenGLFramebufferObject::Depth);
 
-		mDepthPixelBuffer->makeCurrent();
-		_renderer->glViewport(0, 0, fWidth, fHeight);
-		_renderer->initOpengl(QVector3D(1.f, 1.f, 1.f));
+		mDepthPixelBuffer->bind();
+		_renderer->initOpengl();
 	}
 
-	mDepthPixelBuffer->makeCurrent();
+	mDepthPixelBuffer->bind();
+
+	// Opengl configuration
+	_renderer->glViewport(0, 0, fWidth, fHeight);
+	_renderer->changeBackground(QVector3D(1.f, 1.f, 1.f));
 	_renderer->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Object::switchShader(Object::Shader::DEPTHMAP);
@@ -125,6 +136,9 @@ std::unique_ptr<QImage> Camera::getDepthMap(int fWidth, int fHeight){
 	_renderer->glFlush();
 	
 	std::unique_ptr<QImage> _image(new QImage(mDepthPixelBuffer->toImage()));
+	
+	mDepthPixelBuffer->release();
+
 	return _image;
 }
 

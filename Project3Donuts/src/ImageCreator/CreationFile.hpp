@@ -8,12 +8,13 @@
 class CreationFile{
 public:
 	enum class Type{
-		IMAGE, ANIMATED_GIF
+		IMAGE, ANIMATED_GIF, SEPARATED_IMAGE
 	};
 
 	//! \brief Constructor
 	//! \param the type of image that the class will contain
-	CreationFile(Type fType);
+	//! \param fDelayBetwwenFrame the time between frames in hundredths of a second 
+	CreationFile(Type fType, float fDelayBetweenFrame = 50.f);
 
 	~CreationFile();
 
@@ -36,6 +37,8 @@ private:
 	std::vector<QImage*> mImages;
 
 	Type mType;
+	// in hundredths of a second 
+	float mDelayBetweenFrame;
 
 };
 

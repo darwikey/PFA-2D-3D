@@ -66,8 +66,8 @@ private:
 	QMatrix4x4 mViewMatrix;
 	QMatrix4x4 mProjectionMatrix;
 
-	QGLPixelBuffer* mColorPixelBuffer = nullptr;
-	QGLPixelBuffer* mDepthPixelBuffer = nullptr;
+	QOpenGLFramebufferObject* mColorPixelBuffer = nullptr;
+	QOpenGLFramebufferObject* mDepthPixelBuffer = nullptr;
 };
 
 #endif

@@ -2,7 +2,7 @@
 #include "GifWriter.hpp"
 
 
-CreationFile::CreationFile(Type fType) : mType(fType){
+CreationFile::CreationFile(Type fType, float fDelayBetweenFrame) : mType(fType), mDelayBetweenFrame(fDelayBetweenFrame){
 
 }
 
@@ -37,7 +37,7 @@ void CreationFile::save(const QString& fFileName){
 		{
 			if (!mImages.empty()){
 				GifWriter _gif;
-				_gif.GifBegin(fFileName.toStdString().c_str(), mImages.front()->width(), mImages.front()->height(), 50);
+				_gif.GifBegin(fFileName.toStdString().c_str(), mImages.front()->width(), mImages.front()->height(), (int)mDelayBetweenFrame);
 
 				for (auto _im = mImages.begin(); _im != mImages.end(); ++_im){
 					_gif.GifWriteFrame(*_im);
@@ -47,6 +47,24 @@ void CreationFile::save(const QString& fFileName){
 			}
 		}
 		break;
+
+	case Type::SEPARATED_IMAGE:
+		{
+			std::string _filename = fFileName.toStdString();
+
+			int _dot = _filename.find_last_of('.');
+			if (_dot != std::string::npos){
+				_filename = _filename.substr(0, _dot);
+			}
+
+			if (!mImages.empty()){
+				int _i = 1;
+				for (auto _im = mImages.begin(); _im != mImages.end(); ++_im){
+					(*_im)->save(QString::fromStdString(_filename + std::to_string(_i) + ".png"));
+					_i++;
+				}
+			}
+		}
 
 	default:
 		break;
