@@ -5,11 +5,11 @@
 
 class Object;
 
-// ! \class Loader
-// ! \brief The loader is in charge with parsing XML files for scene initialisation or parsing OBJ and PLY files for objects creation
+//! \class Loader
+//! \brief The loader is in charge with parsing XML files for scene initialisation or parsing OBJ and PLY files for objects creation
 class Loader{
 public:
-	// ! \brief There is only one default constructor for Loader which will initialize what we potentially need for using it
+	//! \brief There is only one default constructor for Loader which will initialize what we potentially need for using it
 	Loader();
     ~Loader();
 	//! \brief Loader can create a new scene from nothing
