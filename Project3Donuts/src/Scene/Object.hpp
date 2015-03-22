@@ -12,6 +12,7 @@ class SceneRenderer;
 //! \class Object
 //! \brief definition of objects that will be placed in the scene
 class Object {
+	friend class Mesh;
 public:
 
 	enum Shader{

@@ -3,6 +3,7 @@
 #include "ObjLoader.hpp"
 #include "PlyLoader.hpp"
 #include "Scene.hpp"
+#include "Mesh.hpp"
 
 
 Loader::Loader(){
@@ -66,6 +67,11 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 		QMessageBox::critical(0, "Error", "Error Opening File, extension \"" + QString(_ext.c_str()) + "\" not supported");
 		return nullptr;
 	}
+
+	Mesh _mesh(_object);
+	_mesh.polygonReduction(8000);
+	Object* _newObject = _mesh.convertToModel();
+	_object = _newObject;
 
 	_object->computeColors();
 	_object->normalizeData();
