@@ -48,7 +48,7 @@ Au final, le travail sur les algorithmes aura été très enrichissant car il au
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.3]{rendu.png}
+	\includegraphics[scale=0.4]{rendu.png}
 	\caption{\label{fig:screenRendu} Obtention d'un anaglyphe dans le logiciel \protect}
 \end{figure}
 
@@ -69,7 +69,7 @@ La fenêtre principale du logiciel est montrée dans la figure \ref{fig:screenSc
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.3]{Scene.png}
+	\includegraphics[scale=0.4]{Scene.png}
 	\caption{\label{fig:screenScene} Visualisation de la scène dans le logiciel \protect}
 \end{figure}
 
@@ -98,9 +98,8 @@ L'architecture prévisionnelle de notre projet n'aura que peu été modifiée au
 
 \begin{figure}[h]
 		\centering
-		\includegraphics[scale=0.4]{diag_packages.jpg}
-%                \includegraphics[scale=0.27]{proto_m60_linux.png}
-		\caption{\label{fig:archi} Comparaison du diagramme des paquetages au début et en fin de projet \protect \footnotemark}
+                \includegraphics[scale=0.5]{paquetages.png}
+		\caption{\label{fig:archi} Diagramme des paquetages en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
 
@@ -109,29 +108,19 @@ Le paquetage Création tel que présenté dans la figure \ref{fig:creation} n'a 
 
 \begin{figure}[h]
 		\centering
-		\includegraphics[scale=0.4]{package_creation.jpg}
-%                \includegraphics[scale=0.27]{proto_m60_linux.png}
-		\caption{\label{fig:creation} Comparaison du paquetage Creation au début et en fin de projet \protect \footnotemark}
+                \includegraphics[scale=0.5]{f_creation.png}
+		\caption{\label{fig:creation} Paquetage Creation en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
 
 
-Le paquetage Interface contient les classes permettant la génération des fenêtres du logiciel. Le logiciel QtCreator aura été utilisé pour aider à la génération des ces fichiers sources. L'architecture finale du paquetage est donné dans la figure \ref{fig:interface}.
+Le paquetage Interface contient les classes principales permettant la génération des fenêtres du logiciel. Le logiciel QtCreator aura été utilisé pour aider à la génération des ces fichiers sources.
 
-
-\begin{figure}[h]
-		\centering
-%		\includegraphics[scale=0.26]{package_creation.jpg}
-		\caption{\label{fig:interface} Architecture du paquetage Interface en fin de projet \protect \footnotemark}
-\end{figure}
-\footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
-
-Le paquetage Scène a toutefois été modifié. Si nous avions initialement prévu que ce soit le Loader qui se charge de créer la scène et les objets qui s'y trouvent, c'est finalement la classe Scene en elle-même qui est devenue le point d'entrée du paquetage Scène. Elle se charge ensuite de transférer les informations nécessaires au Loader pour qu'il se charge de charger les objets. Le paquetage final de la Scene est présenté dans la figure \ref{fig:scene}.
+Le paquetage Scene a quant à lui été modifié. Si nous avions initialement prévu que ce soit le Loader qui se charge de créer la scène et les objets qui s'y trouvent, c'est finalement la classe Scene en elle-même qui est devenue le point d'entrée du paquetage Scène. Elle se charge ensuite de transférer les informations nécessaires au Loader pour qu'il se charge de charger les objets. Le paquetage final de la Scene est présenté dans la figure \ref{fig:scene}.
 
 \begin{figure}[h]
 		\centering
-		\includegraphics[scale=0.4]{paquetage_scene.jpg}
-%                \includegraphics[scale=0.27]{proto_m60_linux.png}
-		\caption{\label{fig:scene} Comparaison du paquetage Scene au début et en fin de projet \protect \footnotemark}
+                \includegraphics[scale=0.5]{f_scene.png}
+		\caption{\label{fig:scene} Paquetage Scene en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
