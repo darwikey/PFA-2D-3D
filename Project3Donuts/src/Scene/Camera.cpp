@@ -5,6 +5,7 @@
 
 Camera::Camera() : 
 mPosition(0.f, 0.f, 3.f),
+mLookAtPoint(0.f, 0.f, 0.f),
 mRotation(0.f, 0.f, 0.f),
 mAngleOfView(60.f){
 }
@@ -12,7 +13,8 @@ mAngleOfView(60.f){
 Camera::Camera(QVector3D fPosition, QVector3D fRotation, float fAngleOfView) :
 mPosition(fPosition),
 mRotation(fRotation),
-mAngleOfView(fAngleOfView){
+mAngleOfView(fAngleOfView),
+mLookAtPoint(0.f, 0.f, 0.f){
 	computeViewMatrix();
 }
 
@@ -31,16 +33,16 @@ void Camera::moveCamera(float fHorizontalRotation, float fVerticalRotation, floa
 
 	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
 
-	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.length()));
+	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.distanceToPoint(mLookAtPoint)));
 
 	QVector3D _vector = _quat.rotatedVector(QVector3D(-1.f, 0.f, 0.f));
 
 	_quat = QQuaternion::fromAxisAndAngle(_vector, mRotation.y());
 
-	mPosition = _quat.rotatedVector(_point);
+	mPosition = _quat.rotatedVector(_point) + mLookAtPoint;
 
 	//Zoom
-	mPosition *= fZoom;
+	mPosition = (mPosition - mLookAtPoint) * fZoom + mLookAtPoint;
 
 	computeViewMatrix();
 }
@@ -54,19 +56,27 @@ void Camera::moveCameraWithMouse(float fHorizontalAxe, float fVerticalAxe, float
 
 	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
 	
-	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.length()));
+	QVector3D _point = _quat.rotatedVector(QVector3D(0, 0, mPosition.distanceToPoint(mLookAtPoint)));
 
 	QVector3D _vector = _quat.rotatedVector(QVector3D(-1.f, 0.f, 0.f));
 
 	_quat = QQuaternion::fromAxisAndAngle(_vector, mRotation.y());
 	
-	mPosition = _quat.rotatedVector(_point);
+	mPosition = _quat.rotatedVector(_point) + mLookAtPoint;
 
 	//Zoom
 	if (fDepthValue < -0.001f)
-		mPosition *= 1.1f;
+		mPosition = (mPosition - mLookAtPoint) * 1.1f + mLookAtPoint;
 	else if (fDepthValue > 0.001f)
-		mPosition *= 0.9f;
+		mPosition = (mPosition - mLookAtPoint) * 0.9f + mLookAtPoint;
+
+	computeViewMatrix();
+}
+
+
+void Camera::translateCamera(QVector3D fTranslation){
+	mLookAtPoint += fTranslation;
+	mPosition += fTranslation;
 
 	computeViewMatrix();
 }

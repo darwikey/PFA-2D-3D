@@ -30,6 +30,9 @@ public:
 	//! \param params are about directions and values of move in those directions. horizontalAxe is about x value, verticalAxe is about y value and depthValue is about z value.
 	void moveCameraWithMouse(float fHorizontalAxe, float fVerticalAxe, float fDepthValue);
 
+	//! \brief translate the camera and the look at point
+	void translateCamera(QVector3D fTranslation);
+
 	//! \brief move the camera in order to see all the object
 	//! \param the bounding sphere radius of the scene objects
 	void repositionCamera(float fBoundingSphereRadius);
@@ -61,6 +64,7 @@ private:
 	void computeViewMatrix();
 
 	QVector3D mPosition;
+	QVector3D mLookAtPoint;
 	QVector3D mRotation;
 	float mAngleOfView; // in degree
 	QMatrix4x4 mViewMatrix;
