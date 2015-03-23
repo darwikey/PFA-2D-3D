@@ -1,0 +1,119 @@
+% XML Language definition
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset
+{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns, xsd,version,type} % list your attributes here
+}
+%%
+
+\lstset{language=XML}
+\begin{lstlisting}
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<scene>
+	<object name="cube1" src="resources/example/cubeout.ply">
+		<scale>
+			<coordinates>
+				<x>1</x>
+				<y>1</y>
+				<z>1</z>
+			</coordinates>
+		</scale>
+		<translation>
+			<coordinates>
+				<x>0</x>
+				<y>2</y>
+				<z>0</z>
+			</coordinates>
+		</translation>
+		<rotation>
+			<coordinates>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</coordinates>
+		</rotation>
+	</object>
+	<object name="monkey1" src="resources/example/monkey.obj">
+		<scale>
+			<coordinates>
+				<x>1</x>
+				<y>2</y>
+				<z>1</z>
+			</coordinates>
+		</scale>
+		<translation>
+			<coordinates>
+				<x>2</x>
+				<y>0</y>
+				<z>0</z>
+			</coordinates>
+		</translation>
+		<rotation>
+			<coordinates>
+				<x>1</x>
+				<y>0</y>
+				<z>0</z>
+			</coordinates>
+		</rotation>
+	</object>
+	<object name="monkey2" src="resources/example/monkey.obj">
+		<scale>
+			<coordinates>
+				<x>1</x>
+				<y>1</y>
+				<z>1</z>
+			</coordinates>
+		</scale>
+		<translation>
+			<coordinates>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</coordinates>
+		</translation>
+		<rotation>
+			<coordinates>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</coordinates>
+		</rotation>
+	</object>
+	<camera angle="0.000000">
+		<translation>
+			<coordinates>
+				<x>0</x>
+				<y>0</y>
+				<z>7</z>
+			</coordinates>
+		</translation>
+		<rotation>
+			<coordinates>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</coordinates>
+		</rotation>
+	</camera>
+</scene>
+
+\end{lstlisting}

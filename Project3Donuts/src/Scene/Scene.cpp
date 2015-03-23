@@ -319,7 +319,8 @@ void Scene::saveScene(const std::string& fPath) {
 	if (_ext != "xml") {
 		std::cerr << "File must have an XML extension !" << std::endl;
 		QMessageBox::critical(0, "Error", "Error with File Extension...");
-	}
+        return;
+    }
 
 	std::string _data("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 

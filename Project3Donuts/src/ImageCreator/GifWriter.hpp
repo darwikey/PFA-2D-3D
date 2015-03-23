@@ -14,6 +14,9 @@
 class GifWriter {
 
 public:
+	//! \brief Constructor
+	GifWriter() {};
+	
 	//! \brief Creates a gif file.
 	//! \param filename name of the file, should end by .gif
 	//! \param delay the time between frames in hundredths of a second - note that not all viewers pay much attention to this value.

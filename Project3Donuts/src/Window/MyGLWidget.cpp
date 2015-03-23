@@ -66,7 +66,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
     float _dy = (float)(fEvent->y() - mPrevMousePosition.y()) / 7;//viewport_size.height();
 
 
-    if( fEvent->buttons() & Qt::LeftButton ) {
+    if(fEvent->buttons() & Qt::LeftButton) {
 		if (Scene::getScene()->getTransformWidget()->isSelected()) {
 			QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
 			Scene::getScene()->getTransformWidget()->activate(_mouse);
@@ -75,6 +75,9 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 			Scene::getScene()->getCamera()->moveCameraWithMouse(_dx, _dy, 0.f);
 		}
     }
+	else if (fEvent->buttons() & Qt::MiddleButton) {
+		Scene::getScene()->getCamera()->translateCameraWithMouse(_dx, _dy);
+	}
 
     mPrevMousePosition = fEvent->pos();
     update();

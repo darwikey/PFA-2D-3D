@@ -26,7 +26,7 @@ private :
 
 	int round(float fX);
 
-	const float mu = (1. / 3.);
+	const float mu = (1.f / 3.f);
 };
 
 #endif

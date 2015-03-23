@@ -35,10 +35,10 @@ protected:
 	//! \param fHorizontalRotation in degree
 	//! \param fVerticalRotation in degree
 	//! \param fZoom should be > 0, 1 equals no zoom
-	std::unique_ptr<QImage> getColorMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
+	std::unique_ptr<QImage> getColorMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f, QVector3D fTranslation = QVector3D(0.f, 0.f, 0.f));
 
 	//! brief render the scene and return a depath map
-	std::unique_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f);
+	std::unique_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f, QVector3D fTranslation = QVector3D(0.f, 0.f, 0.f));
 
 	//! \brief put a new widget in the interface window
 	void insertNewWidget(QWidget* fWidget);

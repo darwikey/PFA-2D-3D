@@ -1,0 +1,10 @@
+- pbm de figure avec les ref{fig:scene}
+- rédiger notice utilisation
+- rédiger notice installation
+- ajouter screenshot comparaison logiciel avec/sans shaders
+- ajouter tests (screenshot : fluidité avec/sans shaders)
+- maScene.xml en annexe
+- anaglyphe sur sphère pour effet tranche
+- compléter tous les A REDIGER ou les [×××]
+
+RELECTURE TOTALE

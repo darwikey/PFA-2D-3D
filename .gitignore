@@ -154,7 +154,6 @@ Project3Donuts-build/CMakeFiles/Project3Donut.dir/src/ImageCreator/Creation.cpp.
 Project3Donuts-build/colormap.png
 Project3Donuts-build/moc_Creation.cpp
 Project3Donuts-build/resources/shaders/DebugNormal.vertexshader
-*.fragmentshader
 Project3Donuts-build/moc_PhotographNormal.cpp
 Project3Donuts-build/moc_Photograph.cpp
 Project3Donuts-build/moc_Creator.cpp
@@ -164,7 +163,8 @@ Project3Donuts-build/moc_Anaglyph.cpp
 Project3Donuts-build/moc_Settings.cpp
 Project3Donuts-build/moc_AnaglyphAlgorithm1.cpp
 Project3Donuts-build/moc_Autostereogram.cpp
-*.cpp
-*.png
 Project3Donuts-build/settings.ini
 Project3Donuts-build/test.gif
+*.obj
+Project3Donuts-build/flipbook.gif
+*.xml
