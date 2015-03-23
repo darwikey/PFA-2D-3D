@@ -29,6 +29,7 @@
 \usepackage{xcolor}
 \usepackage{enumitem}
 \renewcommand\descriptionlabel[1]{\textbf{#1 :}}
+\usepackage{pdfpages}
 \usepackage{rotating}
 
 %%% Custom sectioning
@@ -135,7 +136,6 @@
 
   Une notice d'installation et une notice d'utilisation de notre logiciel Project3Donuts sont fournies en Annexe de ce rapport.
 
-[LES METTRE EN ANNEXE]
   \subsection{Choix de programmation}
   \input{choix.tex}
   \subsection{Choix des algorithmes d'anaglyphes}
@@ -170,10 +170,24 @@
   \bibliographystyle{plain}
   \bibliography{bibli.bib}
 
-  \newpage
-ANNEXES
-\newpage
-%\includepdf[pages=1-29]{cdc.pdf}
+%  \appendix
+%  \part*{Annexes}
+%  \section{Notice d'installation du logiciel}% \label{annexe:modeles}
+%  %\input{notice_utilisation.t} 
+%  \newpage 
+%  \section{Notice d'utilisation du logiciel}% \label{annexe:modeles}
+%  \input{notice_utilisation.tex} 
+%  \newpage
+%  \section{Exemple de fichier de chargement}
+%  \input{annexe_xml.tex}  
+%  \newpage
+%  \section{Cahier des charges}
+%  \includepdf[pages=1-29]{cdc.pdf}  
+%  \newpage
+  
+
+  
+
 
 \end{changemargin}
 
