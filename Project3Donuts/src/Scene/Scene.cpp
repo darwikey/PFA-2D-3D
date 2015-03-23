@@ -309,6 +309,7 @@ void Scene::clearScene(){
 	mCamera = new Camera();
 
     mName = "";
+    mLoader->stopAutoSave();
 }
 
 
