@@ -3,124 +3,159 @@
 
 
 void Anaglyph::createWindow(bool fHasPreview){
-	Creation::createWindow(fHasPreview);
+  Creation::createWindow(fHasPreview);
 
 
-	// Fill the list of algorithm
-	std::vector<QString> _list = Creator::getCreator()->getListAnaglyph();
+  // Fill the list of algorithm
+  std::vector<QString> _list = Creator::getCreator()->getListAnaglyph();
 
-	int i = 0;
-	for (auto _str : _list)	{
-		mAlgoTypeBox->addItem(_str);
+  int i = 0;
+  for (auto _str : _list)	{
+    mAlgoTypeBox->addItem(_str);
 
-		if (_str == this->metaObject()->className()){
-			mAlgoTypeBox->setCurrentIndex(i);
-		}
+    if (_str == this->metaObject()->className()){
+      mAlgoTypeBox->setCurrentIndex(i);
+    }
 
-		i++;
-	}
+    i++;
+  }
 
-	QObject::connect(mAlgoTypeBox, SIGNAL(currentIndexChanged(int)), Creator::getCreator(), SLOT(launchAnaglyph(int)));
+  QObject::connect(mAlgoTypeBox, SIGNAL(currentIndexChanged(int)), Creator::getCreator(), SLOT(launchAnaglyph(int)));
 
-	mChooseViewLabel = new QLabel("Type de vue :", mWindow);
-	insertNewWidget(mChooseViewLabel);
+  mChooseViewLabel = new QLabel("Type de vue :", mWindow);
+  insertNewWidget(mChooseViewLabel);
 	
-	mChooseView = new QComboBox(mWindow);
-	mChooseView->addItem("Vue compos\303\251e");
-	mChooseView->addItem("Vue gauche");
-	mChooseView->addItem("Vue droite");
-	insertNewWidget(mChooseView);
+  mChooseView = new QComboBox(mWindow);
+  mChooseView->addItem("Vue compos\303\251e");
+  mChooseView->addItem("Vue gauche");
+  mChooseView->addItem("Vue droite");
+  insertNewWidget(mChooseView);
 
-	QObject::connect(mChooseView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeChoosenView(int)));
+  QObject::connect(mChooseView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeChoosenView(int)));
 	
-	// Eyes distance
+  // Eyes distance
 	
-	mHorizontalRotationLabel = new QLabel(QString("Rotation horizontale %1").arg(mHorizontalRotation),
-																				mWindow);
-	insertNewWidget(mHorizontalRotationLabel);
+  mHorizontalRotationLabel = new QLabel(QString("Rotation horizontale %1").arg(mHorizontalRotation),
+                                        mWindow);
+  insertNewWidget(mHorizontalRotationLabel);
 
-	mHorizontalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
-																					mWindow);
-	mHorizontalRotationSlider->setValue(0);
-	mHorizontalRotationSlider->setRange(0,200);
-	insertNewWidget(mHorizontalRotationSlider);
-	QObject::connect(mHorizontalRotationSlider,
-									 SIGNAL(valueChanged(int)),
-									 this,
-									 SLOT(changeHorizontalRotation(int)));
+  mHorizontalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
+                                          mWindow);
+  mHorizontalRotationSlider->setValue(0);
+  mHorizontalRotationSlider->setRange(0,200);
+  insertNewWidget(mHorizontalRotationSlider);
+  QObject::connect(mHorizontalRotationSlider,
+                   SIGNAL(valueChanged(int)),
+                   this,
+                   SLOT(changeHorizontalRotation(int)));
 	
-	mVerticalRotationLabel = new QLabel(QString("Rotation verticale %1").arg(mVerticalRotation),
-																			mWindow);
-	insertNewWidget(mVerticalRotationLabel);
+  mVerticalRotationLabel = new QLabel(QString("Rotation verticale %1").arg(mVerticalRotation),
+                                      mWindow);
+  insertNewWidget(mVerticalRotationLabel);
 
-	mVerticalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
-																				mWindow);
-	mVerticalRotationSlider->setValue(0);
-	mVerticalRotationSlider->setRange(0,200);
-	insertNewWidget(mVerticalRotationSlider);
-	QObject::connect(mVerticalRotationSlider,
-									 SIGNAL(valueChanged(int)),
-									 this,
-									 SLOT(changeVerticalRotation(int)));
+  mVerticalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
+                                        mWindow);
+  mVerticalRotationSlider->setValue(0);
+  mVerticalRotationSlider->setRange(0,200);
+  insertNewWidget(mVerticalRotationSlider);
+  QObject::connect(mVerticalRotationSlider,
+                   SIGNAL(valueChanged(int)),
+                   this,
+                   SLOT(changeVerticalRotation(int)));
+
+  mVerticalRotationLabel = new QLabel(QString("Rotation verticale %1").arg(mVerticalRotation),
+                                      mWindow);
+  insertNewWidget(mVerticalRotationLabel);
+
+  mVerticalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
+                                        mWindow);
+  mVerticalRotationSlider->setValue(0);
+  mVerticalRotationSlider->setRange(0,200);
+  insertNewWidget(mVerticalRotationSlider);
+  QObject::connect(mVerticalRotationSlider,
+                   SIGNAL(valueChanged(int)),
+                   this,
+                   SLOT(changeVerticalRotation(int)));
+
+  mTranslationLabel = new QLabel(QString("Translation %1").arg(mTranslation),
+                                      mWindow);
+  insertNewWidget(mTranslationLabel);
+
+  mTranslationSlider = new QSlider(Qt::Orientation::Horizontal,
+                                        mWindow);
+  mTranslationSlider->setValue(0);
+  mTranslationSlider->setRange(0,2000);
+  insertNewWidget(mTranslationSlider);
+  QObject::connect(mTranslationSlider,
+                   SIGNAL(valueChanged(int)),
+                   this,
+                   SLOT(changeTranslation(int)));
 }
 
 void Anaglyph::changeHorizontalRotation(int fHorizontalRotation){
 
-	mHorizontalRotation = fHorizontalRotation / 10.f;
+  mHorizontalRotation = fHorizontalRotation / 10.f;
 
-	mHorizontalRotationLabel->setText(QString("Rotation horizontal %1").arg(mHorizontalRotation));
+  mHorizontalRotationLabel->setText(QString("Rotation horizontal %1").arg(mHorizontalRotation));
 }
 
 void Anaglyph::changeVerticalRotation(int fVerticalRotation){
 
-	mVerticalRotation = fVerticalRotation / 10.f;
+  mVerticalRotation = fVerticalRotation / 10.f;
 
-	mVerticalRotationLabel->setText(QString("Rotation vertical %1").arg(mVerticalRotation));
+  mVerticalRotationLabel->setText(QString("Rotation vertical %1").arg(mVerticalRotation));
+}
+
+void Anaglyph::changeTranslation(int fTranslation){
+
+  mTranslation = fTranslation / 1000.f;
+
+  mTranslationLabel->setText(QString("Translation %1").arg(mTranslation));
 }
 
 void Anaglyph::changeChoosenView(int fViewSelected){
 
-	mViewSelected = fViewSelected;
+  mViewSelected = fViewSelected;
 
-	updatePreview();
+  updatePreview();
 }
 
 std::unique_ptr<CreationFile> Anaglyph::render(){
 
-	switch(mViewSelected) {
+  switch(mViewSelected) {
 
-	case 1:
-		return renderLeft();
-		break;
+  case 1:
+    return renderLeft();
+    break;
 
-	case 2:
-		return renderRight();
-		break;
+  case 2:
+    return renderRight();
+    break;
 
-	default:
-		return renderAnaglyph();
-		break;
-	}
+  default:
+    return renderAnaglyph();
+    break;
+  }
 }
 
 std::unique_ptr<CreationFile> Anaglyph::renderLeft(){
 
-	std::unique_ptr<QImage> _left = this->getColorMap(-this->mHorizontalRotation / 2, -this->mVerticalRotation / 2, 1.0);
+  std::unique_ptr<QImage> _left = this->getColorMap(-this->mHorizontalRotation / 2, -this->mVerticalRotation / 2, 1.0);
 	
-	std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
-	_file->pushImage(std::move(_left));
+  std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
+  _file->pushImage(std::move(_left));
 		
-	return _file;
+  return _file;
 }
 
 std::unique_ptr<CreationFile> Anaglyph::renderRight(){
 
-	std::unique_ptr<QImage> _right = this->getColorMap(this->mHorizontalRotation / 2, this->mVerticalRotation / 2, 1.0);
+  std::unique_ptr<QImage> _right = this->getColorMap(this->mHorizontalRotation / 2, this->mVerticalRotation / 2, 1.0);
 
-	std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
-	_file->pushImage(std::move(_right));
+  std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
+  _file->pushImage(std::move(_right));
 
-	return _file;
+  return _file;
 }
 
 

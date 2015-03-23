@@ -115,12 +115,12 @@ void Creation::createWindow(bool fHasPreview){
 }
 
 
-std::unique_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float fVerticalRotation, float fZoom, QVector3D fTranslation){
+std::unique_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float fVerticalRotation, float fZoom, QVector2D fTranslation){
 	const Camera* _sceneCamera = Scene::getScene()->getCamera();
 	
 	// Create a new camera
 	Camera _camera(_sceneCamera->getPosition(), _sceneCamera->getRotation(), 60.f);
-	_camera.translateCamera(fTranslation);
+	_camera.translateCameraWithMouse(fTranslation.x(), fTranslation.y());
 	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
 
 	// Render
