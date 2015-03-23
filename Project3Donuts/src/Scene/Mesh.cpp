@@ -31,7 +31,7 @@ void Mesh::Triangle::computeCost() {
 
 	cost = vertices[0]->position.distanceToPoint(vertices[1]->position) + vertices[0]->position.distanceToPoint(vertices[2]->position) + vertices[1]->position.distanceToPoint(vertices[2]->position);
 
-	// add a random coefficient to the cost, to avoird artefact
+	// add a random coefficient to the cost, to avoid artefact
 	float _random = ((float)rand() / (float)RAND_MAX);
 	cost *= 1.f + 0.2f * (_random - 0.5f);
 }
@@ -44,7 +44,7 @@ Mesh::Mesh(Object* fModel){
 	// for each vertex
 	for(QVector3D& v: fModel->mVertices){
 		Mesh::Vertex* _meshVertex = new Mesh::Vertex(v);
-		mVertices.push_back(_meshVertex);
+		mVertices.insert(_meshVertex);
 		_vertexByIndex.push_back(_meshVertex);
 	}
 
@@ -60,20 +60,17 @@ Mesh::Mesh(Object* fModel){
 				Mesh::Triangle* _tri = new Mesh::Triangle(nullptr, nullptr, nullptr, QVector3D(0, 0, 0));
 
 				// for each vertex of the triangle
-				_tri->vertices[0] = mVertices[_indice0];
-				_tri->vertices[1] = mVertices[_indice1];
-				_tri->vertices[2] = mVertices[_indice2];
+				_tri->vertices[0] = _vertexByIndex[_indice0];
+				_tri->vertices[1] = _vertexByIndex[_indice1];
+				_tri->vertices[2] = _vertexByIndex[_indice2];
+
+				mTriangleByVertex.insert(std::make_pair(_vertexByIndex[_indice0], _tri));
+				mTriangleByVertex.insert(std::make_pair(_vertexByIndex[_indice1], _tri));
+				mTriangleByVertex.insert(std::make_pair(_vertexByIndex[_indice2], _tri));
 
 				_tri->computeCost();
 				
-
-				//Compute the normal of the face
-				/*QVector3D _edge1 = _tri->vertices[1]->position - _tri->vertices[0]->position;
-				QVector3D _edge2 = _tri->vertices[2]->position - _tri->vertices[0]->position;
-				_tri->normal = _edge1.crossProduct(_edge2);
-				_tri->normal.normalise();*/
-
-				mTriangles.push_back(_tri);
+				mTriangles.insert(_tri);
 			}
 		}
 	}
@@ -93,13 +90,25 @@ void Mesh::polygonReduction(size_t fPolygonDesired){
 	std::cout << "number of triangles : " << mTriangles.size() << std::endl;
 	auto _start = std::chrono::system_clock::now();
 
+	mTriangleIterator = mTriangles.begin();
+
 	while( mTriangles.size() > fPolygonDesired) {
 		//find the vertex with the lowest cost
-		Mesh::Triangle* _tri = mTriangles[rand()%mTriangles.size()];//*std::min_element(mTriangles.begin(), mTriangles.end(), &Triangle::compareCost);
+		
+		int _random = (rand() % 20) + 1;
+		for (int i = 0; i < _random; i++){
+			++mTriangleIterator;
+
+			if (mTriangleIterator == mTriangles.end()){
+				mTriangleIterator = mTriangles.begin();
+			}
+		}
+
+		Mesh::Triangle* _tri = *mTriangleIterator;//[rand()%mTriangles.size()];//*std::min_element(mTriangles.begin(), mTriangles.end(), &Triangle::compareCost);
 		collapseTriangle(_tri);
 
 		if (mTriangles.size()%100==0)
-			std::cout<<mTriangles.size()<<std::endl;
+			std::cout<<mTriangles.size()<<"  "<< mTriangleByVertex.size() <<std::endl;
 	}
 
 	auto _end = std::chrono::system_clock::now();
@@ -112,8 +121,13 @@ void Mesh::polygonReduction(size_t fPolygonDesired){
 Object* Mesh::convertToModel(){
 	Object* _model = new Object();
 	
+	std::map<Vertex*, uint> _indexByVertex;
+
+	uint i = 0;
 	for(auto _v: mVertices){
 		_model->pushVertice(_v->position);
+		_indexByVertex.insert(std::make_pair(_v, i));
+		i++;
 	}
 	
 	for(auto _tri: mTriangles){
@@ -121,11 +135,11 @@ Object* Mesh::convertToModel(){
 		bool _fail = false;
 
 		for (size_t i = 0; i < 3; i++) {
-			auto it = std::find(mVertices.begin(), mVertices.end(), _tri->vertices[i]);
+			auto it = mVertices.find(_tri->vertices[i]);
 
 			// if we find the vertex
 			if (it != mVertices.end()){
-				_modelTri[i] = std::distance(mVertices.begin(), it);
+				_modelTri[i] = _indexByVertex.find(_tri->vertices[i])->second;
 			}
 			else {
 				_fail = true;
@@ -146,21 +160,6 @@ Object* Mesh::convertToModel(){
 }
 
 
-Mesh::Vertex* Mesh::findVertexByIndex(size_t fIndex) {
-	if (fIndex < mVertices.size()) {
-		size_t _index = 0;
-		for (auto v : mVertices) {
-			if (_index == fIndex) {
-				return v;
-			}
-			_index++;
-		}
-	}
-
-	return nullptr;
-}
-
-
 void Mesh::collapseTriangle(Mesh::Triangle* fTriangle){
 	QVector3D _center(0.f, 0.f, 0.f);
 	
@@ -172,40 +171,28 @@ void Mesh::collapseTriangle(Mesh::Triangle* fTriangle){
 	Mesh::Vertex* _vertex1 = fTriangle->vertices[1];
 	Mesh::Vertex* _vertex2 = fTriangle->vertices[2];
 
-	for (auto _tri = mTriangles.begin(); _tri != mTriangles.end(); ){
-		for (int i = 0; i < 3; i++)
-		{
-			if ((*_tri)->vertices[i] == _vertex1) {
-				(*_tri)->vertices[i] = fTriangle->vertices[0];
-				(*_tri)->computeCost();
-			}
+	collapseAtVertex(fTriangle, _vertex1);
+	collapseAtVertex(fTriangle, _vertex2);
+	
 
-			if ((*_tri)->vertices[i] == _vertex2) {
-				(*_tri)->vertices[i] = fTriangle->vertices[0];
-				(*_tri)->computeCost();
-			}
-		}
-
-		// the triangle to collapse
-		// and the triangles with only two vertex are deleted
-		if (*_tri == fTriangle || (*_tri)->isDegenerate()){
-			_tri = mTriangles.erase(_tri);
-		}
-		else {
-			++_tri;
-		}
-	}
+	// the triangle to collapse
+	// and the triangles with only two vertex are deleted
+	deleteTriangle(fTriangle);
 
 	fTriangle->vertices[0]->position = _center;
 
-	for (auto _vertex = mVertices.begin(); _vertex != mVertices.end(); ) {
-		if (*_vertex == _vertex1 || *_vertex == _vertex2) {
-			_vertex = mVertices.erase(_vertex);
-		}
-		else {
-			++_vertex;
-		}
+	auto _it = mVertices.find(_vertex1);
+	if (_it != mVertices.end()){
+		mVertices.erase(_it);
 	}
+	
+	_it = mVertices.find(_vertex2);
+	if (_it != mVertices.end()){
+		mVertices.erase(_it);
+	}
+
+	mTriangleByVertex.erase(_vertex1);
+	mTriangleByVertex.erase(_vertex2);
 
 	delete _vertex1;
 	delete _vertex2;
@@ -213,7 +200,59 @@ void Mesh::collapseTriangle(Mesh::Triangle* fTriangle){
 }
 
 
+void Mesh::collapseAtVertex(Mesh::Triangle* fTriangle, Mesh::Vertex* fVertex){
+	auto _listTri = mTriangleByVertex.equal_range(fVertex);
+	for (auto _tri = _listTri.first; _tri != _listTri.second; ++_tri){
+
+		// if the triangle still exist
+		if (mTriangles.find(_tri->second) != mTriangles.end()){
+
+			for (int i = 0; i < 3; i++)
+			{
+				if (_tri->second->vertices[i] == fVertex) {
+					_tri->second->vertices[i] = fTriangle->vertices[0];
+					_tri->second->computeCost();
+
+					if (_tri->second->isDegenerate()){
+						deleteTriangle(_tri->second);
+						break;
+					}
+					else{
+						auto _list2 = mTriangleByVertex.equal_range(fTriangle->vertices[0]);
+						bool _isAlready = false;
+						for (auto _tri2 = _list2.first; _tri2 != _list2.second; ++_tri2){
+							if (_tri2->second == _tri->second){
+								_isAlready = true;
+							}
+						}
+						if (!_isAlready){
+							mTriangleByVertex.insert(std::make_pair(fTriangle->vertices[0], _tri->second));
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
 bool Mesh::Triangle::compareCost(Triangle* u, Triangle* v){
 	return u->cost < v->cost;
 }
 
+
+void Mesh::deleteTriangle(Mesh::Triangle* fTriangle){
+	auto _triToErase = mTriangles.find(fTriangle);
+
+	if (_triToErase != mTriangles.end()) {
+
+		if (_triToErase == mTriangleIterator){
+			++mTriangleIterator;
+			if (mTriangleIterator == mTriangles.end()){
+				mTriangleIterator = mTriangles.begin();
+			}
+		}
+
+		mTriangles.erase(_triToErase);
+	}
+}

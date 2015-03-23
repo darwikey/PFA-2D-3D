@@ -1,6 +1,7 @@
 #pragma once
 
 #include "global.hpp"
+#include <set>
 class Object;
 
 class Mesh
@@ -11,6 +12,7 @@ class Mesh
 
 	public:
 		QVector3D position; 
+		//std::vector<Vertex*> neigbhor;
 
 		Vertex(QVector3D fPosition);
 		~Vertex(){}
@@ -45,12 +47,15 @@ public:
 	Object* convertToModel();
 
 private:
-	Vertex* findVertexByIndex(size_t fIndex);
 	void collapseTriangle(Triangle* fTriangle);
-	
+	void collapseAtVertex(Triangle* fTriangle, Vertex* fVertex);
 
-	std::vector<Vertex*> mVertices;
-	std::vector<Triangle*> mTriangles;
+	void deleteTriangle(Triangle* fTriangle);
+
+	std::set<Vertex*> mVertices;
+	std::set<Triangle*> mTriangles;
+	std::set<Triangle*>::iterator mTriangleIterator;
+	std::multimap<Vertex*, Triangle*> mTriangleByVertex;
 
 };
 

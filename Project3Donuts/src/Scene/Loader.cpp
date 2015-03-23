@@ -68,11 +68,11 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 		return nullptr;
 	}
 
-	Mesh _mesh(_object);
-	_mesh.polygonReduction(8000);
+	/*Mesh _mesh(_object);
+	_mesh.polygonReduction(40000);
 	Object* _newObject = _mesh.convertToModel();
 	_object = _newObject;
-
+	*/
 	_object->computeColors();
 	_object->normalizeData();
 	Scene::getScene()->addObject(fObjectName, _object);
