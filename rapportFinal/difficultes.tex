@@ -6,9 +6,13 @@ Au cours de ce projet, certaines difficultés rencontrées auront parfois ralent
 L'implémentation des algorithmes d'anaglyphes et d'autostéréogrammes était le coeur de notre projet et du logiciel que nous avions à mettre en place. Il était donc important que nous lui accordions un temps conséquent durant notre projet, et c'est pour cela que nous avions initialement prévu de faire travailler deux personnes sur ces algorithmes durant un mois, en partant des recherches qui avaient été effectuées pour le cahier des charges. Toutefois, l'implémentation de deux algorithmes étant nécessaire pour chacun de ces rendus, ce mois a finalement été trop court pour nos équipes de programmeurs.
 
 \paragraph{}
-Pour les autostéréogrammes, le rendu donné par le premier algorithme choisi était découpé en tranches et ne donnait pas suffisament l'impression de profondeur comme il aurait dû, comme nous pouvoir le voir sur la figure [FIGURE].
+Pour les autostéréogrammes, le rendu donné par le premier algorithme choisi était découpé en tranches et ne donnait pas suffisament l'impression de profondeur comme il aurait dû, comme nous pouvoir le voir sur la figure \ref{fig:sphAutoste}.
 
-//figure effet tranche
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{bouleAutoste.png}
+	\caption{\label{fig:sphAutoste} Autostéréogramme d'une boule avec un effet en tranche \protect}
+\end{figure}
 
 Cet effet avait en effet été souligné dans l'article de Witten, Inglis et Thimbleby, mais l'utilisation de points aléatoires pour le fond de l'image accentuait cet effet de tranches. 
 Il a alors fallu mettre en place le second algorithme que nous avons présenté précédemment dans ce rapport, ce qui a allongé la période de réalisation. De plus, l'optimisation proposé pour cet algorithme par W.A.Steer posait dans un premier temps problème pour la génération de l'autostéréogramme. Il aura alors fallu procéder étape par étape pour obtenir un premier rendu sans l'optimisation de l'algorithme, qui aura été ajoutée par la suite.
