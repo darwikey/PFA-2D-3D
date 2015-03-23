@@ -168,3 +168,10 @@ Project3Donuts-build/test.gif
 *.obj
 Project3Donuts-build/flipbook.gif
 *.xml
+*.png
+Project3Donuts-build/CMakeFiles/Progress/21
+*.fragmentshader
+Project3Donuts-build/moc_AnaglyphAlgorithm2.cpp
+Project3Donuts-build/moc_AutostereogramAlgorithm1.cpp
+Project3Donuts-build/moc_AutostereogramAlgorithm2.cpp
+Project3Donuts-build/moc_ClickLabel.cpp

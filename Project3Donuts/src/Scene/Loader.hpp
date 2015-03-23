@@ -25,6 +25,8 @@ public:
 
     void changeAutoSaveTimer(int fTimer);
 
+    void stopAutoSave();
+
 private:
     std::thread *mAutomaticSave = nullptr;
     int * mTimer;

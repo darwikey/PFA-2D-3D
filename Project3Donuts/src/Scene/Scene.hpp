@@ -95,6 +95,10 @@ public:
     //! \param The path to the save file
     void createScene(const QString &fPath);
 
+    bool hasName();
+    void setName(std::string fName);
+    std::string getName();
+
 
 private:
 	//! \brief Scene constructor for a new scene
@@ -125,6 +129,8 @@ private:
 	std::map<std::string, Object*> mDeletedObjects;
 
     std::vector<std::function<void()>> mActionTable;
+
+    std::string mName;
 };
 
 #endif
