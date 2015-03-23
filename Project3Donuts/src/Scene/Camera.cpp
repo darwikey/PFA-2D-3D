@@ -82,6 +82,18 @@ void Camera::translateCamera(QVector3D fTranslation){
 }
 
 
+void Camera::translateCameraWithMouse(float fHorizontalAxe, float fVerticalAxe){
+	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
+	QVector3D _vec1 = _quat.rotatedVector(QVector3D(1.f, 0, 0.f));
+
+	_quat = QQuaternion::fromAxisAndAngle(QVector3D(-1.f, 0.f, 0.f), mRotation.y());
+	QVector3D _vec2 = _quat.rotatedVector(QVector3D(0.f, 1.f, 0.f));
+
+	QVector3D _translation = -fHorizontalAxe * _vec1 + fVerticalAxe * _vec2;
+	translateCamera(_translation);
+}
+
+
 void Camera::repositionCamera(float fBoundingSphereRadius){
 	mPosition.normalize();
 	mPosition *= 1.7f * fBoundingSphereRadius;
@@ -205,17 +217,14 @@ void Camera::computeViewMatrix() {
 	mViewMatrix = QMatrix4x4();
 	mProjectionMatrix = QMatrix4x4();
 
-
 	const float _zNear = 0.2f;
 	const float _zFar = 10000.f;
 
-
-	const QVector3D _center = QVector3D(0., 0., 0.);
 	const QVector3D _up = QVector3D(0.0, 1.0, 0.0);
 
 
 	mProjectionMatrix.perspective(mAngleOfView, 1.f, _zNear, _zFar);
-	mViewMatrix.lookAt(mPosition, _center, _up);
+	mViewMatrix.lookAt(mPosition, mLookAtPoint, _up);
 }
 
 QVector3D Camera::getPosition() const{
