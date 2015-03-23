@@ -1,0 +1,97 @@
+NOTICE D'UTILISATION DU LOGICIEL PROJECT3DONUTS
+_______________________________________________
+
+Le logiciel Project3Donuts est un logiciel de synthèse d'images permettant la visualisation d'une scène en trois dimensions et la génération de photographies, d'anaglyphes, d'autostéréogrammes et de folioscopes à partir d'elle.
+
+Menus et raccourcis clavier
+
+================= Sauvegarde de la scène =================
+
+Nouvelle scène :			Raccourci Cntrl+N     
+	       	 			ou     Icône Nouveau     
+		 			ou     Menu déroulant Fichier > Nouveau
+
+Ouvrir une scène pré-enregistrée : 	Raccourci Cntrl+O
+       	   	 		   	ou      Icône Ouvrir
+				   	ou	Menu déroulant Fichier > Ouvrir
+		Fichier de chargement acceptés : fichiers OBJ
+
+Enregistrer la scène en cours :       	Raccourci Cntrl+S
+	       	     	      		ou 	Icône Enregistrer
+					ou 	Menu déroulant Fichier > Enregistrer
+		(Pour enregistrer la scène ouverte sous un nouveau nom : Menu déroulant Fichier > Enregistrer Sous)
+
+================= Déplacements autour de la scène =================
+
+Rotation autour de la scène :  	        Clic gauche continu sur la scène et déplacement de la souris
+
+Zoom avant/arrière :  	    		Déplacement de molette de la souris
+
+================= Gestion des objets de la scène =================
+
+Ajouter un objet dans la scène : 	Menu déroulant Fichier > Importer
+	   	      	       		     (depuis la bibliothèque : bibliothèque de fichiers utilisables proposée par le logiciel
+					      depuis le disque dur   : fichier objets de l'utilisateur)
+		Fichier objets acceptés : fichier PLY versions 1.0 ASCII et binaire
+			       		  fichier OBJ version  3.0 ASCII
+
+Sélection d'un objet :			Clic droit sur un objet
+	       	     			ou     Clic gauche sur le nom de l'objet dans la colonne verticale
+
+Modifier la position d'un objet :	APRES SELECTION DE L'OBJET
+	    	     	  		Raccourci clavier T
+					ou     Icône Translation
+					PUIS Clic gauche continu sur les axes et déplacement de la souris
+
+Modifier la rotation d'un objet :	APRES SELECTION DE L'OBJET
+	    	     	  		Raccourci clavier R
+					ou     Icône Rotation
+					PUIS Clic gauche continu sur les axes et déplacement de la souris
+
+Modifier la taille d'un objet :		APRES SELECTION DE L'OBJET
+	    	     	  		Raccourci clavier S
+					ou     Icône Scale
+					PUIS Clic gauche continu sur les axes et déplacement de la souris
+
+Annuler les modifications :		Raccourci Cntrl+Z
+	    		  		ou     Icône Annuler
+
+Modifer la couleur d'un objet :		APRES SELECTION DE L'OBJET
+	   	   	      		Menu déroulant Editer > Couleur de l'objet
+
+================= Paramètres du logiciel =================
+
+Modifier la couleur du fond de scène :	Menu déroulant Editer > Préférences
+
+Modifier la durée entre deux 
+	 sauvegardes automatiques :	Menu déroulant Editer > Préférences
+
+Changement de côté de la barre 
+	 verticale :			Menu déroulant Fenêtres > Mettre la fenêtre de visualisation à gauche (option temporaire)
+	 	   			ou     Menu déroulant Editer > Préférences (option durable)
+
+Modifier les raccourcis :		Menu déroulant Editer > Préférences
+
+Autres options :			Menu déroulant Editer > Préférences
+
+Quitter le logiciel :			Raccourci Escap
+	   	    			ou Icône Quitter classique du système d'exploitation utilisé
+					ou Menu déroulant Fichier > Quitter
+
+================= Obtention des rendus =================
+
+Photographie :	  	    	        Raccourci P
+	     				ou     Icône Photographie
+					ou     Menu déroulant Outils > Effectuer un rendu
+
+Anaglyphe :	  	    	        Raccourci N
+	     				ou     Icône Anaglyphe
+					ou     Menu déroulant Outils > Anaglyphes
+
+Autostéréogramme :	  	    	Raccourci U
+	     				ou     Icône Autostéréogramme
+					ou     Menu déroulant Outils > Autostéréogrammes
+
+Flipbook :	  	    	        Raccourci F
+	     				ou     Icône Flipbook
+					ou     Menu déroulant Outils > Flipbook
