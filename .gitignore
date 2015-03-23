@@ -165,3 +165,6 @@ Project3Donuts-build/moc_AnaglyphAlgorithm1.cpp
 Project3Donuts-build/moc_Autostereogram.cpp
 Project3Donuts-build/settings.ini
 Project3Donuts-build/test.gif
+*.obj
+Project3Donuts-build/flipbook.gif
+*.xml
