@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     QSettings settings("settings.ini", QSettings::IniFormat);
+    mNeedSave = false;
     ui->setupUi(this);
     if(settings.value("General/invertedwindows",false).toBool())
         ui->actionInverser_les_positions_des_fen_tres->toggle();
@@ -64,12 +65,39 @@ void MainWindow::openfile()
         while(Scene::getScene()->getObject(_num_name.append(std::to_string(_num))) != nullptr);
 
         Scene::getScene()->getLoader()->loadObject(_file, _num_name);
+        newaction();
     }
 }
 
 void MainWindow::newscene()
 {
-	Scene::getScene()->clearScene();
+    int ret;
+    if(Scene::getScene()->hasName() && mNeedSave)
+    {
+        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                    tr("Il y a des changements non enregistrés.\n"
+                                       "Voulez vous enregistrer ces changements ?\n"),
+                                    QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,this);
+        _retBox.setButtonText(QMessageBox::Save, "Oui");
+        _retBox.setButtonText(QMessageBox::Discard, "Non");
+        _retBox.setButtonText(QMessageBox::Cancel, "Annuler");
+        ret = _retBox.exec();
+        if(ret == QMessageBox::Save)
+        {
+            save();
+        }
+        else if(ret == QMessageBox::Discard)
+        {
+
+        }
+        else
+        {
+            return;
+        }
+    }
+    mNeedSave = false;
+    setWindowTitle(QApplication::translate("MainWindow", "Project3Donut", 0));
+    Scene::getScene()->clearScene();
     //refresh widget
     ui->widget->update();
 }
@@ -82,11 +110,39 @@ void MainWindow::openlibfile()
 
 void MainWindow::open()
 {
+    int ret;
+    if(Scene::getScene()->hasName() && mNeedSave)
+    {
+        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                    tr("Il y a des changements non enregistrés.\n"
+                                       "Voulez vous enregistrer ces changements ?\n"),
+                                    QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,this);
+        _retBox.setButtonText(QMessageBox::Save, "Oui");
+        _retBox.setButtonText(QMessageBox::Discard, "Non");
+        _retBox.setButtonText(QMessageBox::Cancel, "Annuler");
+        ret = _retBox.exec();
+        if(ret == QMessageBox::Save)
+        {
+            save();
+        }
+        else if(ret == QMessageBox::Discard)
+        {
+
+        }
+        else
+        {
+            return;
+        }
+    }
+
     QString _qfile = QFileDialog::getOpenFileName(0, "Ouvrir", QString(), "Scene (*.xml)");
     if(_qfile!="")
     {
         Scene::getScene()->clearScene();
         Scene::getScene()->createScene(_qfile);
+        std::string _winName = "Project3Donut - " + Scene::getScene()->getName();
+        setWindowTitle(QApplication::translate("MainWindow", _winName.c_str(), 0));
+        mNeedSave = false;
     }
 }
 
@@ -94,12 +150,24 @@ void MainWindow::revertPreviousAction()
 {
     Scene::getScene()->revertPreviousAction();
     ui->widget->update();
+    newaction();
 }
 
 void MainWindow::save()
 {
-
-
+    if(!Scene::getScene()->hasName()){
+        saveas();
+    }
+    else
+    {
+        std::string _path;
+        std::string _name = Scene::getScene()->getName();
+        _path = _name + ".xml";
+        Scene::getScene()->saveScene(_path);
+        std::string _winName = "Project3Donut - " + Scene::getScene()->getName();
+        setWindowTitle(QApplication::translate("MainWindow", _winName.c_str(), 0));
+        mNeedSave = false;
+    }
 }
 
 void MainWindow::saveas()
@@ -108,7 +176,13 @@ void MainWindow::saveas()
     std::string _file = _qfile.toStdString();
     if(_file!="")
     {
+        std::size_t _begin = _file.find_last_of('/') + 1;
+        std::size_t _end = _file.find_last_of('.');
         Scene::getScene()->saveScene(_file);
+        Scene::getScene()->setName(_file.substr(_begin, _end-_begin));
+        std::string _winName = "Project3Donut - " + _file.substr(_begin, _end-_begin);
+        setWindowTitle(QApplication::translate("MainWindow", _winName.c_str(), 0));
+        mNeedSave = false;
     }
 }
 
@@ -136,6 +210,7 @@ void MainWindow::deleteSelectedObject()
     Scene::getScene()->deleteObjectsByName(stringList);
     //refresh widget
     ui->widget->update();
+    newaction();
 }
 
 void MainWindow::changeObjectColor(){
@@ -231,4 +306,58 @@ void MainWindow::changeModeToScale()
     ui->actionTranslate->setChecked(false);
     ui->actionRotate->setChecked(false);
     ui->actionScale->setChecked(true);
+}
+
+void MainWindow::newaction()
+{
+    if(Scene::getScene()->hasName())
+    {
+        mNeedSave = true;
+        std::string _winName = "Project3Donut - " + Scene::getScene()->getName() + " *";
+        setWindowTitle(QApplication::translate("MainWindow", _winName.c_str(), 0));
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    int ret;
+    if(Scene::getScene()->hasName() && mNeedSave)
+    {
+        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                    tr("Il y a des changements non enregistrés.\n"
+                                       "Voulez vous enregistrer ces changements ?\n"),
+                                    QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,this);
+        _retBox.setButtonText(QMessageBox::Save, "Sauvegarder");
+        _retBox.setButtonText(QMessageBox::Discard, "Quitter sans sauvegarder");
+        _retBox.setButtonText(QMessageBox::Cancel, "Annuler");
+        ret = _retBox.exec();
+        if(ret == QMessageBox::Save)
+        {
+            save();
+            event->accept();
+        }
+        else if(ret == QMessageBox::Discard)
+        {
+            event->accept();
+        }
+        else
+        {
+            event->ignore();
+        }
+    }
+    else
+    {
+        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                    tr("Etes-vous sûr de vouloir quitter ?\n"),
+                                    QMessageBox::Yes | QMessageBox::No, this);
+        _retBox.setButtonText(QMessageBox::Yes, "Oui");
+        _retBox.setButtonText(QMessageBox::No, "Non");
+        ret = _retBox.exec();
+        if (ret == QMessageBox::Yes) {
+            event->accept();
+        }
+        else{
+            event->ignore();
+        }
+    }
 }
