@@ -49,6 +49,7 @@ public:
 	QAction* action_changer_couleur;
     QAction *actionPr_f_rences;
     QAction *actionA_propos;
+    QAction *actionNotice_utilisation;
     QAction *actionEffectuer_un_rendu;
 	QAction *actionAnaglyphes;
     QAction *actionAuto_st_r_ogrammes;
@@ -147,6 +148,9 @@ public:
         
         actionA_propos = new QAction(MainWindow);
         actionA_propos->setObjectName(QStringLiteral("actionA_propos"));
+
+        actionNotice_utilisation = new QAction(MainWindow);
+        actionNotice_utilisation->setObjectName(QStringLiteral("actionNotice_utilisation"));
         
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
@@ -268,6 +272,7 @@ public:
 		menuEditer->addAction(action_changer_couleur);
 		menuEditer->addAction(actionPr_f_rences);
         menuAide->addAction(actionA_propos);
+        menuAide->addAction(actionNotice_utilisation);
         menuOutils->addAction(actionEffectuer_un_rendu);
 		menuOutils->addAction(actionAnaglyphes);
         menuOutils->addAction(actionAuto_st_r_ogrammes);
@@ -303,7 +308,9 @@ public:
 		QObject::connect(action_changer_couleur, SIGNAL(triggered()), MainWindow, SLOT(changeObjectColor()));
         QObject::connect(actionPr_f_rences, SIGNAL(triggered()), MainWindow, SLOT(editsettings()));
 
-        QObject::connect(actionA_propos, SIGNAL(triggered()), MainWindow, SLOT(about()));	
+        QObject::connect(actionA_propos, SIGNAL(triggered()), MainWindow, SLOT(about()));
+
+        QObject::connect(actionNotice_utilisation, SIGNAL(triggered()), MainWindow, SLOT(notice()));
         	
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), MainWindow, SLOT(selectObject(QModelIndex)));
         QObject::connect(deleteObject, SIGNAL(triggered()), MainWindow, SLOT(deleteSelectedObject()));
@@ -341,6 +348,7 @@ public:
 		action_changer_couleur->setText(QApplication::translate("MainWindow", "Couleur de l'objet", 0));
 		actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
+        actionNotice_utilisation->setText(QApplication::translate("MainWindow", "Notice d'utilisation", 0));
         actionEffectuer_un_rendu->setText(QApplication::translate("MainWindow", "Effectuer un rendu", 0));
         actionInverser_les_positions_des_fen_tres->setText(QApplication::translate("MainWindow", "Mettre la fen\303\252tre de visualisation \303\240 gauche", 0));
         actionAnaglyphes->setText(QApplication::translate("MainWindow", "Anaglyphes", 0));
