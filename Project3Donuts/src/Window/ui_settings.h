@@ -364,7 +364,7 @@ public:
         groupBox->setTitle(QApplication::translate("Dialog", "Affichage", 0));
         label_3->setText(QApplication::translate("Dialog", "x", 0));
         label->setText(QApplication::translate("Dialog", "R\303\251solution au d\303\251marrage", 0));
-        label_5->setText(QApplication::translate("Dialog", "Mettre la fen\303\252tres de visualisation \303\240 droite au d\303\251marrage", 0));
+        label_5->setText(QApplication::translate("Dialog", "Mettre la fen\303\252tre de visualisation \303\240 gauche au d\303\251marrage", 0));
         WindowBox->setText(QString());
 
         label_16->setText(QApplication::translate("Dialog", "Temps entre deux sauvegardes automatiques ", 0));

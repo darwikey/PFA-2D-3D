@@ -101,7 +101,7 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
     {
     case Qt::Key_Escape:
         ret = QMessageBox::question(this, tr("Project3Donut"),
-                                       tr("Etes vous sûr de vouloir quitter ?\n"),
+                                       tr("Etes-vous sûr de vouloir quitter ?\n"),
                                        QMessageBox::Yes | QMessageBox::No);
         if (ret == QMessageBox::Yes) {
             exit(0);

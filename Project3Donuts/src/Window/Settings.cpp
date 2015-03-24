@@ -89,7 +89,7 @@ void Settings::resetparameters()
 void Settings::generaltodefault()
 {
     int ret = QMessageBox::question(this, tr("Project3Donut"),
-                                   tr("Etes vous sûr de vouloir restaurer les valeurs par défaut ?\n"),
+                                   tr("Etes-vous sûr de vouloir restaurer les valeurs par défaut ?\n"),
                                    QMessageBox::Yes | QMessageBox::No);
     switch (ret) {
       case QMessageBox::No:
@@ -119,7 +119,7 @@ void Settings::generaltodefault()
 void Settings::shortcutstodefault()
 {
     int ret = QMessageBox::question(this, tr("Project3Donut"),
-                                   tr("Etes vous sûr de vouloir restaurer les raccourcis par défaut ?\n"),
+                                   tr("Etes-vous sûr de vouloir restaurer les raccourcis par défaut ?\n"),
                                    QMessageBox::Yes | QMessageBox::No);
     switch (ret) {
       case QMessageBox::No:
