@@ -1,5 +1,5 @@
-NOTICE D'UTILISATION DU LOGICIEL PROJECT3DONUTS
-===============================================
+NOTICE D'UTILISATION DU LOGICIEL PROJECT3DONUT
+==============================================
 
 Le logiciel Project3Donuts est un logiciel de synthèse d'images permettant la visualisation d'une scène en trois dimensions et la génération de photographies, d'anaglyphes, d'autostéréogrammes et de folioscopes à partir d'elle.
 

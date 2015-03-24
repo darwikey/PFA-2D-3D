@@ -26,6 +26,13 @@ MainWindow::MainWindow(QWidget *parent) :
     win_about->setWindowModality (Qt::ApplicationModal);
     _about_ui = new Ui::About();
     _about_ui->setupUi(win_about);
+
+    win_notice = new QMainWindow();
+    win_notice->setWindowFlags(Qt::WindowStaysOnTopHint);
+    win_notice->setWindowModality (Qt::ApplicationModal);
+    _notice_ui = new Ui::Notice();
+    _notice_ui->setupUi(win_notice);
+
     _settingsWindow = new Settings(this);
     QObject::connect(_settingsWindow, SIGNAL(finished (int)), this, SLOT(checkSettings(int)));
 }
@@ -34,6 +41,8 @@ MainWindow::~MainWindow()
 {
     delete win_about;
     delete _about_ui;
+    delete win_notice;
+    delete _notice_ui;
     delete ui;
 }
 
@@ -193,6 +202,11 @@ void MainWindow::editsettings()
 void MainWindow::about()
 {
     win_about->show();
+}
+
+void MainWindow::notice()
+{
+    win_notice->show();
 }
 
 void MainWindow::checkSettings(int result){ //this is a slot
