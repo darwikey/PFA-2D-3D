@@ -8,26 +8,25 @@
 
 //! \class GifWriter
 //! \brief use to create animated gif
-//! \note by Charlie Tangora
+//! \note coded by Charlie Tangora
 //! \note Public domain.
 //! \note Email me : ctangora -at- gmail -dot- com
 class GifWriter {
 
 public:
-	// Creates a gif file.
-	// The input GIFWriter is assumed to be uninitialized.
-	// The delay value is the time between frames in hundredths of a second - note that not all viewers pay much attention to this value.
+	//! \brief Constructor
+	GifWriter() {};
+	
+	//! \brief Creates a gif file.
+	//! \param filename name of the file, should end by .gif
+	//! \param delay the time between frames in hundredths of a second - note that not all viewers pay much attention to this value.
 	bool GifBegin(const char* filename, uint32_t width, uint32_t height, uint32_t delay, int32_t bitDepth = 8, bool dither = false);
 
-	// Writes out a new frame to a GIF in progress.
-	// The GIFWriter should have been created by GIFBegin.
-	// AFAIK, it is legal to use different bit depths for different frames of an image -
-	// this may be handy to save bits in animations that don't change much.
+	//! \brief Writes out a new frame to a GIF in progress.
+	//! \note GifBegin must have been called before
 	bool GifWriteFrame(const QImage* fImage, int bitDepth = 8, bool dither = false);
 
-	// Writes the EOF code, closes the file handle, and frees temp memory used by a GIF.
-	// Many if not most viewers will still display a GIF properly if the EOF code is missing,
-	// but it's still a good idea to write it out.
+	//! \brief Writes the EOF code, closes the file handle, and frees temp memory used by a GIF.
 	bool GifEnd();
 
 

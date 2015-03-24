@@ -29,7 +29,7 @@ private :
   
   const int mdpi = 75 ;
   const int moversampling = 4 ;
-  const float mmu = (1. / 3.) ;
+  const float mmu = (1.f / 3.f) ;
 
   std::vector<int> msameLeft ;
   std::vector<int> msameRight ;

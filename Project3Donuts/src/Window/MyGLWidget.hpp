@@ -35,12 +35,10 @@ public:
 
 public slots:
     virtual void timeOutSlot();
-    void revertPreviousAction();
 
 private:
 
     QTimer *mTimer;
-    QAction * mUndo;
 	// mouse position at the lastest mouse click 
     QPoint mPrevMousePosition;
 };

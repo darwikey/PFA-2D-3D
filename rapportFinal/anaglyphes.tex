@@ -17,7 +17,7 @@ pour chaque algo :
 \subsubsection{La génération des anaglyphes et ses défauts}
 	L'anaglyphe est une image issue d'un traitement particulier sur deux prises de vue stéréoscopiques et qui nécessite des lunettes particulières composées d'un filtre rouge (ou magenta ou jaune) pour un oeil et cyan (respectivement vert ou bleu) pour l'autre. 
 	
-	La génération des anaglyphes passe par trois étapes essentiellement. Tous d'abord, une prise de vue stéréoscopique d'une scène 3D avec les deux points de vue éloignées d'une distance proche à celle entre les yeux, de manière à obtenir une vue pour chaque oeil, est nécessaire. Ensuite, un traitement d'image est opéré sur ces deux images obtenues, avec au minimum deux filtres rouge et cyan (ou deux autres couleurs correspondants à celles des lunettes)sont appliquées. Finalement, les deux images résultantes sont superposées pour n'obtenir qu'une seule image qui pourra être visionnée à travers les lunettes avec une impression de trois dimensions.
+	La génération des anaglyphes passe par trois étapes essentiellement. Tous d'abord, une prise de vue stéréoscopique d'une scène 3D avec les deux points de vue éloignées d'une distance proche de celle entre les yeux, de manière à obtenir une vue pour chaque oeil, est nécessaire. Ensuite, un traitement d'image est opéré sur ces deux images obtenues, avec au minimum deux filtres rouge et cyan (ou deux autres couleurs correspondants à celles des lunettes)sont appliquées. Finalement, les deux images résultantes sont superposées pour n'obtenir qu'une seule image qui pourra être visionnée à travers les lunettes avec une impression de trois dimensions.
 	
 	Les algorithmes de génération des anaglyphes proposent des traitements d'image différents (deuxième étape) ayant pour but d'améliorer la qualité des anaglyphes. Un critère important pour juger de la qualité des anaglyphes est l'absence des artefacts. Ces derniers sont des perceptions d'un phénomène de diaphonie qui est le résultat d'une mauvaise séparation des deux vues (un oeil perçoit un détail de la vue destinée à l'autre oeil), et dégradent l'impression de trois dimensions. %parler des rivalités binoculaire..? 
 
@@ -39,7 +39,9 @@ pour chaque algo :
 %	--> la méthode la plus simple mais la qualité en couleur est mauvaise et il y a un peu de artefact
 \subsubsection{La méthode des moindres carrés avec correction gamma}
 %gamma -> prend en compte le support : écran
-	Le deuxième algorithme implémenté est basée sur la méthode des moindres carrés présentée dans l'article \cite{algoDubois} par Eric Dubois. Dans cet article, comme David Romeuf l'explique \cite{explicationAlgoDubois} l'approche consiste à prendre en compte le spectre d'absorption des filtres des lunettes, la densité spectrale des sources primaires des écrans d'ordinateur et de la sensibilité spectrale de l'œil humain, pour reproduire au mieux une image anaglyphe dont les couleurs sont proches de celles contenues dans l'image originale. L'ensemble des couleurs visibles sur l'écran à travers les lunettes étant un sous ensemble de celui de l'écran, une transformation particulière est nécessaire et c'est pour cette raison que les moindres carrés interviennent dans la projection pour minimiser la distance entre les deux couleurs (celle obtenue et l'originale) dans le diagramme colorimétrique.
+	Le deuxième algorithme implémenté est basée sur la méthode des moindres carrés présentée dans l'article \cite{algoDubois} par Eric Dubois. Dans cet article, comme David Romeuf l'explique \cite{explicationAlgoDubois} l'approche consiste à prendre en compte le spectre d'absorption des filtres des lunettes, la densité spectrale des sources primaires des écrans d'ordinateur et de la sensibilité spectrale de l'œil humain, pour reproduire au mieux une image anaglyphe dont les couleurs sont proches de celles contenues dans l'image originale. 
+	
+	L'ensemble des couleurs visibles sur l'écran à travers les lunettes étant un sous ensemble de celui de l'écran, une transformation particulière est nécessaire et c'est pour cette raison que les moindres carrés interviennent dans la projection pour minimiser la distance entre les deux couleurs (celle obtenue et l'originale) dans le diagramme colorimétrique.
 	
 	L'algorithme implémenté met en oeuvre une partie de la méthode décrite plus précisément dans cet article par Eric Dubois \cite{algoMoindreCarres} : notre algorithme utilise les matrices issues du calcul par projection avec la méthode des moindres carrés, et une correction gamma mais ne modifie pas la saturation.
 	
@@ -56,7 +58,7 @@ pour chaque algo :
 A REDIGER
 même algo que la partie précédente principalement, sauf qu'il n'y pas de correction gamma et qu'il y des modifications de la saturation.
 
-image resultat
+image resultat -> l'algo dubois avec saturation -> la diminution de saturation, atténue trop les couleurs : moins bonne 3D mais moins fatiguant pour les yeux 
 
 \subsubsection{Comparaison des différents algorithmes}
 

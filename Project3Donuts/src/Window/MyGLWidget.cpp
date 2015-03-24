@@ -24,11 +24,7 @@ MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
         connect(mTimer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));
         mTimer->start( timerInterval );
     }
-    mUndo = new QAction(this);
-    mUndo->setObjectName(QStringLiteral("undo"));
-    mUndo->setShortcut(QKeySequence::Undo);
-    addAction(mUndo);
-    QObject::connect(mUndo, SIGNAL(triggered()), this, SLOT(revertPreviousAction()));
+
 }
 
 MyGLWidget::~MyGLWidget(){
@@ -38,12 +34,6 @@ MyGLWidget::~MyGLWidget(){
 void MyGLWidget::timeOutSlot()
 {
 
-}
-
-void MyGLWidget::revertPreviousAction()
-{
-    Scene::getScene()->revertPreviousAction();
-    update();
 }
 
 //mouse Press Event
@@ -76,7 +66,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
     float _dy = (float)(fEvent->y() - mPrevMousePosition.y()) / 7;//viewport_size.height();
 
 
-    if( fEvent->buttons() & Qt::LeftButton ) {
+    if(fEvent->buttons() & Qt::LeftButton) {
 		if (Scene::getScene()->getTransformWidget()->isSelected()) {
 			QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
 			Scene::getScene()->getTransformWidget()->activate(_mouse);
@@ -85,6 +75,9 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 			Scene::getScene()->getCamera()->moveCameraWithMouse(_dx, _dy, 0.f);
 		}
     }
+	else if (fEvent->buttons() & Qt::MiddleButton) {
+		Scene::getScene()->getCamera()->translateCameraWithMouse(_dx, _dy);
+	}
 
     mPrevMousePosition = fEvent->pos();
     update();
@@ -106,32 +99,36 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
     int ret;
     switch( fEvent->key() )
     {
-        case Qt::Key_Escape:
+    case Qt::Key_Escape:
         ret = QMessageBox::question(this, tr("Project3Donut"),
                                        tr("Etes vous sûr de vouloir quitter ?\n"),
                                        QMessageBox::Yes | QMessageBox::No);
         if (ret == QMessageBox::Yes) {
             exit(0);
         }
-
-            break;
-    case Qt::Key_Z:
-        //Scene::getScene()->revertPreviousAction();
         break;
-		case Qt::Key_Plus:
-			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, 0.1f);
-			break;
 
-		case Qt::Key_Minus:
-			Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
-			break;
+	case Qt::Key_Z:
+		{
+			auto i = Scene::getScene()->getCamera()->getDepthMap(1000, 1000);
+			i->save("plop.png");
+		}
+        break;
 
-		case Qt::Key_Delete:
-			Scene::getScene()->deleteSelectedObject();
-			break;
+	case Qt::Key_Plus:
+		Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, 0.1f);
+		break;
 
-        default:
-            QGLWidget::keyPressEvent( fEvent );
+	case Qt::Key_Minus:
+		Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
+		break;
+
+	case Qt::Key_Delete:
+		Scene::getScene()->deleteSelectedObject();
+		break;
+
+    default:
+        QGLWidget::keyPressEvent( fEvent );
     }
     update();
 }

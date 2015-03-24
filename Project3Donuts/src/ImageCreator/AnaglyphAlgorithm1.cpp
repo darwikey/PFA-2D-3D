@@ -2,34 +2,35 @@
 
 
 void AnaglyphAlgorithm1::createWindow(bool fHasPreview){
-	Anaglyph::createWindow(fHasPreview);
+  Anaglyph::createWindow(fHasPreview);
 
 
 }
 
 
 std::unique_ptr<CreationFile> AnaglyphAlgorithm1::renderAnaglyph(){
-	std::unique_ptr<QImage> _left = this->getColorMap(-this->mHorizontalRotation / 2, -this->mVerticalRotation / 2, 1.0);
-	std::unique_ptr<QImage> _right = this->getColorMap(this->mHorizontalRotation / 2, this->mVerticalRotation / 2, 1.0);
 
-	std::unique_ptr<QImage> _image(new QImage(_left->size().width(),
-																						_left->size().height(),
-																						QImage::Format_RGB32));
+  std::unique_ptr<QImage> _left = this->getColorMap(-mHorizontalRotation / 2, -mVerticalRotation / 2, 1.0, QVector2D(mTranslation / 2, 0.0));
+  std::unique_ptr<QImage> _right = this->getColorMap(mHorizontalRotation / 2, mVerticalRotation / 2, 1.0, QVector2D(-mTranslation / 2, 0.0));
 
-	for(int i=0; i<_image->size().height(); i++)
-		{
-			for(int j=0; j<_image->size().width(); j++)
-				{
-					QRgb value = qRgb(qRed(_left->pixel(j,i)),
-														qGreen(_right->pixel(j,i)),
-														qBlue(_right->pixel(j,i)));
+  std::unique_ptr<QImage> _image(new QImage(_left->size().width(),
+                                            _left->size().height(),
+                                            QImage::Format_RGB32));
+
+  for(int i=0; i<_image->size().height(); i++)
+    {
+      for(int j=0; j<_image->size().width(); j++)
+        {
+          QRgb value = qRgb(qRed(_left->pixel(j,i)),
+                            qGreen(_right->pixel(j,i)),
+                            qBlue(_right->pixel(j,i)));
 					
-					_image->setPixel(j,i,value);
-				}
-		}
+          _image->setPixel(j,i,value);
+        }
+    }
 	
-	std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
-	_file->pushImage(std::move(_image));
+  std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
+  _file->pushImage(std::move(_image));
 	
-	return _file;
+  return _file;
 }

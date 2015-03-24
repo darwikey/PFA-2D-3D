@@ -132,8 +132,16 @@ void PlyLoader::parseHeader()
 			float _value = 0;
 			if (this->mFormat == PlyFormat::ASCII){
 				fLine >> _value;
-			}else{
-				fLine.read(reinterpret_cast<char*>(&_value), sizeof(float));
+			}
+			else{
+				if (i != VerticesProperties::RED && i != VerticesProperties::GREEN && i != VerticesProperties::BLUE){
+					fLine.read(reinterpret_cast<char*>(&_value), sizeof(float));
+				}
+				else{
+					uchar _smallValue = 0;
+					fLine.read(reinterpret_cast<char*>(&_smallValue), sizeof(uchar));
+					_value = (float)_smallValue;
+				}
 			}
 
 			switch (i) {
@@ -264,7 +272,7 @@ void PlyLoader::parseFace(Object* fObject){
 				fObject->pushIndice(_indice[3]);
 			}
 			else {
-				std::cerr << "parser don't support polygons which are not triangle or quad" << std::endl;
+				std::cerr << "!!!" << _verticesNumber << " parser don't support polygons which are not triangle or quad" << std::endl;
 			}
 		}
 	}

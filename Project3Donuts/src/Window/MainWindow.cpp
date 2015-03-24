@@ -70,6 +70,8 @@ void MainWindow::openfile()
 void MainWindow::newscene()
 {
 	Scene::getScene()->clearScene();
+    //refresh widget
+    ui->widget->update();
 }
 
 void MainWindow::openlibfile()
@@ -86,6 +88,12 @@ void MainWindow::open()
         Scene::getScene()->clearScene();
         Scene::getScene()->createScene(_qfile);
     }
+}
+
+void MainWindow::revertPreviousAction()
+{
+    Scene::getScene()->revertPreviousAction();
+    ui->widget->update();
 }
 
 void MainWindow::save()
@@ -114,9 +122,7 @@ void MainWindow::selectObject(const QModelIndex &index)
 
     Scene::getScene()->selectObjectsByName(stringList);
     //refresh widget
-    ui->widget->setFocus();
-    //come back to the list
-    ui->listView->setFocus();
+   ui->widget->update();
 }
 
 void MainWindow::deleteSelectedObject()
@@ -129,10 +135,7 @@ void MainWindow::deleteSelectedObject()
     }
     Scene::getScene()->deleteObjectsByName(stringList);
     //refresh widget
-    ui->widget->setFocus();
-    //come back to the list
-    ui->listView->setFocus();
-
+    ui->widget->update();
 }
 
 void MainWindow::changeObjectColor(){

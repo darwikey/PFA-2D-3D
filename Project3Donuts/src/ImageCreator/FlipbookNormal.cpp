@@ -43,34 +43,60 @@ void FlipbookNormal::createWindow(bool fHasPreview){
 	QObject::connect(mZoomSpeedSlider, SIGNAL(valueChanged(int)), this, SLOT(changeZoomSpeed(int)));
 
 	// Number of Frame
-	mFrameNumberLabel = new QLabel("Nombre d'images", mWindow);
+	mFrameNumberLabel = new QLabel("Nombre d'images total", mWindow);
 	this->insertNewWidget(mFrameNumberLabel);
 
 	mFrameNumberBox = new QSpinBox(mWindow);
 	mFrameNumberBox->setValue(mFrameNumber);
 	this->insertNewWidget(mFrameNumberBox);
 
-	QObject::connect(mFrameNumberBox, SIGNAL(valueChanged(int)), this, SLOT(changeFrameNumber(int)));
+	// Frame per second
+	mFramePerSecondLabel = new QLabel("Nombre d'images par seconde", mWindow);
+	this->insertNewWidget(mFramePerSecondLabel);
+
+	mFramePerSecondBox = new QSpinBox(mWindow);
+	mFramePerSecondBox->setValue(mFramePerSecond);
+	this->insertNewWidget(mFramePerSecondBox);
+
+	QObject::connect(mFramePerSecondBox, SIGNAL(valueChanged(int)), this, SLOT(changeFramePerSecond(int)));
+
+	// Separate image
+	mSeparateImageBox = new QCheckBox("Sauvegarder dans des images s\303\251par\303\251es", mWindow);
+	this->insertNewWidget(mSeparateImageBox);
+
+	QObject::connect(mSeparateImageBox, SIGNAL(stateChanged(int)), this, SLOT(setSeparateImage(int)));
 }
 
 
 std::unique_ptr<CreationFile> FlipbookNormal::render(){
-	std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::ANIMATED_GIF));
+	//delay between each frame
+	float _delay = 100.f / (float)mFramePerSecond;
+
+	//Type of image
+	CreationFile::Type _imageType = CreationFile::Type::ANIMATED_GIF;
+	if (mIsSeparateImage){
+		_imageType = CreationFile::Type::SEPARATED_IMAGE;
+	}
+
+	std::unique_ptr<CreationFile> _file(new CreationFile(_imageType, _delay));
 
 	float _horizontalRotation = 0.f;
 	float _verticalRotation = 0.f;
 	float _zoom = 1.f;
 
-	for (int _frame = 0; _frame < mFrameNumber; _frame++)	{
+	for (int _frame = 0; _frame < mFrameNumber; _frame++) {
 		
+		// get color map
 		std::unique_ptr<QImage> _image = this->getColorMap(_horizontalRotation, _verticalRotation, _zoom);
 
 		if (mIsGrey){
 			CreationTools::convertToShadeOfGrey(*_image);
 		}
 
+		// add a new image
 		_file->pushImage(std::move(_image));
 
+		// move the camera
 		_horizontalRotation += 35.f * mHorizontalSpeed;
 		_verticalRotation += 8.f * mVerticalSpeed;
 		_zoom *= 1.f + (0.1f * mZoomSpeed);
@@ -103,4 +129,14 @@ void FlipbookNormal::changeZoomSpeed(int fSpeed){
 
 void FlipbookNormal::changeFrameNumber(int fValue){
 	mFrameNumber = fValue;
+}
+
+
+void FlipbookNormal::changeFramePerSecond(int fValue){
+	mFramePerSecond = fValue;
+}
+
+
+void FlipbookNormal::setSeparateImage(int fValue){
+	mIsSeparateImage = fValue;
 }

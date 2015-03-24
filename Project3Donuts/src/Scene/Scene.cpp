@@ -155,6 +155,8 @@ void Scene::deleteObjectsByName(QStringList fObjectList)
                     mObjectList << QString::fromStdString(_object.first);
                 }
                 updateListObjects();
+                if (Scene::getScene()->isEmptyScene())
+                    mLoader->stopAutoSave();
 
                 // save the action in order to revert it
                 std::function<void()> _action = [this, _name](){
@@ -284,16 +286,16 @@ float Scene::getBoundingSphereRadius() {
 
 void Scene::clearScene(){
 	// delete objects
-	for (auto it = mObjects.load()->begin(); it != mObjects.load()->end(); ++it){
-		delete it->second;
+    for (auto _it = mObjects.load()->begin(); _it != mObjects.load()->end(); ++_it){
+        delete _it->second;
 	}
 	mObjects.load()->clear();
 	mObjectList.clear();
 
 	updateListObjects();
 
-	for (auto it : mDeletedObjects){
-		delete &it;
+    for (auto _it : mDeletedObjects){
+        delete &_it;
 	}
 	mDeletedObjects.clear();
 
@@ -305,6 +307,9 @@ void Scene::clearScene(){
 	// new camera
 	delete mCamera;
 	mCamera = new Camera();
+
+    mName = "";
+    mLoader->stopAutoSave();
 }
 
 
@@ -319,7 +324,8 @@ void Scene::saveScene(const std::string& fPath) {
 	if (_ext != "xml") {
 		std::cerr << "File must have an XML extension !" << std::endl;
 		QMessageBox::critical(0, "Error", "Error with File Extension...");
-	}
+        return;
+    }
 
 	std::string _data("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 
@@ -507,5 +513,22 @@ void Scene::createScene(const QString &fPath){
         }
     }
 
+    std::string _path= fPath.toStdString();
+    std::size_t _begin = _path.find_last_of('/') + 1;
+    std::size_t _end = _path.find_last_of('.');
+    mName = _path.substr(_begin, _end-_begin);
+
     xml_doc.close();
+}
+
+bool Scene::hasName(){
+    return (!Scene::mName.empty());
+}
+
+void Scene::setName(std::string fName){
+    Scene::mName = fName;
+}
+
+std::string Scene::getName(){
+    return Scene::mName;
 }

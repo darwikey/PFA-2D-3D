@@ -3,6 +3,7 @@
 #include "ObjLoader.hpp"
 #include "PlyLoader.hpp"
 #include "Scene.hpp"
+#include "Mesh.hpp"
 
 
 Loader::Loader(){
@@ -28,8 +29,16 @@ void Loader::changeAutoSaveTimer(int fTimer)
 
 void autoSave(int * fTimer){
     while(true){
-        std::this_thread::sleep_for(std::chrono::seconds(*fTimer));
-        Scene::getScene()->saveScene("autoSave.xml");
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+        if(!Scene::getScene()->hasName()){
+            Scene::getScene()->saveScene("autoSave.xml");
+        }
+        else{
+            std::string _path;
+            std::string _name = Scene::getScene()->getName();
+            _path = _name + ".xml";
+            Scene::getScene()->saveScene(_path);
+        }
     }
 }
 
@@ -67,9 +76,19 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 		return nullptr;
 	}
 
+	/*Mesh _mesh(_object);
+	_mesh.polygonReduction(40000);
+	Object* _newObject = _mesh.convertToModel();
+	_object = _newObject;
+	*/
 	_object->computeColors();
 	_object->normalizeData();
 	Scene::getScene()->addObject(fObjectName, _object);
 
 	return _object;
+}
+
+void Loader::stopAutoSave(){
+    delete mAutomaticSave;
+    mAutomaticSave = nullptr;
 }

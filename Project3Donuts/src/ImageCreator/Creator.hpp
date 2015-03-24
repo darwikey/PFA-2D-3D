@@ -60,7 +60,7 @@ private:
 			_it->hide();
 		}
 
-		if (fAlgoNumber < fTable.size()){
+		if (fAlgoNumber < (int)fTable.size()){
 			fTable[fAlgoNumber]->launch();
 			fTable[fAlgoNumber]->updatePreview();
 		}
