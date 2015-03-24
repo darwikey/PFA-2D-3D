@@ -22,7 +22,6 @@ std::unique_ptr<CreationFile> AutostereogramAlgorithm1::render(){
 
   std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
   _file->pushImage(std::move(_image));
-  _file->pushImage(std::move(_depthmap));
 
   return _file;
 }

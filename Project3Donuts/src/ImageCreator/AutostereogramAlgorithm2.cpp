@@ -156,11 +156,11 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 	mcenter = (vwidth - mmaxsep) / 2;
 	mpoffset = mmaxsep - (mcenter % mmaxsep);
 	
-	std::cout << "All variables succesfully initialized" << std::endl;
+	//	std::cout << "All variables succesfully initialized" << std::endl;
 	
 	for (int y = 0; y < height; ++y) {
 
-		std::cout << y << " " << height << std::endl;
+	  //		std::cout << y << " " << height << std::endl;
 		
 		int s = 0;
 		int left, right;
@@ -185,7 +185,7 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 					all virtual points representing the same real point
 				*/
 				
-				zValue = _floatDepthMap[Autostereogram::caseXY(x/moversampling, y, width)];
+				zValue = 1. - _floatDepthMap[Autostereogram::caseXY(x/moversampling, y, width)];
 				s = vE * ((1. - mmu * zValue) / (2. - mmu * zValue));
 			}
 			
