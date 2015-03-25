@@ -76,8 +76,9 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 		return nullptr;
 	}
 
+    QSettings settings("settings.ini", QSettings::IniFormat);
 
-	int _FaceNumberMax = 10000;
+    int _FaceNumberMax = settings.value("Viewer/FaceNumberMax",200000).toInt();
 
 	if (_object->getFaceNumber() > _FaceNumberMax){
 		// ask the user 
