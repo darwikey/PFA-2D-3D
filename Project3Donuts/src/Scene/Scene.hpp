@@ -98,6 +98,8 @@ public:
     bool hasName();
     void setName(std::string fName);
     std::string getName();
+    void setPath(std::string fPath);
+    std::string getPath();
 
 
 private:
@@ -132,6 +134,7 @@ private:
     std::vector<std::function<void()>> mActionTable;
 
     std::string mName;
+    std::string mPath;
 };
 
 #endif

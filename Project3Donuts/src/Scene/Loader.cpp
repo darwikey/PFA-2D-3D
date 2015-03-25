@@ -32,13 +32,13 @@ void autoSave(int * fTimer){
     while(Scene::getScene()->getLoader()->getContinue()){
         std::this_thread::sleep_for(std::chrono::seconds(5));
         if (Scene::getScene()->getLoader()->getContinue()){
-            if(!Scene::getScene()->hasName()){
+           if(!Scene::getScene()->hasName()){
                 Scene::getScene()->saveScene("autoSave.xml");
             }
             else{
                 std::string _path;
                 std::string _name = Scene::getScene()->getName();
-                _path = _name + "autoSave.xml";
+                _path = Scene::getScene()->getPath() + _name + "autoSave.xml";
                 Scene::getScene()->saveScene(_path);
             }
         }

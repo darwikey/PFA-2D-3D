@@ -314,6 +314,7 @@ void Scene::clearScene(){
     mCamera = new Camera();
 
     mName = "";
+    mPath = "";
     mLoader->stopAutoSave();
 }
 
@@ -522,6 +523,7 @@ void Scene::createScene(const QString &fPath){
     std::size_t _begin = _path.find_last_of('/') + 1;
     std::size_t _end = _path.find_last_of('.');
     mName = _path.substr(_begin, _end-_begin);
+    mPath = _path.substr(0, _begin);
 
     xml_doc.close();
 }
@@ -536,4 +538,10 @@ void Scene::setName(std::string fName){
 
 std::string Scene::getName(){
     return Scene::mName;
+}
+void Scene::setPath(std::string fPath){
+    Scene::mPath = fPath;
+}
+std::string Scene::getPath(){
+    return Scene::mPath;
 }
