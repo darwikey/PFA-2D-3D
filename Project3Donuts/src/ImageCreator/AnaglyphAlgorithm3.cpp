@@ -16,13 +16,13 @@ void AnaglyphAlgorithm3::createWindow(bool fHasPreview){
 
 
 std::unique_ptr<CreationFile> AnaglyphAlgorithm3::renderAnaglyph(){
-  std::unique_ptr<QImage> _left = this->getColorMap(-this->mHorizontalRotation/2,
-                                                    -this->mVerticalRotation/2,
+  std::unique_ptr<QImage> _left = this->getColorMap(0.0,
+                                                    0.0,
                                                     1.0,
                                                     QVector2D(mTranslation / 2, 0.0));
   
-  std::unique_ptr<QImage> _right = this->getColorMap(this->mHorizontalRotation,
-                                                     this->mVerticalRotation,
+  std::unique_ptr<QImage> _right = this->getColorMap(0.0,
+                                                     0.0,
                                                      1.0,
                                                      QVector2D(-mTranslation / 2, 0.0));
 
@@ -30,30 +30,35 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm3::renderAnaglyph(){
                                             _left->size().height(),
                                             QImage::Format_RGB32));
 
-  float _rgbLeft[3], _rgbRight[3], _rgb[3];	
+  float _rgbLeft[3], _rgbRight[3], _rgb[3], _hsl[3];	
 	
   for(int i=0; i<_image->size().height(); i++)
     {
       for(int j=0; j<_image->size().width(); j++)
         {
-          getMinColorAndOperate(_left->pixel(j,i), _rgbLeft, true);
+          storePixelValue(_left->pixel(j,i), _rgbLeft);
+          rgbToReducedInterval(_rgbLeft);
+          rgbToHsl(_rgbLeft, _hsl);
+          sRgbGamma(_hsl);
+          hslToRgb(_rgbLeft, _hsl);
           modifyLeftImage(_rgbLeft);
 
-          getMinColorAndOperate(_right->pixel(j,i), _rgbRight, true);
+          storePixelValue(_right->pixel(j,i), _rgbRight);
+          rgbToReducedInterval(_rgbRight);
+          rgbToHsl(_rgbRight, _hsl);
+          sRgbGamma(_hsl);
+          hslToRgb(_rgbRight, _hsl);
           modifyRightImage(_rgbRight);
 
           for(int k=0; k<3; k++)
             {
-              _rgb[k] = (_rgbLeft[k] + _rgbRight[k]) * 255;
+              _rgb[k] = _rgbLeft[k] + _rgbRight[k];
             }
 
-          QRgb _tmp = qRgb(_rgb[0], _rgb[1], _rgb[2]);
-          getMinColorAndOperate(_tmp, _rgb, false);
-
-          for(int k=0; k<3; k++)
-            {
-              _rgb[k] = _rgb[k] * 255;
-            }
+          rgbToHsl(_rgb, _hsl);
+          sRgbGamma(_hsl);
+          hslToRgb(_rgb, _hsl);
+          reducedIntervalToRgb(_rgb);
 
           QRgb _final = qRgb(_rgb[0], _rgb[1], _rgb[2]);
           
@@ -61,84 +66,143 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm3::renderAnaglyph(){
         }
     }
 	
-  std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
+  std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
   _file->pushImage(std::move(_image));
 	
   return _file;
 }
 
-void AnaglyphAlgorithm3::getMinColorAndOperate(QRgb fPixel, float *fRgb, bool sRgb){
-
-  float _rgb[3];
-  
-  if(qRed(fPixel) == qGreen(fPixel) && qRed(fPixel) == qBlue(fPixel))
-    {
-      fRgb[0] = qRed(fPixel)   / 255.;
-      fRgb[1] = qGreen(fPixel) / 255.;
-      fRgb[2] = qBlue(fPixel)  / 255.;
-    }
-
-  else if(qRed(fPixel) <= qGreen(fPixel) && qRed(fPixel) <= qBlue(fPixel))
-    {
-      colorCorrection(qRed(fPixel), qGreen(fPixel), qBlue(fPixel), _rgb, sRgb);
-      fRgb[0] = _rgb[0];
-      fRgb[1] = _rgb[1];
-      fRgb[2] = _rgb[2];      
-    }
-
-  else if(qGreen(fPixel) <= qRed(fPixel) && qGreen(fPixel) <= qBlue(fPixel))
-    {
-      colorCorrection(qGreen(fPixel), qRed(fPixel), qBlue(fPixel), _rgb, sRgb);
-      fRgb[0] = _rgb[1];
-      fRgb[1] = _rgb[0];
-      fRgb[2] = _rgb[2];      
-    }
-
-  else
-    {
-      colorCorrection(qBlue(fPixel), qRed(fPixel), qGreen(fPixel), _rgb, sRgb);
-      fRgb[0] = _rgb[1];
-      fRgb[1] = _rgb[2];
-      fRgb[2] = _rgb[0];      
-    }
+void AnaglyphAlgorithm3::storePixelValue(QRgb fPixel, float *fRgb)
+{
+  fRgb[0] = qRed(fPixel); fRgb[1] = qGreen(fPixel); fRgb[2] = qBlue(fPixel);
 }
 
-void AnaglyphAlgorithm3::colorCorrection(int fR, int fG, int fB, float* fRgb, bool sRgb)
+void AnaglyphAlgorithm3::rgbToReducedInterval(float *fRgb)
 {
-  float _saturation, _intensity = (fR + fG + fB) / 3.;
-
-  if(!fR)
-    _saturation = 0;
-
-  else if(sRgb)
-    {
-      _saturation = fR / _intensity;
-			
-      if((_saturation - 0.04045) <= 0.0001)				
-        _saturation = _saturation / 12.92;
-
-      else
-        _saturation = std::pow((_saturation + 0.055) / 1.055, 2.4);
-    }
-
-  else
-    {
-      _saturation = fR / _intensity;
-
-      if((_saturation - 0.0031308) <= 0.0001)
-        _saturation = 12.92 * _saturation;
-
-      else
-        _saturation = 1.055 * std::pow(_saturation, 0.41666) - 0.055;
-    }
-  
-  fRgb[0] = _intensity * _saturation;
-  fRgb[1] = (fRgb[0]*(fR+fB-2*fG) + 3*_intensity*(fG-fR)) / (fB+fG-2*fR);
-  fRgb[2] = (fRgb[0]*(fR+fG-2*fB) + 3*_intensity*(fB-fR)) / (fB+fG-2*fR);
-
   fRgb[0] = fRgb[0] / 255.;
   fRgb[1] = fRgb[1] / 255.;
   fRgb[2] = fRgb[2] / 255.;
+}
+
+void AnaglyphAlgorithm3::reducedIntervalToRgb(float *fRgb)
+{
+  fRgb[0] = fRgb[0] * 255.;
+  fRgb[1] = fRgb[1] * 255.;
+  fRgb[2] = fRgb[2] * 255.;
+
+  if(fRgb[0] > 255) fRgb[0] = 255;
+  if(fRgb[0] < 0)   fRgb[0] = 0;
+
+  if(fRgb[1] > 255) fRgb[1] = 255;
+  if(fRgb[1] < 0)   fRgb[1] = 0;
+
+  if(fRgb[2] > 255) fRgb[2] = 255;
+  if(fRgb[2] < 0)   fRgb[2] = 0;
+
+}
+
+double AnaglyphAlgorithm3::modulo(double fX, double fY)
+{
+  fX -= fY*abs(fX / fY);
+  
+  if (fX >= 0.)
+    return (fX);
+
+  else
+    return (fX + fY);
+}
+
+
+void AnaglyphAlgorithm3::rgbToHsl(float *fRgb, float *fHsl)
+{
+  float _cmax = std::max(fRgb[0], std::max(fRgb[1], fRgb[2]));
+  float _cmin = std::min(fRgb[0], std::min(fRgb[1], fRgb[2]));
+
+  float _delta = _cmax - _cmin;
+
+  fHsl[2] = (_cmax + _cmin) / 2;
+
+  if(_delta < 0.0001)
+    {
+      fHsl[0] = fHsl[1] = 0;
+    }
+
+  else
+    {
+      fHsl[1] = _delta / (1 - abs(2 * fHsl[2] - 1));
+
+      if(abs(_cmax - fRgb[0]) < 0.0001)
+        {
+          fHsl[0] = 60 * (modulo(((fRgb[1] - fRgb[2]) / _delta), 6));
+        }
+
+      else if(abs(_cmax - fRgb[1]) < 0.0001)
+        {
+          fHsl[0] = 60 * (((fRgb[2] - fRgb[0]) / _delta) + 2);
+        }
+
+      else
+        {
+          fHsl[0] = 60 * (((fRgb[1] - fRgb[2]) / _delta) + 4);
+        }
+    }
+}
+
+void AnaglyphAlgorithm3::hslToRgb(float *fRgb, float *fHsl)
+{ 
+  float _c = (1 - abs(2 * fHsl[2] - 1)) * fHsl[1];
+  float _x = _c * (1 - abs((modulo((fHsl[0] / 60.), 2) - 1)));
+  float _m = fHsl[2] - (_c / 2.);
+
+  if(fHsl[0] >= 0 && fHsl[0] < 60)
+    {    
+      fRgb[0] = _c; fRgb[1] = _x; fRgb[2] = 0;
+    }
+
+  else if(fHsl[0] >= 60 && fHsl[0] < 120)
+    {
+      fRgb[0] = _x; fRgb[1] = _c; fRgb[2] = 0;
+    }
+
+  else if(fHsl[0] >= 120 && fHsl[0] < 180)
+    {
+      fRgb[0] = 0; fRgb[1] = _c; fRgb[2] = _x;
+    }
+
+  else if(fHsl[0] >= 180 && fHsl[0] < 240)
+    {
+      fRgb[0] = 0; fRgb[1] = _x; fRgb[2] = _c;
+    }
+
+  else if(fHsl[0] >= 240 && fHsl[0] < 300)
+    {
+      fRgb[0] = _x; fRgb[1] = 0; fRgb[2] = _c;
+    }
+
+  else
+    {
+      fRgb[0] = _c; fRgb[1] = 0; fRgb[2] = _x;
+    }
+
+  fRgb[0] += _m; fRgb[1] += _m; fRgb[2] += _m;
+}
+
+void AnaglyphAlgorithm3::sRgbGamma(float *fHsl)
+{
+  if((fHsl[1] - 0.04045) <= 0.0001)				
+    fHsl[1] = fHsl[1] / 12.92;
+
+  else
+    fHsl[1] = std::pow((fHsl[1] + 0.055) / 1.055, 2.4);
+}
+
+void AnaglyphAlgorithm3::gammaCorrection(float *fHsl)
+{
+  if((fHsl[1] - 0.0031308) <= 0.0001)
+    fHsl[1] = 12.92 * fHsl[1];
+
+  else
+    fHsl[1] = 1.055 * std::pow(fHsl[1], 0.41666) - 0.055;
 }
 
 void AnaglyphAlgorithm3::modifyLeftImage(float *fRgb){

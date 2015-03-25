@@ -34,34 +34,6 @@ void Anaglyph::createWindow(bool fHasPreview){
   QObject::connect(mChooseView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeChoosenView(int)));
 	
   // Eyes distance
-	
-  mHorizontalRotationLabel = new QLabel(QString("Rotation horizontale %1").arg(mHorizontalRotation),
-                                        mWindow);
-  insertNewWidget(mHorizontalRotationLabel);
-
-  mHorizontalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
-                                          mWindow);
-  mHorizontalRotationSlider->setValue(0);
-  mHorizontalRotationSlider->setRange(0,200);
-  insertNewWidget(mHorizontalRotationSlider);
-  QObject::connect(mHorizontalRotationSlider,
-                   SIGNAL(valueChanged(int)),
-                   this,
-                   SLOT(changeHorizontalRotation(int)));
-	
-  mVerticalRotationLabel = new QLabel(QString("Rotation verticale %1").arg(mVerticalRotation),
-                                      mWindow);
-  insertNewWidget(mVerticalRotationLabel);
-
-  mVerticalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
-                                        mWindow);
-  mVerticalRotationSlider->setValue(0);
-  mVerticalRotationSlider->setRange(0,200);
-  insertNewWidget(mVerticalRotationSlider);
-  QObject::connect(mVerticalRotationSlider,
-                   SIGNAL(valueChanged(int)),
-                   this,
-                   SLOT(changeVerticalRotation(int)));
 
   mTranslationLabel = new QLabel(QString("Translation %1").arg(mTranslation),
                                       mWindow);
@@ -76,20 +48,6 @@ void Anaglyph::createWindow(bool fHasPreview){
                    SIGNAL(valueChanged(int)),
                    this,
                    SLOT(changeTranslation(int)));
-}
-
-void Anaglyph::changeHorizontalRotation(int fHorizontalRotation){
-
-  mHorizontalRotation = fHorizontalRotation / 10.f;
-
-  mHorizontalRotationLabel->setText(QString("Rotation horizontal %1").arg(mHorizontalRotation));
-}
-
-void Anaglyph::changeVerticalRotation(int fVerticalRotation){
-
-  mVerticalRotation = fVerticalRotation / 10.f;
-
-  mVerticalRotationLabel->setText(QString("Rotation vertical %1").arg(mVerticalRotation));
 }
 
 void Anaglyph::changeTranslation(int fTranslation){
@@ -126,7 +84,7 @@ std::unique_ptr<CreationFile> Anaglyph::render(){
 
 std::unique_ptr<CreationFile> Anaglyph::renderLeft(){
 
-  std::unique_ptr<QImage> _left = this->getColorMap(-this->mHorizontalRotation / 2, -this->mVerticalRotation / 2, 1.0);
+  std::unique_ptr<QImage> _left = this->getColorMap(0.0, 0.0, 1.0, QVector2D(mTranslation / 2, 0.0));
 	
   std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
   _file->pushImage(std::move(_left));
@@ -136,7 +94,7 @@ std::unique_ptr<CreationFile> Anaglyph::renderLeft(){
 
 std::unique_ptr<CreationFile> Anaglyph::renderRight(){
 
-  std::unique_ptr<QImage> _right = this->getColorMap(this->mHorizontalRotation / 2, this->mVerticalRotation / 2, 1.0);
+  std::unique_ptr<QImage> _right = this->getColorMap(0.0, 0.0, 1.0, QVector2D(-mTranslation / 2, 0.0));
 
   std::unique_ptr<CreationFile> _file( new CreationFile(CreationFile::Type::IMAGE));
   _file->pushImage(std::move(_right));

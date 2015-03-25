@@ -28,8 +28,8 @@ void AnaglyphAlgorithm2::createWindow(bool fHasPreview){
 
 
 std::unique_ptr<CreationFile> AnaglyphAlgorithm2::renderAnaglyph(){
-  std::unique_ptr<QImage> _left = this->getColorMap(-this->mHorizontalRotation/2, -this->mVerticalRotation/2, 1.0, QVector2D(mTranslation / 2, 0.0));
-  std::unique_ptr<QImage> _right = this->getColorMap(this->mHorizontalRotation, this->mVerticalRotation, 1.0, QVector2D(-mTranslation / 2, 0.0));
+  std::unique_ptr<QImage> _left = this->getColorMap(0.0, 0.0, 1.0, QVector2D(mTranslation / 2, 0.0));
+  std::unique_ptr<QImage> _right = this->getColorMap(0.0, 0.0, 1.0, QVector2D(-mTranslation / 2, 0.0));
 
   std::unique_ptr<QImage> _image(new QImage(_left->size().width(),
                                             _left->size().height(),

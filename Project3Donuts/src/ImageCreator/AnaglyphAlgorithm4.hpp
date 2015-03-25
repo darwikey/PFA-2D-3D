@@ -16,21 +16,12 @@ protected:
 
   virtual std::unique_ptr<CreationFile> renderAnaglyph() override;
 
-  void storePixelValue(QRgb fPixel, float *fRgb);
-
-  void rgbToReducedInterval(float *fRgb);
-  void reducedIntervalToRgb(float *fRgb);
-
-  void rgbToHsl(float *fRgb, float *fHsl);
-  void hslToRgb(float *fRgb, float *fHsl);
-
-  void sRgbGamma(float *fHsl);
-  void gammaCorrection(float *fHsl);
+  void getMinColorAndOperate(QRgb fPixel, float *fRgb, bool sRgb);
+  
+  void colorCorrection(int fR, int fG, int fB, float* fRgb, bool sRgb);
   
   void modifyLeftImage (float *fRgb);
   void modifyRightImage(float *fRgb);
-
-  double modulo(double fX, double fY);
 	
 private:
 
