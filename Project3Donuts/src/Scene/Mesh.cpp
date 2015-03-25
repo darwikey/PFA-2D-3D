@@ -107,8 +107,8 @@ void Mesh::polygonReduction(size_t fPolygonDesired){
 		Mesh::Triangle* _tri = *mTriangleIterator;//[rand()%mTriangles.size()];//*std::min_element(mTriangles.begin(), mTriangles.end(), &Triangle::compareCost);
 		collapseTriangle(_tri);
 
-		if (mTriangles.size()%100==0)
-			std::cout<<mTriangles.size()<<"  "<< mTriangleByVertex.size() <<std::endl;
+		//if (mTriangles.size()%100==0)
+			//std::cout<<mTriangles.size()<<"  "<< mTriangleByVertex.size() <<std::endl;
 	}
 
 	auto _end = std::chrono::system_clock::now();
