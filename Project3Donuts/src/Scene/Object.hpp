@@ -129,6 +129,9 @@ public:
 	//! \brief return the path of the file 
     const std::string& getPath() const;
 
+	//! \brief return the number of face
+	int getFaceNumber();
+
 
 private:
 	void loadShader(SceneRenderer* fRenderer, Object::Shader fShader, QString fVertexShaderPath, QString fFragmentShaderPath);

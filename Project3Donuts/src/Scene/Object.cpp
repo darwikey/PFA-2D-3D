@@ -388,3 +388,7 @@ QVector3D Object::getGlobalColor(){
 const std::string& Object::getPath() const{
     return mPath;
 }
+
+int Object::getFaceNumber(){
+	return (int)mIndices.size() / 3;
+}

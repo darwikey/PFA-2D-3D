@@ -58,7 +58,7 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 
 		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
-			QMessageBox::critical(0, "Error", "Error Opening File...");
+			QMessageBox::critical(0, "Erreur", "Erreur pendant l'ouverture du fichier...");
 			return nullptr;
 		}
 	}
@@ -67,20 +67,32 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 
 		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
-			QMessageBox::critical(0, "Error", "Error Opening File...");
+			QMessageBox::critical(0, "Erreur", "Erreur pendant l'ouverture du fichier...");
 			return nullptr;
 		}
 	}
 	else{
-		QMessageBox::critical(0, "Error", "Error Opening File, extension \"" + QString(_ext.c_str()) + "\" not supported");
+		QMessageBox::critical(0, "Error", "Erreur pendant l'ouverture du fichier, extension \"" + QString(_ext.c_str()) + "\" non supportee");
 		return nullptr;
 	}
 
-	/*Mesh _mesh(_object);
-	_mesh.polygonReduction(40000);
-	Object* _newObject = _mesh.convertToModel();
-	_object = _newObject;
-	*/
+
+	int _FaceNumberMax = 5000;
+
+	if (_object->getFaceNumber() > _FaceNumberMax){
+		// ask the user 
+		int _ret = QMessageBox::question((QWidget*)Scene::getScene()->getSceneRenderer(), QString("Project3Donut"),
+			QString("Ce modele possede " + QString::number(_object->getFaceNumber()) + " polygones.\nVoulez-vous r\303\251duire le nombre de faces ?\nCela affectera juste la visualisation dans la scene et non le rendu 2D.\n"),
+			QMessageBox::Yes | QMessageBox::No);
+
+		if (_ret == QMessageBox::Yes) {
+			Mesh _mesh(_object);
+			_mesh.polygonReduction(_FaceNumberMax);
+			Object* _newObject = _mesh.convertToModel();
+			_object = _newObject;
+		}
+	}
+
 	_object->computeColors();
 	_object->normalizeData();
 	Scene::getScene()->addObject(fObjectName, _object);

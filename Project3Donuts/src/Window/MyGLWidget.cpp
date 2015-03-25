@@ -96,23 +96,16 @@ void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 //key Press Event
 void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 {
-    int ret;
+    int _ret;
     switch( fEvent->key() )
     {
     case Qt::Key_Escape:
-        ret = QMessageBox::question(this, tr("Project3Donut"),
-                                       tr("Etes vous sûr de vouloir quitter ?\n"),
-                                       QMessageBox::Yes | QMessageBox::No);
-        if (ret == QMessageBox::Yes) {
+        _ret = QMessageBox::question(this, tr("Project3Donut"),
+			tr("Etes vous sûr de vouloir quitter ?\n"),
+			QMessageBox::Yes | QMessageBox::No);
+        if (_ret == QMessageBox::Yes) {
             exit(0);
         }
-        break;
-
-	case Qt::Key_Z:
-		{
-			auto i = Scene::getScene()->getCamera()->getDepthMap(1000, 1000);
-			i->save("plop.png");
-		}
         break;
 
 	case Qt::Key_Plus:

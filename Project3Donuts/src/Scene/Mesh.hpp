@@ -12,7 +12,6 @@ class Mesh
 
 	public:
 		QVector3D position; 
-		//std::vector<Vertex*> neigbhor;
 
 		Vertex(QVector3D fPosition);
 		~Vertex(){}

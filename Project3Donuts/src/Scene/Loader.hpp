@@ -23,8 +23,10 @@ public:
 	//! \param name of the object in the scene
 	Object* loadObject(const std::string& fPath, const std::string& fObjectName);
 
+	//! \brief change delay detween save
     void changeAutoSaveTimer(int fTimer);
 
+	//! \brief stop auto save function
     void stopAutoSave();
 
 private:
