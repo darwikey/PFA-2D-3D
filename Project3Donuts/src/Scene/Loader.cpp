@@ -81,9 +81,13 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 
 	if (_object->getFaceNumber() > _FaceNumberMax){
 		// ask the user 
-		int _ret = QMessageBox::question((QWidget*)Scene::getScene()->getSceneRenderer(), QString("Project3Donut"),
+        int _ret;
+        QMessageBox _retBox(QMessageBox::Question, QString("Project3Donut"),
 			QString("Ce modele possede " + QString::number(_object->getFaceNumber()) + " polygones.\nVoulez-vous r\303\251duire le nombre de faces ?\nCela affectera juste la visualisation dans la scene et non le rendu 2D.\n"),
-			QMessageBox::Yes | QMessageBox::No);
+            QMessageBox::Yes | QMessageBox::No);
+        _retBox.setButtonText(QMessageBox::Yes, "Oui");
+        _retBox.setButtonText(QMessageBox::No, "Non");
+        _ret = _retBox.exec();
 
 		if (_ret == QMessageBox::Yes) {
 			// Reduce the number of face
