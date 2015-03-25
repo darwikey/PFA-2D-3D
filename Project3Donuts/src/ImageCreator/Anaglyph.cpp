@@ -63,20 +63,6 @@ void Anaglyph::createWindow(bool fHasPreview){
                    this,
                    SLOT(changeVerticalRotation(int)));
 
-  mVerticalRotationLabel = new QLabel(QString("Rotation verticale %1").arg(mVerticalRotation),
-                                      mWindow);
-  insertNewWidget(mVerticalRotationLabel);
-
-  mVerticalRotationSlider = new QSlider(Qt::Orientation::Horizontal,
-                                        mWindow);
-  mVerticalRotationSlider->setValue(0);
-  mVerticalRotationSlider->setRange(0,200);
-  insertNewWidget(mVerticalRotationSlider);
-  QObject::connect(mVerticalRotationSlider,
-                   SIGNAL(valueChanged(int)),
-                   this,
-                   SLOT(changeVerticalRotation(int)));
-
   mTranslationLabel = new QLabel(QString("Translation %1").arg(mTranslation),
                                       mWindow);
   insertNewWidget(mTranslationLabel);
@@ -84,7 +70,7 @@ void Anaglyph::createWindow(bool fHasPreview){
   mTranslationSlider = new QSlider(Qt::Orientation::Horizontal,
                                         mWindow);
   mTranslationSlider->setValue(0);
-  mTranslationSlider->setRange(0,2000);
+  mTranslationSlider->setRange(0,250);
   insertNewWidget(mTranslationSlider);
   QObject::connect(mTranslationSlider,
                    SIGNAL(valueChanged(int)),

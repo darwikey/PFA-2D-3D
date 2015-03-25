@@ -36,7 +36,7 @@ void autoSave(int * fTimer){
         else{
             std::string _path;
             std::string _name = Scene::getScene()->getName();
-            _path = _name + ".xml";
+            _path = _name + "autoSave.xml";
             Scene::getScene()->saveScene(_path);
         }
     }

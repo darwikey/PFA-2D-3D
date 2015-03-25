@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ui_about.h"
+#include "ui_notice.h"
 #include "Settings.hpp"
 
 namespace Ui {
@@ -35,16 +36,25 @@ public slots:
 
    void editsettings();
    void about();
+   void notice();
 
    void checkSettings(int);
    void changeModeToTranslate();
    void changeModeToRotate();
    void changeModeToScale();
 
+   void newaction();
+
 private:
+   bool mNeedSave;
    QMainWindow * win_about;
+   QMainWindow * win_notice;
    Settings * _settingsWindow;
    Ui::About* _about_ui;
+   Ui::Notice* _notice_ui;
+
+protected:
+   void closeEvent(QCloseEvent *event);
 
 };
 #endif // MAINWINDOW_HPP
