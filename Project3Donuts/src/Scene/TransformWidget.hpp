@@ -22,7 +22,8 @@ public:
 	~TransformWidget();
 
 	//! \brief render the widget
-	void render(SceneRenderer* fRenderer, Camera* fCamera, Object* fSelectedObject);
+    void render(SceneRenderer* fRenderer, Camera* fCamera, Object* fSelectedObject);
+    void render(SceneRenderer* fRenderer, Camera* fCamera);
 
 	//! \brief show the widget, and choose the transformation
 	void changeState(TransformWidget::State fState);

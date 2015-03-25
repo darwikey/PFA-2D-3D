@@ -17,7 +17,9 @@ Scene::Scene() : mLoader(new Loader()),
 mSceneRenderer(nullptr),
 mCamera(new Camera()),
 mTransformWidget(new TransformWidget),
-mObjects(new std::map<std::string, Object*>()){
+mObjects(new std::map<std::string, Object*>()),
+mLandmark(new TransformWidget){
+    mLandmark->changeState(TransformWidget::State::SCALE);
 }
 
 
@@ -87,6 +89,7 @@ void Scene::render(bool fRenderOnlyObject, Camera* fCamera) {
 		if (mSelectedObject.second != nullptr) {
 			mTransformWidget->render(mSceneRenderer, fCamera, mSelectedObject.second);
 		}
+        mLandmark->render(mSceneRenderer, fCamera);
 	}
 }
 
@@ -146,7 +149,7 @@ void Scene::deleteObjectsByName(QStringList fObjectList)
 
                 // add in the deleted object list
                 mDeletedObjects.insert(std::make_pair(_name, _it->second));
-                if(_it->first == mSelectedObject.first){
+                    if(_it->first == mSelectedObject.first){
                     mSelectedObject.first = std::string();
                     mSelectedObject.second = nullptr;
                 }

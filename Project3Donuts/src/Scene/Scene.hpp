@@ -119,6 +119,7 @@ private:
 	MainWindow* mWindow = nullptr;
 	SceneRenderer* mSceneRenderer = nullptr;
 	Camera* mCamera = nullptr;
+    TransformWidget *mLandmark = nullptr;
 
 	TransformWidget* mTransformWidget = nullptr;
     QStringList mObjectList;
