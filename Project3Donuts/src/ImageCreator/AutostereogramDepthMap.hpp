@@ -9,6 +9,7 @@
 
 class AutostereogramDepthMap : public Autostereogram {
   Q_OBJECT
+
 protected :
   virtual void createWindow(bool fHasPreview = true) override;
   

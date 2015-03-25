@@ -159,7 +159,7 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 	mcenter = (vwidth - mmaxsep) / 2;
 	mpoffset = mmaxsep - (mcenter % mmaxsep);
 	
-	std::cout << "All variables succesfully initialized" << std::endl;
+	//	std::cout << "All variables succesfully initialized" << std::endl;
 	
 	for (int y = 0; y < height; ++y) {
 
