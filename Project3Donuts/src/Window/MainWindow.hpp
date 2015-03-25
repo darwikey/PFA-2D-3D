@@ -43,12 +43,18 @@ public slots:
    void changeModeToRotate();
    void changeModeToScale();
 
+   void newaction();
+
 private:
+   bool mNeedSave;
    QMainWindow * win_about;
    QMainWindow * win_notice;
    Settings * _settingsWindow;
    Ui::About* _about_ui;
    Ui::Notice* _notice_ui;
+
+protected:
+   void closeEvent(QCloseEvent *event);
 
 };
 #endif // MAINWINDOW_HPP

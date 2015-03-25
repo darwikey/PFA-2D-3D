@@ -217,6 +217,7 @@ public:
         splitter->setOrientation(Qt::Horizontal);		
         widget = new SceneRenderer(splitter);
         widget->setObjectName(QStringLiteral("widget"));
+        widget->setParentWindow(MainWindow);
 		QList<int> sizes;
 		sizes.append(600);
 		sizes.append(182);
