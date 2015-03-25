@@ -61,6 +61,8 @@ public:
     QVector3D getPosition() const;
     QVector3D getRotation() const;
     float getAngleOfView() const;
+	QVector3D getLookAtPoint() const;
+
 
 private:
 	// \brief compute the view matrix

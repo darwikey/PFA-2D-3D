@@ -16,9 +16,8 @@ void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera){
     if (mState != TransformWidget::State::HIDE
         && mObjectX != nullptr){
         //Translation
-        QVector3D _posCam = fCamera->getPosition();
-        //QVector3D _pos (_posCam.x()+3,_posCam.y()+3,_posCam.z()+3);
-        QVector3D _pos (0,0,0);
+		QVector3D _pos(0.f, 0.f, 0.f);// = fCamera->getPosition();
+
         mObjectX->moveObject(_pos);
         mObjectY->moveObject(_pos);
         mObjectZ->moveObject(_pos);
@@ -28,7 +27,7 @@ void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera){
         mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
 
         // Scale
-        float _scale = fCamera->getPosition().length();
+		float _scale =  fCamera->getPosition().length();
         mObjectX->changeObjectScale(_scale/10);
         mObjectY->changeObjectScale(_scale/10);
         mObjectZ->changeObjectScale(_scale/10);

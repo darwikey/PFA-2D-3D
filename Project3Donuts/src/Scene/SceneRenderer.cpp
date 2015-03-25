@@ -90,8 +90,8 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 	_model->getShader()->setUniformValue("viewMatrixInv", _viewMatrix.inverted());
 
 	// Parameters
-	_model->getShader()->setUniformValue("isSelected", _model->isObjectSelected());
-	_model->getShader()->setUniformValue("globalColor", _model->getGlobalColor());
+	_model->getShader()->setUniformValue("isSelected", fModel->isObjectSelected());
+	_model->getShader()->setUniformValue("globalColor", fModel->getGlobalColor());
 	_model->getShader()->setUniformValue("enableShading", !fRenderForeground);
 
 	QVector4D _lamps[8];

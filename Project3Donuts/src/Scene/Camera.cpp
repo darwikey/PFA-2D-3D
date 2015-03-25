@@ -238,3 +238,7 @@ QVector3D Camera::getRotation() const{
 float Camera::getAngleOfView() const{
     return mAngleOfView;
 }
+
+QVector3D Camera::getLookAtPoint() const{
+	return mLookAtPoint;
+}

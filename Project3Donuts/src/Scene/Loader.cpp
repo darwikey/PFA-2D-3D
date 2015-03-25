@@ -77,7 +77,7 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 	}
 
 
-	int _FaceNumberMax = 5000;
+	int _FaceNumberMax = 10000;
 
 	if (_object->getFaceNumber() > _FaceNumberMax){
 		// ask the user 
