@@ -70,6 +70,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
 		if (Scene::getScene()->getTransformWidget()->isSelected()) {
 			QVector2D _mouse((float)fEvent->x() / width(), 1.f - (float)fEvent->y() / height());
 			Scene::getScene()->getTransformWidget()->activate(_mouse);
+            emit newAction();
 		}
 		else {
 			Scene::getScene()->getCamera()->moveCameraWithMouse(_dx, _dy, 0.f);
@@ -88,6 +89,7 @@ void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 {
     float _dz = (float)fEvent->delta();
 	Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, _dz);
+    emit newAction();
 
     update();
 }
@@ -96,16 +98,10 @@ void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 //key Press Event
 void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 {
-    int ret;
     switch( fEvent->key() )
     {
     case Qt::Key_Escape:
-        ret = QMessageBox::question(this, tr("Project3Donut"),
-                                       tr("Etes vous sûr de vouloir quitter ?\n"),
-                                       QMessageBox::Yes | QMessageBox::No);
-        if (ret == QMessageBox::Yes) {
-            exit(0);
-        }
+        emit winClose();
         break;
 
 	case Qt::Key_Z:
@@ -117,18 +113,28 @@ void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 
 	case Qt::Key_Plus:
 		Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, 0.1f);
+        emit newAction();
 		break;
 
 	case Qt::Key_Minus:
 		Scene::getScene()->getCamera()->moveCameraWithMouse(0.f, 0.f, -0.1f);
+        emit newAction();
 		break;
 
 	case Qt::Key_Delete:
 		Scene::getScene()->deleteSelectedObject();
+        emit newAction();
 		break;
 
     default:
         QGLWidget::keyPressEvent( fEvent );
     }
     update();
+}
+
+void MyGLWidget::setParentWindow(MainWindow * fWindow)
+{
+    mParent = fWindow;
+    connect(this, SIGNAL(winClose()), fWindow, SLOT(close()));
+    connect(this, SIGNAL(newAction()), fWindow, SLOT(newaction()));
 }

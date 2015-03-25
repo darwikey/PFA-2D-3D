@@ -292,21 +292,21 @@ void Scene::clearScene(){
 	mObjects.load()->clear();
 	mObjectList.clear();
 
-	updateListObjects();
+    updateListObjects();
 
     for (auto _it : mDeletedObjects){
         delete &_it;
-	}
-	mDeletedObjects.clear();
+    }
+    mDeletedObjects.clear();
 
-	mSelectedObject = std::make_pair(std::string(), nullptr);
+    mSelectedObject = std::make_pair(std::string(), nullptr);
 
-	//delete actions
-	mActionTable.clear();
+    //delete actions
+    mActionTable.clear();
 
-	// new camera
-	delete mCamera;
-	mCamera = new Camera();
+    // new camera
+    delete mCamera;
+    mCamera = new Camera();
 
     mName = "";
     mLoader->stopAutoSave();

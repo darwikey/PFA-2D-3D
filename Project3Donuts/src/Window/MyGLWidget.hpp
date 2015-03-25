@@ -4,7 +4,7 @@
 #include "global.hpp"
 
 #include <QOpenGLFunctions>
-
+#include "MainWindow.hpp" // we need myglwidget to know that mainwindow is a qt class
 
 class MyGLWidget : public QGLWidget, public QOpenGLFunctions
 {
@@ -32,12 +32,18 @@ public:
     // \brief Zoomin in and out of the cube
     void wheelEvent(QWheelEvent * fEvent) override;
 
+    // \brief set the window that will receive the notifications of updates on the scene
+    void setParentWindow(MainWindow * fWindow);
+
+signals:
+    void newAction();
+    void winClose();
 
 public slots:
     virtual void timeOutSlot();
 
 private:
-
+    MainWindow *mParent;
     QTimer *mTimer;
 	// mouse position at the lastest mouse click 
     QPoint mPrevMousePosition;
