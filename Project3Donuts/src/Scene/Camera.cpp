@@ -90,6 +90,7 @@ void Camera::translateCameraWithMouse(float fHorizontalAxe, float fVerticalAxe){
 	QVector3D _vec2 = _quat.rotatedVector(QVector3D(0.f, 1.f, 0.f));
 
 	QVector3D _translation = -fHorizontalAxe * _vec1 + fVerticalAxe * _vec2;
+	_translation *= mPosition.distanceToPoint(mLookAtPoint) / 3.f;
 	translateCamera(_translation);
 }
 
