@@ -36,6 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _settingsWindow = new Settings(this);
     QObject::connect(_settingsWindow, SIGNAL(finished (int)), this, SLOT(checkSettings(int)));
+
+    Scene::getScene()->createScene("resources/example/maScene.xml");
+    Scene::getScene()->setName("");
+    Scene::getScene()->setPath("");
 }
 
 MainWindow::~MainWindow()
@@ -53,6 +57,19 @@ void MainWindow::openfile()
     std::string _file = _qfile.toStdString();
     if(_file!="")
     {
+//        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+//                                    tr("Souhaitez vous creer une copie du modèle dans le dossier du répertoire ?\n"),
+//                                    QMessageBox::Yes | QMessageBox::No, this);
+//        _retBox.setButtonText(QMessageBox::Yes, "Oui");
+//        _retBox.setButtonText(QMessageBox::No, "Non");
+//        ret = _retBox.exec();
+//        if (ret == QMessageBox::Yes) {
+//            //changement _file
+//        }
+//        else{
+//            //chargement normal
+//        }
+
         //now we computer the name of the object
         int _num=0;
         std::string  _num_name;
