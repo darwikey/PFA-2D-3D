@@ -171,7 +171,7 @@ void MainWindow::save()
     {
         std::string _path;
         std::string _name = Scene::getScene()->getName();
-        _path = _name + ".xml";
+        _path = Scene::getScene()->getPath() +_name + ".xml";
         Scene::getScene()->saveScene(_path);
         std::string _winName = "Project3Donut - " + Scene::getScene()->getName();
         setWindowTitle(QApplication::translate("MainWindow", _winName.c_str(), 0));
@@ -189,6 +189,7 @@ void MainWindow::saveas()
         std::size_t _end = _file.find_last_of('.');
         Scene::getScene()->saveScene(_file);
         Scene::getScene()->setName(_file.substr(_begin, _end-_begin));
+        Scene::getScene()->setPath(_file.substr(0,_begin));
         std::string _winName = "Project3Donut - " + _file.substr(_begin, _end-_begin);
         setWindowTitle(QApplication::translate("MainWindow", _winName.c_str(), 0));
         mNeedSave = false;
