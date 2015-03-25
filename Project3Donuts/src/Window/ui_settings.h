@@ -339,6 +339,7 @@ public:
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Annuler");
 
         verticalLayout->addWidget(buttonBox);
 
