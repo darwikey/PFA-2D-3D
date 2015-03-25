@@ -12,72 +12,98 @@ TransformWidget::TransformWidget(){
 TransformWidget::~TransformWidget(){
 }
 
+void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera){
+    if (mState != TransformWidget::State::HIDE
+        && mObjectX != nullptr){
+        //Translation
+        QVector3D _posCam = fCamera->getPosition();
+        //QVector3D _pos (_posCam.x()+3,_posCam.y()+3,_posCam.z()+3);
+        QVector3D _pos (0,0,0);
+        mObjectX->moveObject(_pos);
+        mObjectY->moveObject(_pos);
+        mObjectZ->moveObject(_pos);
 
-void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera, Object* fSelectedObject){
-	if (mState != TransformWidget::State::HIDE
-		&& mObjectX != nullptr
-		&& fSelectedObject != nullptr) {
+        //Orientation
+        mObjectX->changeObjectOrientation(QVector3D(0.f, 0.f, -1.57f));
+        mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
 
-		//Translation
-		mObjectX->moveObject(fSelectedObject->getPosition());
-		mObjectY->moveObject(fSelectedObject->getPosition());
-		mObjectZ->moveObject(fSelectedObject->getPosition());
+        // Scale
+        float _scale = fCamera->getPosition().length();
+        mObjectX->changeObjectScale(_scale/10);
+        mObjectY->changeObjectScale(_scale/10);
+        mObjectZ->changeObjectScale(_scale/10);
 
-		//Orientation
-		mObjectX->changeObjectOrientation(QVector3D(0.f, 0.f, -1.57f));
-		mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
-
-		// Scale
-		float _scale = fCamera->getPosition().length() / 7.f;
-		mObjectX->changeObjectScale(_scale);
-		mObjectY->changeObjectScale(_scale);
-		mObjectZ->changeObjectScale(_scale);
-
-		// Render
-		fRenderer->render(mObjectX, fCamera, true);
-		fRenderer->render(mObjectY, fCamera, true);
-		fRenderer->render(mObjectZ, fCamera, true);
-	}
+        // Render
+        fRenderer->render(mObjectX, fCamera, true);
+        fRenderer->render(mObjectY, fCamera, true);
+        fRenderer->render(mObjectZ, fCamera, true);
+    }
 }
 
+void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera, Object* fSelectedObject){
+    if (mState != TransformWidget::State::HIDE
+        && mObjectX != nullptr
+        && fSelectedObject != nullptr) {
+
+        //Translation
+        mObjectX->moveObject(fSelectedObject->getPosition());
+        mObjectY->moveObject(fSelectedObject->getPosition());
+        mObjectZ->moveObject(fSelectedObject->getPosition());
+
+        //Orientation
+        mObjectX->changeObjectOrientation(QVector3D(0.f, 0.f, -1.57f));
+        mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
+
+        // Scale
+        float _scale = fCamera->getPosition().length() / 7.f;
+        mObjectX->changeObjectScale(_scale);
+        mObjectY->changeObjectScale(_scale);
+        mObjectZ->changeObjectScale(_scale);
+
+        // Render
+        fRenderer->render(mObjectX, fCamera, true);
+        fRenderer->render(mObjectY, fCamera, true);
+        fRenderer->render(mObjectZ, fCamera, true);
+    }
+}
 
 void TransformWidget::changeState(TransformWidget::State fState) {
-	// Load the widget model
-	if (mObjectX == nullptr) {
-		mObjectX = new Object();
-		mObjectY = new Object();
-		mObjectZ = new Object();
+    // Load the widget model
+    if (mObjectX == nullptr) {
+        mObjectX = new Object();
+        mObjectY = new Object();
+        mObjectZ = new Object();
 
-		std::string _objPath = "resources/models/widget.obj";
-		ObjLoader _loaderX(_objPath);
-		ObjLoader _loaderY(_objPath);
-		ObjLoader _loaderZ(_objPath);
+        std::string _objPath = "resources/models/widget.obj";
+        ObjLoader _loaderX(_objPath);
+        ObjLoader _loaderY(_objPath);
+        ObjLoader _loaderZ(_objPath);
 
-		if (!_loaderX.load(mObjectX)
-			|| !_loaderY.load(mObjectY)
-			|| !_loaderZ.load(mObjectZ)){
-			QMessageBox::critical(0, "Error", "Error opening " + QString(_objPath.c_str()));
-		}
+        if (!_loaderX.load(mObjectX)
+            || !_loaderY.load(mObjectY)
+            || !_loaderZ.load(mObjectZ)){
+            QMessageBox::critical(0, "Error", "Error opening " + QString(_objPath.c_str()));
+        }
 
-		mObjectX->computeColors();
-		mObjectY->computeColors();
-		mObjectZ->computeColors();
+        mObjectX->computeColors();
+        mObjectY->computeColors();
+        mObjectZ->computeColors();
 
-		mObjectX->normalizeData();
-		mObjectY->normalizeData();
-		mObjectZ->normalizeData();
+        mObjectX->normalizeData();
+        mObjectY->normalizeData();
+        mObjectZ->normalizeData();
 
-		mObjectX->setGlobalColor(QVector3D(1.f, 0.f, 0.f));
-		mObjectY->setGlobalColor(QVector3D(0.f, 1.f, 0.f));
-		mObjectZ->setGlobalColor(QVector3D(0.f, 0.f, 1.f));
-	}
+        mObjectX->setGlobalColor(QVector3D(1.f, 0.f, 0.f));
+        mObjectY->setGlobalColor(QVector3D(0.f, 1.f, 0.f));
+        mObjectZ->setGlobalColor(QVector3D(0.f, 0.f, 1.f));
+    }
 
-	mState = fState;
+    mState = fState;
 }
 
 
 bool TransformWidget::isSelected(){
-	return mIsSelected;
+    return mIsSelected;
 }
 
 
@@ -216,7 +242,7 @@ QVector3D TransformWidget::getDirection(Direction fDirection) const{
 
 
 void TransformWidget::applyTransformation(Object* fObject, QVector3D fInitialSelectedObject, State fState, Direction fDirection, float fDelta) const{
-	if (fObject != nullptr) {
+    if (fObject != nullptr) {
 		switch (fState) {
 		case State::TRANSLATION:
 			fObject->moveObject(fInitialSelectedObject + fDelta * getDirection(fDirection));
