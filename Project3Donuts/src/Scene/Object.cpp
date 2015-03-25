@@ -392,3 +392,11 @@ const std::string& Object::getPath() const{
 int Object::getFaceNumber(){
 	return (int)mIndices.size() / 3;
 }
+
+void Object::setLowModel(Object* fModel){
+	mLowModel = fModel;
+}
+
+Object* Object::getLowModel(){
+	return mLowModel;
+}

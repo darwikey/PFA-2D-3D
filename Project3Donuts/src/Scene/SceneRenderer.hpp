@@ -8,6 +8,8 @@
 class Object;
 class Camera;
 
+//! \class SceneRenderer
+//! \brief Widget where the scene is render
 class SceneRenderer : public MyGLWidget{
 
 public:
@@ -17,8 +19,15 @@ public:
 	void initOpengl();
 	void resizeGL(int width, int height) override;
 	void paintGL() override;
-	void render(Object* fModel, Camera* fCamera, bool fRenderForeground);
-    void changeBackground(QColor fColor);
+
+	//! \brief 
+	//! \param fModel model to render
+	//! \param fCamera camera used
+	//! \param fRenderForeground if true draw the object in front of other object
+	//! \param fRenderlowResolution if the model have a low resolution model, use it
+	void render(Object* fModel, Camera* fCamera, bool fRenderForeground, bool fRenderLowResolution = false);
+    
+	void changeBackground(QColor fColor);
 	void changeBackground(QVector3D fColor);
 	void setBackgroundColor(QColor fColor);
 

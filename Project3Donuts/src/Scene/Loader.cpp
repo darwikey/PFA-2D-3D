@@ -86,15 +86,21 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 			QMessageBox::Yes | QMessageBox::No);
 
 		if (_ret == QMessageBox::Yes) {
+			// Reduce the number of face
 			Mesh _mesh(_object);
 			_mesh.polygonReduction(_FaceNumberMax);
 			Object* _newObject = _mesh.convertToModel();
-			_object = _newObject;
+			_newObject->computeColors();
+			_newObject->normalizeData();
+
+			// add a low definition model to the object
+			_object->setLowModel(_newObject);
 		}
 	}
 
 	_object->computeColors();
 	_object->normalizeData();
+	// Add the object to the scene
 	Scene::getScene()->addObject(fObjectName, _object);
 
 	return _object;

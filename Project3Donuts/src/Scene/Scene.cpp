@@ -77,11 +77,13 @@ void Scene::render(bool fRenderOnlyObject, Camera* fCamera) {
 		fCamera = mCamera;
 	}
 
+	// Render all objects
 	for (auto _obj : *mObjects.load()) {
-		mSceneRenderer->render(_obj.second, fCamera, false);
+		mSceneRenderer->render(_obj.second, fCamera, false, !fRenderOnlyObject);
 	}
 
 	if (!fRenderOnlyObject){
+		// Widget
 		if (mSelectedObject.second != nullptr) {
 			mTransformWidget->render(mSceneRenderer, fCamera, mSelectedObject.second);
 		}

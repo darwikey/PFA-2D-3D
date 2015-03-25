@@ -58,14 +58,21 @@ void SceneRenderer::paintGL() {
 
 }
 
-void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForeground) {
+void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForeground, bool fRenderLowResolution) {
 
-    if(! fModel->isVboInitialized()){
-		fModel->initVbo(this);
+	Object* _model = fModel;
+	if (fRenderLowResolution && fModel->getLowModel() != nullptr){
+		_model = fModel->getLowModel();
+	}
+
+
+	// Init VBO
+	if (!_model->isVboInitialized()){
+		_model->initVbo(this);
     }
 
 	// Bind the shader
-	if (!fModel->getShader()->bind()){
+	if (!_model->getShader()->bind()){
         qWarning() << "Could not bind shader program";
         return;
     }
@@ -77,20 +84,20 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 	QMatrix4x4 _modelMatrix = fModel->getModelMatrix();
 
 	// Matrices
-	fModel->getShader()->setUniformValue("viewProjectionMatrix", _projectionMatrix * _viewMatrix * _modelMatrix);
-	fModel->getShader()->setUniformValue("modelMatrix", _modelMatrix);
-	fModel->getShader()->setUniformValue("normalMatrix", _modelMatrix.inverted().transposed().toGenericMatrix<3, 3>());
-	fModel->getShader()->setUniformValue("viewMatrixInv", _viewMatrix.inverted());
+	_model->getShader()->setUniformValue("viewProjectionMatrix", _projectionMatrix * _viewMatrix * _modelMatrix);
+	_model->getShader()->setUniformValue("modelMatrix", _modelMatrix);
+	_model->getShader()->setUniformValue("normalMatrix", _modelMatrix.inverted().transposed().toGenericMatrix<3, 3>());
+	_model->getShader()->setUniformValue("viewMatrixInv", _viewMatrix.inverted());
 
 	// Parameters
-	fModel->getShader()->setUniformValue("isSelected", fModel->isObjectSelected());
-	fModel->getShader()->setUniformValue("globalColor", fModel->getGlobalColor());
-	fModel->getShader()->setUniformValue("enableShading", !fRenderForeground);
+	_model->getShader()->setUniformValue("isSelected", _model->isObjectSelected());
+	_model->getShader()->setUniformValue("globalColor", _model->getGlobalColor());
+	_model->getShader()->setUniformValue("enableShading", !fRenderForeground);
 
 	QVector4D _lamps[8];
 	_lamps[0] = QVector4D(Scene::getScene()->getCamera()->getPosition(),1);
 	//_lamps[0] = QVector4D(QVector3D(0, 5, 5), 1);
-	fModel->getShader()->setUniformValueArray("lamps", _lamps, 8);
+	_model->getShader()->setUniformValueArray("lamps", _lamps, 8);
 
 
 	if (fRenderForeground) {
@@ -98,7 +105,7 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 	}
 
 	// Draw the object
-	fModel->draw(this);
+	_model->draw(this);
 
 
 	if (fRenderForeground) {
@@ -106,7 +113,7 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 	}
 
 	// Unbind the shader
-	fModel->getShader()->release();
+	_model->getShader()->release();
 
 }
 

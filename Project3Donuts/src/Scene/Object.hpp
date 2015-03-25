@@ -132,6 +132,13 @@ public:
 	//! \brief return the number of face
 	int getFaceNumber();
 
+	//! \brief add low resolution model
+	void setLowModel(Object* fModel);
+
+	//! \brief return the low resolution model
+	//! \note return nullptr if the model doesn't exist
+	Object* getLowModel();
+
 
 private:
 	void loadShader(SceneRenderer* fRenderer, Object::Shader fShader, QString fVertexShaderPath, QString fFragmentShaderPath);
@@ -157,7 +164,6 @@ private:
     QOpenGLVertexArrayObject mVAO;
     QOpenGLBuffer mVertexbuffer;
     QOpenGLBuffer mColorbuffer;
-    //QOpenGLBuffer mIndexbuffer;
 	QOpenGLBuffer mNormalBuffer;
 
 	std::vector<QOpenGLShaderProgram*> mShaders;
@@ -165,6 +171,8 @@ private:
 	Shader mCurrentShader = Shader::STANDARD_SHADING;
 
     std::string mPath;
+
+	Object* mLowModel = nullptr;
 };
 
 
