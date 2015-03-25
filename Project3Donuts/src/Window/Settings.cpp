@@ -48,6 +48,9 @@ void Settings::editparameters()
     settings.setValue("Viewer/background_color",_color);
     Scene::getScene()->getSceneRenderer()->setBackgroundColor(_color);
 
+    //limits
+    settings.setValue("Viewer/FaceNumberMax",ui->ObjectLimitBox->value());
+
     //shortcuts
     settings.setValue("Shortcuts/render", ui->ColorMap_keySequenceEdit->keySequence());
     settings.setValue("Shortcuts/anaglyphes", ui->Anaglyphe_keySequenceEdit->keySequence());
@@ -75,6 +78,9 @@ void Settings::resetparameters()
 
     //background color
     ui->colorLabel->setPalette(QPalette(settings.value("Viewer/background_color",QColor(0,0,102)).value<QColor>()));
+
+    //limits
+    ui->ObjectLimitBox->setValue(settings.value("Viewer/FaceNumberMax",200000).toInt());
 
     //shortcuts
     ui->ColorMap_keySequenceEdit->setKeySequence(settings.value("Shortcuts/render", QKeySequence("P")).value<QKeySequence>());
@@ -111,6 +117,9 @@ void Settings::generaltodefault()
 
         //background color
         ui->colorLabel->setPalette(QColor(0,0,102));
+
+        //limits
+        ui->ObjectLimitBox->setValue(200000);
 
         break;
       default:
