@@ -9,6 +9,7 @@
 Loader::Loader(){
     QSettings settings("settings.ini", QSettings::IniFormat);
     mTimer = new int(settings.value("General/timeautosave",60).toInt());
+    mContinue = false;
 }
 
 Loader::~Loader()
@@ -28,16 +29,18 @@ void Loader::changeAutoSaveTimer(int fTimer)
 }
 
 void autoSave(int * fTimer){
-    while(true){
+    while(Scene::getScene()->getLoader()->getContinue()){
         std::this_thread::sleep_for(std::chrono::seconds(5));
-        if(!Scene::getScene()->hasName()){
-            Scene::getScene()->saveScene("autoSave.xml");
-        }
-        else{
-            std::string _path;
-            std::string _name = Scene::getScene()->getName();
-            _path = _name + "autoSave.xml";
-            Scene::getScene()->saveScene(_path);
+        if (Scene::getScene()->getLoader()->getContinue()){
+            if(!Scene::getScene()->hasName()){
+                Scene::getScene()->saveScene("autoSave.xml");
+            }
+            else{
+                std::string _path;
+                std::string _name = Scene::getScene()->getName();
+                _path = _name + "autoSave.xml";
+                Scene::getScene()->saveScene(_path);
+            }
         }
     }
 }
@@ -112,6 +115,9 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 }
 
 void Loader::stopAutoSave(){
-    delete mAutomaticSave;
-    mAutomaticSave = nullptr;
+    mContinue = false;
+}
+
+bool Loader::getContinue(){
+    return mContinue;
 }
