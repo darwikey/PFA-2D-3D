@@ -10,7 +10,7 @@ std::unique_ptr<CreationFile> AutostereogramDepthMap::render() {
   
   std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
 
-    _file->pushImage(std::move(_depthmap));
+  _file->pushImage(std::move(_depthmap));
 
   return _file;
 
