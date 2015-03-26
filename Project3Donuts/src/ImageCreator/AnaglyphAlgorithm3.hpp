@@ -29,8 +29,6 @@ protected:
   
   void modifyLeftImage (float *fRgb);
   void modifyRightImage(float *fRgb);
-
-  double modulo(double fX, double fY);
 	
 private:
 

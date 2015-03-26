@@ -12,7 +12,7 @@ void FlipbookNormal::createWindow(bool fHasPreview){
 
 
 	// Horizontal speed
-	mHorizontalSpeedLabel = new QLabel("Vitesse horizontale", mWindow);
+	mHorizontalSpeedLabel = new QLabel(QString("Vitesse horizontale %1").arg(mHorizontalSpeed), mWindow);
 	this->insertNewWidget(mHorizontalSpeedLabel);
 
 	mHorizontalSpeedSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
@@ -21,7 +21,7 @@ void FlipbookNormal::createWindow(bool fHasPreview){
 
 
 	// Vertical speed
-	mVerticalSpeedLabel = new QLabel("Vitesse verticale", mWindow);
+	mVerticalSpeedLabel = new QLabel(QString("Vitesse verticale %1").arg(mVerticalSpeed), mWindow);
 	this->insertNewWidget(mVerticalSpeedLabel);
 
 	mVerticalSpeedSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
@@ -30,7 +30,7 @@ void FlipbookNormal::createWindow(bool fHasPreview){
 
 
 	// Zoom speed
-	mZoomSpeedLabel = new QLabel("Vitesse du zoom", mWindow);
+	mZoomSpeedLabel = new QLabel(QString("Vitesse du zoom %1").arg(mZoomSpeed), mWindow);
 	this->insertNewWidget(mZoomSpeedLabel);
 
 	mZoomSpeedSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
@@ -48,6 +48,7 @@ void FlipbookNormal::createWindow(bool fHasPreview){
 
 	mFrameNumberBox = new QSpinBox(mWindow);
 	mFrameNumberBox->setValue(mFrameNumber);
+    mFrameNumberBox->setMaximum(10000);
 	this->insertNewWidget(mFrameNumberBox);
 
 	// Frame per second
@@ -113,17 +114,23 @@ void FlipbookNormal::setGrey(int fIsGrey){
 
 
 void FlipbookNormal::changeHorizontalSpeed(int fSpeed){
-	mHorizontalSpeed = (float)(fSpeed - 50) / 50.f;
+  mHorizontalSpeed = (float)(fSpeed - 50) / 50.f;
+
+  mHorizontalSpeedLabel->setText(QString("Vitesse horizontale %1").arg(mHorizontalSpeed));
 }
 
 
 void FlipbookNormal::changeVerticalSpeed(int fSpeed){
-	mVerticalSpeed = (float)(fSpeed - 50) / 50.f;
+  mVerticalSpeed = (float)(fSpeed - 50) / 50.f;
+
+  mVerticalSpeedLabel->setText(QString("Vitesse verticale %1").arg(mVerticalSpeed));
 }
 
 
 void FlipbookNormal::changeZoomSpeed(int fSpeed){
-	mZoomSpeed = (float)(fSpeed - 50) / 50.f;
+  mZoomSpeed = (float)(fSpeed - 50) / 50.f;
+
+  mZoomSpeedLabel->setText(QString("Vitesse zoom %1").arg(mZoomSpeed));
 }
 
 
