@@ -1,11 +1,13 @@
 \paragraph{}
-Dans la dernière phase de notre implémentation, nous avons pu ajouter quelques fonctionnalités pour améliorer le logiciel et le rendre plus proches de certains logiciels plus professionnels.
+Dans la dernière phase de notre implémentation, nous avons pu ajouter quelques fonctionnalités pour améliorer le logiciel et le rendre plus proche de certains logiciels plus professionnels.
 
-Tout d'abord, à la demande de nos clients, nous avons ajouté la possibilité d'annuler la dernière action effectuée quand celle-ci agit sur l'état d'un objet, son ajout [OU SA SUPPRESSION]. Grâce à un stockage de lambda-expression, permises par le C++11, chaque action est enregistrée. Lorsque l'utilisateur utilise le raccourci clavier Control+Z, la dernière fonction ajoutée au vecteur de lambda-expression est récupérée, et l'inverse de l'action est effectuée.
+Tout d'abord, à la demande de nos clients, nous avons ajouté la possibilité d'annuler la dernière action effectuée quand celle-ci agit sur l'état d'un objet, son ajout ou sa suppression. Grâce à un stockage de lambda-expression, permises par le C++11, chaque action est enregistrée. Lorsque l'utilisateur utilise le raccourci clavier Control+Z, la dernière fonction ajoutée au vecteur de lambda-expression est récupérée, et l'inverse de l'action est effectuée.
 
 Nous avons également implémenté des fonctionnalités pour coller aux préférences de l'utilisateur. Par exemple, l'utilisateur peut choisir le durée qu'il souhaite imposer entre deux sauvegardes automatiques du logiciel, la couleur du fond de la scène, ou encore l'emplacement de la barre verticale dans laquelle sont listés les objets présents sur la scène. Il peut également modifier les raccourcis clavier pour les personnaliser.
 
 La couleur des objets est également devenue un paramètre modifiable. Après sélection d'un objet, l'utilisateur peut, grâce au menu déroulant prévu à cet effet, en modifier la couleur. Cette modification sera effective dans la scène et lors des rendus, mais ne sera pas sauvegardée avec les autres caractéristiques de l'objet.
+
+Un repère a été placé dans la scène pour que l'utilisateur puisse à tout moment se repérer par rapport aux trois axes géométriques.
 
 Enfin, nous avons mis en place un antialiasing pour la génération des rendus.
 [EXPLICATION ANTIALIASING]
