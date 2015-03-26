@@ -50,14 +50,21 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
     if (Scene::getScene()->isEmptyScene())
         mAutomaticSave = new std::thread(autoSave, mTimer);
 
+    //detect if path is local or not
+    std::string _realPath = fPath;
+    if(fPath.find('#')!=std::string::npos)
+    {
+        //change path to match scene
+        _realPath = Scene::getScene()->getPath() + _realPath.substr(fPath.find_last_of('#') + 1);
+    }
+
 	//detect file type
 	// get extension
-	std::string _ext = fPath.substr(fPath.find_last_of('.') + 1);
-
+    std::string _ext = _realPath.substr(_realPath.find_last_of('.') + 1);
     Object* _object = new Object(fPath);
 
 	if (_ext == "obj"){
-		ObjLoader _loader(fPath);
+        ObjLoader _loader(_realPath);
 
 		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;
@@ -66,7 +73,7 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 		}
 	}
 	else if (_ext == "ply")	{
-		PlyLoader _loader(fPath);
+        PlyLoader _loader(_realPath);
 
 		if (!_loader.load(_object))	{
 			std::cerr << "Impossible to load the file ! Are you in the right path ?" << std::endl;

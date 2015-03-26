@@ -389,6 +389,17 @@ const std::string& Object::getPath() const{
     return mPath;
 }
 
+void Object::setPath(std::string fPath)
+{
+    mPath = fPath;
+}
+
+bool Object::isPathLocal()
+{
+    std::string _path = getPath();
+    return (_path.find('#')!=std::string::npos);
+}
+
 int Object::getFaceNumber(){
 	return (int)mIndices.size() / 3;
 }

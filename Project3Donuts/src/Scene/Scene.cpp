@@ -476,6 +476,14 @@ bool Scene::objectTreatment(QDomNode *fcurrent){
 }
 
 void Scene::createScene(const QString &fPath){
+
+
+    std::string _path= fPath.toStdString();
+    std::size_t _begin = _path.find_last_of('/') + 1;
+    std::size_t _end = _path.find_last_of('.');
+    mName = _path.substr(_begin, _end-_begin);
+    mPath = _path.substr(0, _begin);
+
     QDomDocument *dom = new QDomDocument("my_xml");
     QFile xml_doc(fPath);
 
@@ -519,12 +527,6 @@ void Scene::createScene(const QString &fPath){
         }
     }
 
-    std::string _path= fPath.toStdString();
-    std::size_t _begin = _path.find_last_of('/') + 1;
-    std::size_t _end = _path.find_last_of('.');
-    mName = _path.substr(_begin, _end-_begin);
-    mPath = _path.substr(0, _begin);
-
     xml_doc.close();
 }
 
@@ -544,4 +546,14 @@ void Scene::setPath(std::string fPath){
 }
 std::string Scene::getPath(){
     return Scene::mPath;
+}
+std::vector<std::string> Scene::getLocalObjects()
+{
+    std::vector<std::string> _pathlist;
+
+    for (auto _it = mObjects.load()->begin(); _it != mObjects.load()->end(); ++_it){
+        if(_it->second->isPathLocal())
+            _pathlist.push_back(_it->first);
+    }
+    return _pathlist;
 }
