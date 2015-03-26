@@ -241,7 +241,7 @@ void MainWindow::deleteSelectedObject()
 }
 
 void MainWindow::changeObjectColor(){
-	QColor _colorRGB = QColorDialog::getColor(QColor(128, 128, 128), nullptr, "Select Color", QColorDialog::DontUseNativeDialog);
+    QColor _colorRGB = QColorDialog::getColor(QColor(128, 128, 128), nullptr, "Choisir une couleur", QColorDialog::DontUseNativeDialog);
 	QVector3D _color(_colorRGB.red(), _colorRGB.green(), _colorRGB.blue());
 	
 	Object* _selectedObject = Scene::getScene()->getObject(Scene::getScene()->getNameSelectedObject());

@@ -19,7 +19,7 @@ Settings::~Settings()
 
 void Settings::changecolor()
 {
-    QColor _color = QColorDialog::getColor(QColor(0, 0, 102), this, "Select Color", QColorDialog::DontUseNativeDialog);
+    QColor _color = QColorDialog::getColor(QColor(0, 0, 102), this, "Choisir une couleur", QColorDialog::DontUseNativeDialog);
 
     if (_color.isValid()) {
         ui->colorLabel->setPalette(QPalette(_color));
