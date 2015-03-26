@@ -1,11 +1,16 @@
 #include "AutostereogramAlgorithm2.hpp"
+
 AutostereogramAlgorithm2::AutostereogramAlgorithm2() :
 	msameLeft (0, 0),
 	msameRight(0, 0)
 {}
+
+
 void AutostereogramAlgorithm2::createWindow(bool fHasPreview){
 	Autostereogram::createWindow(fHasPreview);
 }
+
+
 std::unique_ptr<CreationFile> AutostereogramAlgorithm2::render(){
 
 	std::unique_ptr<QImage> _image = this->depthmapToAutostereogram();
@@ -15,6 +20,8 @@ std::unique_ptr<CreationFile> AutostereogramAlgorithm2::render(){
 
 	return _file;
 }
+
+
 void AutostereogramAlgorithm2::colorBase(int fx, int fy) {
 
 	switch (this->mTextureStyle) {
@@ -22,7 +29,7 @@ void AutostereogramAlgorithm2::colorBase(int fx, int fy) {
     int xpat, ypat;
 		
 	case TEXTUREMAP :
-		xpat = (fx/moversampling) % mTexture.width();
+		xpat = (fx / OVERSAMPLING) % mTexture.width();
 		ypat = fy % mTexture.height();
 		mred[fx] = qRed(mTexture.pixel(xpat, ypat));
 		mgreen[fx] = qGreen(mTexture.pixel(xpat, ypat));
@@ -62,8 +69,8 @@ void AutostereogramAlgorithm2::colorPixel(int fx, int fy, int * fLastLinked) {
 	}
 				
 	else {
-	  xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mTexture.width();
-	  ypat = (fy + ((fx - mcenter)/mmaxsep) * myShift) % mTexture.height();
+	  xpat = (((fx + mpoffset) % mmaxsep) / OVERSAMPLING) % mTexture.width();
+	  ypat = (fy + ((fx - mcenter) / mmaxsep) * myShift) % mTexture.height();
 	  mred[fx] = qRed(mTexture.pixel(xpat, ypat));
 	  mgreen[fx] = qGreen(mTexture.pixel(xpat, ypat));
 	  mblue[fx] = qBlue(mTexture.pixel(xpat, ypat));
@@ -93,8 +100,8 @@ void AutostereogramAlgorithm2::colorPixel(int fx, int fy, int * fLastLinked) {
 	}
 
 	else {
-	  xpat = (((fx + mpoffset) % mmaxsep)/moversampling) % mTexture.width();
-	  ypat = (fy + ((mcenter - fx)/mmaxsep + 1) * myShift) % mTexture.height();
+	  xpat = (((fx + mpoffset) % mmaxsep) / OVERSAMPLING) % mTexture.width();
+	  ypat = (fy + ((mcenter - fx) / mmaxsep + 1) * myShift) % mTexture.height();
 	  mred[fx] = qRed(mTexture.pixel(xpat, ypat));
 	  mgreen[fx] = qGreen(mTexture.pixel(xpat, ypat));
 	  mblue[fx] = qBlue(mTexture.pixel(xpat, ypat));
@@ -120,55 +127,55 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 	std::unique_ptr<QImage> _depthMap = this->getDepthMap();
 	std::vector<float> _floatDepthMap = getDepth(*(_depthMap));
 
-	int width = _depthMap->width();
-	int height = _depthMap->height();
+	int _width = _depthMap->width();
+	int _height = _depthMap->height();
 
-	std::unique_ptr<QImage> toReturn (new QImage(width, height, QImage::Format_RGB888));
+	std::unique_ptr<QImage> toReturn (new QImage(_width, _height, QImage::Format_RGB888));
 
 	if (mTextureStyle == TEXTUREMAP)
 		mTexture.load(mTexturePath);
 
-	int obsDist = mdpi * 12;
-	int E = mdpi * 2.5;
+	int _obsDist = DPI * 12;
+	int _E = DPI * 2.5;
 
-	myShift = mdpi/16;
+	myShift = DPI / 16;
 	
-	int maxdepth = mdpi * 12; // maximum depth used
-	int maxsep = (int)(((long) E * maxdepth) / (maxdepth + obsDist));
-	
-	if (mTextureStyle == TEXTUREMAP && maxsep > mTexture.width())
-		std::cout << "Texture is too narrow (should be at least " << maxsep << " pixels large); results may be affected" << std::endl;
+	int _maxdepth = DPI * 12; // maximum depth used
+	int _maxsep = (int)(((long) _E * _maxdepth) / (_maxdepth + _obsDist));
+
+	if (mTextureStyle == TEXTUREMAP && _maxsep > mTexture.width())
+		std::cout << "Texture is too narrow (should be at least " << _maxsep << " pixels large); results may be affected" << std::endl;
 
 	/* Oversampling */
-	int maxwidth = width * 6;
-	int vwidth = width * moversampling;
-	int vE = E * moversampling;
+	int _maxwidth = _width * 6;
+	int _vwidth = _width * OVERSAMPLING;
+	int _vE = _E * OVERSAMPLING;
 	
-	mmaxsep = maxsep * moversampling;
+	mmaxsep = _maxsep * OVERSAMPLING;
 	
 	/* Linking */
-	msameRight.std::vector<int>::resize(maxwidth);
-	msameLeft.std::vector<int>::resize(maxwidth);
+	msameRight.std::vector<int>::resize(_maxwidth);
+	msameLeft.std::vector<int>::resize(_maxwidth);
 	
 	/* Coloration */
 
-	mred.std::vector<int>::resize(maxwidth);
-	mgreen.std::vector<int>::resize(maxwidth);
-	mblue.std::vector<int>::resize(maxwidth);
+	mred.std::vector<int>::resize(_maxwidth);
+	mgreen.std::vector<int>::resize(_maxwidth);
+	mblue.std::vector<int>::resize(_maxwidth);
 	
-	mcenter = (vwidth - mmaxsep) / 2;
+	mcenter = (_vwidth - mmaxsep) / 2;
 	mpoffset = mmaxsep - (mcenter % mmaxsep);
 	
 	//	std::cout << "All variables succesfully initialized" << std::endl;
 	
-	for (int y = 0; y < height; ++y) {
+	for (int y = 0; y < _height; ++y) {
 
-		int s = 0;
-		int left, right;
+		int _s = 0;
+		int _left, _right;
 
 		/* Initialisation of the image : each pixel is linked with itself and the image is either completely random or set to the chosen texture */
 
-		for (int x = 0; x < vwidth; ++x) {
+		for (int x = 0; x < _vwidth; ++x) {
 			msameLeft[x] = x;
 			msameRight[x] = x;
 			colorBase(x, y);
@@ -176,53 +183,53 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 		
 		//std::cout << "Resulting image initialized" << std::endl;
 
-		float zValue = 0.f;
+		float _zValue = 0.f;
 		
-		for (int x = 0; x < vwidth; ++x) {
-			if (x % moversampling == 0) {
+		for (int x = 0; x < _vwidth; ++x) {
+			if (x % OVERSAMPLING == 0) {
 
 				/*
-					zValue (and thus s, the stereo separation between points) will stay the same for
+					_zValue (and thus _s, the stereo separation between points) will stay the same for
 					all virtual points representing the same real point
 				*/
 				
-				zValue = 1. - _floatDepthMap[Autostereogram::caseXY(x/moversampling, y, width)];
-				s = vE * ((1. - mmu * zValue) / (2. - mmu * zValue));
+				_zValue = 1. - _floatDepthMap[Autostereogram::caseXY(x / OVERSAMPLING, y, _width)];
+				_s = _vE * ((1. - MU * _zValue) / (2. - MU * _zValue));
 			}
 			
-			left = x - (s + (s&y&1)) / 2;
-			right = left + s;
+			_left = x - (_s + (_s&y&1)) / 2;
+			_right =_left + _s;
 			
 			/* Linking points (with hidden surfaces removal) */
 			/* If a pair of pixels exists for a point of the 3D surface that is not visible, it will be unlinked */
 			/* This is done by checking if a shorter link exists for a given pixel of the 2D image */
 			
-			bool isVisible = true;
+			bool _isVisible = true;
 			
 			//std::cout << "Beginning pixel linking...";
 
-			if (left >= 0 && right < vwidth) {
-				if (msameLeft[right] != right) {
-					if (msameLeft[right] < left) {
-						msameRight[msameLeft[right]] = msameLeft[right];
-						msameLeft[right] = right;
+			if (_left >= 0 &&_right < _vwidth) {
+				if (msameLeft[_right] !=_right) {
+					if (msameLeft[_right] <_left) {
+						msameRight[msameLeft[_right]] = msameLeft[_right];
+						msameLeft[_right] =_right;
 					}
 					
-					else isVisible = false;
+					else _isVisible = false;
 				}
 				
-				if (msameRight[left] != left) {
-					if (msameRight[left] > right) {
-						msameLeft[msameRight[left]] = msameRight[left];
-						msameRight[left] = left;
+				if (msameRight[_left] !=_left) {
+					if (msameRight[_left] >_right) {
+						msameLeft[msameRight[_left]] = msameRight[_left];
+						msameRight[_left] =_left;
 					}
 					
-					else isVisible = false;
+					else _isVisible = false;
 				}
 				
-				if (isVisible) {
-					msameLeft[right] = left;
-					msameRight[left] = right;
+				if (_isVisible) {
+					msameLeft[_right] =_left;
+					msameRight[_left] =_right;
 				}
 			}
 			
@@ -230,18 +237,18 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 		}
 		
 		/* Coloring points according to the chosen option */
-		int lastLinked = -10;
+		int _lastLinked = -10;
 		
 		//std::cout << "Coloring...";
 		
 		for (int x = mcenter - 1; x >= 0; --x) {
-			colorPixel(x, y, &lastLinked);
+			colorPixel(x, y, &_lastLinked);
 		}
 		
-		lastLinked = -10;
+		_lastLinked = -10;
 		
-		for (int x = mcenter; x < vwidth; ++x) {
-			colorPixel(x, y, &lastLinked);
+		for (int x = mcenter; x < _vwidth; ++x) {
+			colorPixel(x, y, &_lastLinked);
 		}
 		
 		//std::cout << "done." << std::endl;
@@ -250,15 +257,15 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 		
 		//std::cout << "Pixel fusion...";
 		
-		for (int x = 0; x < vwidth; x += moversampling) {			
-			int red = 0, green = 0, blue = 0;
-			for (int i = 0; i < moversampling; ++i) {
-				red += mred[x + i];
-				green += mgreen[x + i];
-				blue += mblue[x + i];
+		for (int x = 0; x < _vwidth; x += OVERSAMPLING) {			
+			int _red = 0, _green = 0, _blue = 0;
+			for (int i = 0; i < OVERSAMPLING; ++i) {
+				_red += mred[x + i];
+				_green += mgreen[x + i];
+				_blue += mblue[x + i];
 			}
 			
-			toReturn->setPixel(x/moversampling, y, qRgb(red/moversampling, green/moversampling, blue/moversampling));
+			toReturn->setPixel(x / OVERSAMPLING, y, qRgb(_red / OVERSAMPLING, _green / OVERSAMPLING, _blue / OVERSAMPLING));
 		}
 		
 		//std::cout << "done." << std::endl;

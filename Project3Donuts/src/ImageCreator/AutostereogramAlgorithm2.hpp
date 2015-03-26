@@ -12,24 +12,28 @@ class AutostereogramAlgorithm2 : public Autostereogram {
   Q_OBJECT
 public:
   AutostereogramAlgorithm2() ;
-
+  
 protected:
-
+  
   virtual void createWindow(bool fHasPreview = true) override;
   virtual std::unique_ptr<CreationFile> render() override;
-
+  
   
 private :
-
+  
+  //! \brief Colors the image with random points or a texture before any linking is done
   void colorBase(int fx, int fy) ;
+  
+  //! \brief Colors a pixel the same as the other one in its pair or a new color if it's not linked
   void colorPixel(int fx, int fy, int * fLastLinked) ;
 
   AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
+
+  //! \brief Returns the autostereogram calculated from its depthmap
   std::unique_ptr<QImage> depthmapToAutostereogram() ;
   
-  const int mdpi = 75 ;
-  const int moversampling = 4 ;
-  const float mmu = (1.f / 3.f) ;
+  const static int DPI = 75 ;
+  const static int OVERSAMPLING = 4 ;
 
   std::vector<int> msameLeft ;
   std::vector<int> msameRight ;
@@ -38,7 +42,7 @@ private :
   int mpoffset ;
   int mcenter ;
   int myShift ;
-
+  
 } ;
 
 #endif

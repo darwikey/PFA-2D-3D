@@ -9,11 +9,7 @@ void AutostereogramAlgorithm1::createWindow(bool fHasPreview){
 std::unique_ptr<CreationFile> AutostereogramAlgorithm1::render(){
 
   float _DPI = 75.f;
-  //TODO
-  /*if ( == COMPUTER_RESO)
-    _DPI = 75;
-    else if (fReso == PRINT_RESO)
-    _DPI = 300;*/
+
   int _E = this->round(2.5 * _DPI);
 
   std::unique_ptr<QImage> _depthmap = this->getDepthMap();
@@ -33,7 +29,7 @@ int AutostereogramAlgorithm1::round(float fX) {
 
 
 int AutostereogramAlgorithm1::separation(float fZ, int fE) {
-  return round(1 - mu * fZ) * fE / (2 - mu * fZ);
+  return round(1.f - MU * fZ) * fE / (2.f - MU * fZ);
 }
 
 
@@ -41,12 +37,12 @@ int AutostereogramAlgorithm1::separation(float fZ, int fE) {
 /* as presented in their article "Displaying 3D Images : Algorithm for Single Image Random Dot Stereograms" which has */
 /* been publicated in IEEE Computer in 1994 */
 std::unique_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(const QImage& fDepthmap, int fE) {
-  const int maxX = fDepthmap.width();
-  const int maxY = fDepthmap.height();
+  const int _maxX = fDepthmap.width();
+  const int _maxY = fDepthmap.height();
 
-  mred.std::vector<int>::resize(maxX) ;
-  mgreen.std::vector<int>::resize(maxX) ;
-  mblue.std::vector<int>::resize(maxX) ;
+  mred.std::vector<int>::resize(_maxX) ;
+  mgreen.std::vector<int>::resize(_maxX) ;
+  mblue.std::vector<int>::resize(_maxX) ;
 
   if (mTextureStyle == TEXTUREMAP) {
     bool _isLoaded = (mTexturePath != nullptr) && mTexture.load(mTexturePath) ;
@@ -57,51 +53,51 @@ std::unique_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(const
   }
 
   
-  std::vector<float> floatDepthMap = getDepth(fDepthmap);
+  std::vector<float> _floatDepthMap = getDepth(fDepthmap);
 
-  std::unique_ptr<QImage> toReturn (new QImage(maxX, maxY, QImage::Format_RGB888));
+  std::unique_ptr<QImage> _toReturn (new QImage(_maxX, _maxY, QImage::Format_RGB888));
 
-  for (int y = 0; y < maxY; y++){
-    int* same = new int[maxX];
-    int s;
-    int left, right;
+  for (int y = 0; y < _maxY; y++){
+    int* _same = new int[_maxX];
+    int _s;
+    int _left, _right;
 
-    for (int x = 0; x < maxX; x++)
-      same[x] = x;
+    for (int x = 0; x < _maxX; x++)
+      _same[x] = x;
 
-    for (int x = 0; x < maxX; x++){
-      s = this->separation(floatDepthMap[caseXY(x, y, maxX)], fE);
-      left = x - (s + (s&y & 1)) / 2;
-      right = left + s;
-      if (0 <= left && right < maxX){
-	int visible;
+    for (int x = 0; x < _maxX; x++){
+      _s = this->separation(_floatDepthMap[caseXY(x, y, _maxX)], fE);
+      _left = x - (_s + (_s&y&1)) / 2;
+      _right = _left + _s;
+      if (0 <= _left && _right < _maxX){
+	bool _visible;
 	int t = 1;
-	float zt;
+	float _zt;
 
 	do {
-	  zt = floatDepthMap[caseXY(x, y, maxX)]
-	    + 2 * (2 - mu * floatDepthMap[caseXY(x, y, maxX)])*t / (mu*fE);
-	  visible = (floatDepthMap[caseXY(x - t, y, maxX)] < zt)
-	    && (floatDepthMap[caseXY(x + t, y, maxX)] < zt);
+	  _zt = _floatDepthMap[caseXY(x, y, _maxX)]
+	    + 2 * (2 - MU * _floatDepthMap[caseXY(x, y, _maxX)]) * t / (MU * fE);
+	  _visible = (_floatDepthMap[caseXY(x - t, y, _maxX)] < _zt)
+	    && (_floatDepthMap[caseXY(x + t, y, _maxX)] < _zt);
 	  t++;
-	} while (visible && zt < 1);
+	} while (_visible && _zt < 1);
 
-	if (visible){
-	  int k;
-	  for (k = same[left]; k != left && k != right; k = same[left])
-	    if (k < right)
-	      left = k;
+	if (_visible){
+	  
+	  for (int k = _same[_left]; k != _left && k != _right; k = _same[_left])
+	    if (k < _right)
+	      _left = k;
 	    else{
-	      left = right;
-	      right = k;
+	      _left = _right;
+	      _right = k;
 	    }
-	  same[left] = right;
+	  _same[_left] = _right;
 	}
       }
     }
 
-    for (int x = maxX - 1; x >= 0; x--){
-      if (same[x] == x) {
+    for (int x = _maxX - 1; x >= 0; x--){
+      if (_same[x] == x) {
 	if (mTextureStyle != TEXTUREMAP)
 	  colorRandom(x) ;
 	else {
@@ -113,16 +109,16 @@ std::unique_ptr<QImage> AutostereogramAlgorithm1::depthmapToAutostereogram(const
 	}
       }
       else {
-	mred[x] = mred[same[x]];
-	mgreen[x] = mgreen[same[x]];
-	mblue[x] = mblue[same[x]];
+	mred[x] = mred[_same[x]];
+	mgreen[x] = mgreen[_same[x]];
+	mblue[x] = mblue[_same[x]];
       }
-      toReturn->setPixel(x, y, qRgb(mred[x], mgreen[x], mblue[x]));
+      _toReturn->setPixel(x, y, qRgb(mred[x], mgreen[x], mblue[x]));
     }
 
-    delete[] same;
+    delete[] _same;
   }
 
-  return toReturn;
+  return _toReturn;
 }
 

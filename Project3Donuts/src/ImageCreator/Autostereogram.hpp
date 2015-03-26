@@ -15,7 +15,7 @@ public:
 
 protected:
 
-	virtual void createWindow(bool fHasPreview) override;
+  virtual void createWindow(bool fHasPreview) override;
 
 	virtual std::unique_ptr<CreationFile> render() override = 0;
 
@@ -39,11 +39,13 @@ protected:
   std::vector<int> mred ;
   std::vector<int> mgreen ;
   std::vector<int> mblue ;
-				       
-private slots :
-  
-  void changeTextureStyle(int fSelectedTextureStyle) ;
 
+  const float MU = 1.f / 3.f ;
+			 
+private slots :
+
+  //! \brief change texture style in the creation window
+  void changeTextureStyle(int fSelectedTextureStyle) ;
   
 };
 
