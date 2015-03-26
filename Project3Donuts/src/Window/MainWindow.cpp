@@ -130,8 +130,37 @@ void MainWindow::newscene()
 
 void MainWindow::openlibfile()
 {
-    QMessageBox::critical(0, "Error", "Not implemented yet");
+    QSettings settings("settings.ini", QSettings::IniFormat);
+    QString _dir = settings.value("General/libDir", QString("./resources/example")).toString();
 
+    QString _qfile = QFileDialog::getOpenFileName(0, "Importer", _dir, "Modeles (*.obj *.ply)");
+    std::string _file = _qfile.toStdString();
+    if(_file!="")
+    {
+
+
+        int _num=0;
+        std::string  _num_name;
+        std::cout<<_file<<std::endl;
+        std::string _name = _file.substr(_file.find_last_of('/')+1);
+        std::cout<<_name<<std::endl;
+        _name = _name.substr(0,_name.find_last_of('.'));
+        std::cout<<_name<<std::endl;
+        do
+        {
+            _num_name=_name;
+            if(_num==0)
+            {
+                if(Scene::getScene()->getObject(_num_name) == nullptr)
+                    break;
+            }
+            _num++;
+        }
+        while(Scene::getScene()->getObject(_num_name.append(std::to_string(_num))) != nullptr);
+
+        Scene::getScene()->getLoader()->loadObject(_file, _num_name);
+        newaction();
+    }
 }
 
 void MainWindow::open()
