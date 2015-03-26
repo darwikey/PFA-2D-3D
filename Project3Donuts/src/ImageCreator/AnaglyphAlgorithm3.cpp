@@ -167,10 +167,10 @@ void AnaglyphAlgorithm3::hslToRgb(float *fRgb, float *fHsl)
 
 void AnaglyphAlgorithm3::sRgbGamma(float *fHsl)
 {
-  float _a = 0.055;
+  float _a = 0.055f;
   
-  if((fHsl[1] - 0.04045) < 0.0001)				
-    fHsl[1] = fHsl[1] / 12.92;
+  if((fHsl[1] - 0.04045f) < 0.0001f)				
+    fHsl[1] = fHsl[1] / 12.92f;
 
   else
     fHsl[1] = std::pow((fHsl[1] + _a) / (1 + _a), 2.4);
@@ -178,13 +178,13 @@ void AnaglyphAlgorithm3::sRgbGamma(float *fHsl)
 
 void AnaglyphAlgorithm3::gammaCorrection(float *fHsl)
 {
-  float _a = 0.055;
+  float _a = 0.055f;
   
-  if((fHsl[1] - 0.0031308) < 0.0001)
-    fHsl[1] = 12.92 * fHsl[1];
+  if((fHsl[1] - 0.0031308f) < 0.0001f)
+    fHsl[1] = 12.92f * fHsl[1];
 
   else
-    fHsl[1] = (1 + _a) * std::pow(fHsl[1], 0.41666) - _a;
+    fHsl[1] = (1 + _a) * std::pow(fHsl[1], 0.41666f) - _a;
 }
 
 void AnaglyphAlgorithm3::modifyLeftImage(float *fRgb){
