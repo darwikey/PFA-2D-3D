@@ -8,4 +8,9 @@ RELECTURE TOTALE
 
 
 
-Anaglyphes : trois méthodes implémentées (fin 3.2.1)
+Anaglyphes : trois méthodes implémentées (fin 3.2.1) ==> deux expliquées
+	   anagl3.png comme image
+Autostéréogrammes : plus de texte
+Dans bonus ==> Antialiasing
+NOTICE D'INSTALLATION
+
