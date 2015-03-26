@@ -17,6 +17,7 @@ public slots:
     void resetparameters();
     void generaltodefault();
     void shortcutstodefault();
+    void browsedirectories();
 };
 
 #endif // SETTINGS_HPP

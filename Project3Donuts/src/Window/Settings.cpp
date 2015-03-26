@@ -51,6 +51,9 @@ void Settings::editparameters()
     //limits
     settings.setValue("Viewer/FaceNumberMax",ui->ObjectLimitBox->value());
 
+    //library
+    settings.setValue("General/libDir", ui->fileLabel->text());
+
     //shortcuts
     settings.setValue("Shortcuts/render", ui->ColorMap_keySequenceEdit->keySequence());
     settings.setValue("Shortcuts/anaglyphes", ui->Anaglyphe_keySequenceEdit->keySequence());
@@ -81,6 +84,9 @@ void Settings::resetparameters()
 
     //limits
     ui->ObjectLimitBox->setValue(settings.value("Viewer/FaceNumberMax",200000).toInt());
+
+    //library
+    ui->fileLabel->setText(settings.value("General/libDir", QString("./resources/example")).toString());
 
     //shortcuts
     ui->ColorMap_keySequenceEdit->setKeySequence(settings.value("Shortcuts/render", QKeySequence("P")).value<QKeySequence>());
@@ -121,6 +127,9 @@ void Settings::generaltodefault()
         //limits
         ui->ObjectLimitBox->setValue(200000);
 
+        //library
+        ui->fileLabel->setText(QString("./resources/example"));
+
         break;
       default:
         break;
@@ -151,4 +160,16 @@ void Settings::shortcutstodefault()
       default:
         break;
     }
+}
+
+void Settings::browsedirectories()
+{
+
+    QString _dir = QFileDialog::getExistingDirectory(0, "Ouvrir un Dossier",
+                                                 QString(),
+                                                QFileDialog::ShowDirsOnly
+                                                | QFileDialog::DontResolveSymlinks);
+
+    ui->fileLabel->setText(_dir);
+
 }

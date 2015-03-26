@@ -300,7 +300,7 @@ void Scene::clearScene(){
     updateListObjects();
 
     for (auto _it : mDeletedObjects){
-        delete &_it;
+        delete _it.second;
     }
     mDeletedObjects.clear();
 

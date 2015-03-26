@@ -210,6 +210,7 @@ public:
 
         fileLabel = new QLabel(groupBox_2);
         fileLabel->setObjectName(QStringLiteral("fileLabel"));
+        fileLabel->setText(settings.value("General/libDir", QString("./resources/example")).toString());
 
         gridLayout_2->addWidget(fileLabel, 3, 2, 1, 1);
 
@@ -343,6 +344,7 @@ public:
 		QObject::connect(colorLabel, SIGNAL(clicked()), Dialog, SLOT(changecolor()));
 		QObject::connect(DefaultGeneralButton, SIGNAL(clicked()), Dialog, SLOT(generaltodefault()));
         QObject::connect(DefaultShortcutsButton, SIGNAL(clicked()), Dialog, SLOT(shortcutstodefault()));
+        QObject::connect(BrowseButton, SIGNAL(clicked()), Dialog, SLOT(browsedirectories()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -366,7 +368,6 @@ public:
         label_6->setText(QApplication::translate("Dialog", "sommets", 0));
         label_7->setText(QApplication::translate("Dialog", "Emplacement de la biblioth\303\250que d'objets", 0));
         BrowseButton->setText(QApplication::translate("Dialog", "parcourir", 0));
-        fileLabel->setText(QApplication::translate("Dialog", "TextLabel", 0));
         label_4->setText(QApplication::translate("Dialog", "Couleur de fond", 0));
         colorLabel->setText(QApplication::translate("Dialog", "", 0));
         DefaultGeneralButton->setText(QApplication::translate("Dialog", "Restaurer les valeurs par d\303\251faut", 0));
