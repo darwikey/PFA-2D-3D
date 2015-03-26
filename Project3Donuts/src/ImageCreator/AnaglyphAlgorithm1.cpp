@@ -21,11 +21,11 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm1::renderAnaglyph(){
     {
       for(int j=0; j<_image->size().width(); j++)
         {
-          QRgb value = qRgb(qRed(_left->pixel(j,i)),
-                            qGreen(_right->pixel(j,i)),
-                            qBlue(_right->pixel(j,i)));
+          QRgb _value = qRgb(qRed(_left->pixel(j,i)),
+                             qGreen(_right->pixel(j,i)),
+                             qBlue(_right->pixel(j,i)));
 					
-          _image->setPixel(j,i,value);
+          _image->setPixel(j,i,_value);
         }
     }
 	

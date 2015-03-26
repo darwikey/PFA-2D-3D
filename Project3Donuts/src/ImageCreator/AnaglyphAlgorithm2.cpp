@@ -72,9 +72,9 @@ void AnaglyphAlgorithm2::modifyLeftImage(float *fRgb){
   
   _vector = _leftFilterMatrix * _vector;
 
-  fRgb[0] = (_vector(0,0) < 1) ? ((_vector(0,0) > 0) ? _vector(0,0) : 0) : 1;
-  fRgb[1] = (_vector(1,0) < 1) ? ((_vector(1,0) > 0) ? _vector(1,0) : 0) : 1;
-  fRgb[2] = (_vector(2,0) < 1) ? ((_vector(2,0) > 0) ? _vector(2,0) : 0) : 1;
+  fRgb[0] = std::max(std::min(_vector(0,0), 1.f), 0.f);
+  fRgb[1] = std::max(std::min(_vector(1,0), 1.f), 0.f);
+  fRgb[2] = std::max(std::min(_vector(2,0), 1.f), 0.f);
 }
 
 void AnaglyphAlgorithm2::modifyRightImage(float *fRgb){
@@ -84,9 +84,9 @@ void AnaglyphAlgorithm2::modifyRightImage(float *fRgb){
   QGenericMatrix<1,3,float> _vector(fRgb);
   _vector = _rightFilterMatrix * _vector;
 
-  fRgb[0] = (_vector(0,0) < 1) ? ((_vector(0,0) > 0) ? _vector(0,0) : 0) : 1;
-  fRgb[1] = (_vector(1,0) < 1) ? ((_vector(1,0) > 0) ? _vector(1,0) : 0) : 1;
-  fRgb[2] = (_vector(2,0) < 1) ? ((_vector(2,0) > 0) ? _vector(2,0) : 0) : 1;
+  fRgb[0] = std::max(std::min(_vector(0,0), 1.f), 0.f);
+  fRgb[1] = std::max(std::min(_vector(1,0), 1.f), 0.f);
+  fRgb[2] = std::max(std::min(_vector(2,0), 1.f), 0.f);
 }
 
 void AnaglyphAlgorithm2::applyGamma(QRgb fPixel, float *fRgb){
@@ -99,8 +99,8 @@ void AnaglyphAlgorithm2::applyGamma(QRgb fPixel, float *fRgb){
 QRgb AnaglyphAlgorithm2::applyGammaRevert(float *fRgb){
 
   QRgb _value = qRgb(255 * qPow(fRgb[0], 1 / mGammaFilter),
-                    255 * qPow(fRgb[1], 1 / mGammaFilter),
-                    255 * qPow(fRgb[2], 1 / mGammaFilter));
+                     255 * qPow(fRgb[1], 1 / mGammaFilter),
+                     255 * qPow(fRgb[2], 1 / mGammaFilter));
 
   return _value;
 }

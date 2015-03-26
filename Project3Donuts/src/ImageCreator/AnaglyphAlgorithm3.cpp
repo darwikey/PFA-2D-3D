@@ -19,12 +19,12 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm3::renderAnaglyph(){
   std::unique_ptr<QImage> _left = this->getColorMap(0.0,
                                                     0.0,
                                                     1.0,
-                                                    QVector2D(mTranslation / 2, 0.0));
+                                                    QVector2D(-mTranslation / 2, 0.0));
   
   std::unique_ptr<QImage> _right = this->getColorMap(0.0,
                                                      0.0,
                                                      1.0,
-                                                     QVector2D(-mTranslation / 2, 0.0));
+                                                     QVector2D(mTranslation / 2, 0.0));
 
   std::unique_ptr<QImage> _image(new QImage(_left->size().width(),
                                             _left->size().height(),
@@ -86,19 +86,9 @@ void AnaglyphAlgorithm3::rgbToReducedInterval(float *fRgb)
 
 void AnaglyphAlgorithm3::reducedIntervalToRgb(float *fRgb)
 {
-  fRgb[0] = fRgb[0] * 255.;
-  fRgb[1] = fRgb[1] * 255.;
-  fRgb[2] = fRgb[2] * 255.;
-
-  if(fRgb[0] > 255) fRgb[0] = 255;
-  if(fRgb[0] < 0)   fRgb[0] = 0;
-
-  if(fRgb[1] > 255) fRgb[1] = 255;
-  if(fRgb[1] < 0)   fRgb[1] = 0;
-
-  if(fRgb[2] > 255) fRgb[2] = 255;
-  if(fRgb[2] < 0)   fRgb[2] = 0;
-
+  fRgb[0] = std::max(std::min(fRgb[0], 1.f), 0.f) * 255;
+  fRgb[1] = std::max(std::min(fRgb[0], 1.f), 0.f) * 255;
+  fRgb[2] = std::max(std::min(fRgb[0], 1.f), 0.f) * 255;
 }
 
 
@@ -205,9 +195,9 @@ void AnaglyphAlgorithm3::modifyLeftImage(float *fRgb){
   
   _vector = _leftFilterMatrix * _vector;
 
-  fRgb[0] = (_vector(0,0) < 1) ? ((_vector(0,0) > 0) ? _vector(0,0) : 0) : 1;
-  fRgb[1] = (_vector(1,0) < 1) ? ((_vector(1,0) > 0) ? _vector(1,0) : 0) : 1;
-  fRgb[2] = (_vector(2,0) < 1) ? ((_vector(2,0) > 0) ? _vector(2,0) : 0) : 1;
+  fRgb[0] = std::max(std::min(_vector(0,0), 1.f), 0.f);
+  fRgb[1] = std::max(std::min(_vector(1,0), 1.f), 0.f);
+  fRgb[2] = std::max(std::min(_vector(2,0), 1.f), 0.f);
 }
 
 void AnaglyphAlgorithm3::modifyRightImage(float *fRgb){
@@ -217,7 +207,7 @@ void AnaglyphAlgorithm3::modifyRightImage(float *fRgb){
   QGenericMatrix<1,3,float> _vector(fRgb);
   _vector = _rightFilterMatrix * _vector;
 
-  fRgb[0] = (_vector(0,0) < 1) ? ((_vector(0,0) > 0) ? _vector(0,0) : 0) : 1;
-  fRgb[1] = (_vector(1,0) < 1) ? ((_vector(1,0) > 0) ? _vector(1,0) : 0) : 1;
-  fRgb[2] = (_vector(2,0) < 1) ? ((_vector(2,0) > 0) ? _vector(2,0) : 0) : 1;
+  fRgb[0] = std::max(std::min(_vector(0,0), 1.f), 0.f);
+  fRgb[1] = std::max(std::min(_vector(1,0), 1.f), 0.f);
+  fRgb[2] = std::max(std::min(_vector(2,0), 1.f), 0.f);
 }
