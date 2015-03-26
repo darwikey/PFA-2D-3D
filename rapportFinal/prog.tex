@@ -79,6 +79,14 @@ Dès la fin du cahier des charges, la scène aura été grandement modifiée. Le
 
 D'autres fonctionnalités, relatives à la scène et demandées par le cahier des charges, ont été implémentées peu à peu au cours de la phase de réalisation du projet. Au niveau de la scène, les rotations autour de la scène sont toujours possibles, ainsi qu'une fonction de zoom pour s'approcher ou se reculer de la scène. Au niveau des objets, la sélection d'un objet est possible soit en cliquant directement sur l'objet avec le bouton droit de la souris, soit en le sélectionnant dans la liste des objets donnée sur la fenêtre principale du logiciel. Une fois un objet choisi, on peut le déplacer, le faire tourner, modifier sa taille, sa couleur, ou encore le supprimer.
 
+Pour permettre le chargement d'objets avec un nombre importants de points et de faces, nous proposons à l'utilisateur une réduction du nombre de polygones qui permet d'améliorer la fluidité de la scène. Si le temps de chargement peut parfois être long pour de tels objets, l'objet apparaît et la manipulation reste relativement fluide, même si la qualité de l'objet peut être considérablement réduite, comme le montre la figure \ref{fig:decimation}. Toutefois, cette perte de qualité n'est pas répercutée sur les éventuels rendus effectués à partir de cette scène.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{images/reduction.png}
+	\caption{\label{fig:decimation} Réduction du nombre de polygones d'un objet \protect}
+\end{figure}
+
 Dans les derniers temps de notre projet, nous avons pu améliorer notre scène, en permettant une translation de la caméra et en installant un repère fixe dans la scène afin que l'utilisation, malgré des rotations, puisse se repérer dans l'espace. Nous avons égalemet pu implémenter la fonctionnalité d'annulation qui permet de revenir en arrière s'il y a modification d'un objet, et ce grâce à des lambda-expressions disponibles sous C++11.
 
 \paragraph{}
