@@ -19,12 +19,12 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm3::renderAnaglyph(){
   std::unique_ptr<QImage> _left = this->getColorMap(0.0,
                                                     0.0,
                                                     1.0,
-                                                    QVector2D(-mTranslation / 2, 0.0));
+                                                    QVector2D(mTranslation / 2, 0.0));
   
   std::unique_ptr<QImage> _right = this->getColorMap(0.0,
                                                      0.0,
                                                      1.0,
-                                                     QVector2D(mTranslation / 2, 0.0));
+                                                     QVector2D(-mTranslation / 2, 0.0));
 
   std::unique_ptr<QImage> _image(new QImage(_left->size().width(),
                                             _left->size().height(),
@@ -38,16 +38,16 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm3::renderAnaglyph(){
         {
           storePixelValue(_left->pixel(j,i), _rgbLeft);
           rgbToReducedInterval(_rgbLeft);
-          // rgbToHsl(_rgbLeft, _hsl);
-          // sRgbGamma(_hsl);
-          // hslToRgb(_rgbLeft, _hsl);
+          rgbToHsl(_rgbLeft, _hsl);
+          sRgbGamma(_hsl);
+          hslToRgb(_rgbLeft, _hsl);
           modifyLeftImage(_rgbLeft);
 
           storePixelValue(_right->pixel(j,i), _rgbRight);
           rgbToReducedInterval(_rgbRight);
-          // rgbToHsl(_rgbRight, _hsl);
-          // sRgbGamma(_hsl);
-          // hslToRgb(_rgbRight, _hsl);
+          rgbToHsl(_rgbRight, _hsl);
+          sRgbGamma(_hsl);
+          hslToRgb(_rgbRight, _hsl);
           modifyRightImage(_rgbRight);
 
           for(int k=0; k<3; k++)
@@ -56,7 +56,7 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm3::renderAnaglyph(){
             }
 
           rgbToHsl(_rgb, _hsl);
-          sRgbGamma(_hsl);
+          gammaCorrection(_hsl);
           hslToRgb(_rgb, _hsl);
           reducedIntervalToRgb(_rgb);
 
@@ -87,8 +87,8 @@ void AnaglyphAlgorithm3::rgbToReducedInterval(float *fRgb)
 void AnaglyphAlgorithm3::reducedIntervalToRgb(float *fRgb)
 {
   fRgb[0] = std::max(std::min(fRgb[0], 1.f), 0.f) * 255;
-  fRgb[1] = std::max(std::min(fRgb[0], 1.f), 0.f) * 255;
-  fRgb[2] = std::max(std::min(fRgb[0], 1.f), 0.f) * 255;
+  fRgb[1] = std::max(std::min(fRgb[1], 1.f), 0.f) * 255;
+  fRgb[2] = std::max(std::min(fRgb[2], 1.f), 0.f) * 255;
 }
 
 
@@ -96,7 +96,6 @@ void AnaglyphAlgorithm3::rgbToHsl(float *fRgb, float *fHsl)
 {
   float _cmax = std::max(fRgb[0], std::max(fRgb[1], fRgb[2]));
   float _cmin = std::min(fRgb[0], std::min(fRgb[1], fRgb[2]));
-
   float _delta = _cmax - _cmin;
 
   fHsl[2] = (_cmax + _cmin) / 2;
@@ -108,29 +107,29 @@ void AnaglyphAlgorithm3::rgbToHsl(float *fRgb, float *fHsl)
 
   else
     {
-      fHsl[1] = _delta / (1 - abs(2 * fHsl[2] - 1));
+      fHsl[1] = _delta / (1 - std::fabs(2 * fHsl[2] - 1));
 
-      if(abs(_cmax - fRgb[0]) < 0.0001)
+      if((_cmax - fRgb[0]) < 0.0001)
         {
           fHsl[0] = 60 * (std::fmod(((fRgb[1] - fRgb[2]) / _delta), 6));
         }
 
-      else if(abs(_cmax - fRgb[1]) < 0.0001)
+      else if((_cmax - fRgb[1]) < 0.0001)
         {
           fHsl[0] = 60 * (((fRgb[2] - fRgb[0]) / _delta) + 2);
         }
 
       else
         {
-          fHsl[0] = 60 * (((fRgb[1] - fRgb[2]) / _delta) + 4);
+          fHsl[0] = 60 * (((fRgb[0] - fRgb[1]) / _delta) + 4);
         }
     }
 }
 
 void AnaglyphAlgorithm3::hslToRgb(float *fRgb, float *fHsl)
 { 
-  float _c = (1 - abs(2 * fHsl[2] - 1)) * fHsl[1];
-  float _x = _c * (1 - abs((std::fmod((fHsl[0] / 60.), 2) - 1)));
+  float _c = (1 - std::fabs(2 * fHsl[2] - 1)) * fHsl[1];
+  float _x = _c * (1 - std::fabs(std::fmod((fHsl[0] / 60.), 2) - 1));
   float _m = fHsl[2] - (_c / 2.);
 
   if(fHsl[0] >= 0 && fHsl[0] < 60)
@@ -168,23 +167,24 @@ void AnaglyphAlgorithm3::hslToRgb(float *fRgb, float *fHsl)
 
 void AnaglyphAlgorithm3::sRgbGamma(float *fHsl)
 {
-  if((fHsl[1] - 0.04045) <= 0.0001)				
+  float _a = 0.055;
+  
+  if((fHsl[1] - 0.04045) < 0.0001)				
     fHsl[1] = fHsl[1] / 12.92;
 
   else
-    fHsl[1] = std::pow((fHsl[1] + 0.055) / 1.055, 2.4);
-
-  if(fHsl[1] > 0.7)
-    std::cout << fHsl[0] << " " << fHsl[1] << " " << fHsl[2] << std::endl;
+    fHsl[1] = std::pow((fHsl[1] + _a) / (1 + _a), 2.4);
 }
 
 void AnaglyphAlgorithm3::gammaCorrection(float *fHsl)
 {
-  if((fHsl[1] - 0.0031308) <= 0.0001)
+  float _a = 0.055;
+  
+  if((fHsl[1] - 0.0031308) < 0.0001)
     fHsl[1] = 12.92 * fHsl[1];
 
   else
-    fHsl[1] = 1.055 * std::pow(fHsl[1], 1. / 2.4) - 0.055;
+    fHsl[1] = (1 + _a) * std::pow(fHsl[1], 0.41666) - _a;
 }
 
 void AnaglyphAlgorithm3::modifyLeftImage(float *fRgb){
