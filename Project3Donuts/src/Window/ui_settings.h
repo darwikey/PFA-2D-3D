@@ -63,8 +63,6 @@ public:
     QLabel *label_7;
     QToolButton *BrowseButton;
     QLabel *fileLabel;
-    QLabel *label_8;
-    QSpinBox *SceneObjectLimitBox;
     QLabel *label_4;
     ClickLabel *colorLabel;
     QPushButton *DefaultGeneralButton;
@@ -214,16 +212,6 @@ public:
         fileLabel->setObjectName(QStringLiteral("fileLabel"));
 
         gridLayout_2->addWidget(fileLabel, 3, 2, 1, 1);
-
-        label_8 = new QLabel(groupBox_2);
-        label_8->setObjectName(QStringLiteral("label_8"));
-
-        gridLayout_2->addWidget(label_8, 2, 0, 1, 1);
-
-        SceneObjectLimitBox = new QSpinBox(groupBox_2);
-        SceneObjectLimitBox->setObjectName(QStringLiteral("SceneObjectLimitBox"));
-		SceneObjectLimitBox->setRange(0,10000000);
-        gridLayout_2->addWidget(SceneObjectLimitBox, 2, 2, 1, 1);
 
         label_4 = new QLabel(groupBox_2);
         label_4->setObjectName(QStringLiteral("label_4"));
@@ -379,7 +367,6 @@ public:
         label_7->setText(QApplication::translate("Dialog", "Emplacement de la biblioth\303\250que d'objets", 0));
         BrowseButton->setText(QApplication::translate("Dialog", "parcourir", 0));
         fileLabel->setText(QApplication::translate("Dialog", "TextLabel", 0));
-        label_8->setText(QApplication::translate("Dialog", "Limite de sommets dans la sc\303\250ne avant avertissement", 0));
         label_4->setText(QApplication::translate("Dialog", "Couleur de fond", 0));
         colorLabel->setText(QApplication::translate("Dialog", "", 0));
         DefaultGeneralButton->setText(QApplication::translate("Dialog", "Restaurer les valeurs par d\303\251faut", 0));
