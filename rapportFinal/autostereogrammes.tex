@@ -11,8 +11,22 @@
 
   Les résultats obtenus sont cependant assez peu satisfaisants pour la représentation d'objets complexes : l'objet en relief est fait de paliers superposés plutôt que d'avoir une surface lisse. De ce fait, représenter des détails ou des courbes est ardu. L'utilisation de textures peut permettre d'atténuer certains défauts visuels, mais pas de les effacer totalement.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{autoste1.png}
+	\caption{\label{fig:autoste1} Rendu d'un autostéréogramme avec l'algorithme de Witten, Inglis et Thimbleby \protect}
+\end{figure}
+
   \subsubsection{Algorithme de W. A. Steer}
   
   L'algorithme de W. A. Steer a été choisi à cause des nombreuses améliorations qu'il apporte par rapport à l'algorithme précédent. En effet, il utilise une méthode de suréchantillonnage de l'image : dans une première étape, un autostéréogramme $n$ fois plus large que l'image de base est construit puis les pixels sont fusionnés par groupes de $n$. Ces étapes permettent d'améliorer la résolution en profondeur de l'autostéréogramme.
   
-  Cet algorithme est plus lent que le précédent à cause du suréchantillonnage, mais les résultats obtenus sont nettement plus agréables à regarder car la résolution en profondeur est meilleure : l'image apparaît plus profonde. De plus, l'utilisation conjointe d'une texture et du suréchantillonage lisse l'image finale ; on n'y retrouve plus les ``paliers'' des résultats précédents. Ces paliers peuvent être visibles si le rendu choisi est de type aléatoire, mais ils sont beaucoup plus nombreux et rapprochés, donc moins évidents.
+  Cet algorithme est plus lent que le précédent à cause du suréchantillonnage, mais les résultats obtenus sont nettement plus agréables à regarder car la résolution en profondeur est meilleure : l'image apparaît plus profonde comme le montre la figure \ref{fig:autoste2}. De plus, l'utilisation conjointe d'une texture et du suréchantillonage lisse l'image finale ; on n'y retrouve plus les ``paliers'' des résultats précédents. Ces paliers peuvent être visibles si le rendu choisi est de type aléatoire, mais ils sont beaucoup plus nombreux et rapprochés, donc moins évidents.
+
+  Enfin, lors de la coloration des pixels liés, de fortes déformations de la texture de base peuvent apparaître à la gauche de l'image (en supposant que la coloration se fait de droite à gauche). Ces déformations sont d'autant plus importantes que l'objet 3D est complexe. Afin d'harmoniser l'image 2D, la coloration a ici été faite de droite à gauche dans la partie gauche de l'image, et inversement dans la partie droite.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{autoste2.png}
+	\caption{\label{fig:autoste2} Rendu d'un autostéréogramme avec l'algorithme de W. A. Steer \protect}
+\end{figure}

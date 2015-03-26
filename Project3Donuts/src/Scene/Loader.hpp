@@ -29,9 +29,12 @@ public:
 	//! \brief stop auto save function
     void stopAutoSave();
 
+    bool getContinue();
+
 private:
     std::thread *mAutomaticSave = nullptr;
     int * mTimer;
+    bool mContinue;
 };
 
 

@@ -19,7 +19,7 @@ Settings::~Settings()
 
 void Settings::changecolor()
 {
-    QColor _color = QColorDialog::getColor(QColor(0, 0, 102), this, "Select Color", QColorDialog::DontUseNativeDialog);
+    QColor _color = QColorDialog::getColor(QColor(0, 0, 102), this, "Choisir une couleur", QColorDialog::DontUseNativeDialog);
 
     if (_color.isValid()) {
         ui->colorLabel->setPalette(QPalette(_color));
@@ -47,6 +47,9 @@ void Settings::editparameters()
     QColor _color = ui->colorLabel->palette().color(QPalette::Window);
     settings.setValue("Viewer/background_color",_color);
     Scene::getScene()->getSceneRenderer()->setBackgroundColor(_color);
+
+    //limits
+    settings.setValue("Viewer/FaceNumberMax",ui->ObjectLimitBox->value());
 
     //shortcuts
     settings.setValue("Shortcuts/render", ui->ColorMap_keySequenceEdit->keySequence());
@@ -76,6 +79,9 @@ void Settings::resetparameters()
     //background color
     ui->colorLabel->setPalette(QPalette(settings.value("Viewer/background_color",QColor(0,0,102)).value<QColor>()));
 
+    //limits
+    ui->ObjectLimitBox->setValue(settings.value("Viewer/FaceNumberMax",200000).toInt());
+
     //shortcuts
     ui->ColorMap_keySequenceEdit->setKeySequence(settings.value("Shortcuts/render", QKeySequence("P")).value<QKeySequence>());
     ui->Anaglyphe_keySequenceEdit->setKeySequence(settings.value("Shortcuts/anaglyphes", QKeySequence("N")).value<QKeySequence>());
@@ -88,9 +94,12 @@ void Settings::resetparameters()
 
 void Settings::generaltodefault()
 {
-    int ret = QMessageBox::question(this, tr("Project3Donut"),
+    QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
                                    tr("Etes-vous sûr de vouloir restaurer les valeurs par défaut ?\n"),
-                                   QMessageBox::Yes | QMessageBox::No);
+                                   QMessageBox::Yes | QMessageBox::No, this);
+    _retBox.setButtonText(QMessageBox::Yes, "Oui");
+    _retBox.setButtonText(QMessageBox::No, "Non");
+    int ret = _retBox.exec();
     switch (ret) {
       case QMessageBox::No:
           break;
@@ -109,6 +118,9 @@ void Settings::generaltodefault()
         //background color
         ui->colorLabel->setPalette(QColor(0,0,102));
 
+        //limits
+        ui->ObjectLimitBox->setValue(200000);
+
         break;
       default:
         break;
@@ -118,9 +130,12 @@ void Settings::generaltodefault()
 
 void Settings::shortcutstodefault()
 {
-    int ret = QMessageBox::question(this, tr("Project3Donut"),
+    QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
                                    tr("Etes-vous sûr de vouloir restaurer les raccourcis par défaut ?\n"),
-                                   QMessageBox::Yes | QMessageBox::No);
+                                   QMessageBox::Yes | QMessageBox::No, this);
+    _retBox.setButtonText(QMessageBox::Yes, "Oui");
+    _retBox.setButtonText(QMessageBox::No, "Non");
+    int ret = _retBox.exec();
     switch (ret) {
       case QMessageBox::No:
           break;

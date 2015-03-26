@@ -185,6 +185,9 @@ public:
         ObjectLimitBox = new QSpinBox(groupBox_2);
         ObjectLimitBox->setObjectName(QStringLiteral("ObjectLimitBox"));
 		ObjectLimitBox->setRange(0,1000000);
+        ObjectLimitBox->setValue(settings.value("Viewer/FaceNumberMax",200000).toInt());
+
+
         gridLayout_2->addWidget(ObjectLimitBox, 1, 2, 1, 1);
 
         label_2 = new QLabel(groupBox_2);
@@ -339,6 +342,7 @@ public:
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Annuler");
 
         verticalLayout->addWidget(buttonBox);
 

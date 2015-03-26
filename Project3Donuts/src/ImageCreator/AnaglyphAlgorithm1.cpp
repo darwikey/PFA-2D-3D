@@ -10,8 +10,8 @@ void AnaglyphAlgorithm1::createWindow(bool fHasPreview){
 
 std::unique_ptr<CreationFile> AnaglyphAlgorithm1::renderAnaglyph(){
 
-  std::unique_ptr<QImage> _left = this->getColorMap(-mHorizontalRotation / 2, -mVerticalRotation / 2, 1.0, QVector2D(mTranslation / 2, 0.0));
-  std::unique_ptr<QImage> _right = this->getColorMap(mHorizontalRotation / 2, mVerticalRotation / 2, 1.0, QVector2D(-mTranslation / 2, 0.0));
+  std::unique_ptr<QImage> _left = this->getColorMap(0.0, 0.0, 1.0, QVector2D(mTranslation / 2, 0.0));
+  std::unique_ptr<QImage> _right = this->getColorMap(0.0, 0.0, 1.0, QVector2D(-mTranslation / 2, 0.0));
 
   std::unique_ptr<QImage> _image(new QImage(_left->size().width(),
                                             _left->size().height(),
@@ -21,11 +21,11 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm1::renderAnaglyph(){
     {
       for(int j=0; j<_image->size().width(); j++)
         {
-          QRgb value = qRgb(qRed(_left->pixel(j,i)),
-                            qGreen(_right->pixel(j,i)),
-                            qBlue(_right->pixel(j,i)));
+          QRgb _value = qRgb(qRed(_left->pixel(j,i)),
+                             qGreen(_right->pixel(j,i)),
+                             qBlue(_right->pixel(j,i)));
 					
-          _image->setPixel(j,i,value);
+          _image->setPixel(j,i,_value);
         }
     }
 	

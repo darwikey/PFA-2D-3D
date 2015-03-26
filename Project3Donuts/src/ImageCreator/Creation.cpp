@@ -232,7 +232,7 @@ void Creation::changeAntialiasing(int fIteration){
 
 
 void Creation::changeBackgroundColor(){
-	QColor _color = QColorDialog::getColor(Qt::white, mWindow, "Select Color", QColorDialog::DontUseNativeDialog);
+    QColor _color = QColorDialog::getColor(Qt::white, mWindow, "Choisir une couleur", QColorDialog::DontUseNativeDialog);
 
 	mBackgroundColor = QVector3D(_color.red() / 255.f, _color.green() / 255.f, _color.blue() / 255.f);
 }

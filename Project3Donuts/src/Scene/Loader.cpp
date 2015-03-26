@@ -9,6 +9,7 @@
 Loader::Loader(){
     QSettings settings("settings.ini", QSettings::IniFormat);
     mTimer = new int(settings.value("General/timeautosave",60).toInt());
+    mContinue = false;
 }
 
 Loader::~Loader()
@@ -28,16 +29,18 @@ void Loader::changeAutoSaveTimer(int fTimer)
 }
 
 void autoSave(int * fTimer){
-    while(true){
+    while(Scene::getScene()->getLoader()->getContinue()){
         std::this_thread::sleep_for(std::chrono::seconds(5));
-        if(!Scene::getScene()->hasName()){
-            Scene::getScene()->saveScene("autoSave.xml");
-        }
-        else{
-            std::string _path;
-            std::string _name = Scene::getScene()->getName();
-            _path = _name + "autoSave.xml";
-            Scene::getScene()->saveScene(_path);
+        if (Scene::getScene()->getLoader()->getContinue()){
+           if(!Scene::getScene()->hasName()){
+                Scene::getScene()->saveScene("autoSave.xml");
+            }
+            else{
+                std::string _path;
+                std::string _name = Scene::getScene()->getName();
+                _path = Scene::getScene()->getPath() + _name + "autoSave.xml";
+                Scene::getScene()->saveScene(_path);
+            }
         }
     }
 }
@@ -76,14 +79,19 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 		return nullptr;
 	}
 
+    QSettings settings("settings.ini", QSettings::IniFormat);
 
-	int _FaceNumberMax = 10000;
+    int _FaceNumberMax = settings.value("Viewer/FaceNumberMax",200000).toInt();
 
 	if (_object->getFaceNumber() > _FaceNumberMax){
 		// ask the user 
-		int _ret = QMessageBox::question((QWidget*)Scene::getScene()->getSceneRenderer(), QString("Project3Donut"),
+        int _ret;
+        QMessageBox _retBox(QMessageBox::Question, QString("Project3Donut"),
 			QString("Ce modele possede " + QString::number(_object->getFaceNumber()) + " polygones.\nVoulez-vous r\303\251duire le nombre de faces ?\nCela affectera juste la visualisation dans la scene et non le rendu 2D.\n"),
-			QMessageBox::Yes | QMessageBox::No);
+            QMessageBox::Yes | QMessageBox::No);
+        _retBox.setButtonText(QMessageBox::Yes, "Oui");
+        _retBox.setButtonText(QMessageBox::No, "Non");
+        _ret = _retBox.exec();
 
 		if (_ret == QMessageBox::Yes) {
 			// Reduce the number of face
@@ -107,6 +115,9 @@ Object* Loader::loadObject(const std::string& fPath, const std::string& fObjectN
 }
 
 void Loader::stopAutoSave(){
-    delete mAutomaticSave;
-    mAutomaticSave = nullptr;
+    mContinue = false;
+}
+
+bool Loader::getContinue(){
+    return mContinue;
 }
