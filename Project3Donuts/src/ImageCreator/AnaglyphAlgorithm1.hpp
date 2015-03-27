@@ -5,8 +5,8 @@
 #include "Anaglyph.hpp"
 
 
-// ! \class AnaglyphAlgo1
-// ! \brief First algorithm to create an anaglyph
+//! \class AnaglyphAlgorithm1
+//! \brief First algorithm to create an anaglyph
 class AnaglyphAlgorithm1 : public Anaglyph{
 	Q_OBJECT
 

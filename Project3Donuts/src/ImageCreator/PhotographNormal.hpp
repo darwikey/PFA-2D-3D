@@ -5,8 +5,8 @@
 #include "Photograph.hpp"
 
 
-// ! \class PhotographNormal
-// ! \brief Create a simple render of the scene
+//! \class PhotographNormal
+//! \brief Create a simple render of the scene
 class PhotographNormal : public Photograph{
 	Q_OBJECT
 

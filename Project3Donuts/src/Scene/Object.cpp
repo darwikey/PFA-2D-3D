@@ -303,6 +303,18 @@ void Object::normalizeData(){
 	mTextureCoordinates = _vextureCoordinates;
 	mNormals = _normals;
 	mVertexColor = _color;
+
+	// Rescale the model in order to have a size of 1
+	mScale = QVector3D(1.f, 1.f, 1.f);
+	computeBoundingBox();
+	QVector3D _scale = mBoundingBox.mVector1 - mBoundingBox.mVector0;
+	float _newScale = 0.5f * std::max(_scale.x(), std::max(_scale.y(), _scale.z()));
+	for (QVector3D& _v : mVertices) {
+		// rescale
+		_v /= _newScale;
+	}
+
+	computeBoundingBox();
 }
 
 

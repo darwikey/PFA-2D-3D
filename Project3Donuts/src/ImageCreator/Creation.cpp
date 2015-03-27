@@ -152,6 +152,8 @@ std::unique_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float f
 	QPoint _size = getImageSize();
 	std::unique_ptr<QImage> _image = _camera.getDepthMap(_size.x(), _size.y());
 
+	CreationTools::rescaleDepthMap(*_image);
+
 	return _image;
 }
 

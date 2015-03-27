@@ -5,8 +5,8 @@
 #include "Flipbook.hpp"
 
 
-// ! \class FlipbookNormal
-// ! \brief Create a simple animation of the scene
+//! \class FlipbookNormal
+//! \brief Create a simple animation of the scene
 class FlipbookNormal : public Flipbook{
 	Q_OBJECT
 

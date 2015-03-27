@@ -6,8 +6,8 @@
 #include "Autostereogram.hpp"
 
 
-// ! \class AutostereogramAlgorithm2
-// ! \brief Second algorithm to create an autostereogram
+//! \class AutostereogramAlgorithm2
+//! \brief Second algorithm to create an autostereogram
 class AutostereogramAlgorithm2 : public Autostereogram {
   Q_OBJECT
 public:
@@ -26,8 +26,6 @@ private :
   
   //! \brief Colors a pixel the same as the other one in its pair or a new color if it's not linked
   void colorPixel(int fx, int fy, int * fLastLinked) ;
-
-  AutostereogramAlgorithm2 * getAutostereogramAlgorithm() ;
 
   //! \brief Returns the autostereogram calculated from its depthmap
   std::unique_ptr<QImage> depthmapToAutostereogram() ;
