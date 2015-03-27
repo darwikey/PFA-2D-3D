@@ -121,7 +121,7 @@ private:
 
 
 	const int mkGifTransIndex = 0;
-    FILE* mFile;
+    FILE* mFile = nullptr;
 	QImage* mOldImage = nullptr;
     bool mFirstFrame = true;
 

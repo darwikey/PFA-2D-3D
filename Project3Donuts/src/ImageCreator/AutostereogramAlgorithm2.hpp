@@ -38,10 +38,10 @@ private :
   std::vector<int> msameLeft ;
   std::vector<int> msameRight ;
 
-  int mmaxsep ;
-  int mpoffset ;
-  int mcenter ;
-  int myShift ;
+  int mmaxsep = 0;
+  int mpoffset = 0;
+  int mcenter = 0;
+  int myShift = 0;
   
 } ;
 

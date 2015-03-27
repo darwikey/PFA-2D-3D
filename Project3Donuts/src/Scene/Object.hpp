@@ -25,6 +25,9 @@ public:
 	//! \brief Construction of the object when it is loaded with a file
 	Object(const std::string &fPath);
 
+	//! \brief Destructor
+	~Object();
+
 	//! \brief To move an object depending on three values on  x, y and z coordonates
 	//! \param fUpdateCamera, update the camera position
 	void moveObject(QVector3D fPosition, bool fUpdateCamera = false);

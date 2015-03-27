@@ -181,8 +181,8 @@ void Creation::insertNewWidget(QWidget* fWidget){
 
 
 QPoint Creation::getImageSize(){
-	QPoint _point(11.69333f, 8.26666f);
-	return mResolution * _point;
+	QPoint _point((int)(mResolution * 11.69333f), (int)(mResolution * 8.26666f));
+	return _point;
 }
 
 

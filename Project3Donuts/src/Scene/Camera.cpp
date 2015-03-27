@@ -12,9 +12,9 @@ mAngleOfView(60.f){
 
 Camera::Camera(QVector3D fPosition, QVector3D fRotation, float fAngleOfView) :
 mPosition(fPosition),
+mLookAtPoint(0.f, 0.f, 0.f),
 mRotation(fRotation),
-mAngleOfView(fAngleOfView),
-mLookAtPoint(0.f, 0.f, 0.f){
+mAngleOfView(fAngleOfView){
 	computeViewMatrix();
 }
 

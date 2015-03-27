@@ -79,7 +79,13 @@ Mesh::Mesh(Object* fModel){
 
 Mesh::~Mesh()
 {
-	//TODO delete vertices & triangles
+	for (auto it : mVertices){
+		delete it;
+	}
+
+	for (auto it : mTriangles){
+		delete it;
+	}
 }
 
 

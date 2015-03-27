@@ -20,6 +20,14 @@ mScale(1.f, 1.f, 1.f),
 mPath(fPath){
 }
 
+Object::~Object(){
+	for (auto it : mShaders){
+		delete it;
+	}
+
+	delete mLowModel;
+}
+
 
 void Object::moveObject(QVector3D fPosition, bool fUpdateCamera){
 	mPosition = fPosition;

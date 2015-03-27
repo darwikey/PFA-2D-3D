@@ -70,7 +70,7 @@ bool GifWriter::GifWriteFrame(const QImage* fImage, int bitDepth, bool dither)
 		return false;
 	}
 
-	if (fImage->height() != mHeight || fImage->width() != mWidth){
+	if (fImage->height() != (int)mHeight || fImage->width() != (int)mWidth){
 		std::cerr << "Image not at the good size" << std::endl;
 		return false;
 	}

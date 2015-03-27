@@ -52,7 +52,7 @@ void CreationFile::save(const QString& fFileName){
 		{
 			std::string _filename = fFileName.toStdString();
 
-			int _dot = _filename.find_last_of('.');
+			auto _dot = _filename.find_last_of('.');
 			if (_dot != std::string::npos){
 				_filename = _filename.substr(0, _dot);
 			}
