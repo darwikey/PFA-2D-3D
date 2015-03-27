@@ -30,9 +30,19 @@ include_directories(${Qt5Widgets_INCLUDES} src src/ImageCreator src/Scene src/To
 
 # We need add -DQT_WIDGETS_LIB when using QtWidgets in Qt 5.
 add_definitions(${Qt5Widgets_DEFINITIONS})
-add_definitions(-Wall -std=c++11)
+add_definitions(-std=c++11)
 ADD_DEFINITIONS(${QT_DEFINITIONS})
 
+# DOC
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+add_custom_target(doc
+${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+COMMENT "Generating API documentation with Doxygen" VERBATIM
+)
+endif(DOXYGEN_FOUND)
 
 # Executables fail to build with Qt 5 in the default configuration
 # without -fPIE. We add that here.
