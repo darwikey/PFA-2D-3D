@@ -58,6 +58,14 @@ Des algorithmes plus poussés ont été développés, comme celui présenté par
 
 	Les anaglyphes les plus fréquents sont les anaglyphes dits rouge-cyan. Ils se nomment ainsi car ils sont constitués d’une image sur laquelle on passe un filtre rouge, et une autre avec un filtre cyan (cf. figure \ref{fig:anaglyph}). Pour pouvoir visualiser le relief sur une telle image, on utilise une paire de lunettes rouge-cyan, dont chaque verre est un filtre pour l’une des deux couleurs de l’image. Le plus souvent, le filtre rouge est placé sur l’œil gauche, le cyan sur l’œil droit. En regardant l’image, l’œil gauche ne verra alors que la composante cyan, et inversement pour l’œil droit. Les deux images ayant un léger décalage, le cerveau va percevoir l’image comme si elle était en trois dimensions. 
 	
+\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.8]{anaglyph.png}
+		\caption{\label{fig:anaglyph} Le décalage de la partie rouge et cyan permet à l’œil de percevoir l’image non plus dans un plan XY mais dans l’espace \protect \footnotemark }
+\end{figure}
+	\footnotetext{\url{http://www.david-romeuf.fr/3D/Anaglyphes/TCAnaglypheLSDubois/TransformationCouleursPourAnaglyphe.html}}
+		
+	
 \begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.3]{anaglyphex.png}
@@ -67,11 +75,3 @@ Des algorithmes plus poussés ont été développés, comme celui présenté par
 
 \paragraph{}	
 	Les anaglyphes rouge-cyan sont principalement intéressants sur des images en noir et blanc. En effet, quand il s’agit d’images en couleur, celles-ci sont souvent détériorées par l’usage des filtres, car les couleurs possèdent généralement de plusieurs composantes. A l’inverse, quand l’image est en nuances de gris, l’image n’est pas modifiée, juste mise en relief. Plusieurs types d'algorithmes existent pour créer des anaglyphes depuis des paires d'images. Ils se différencient par la qualité de l'anaglyphe en sortie en diminuant le nombre d'artefacts \cite{steteroAnaglyph} ou en améliorant le rendu pour l'impression \cite{printAnaglyph} par exemple.
-
-\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.8]{anaglyph.png}
-		\caption{\label{fig:anaglyph} Le décalage de la partie rouge et cyan permet à l’œil de percevoir l’image non plus dans un plan XY mais dans l’espace \protect \footnotemark }
-\end{figure}
-\footnotetext{\url{http://www.david-romeuf.fr/3D/Anaglyphes/TCAnaglypheLSDubois/TransformationCouleursPourAnaglyphe.html}}
-	
