@@ -142,4 +142,38 @@ namespace CreationTools{
 	}
 
 
+	void rescaleDepthMap(QImage& fImage){
+		float _min = 1.f;
+		float _max = -1.f;
+
+		// get the brightest gray and the darkest gray
+		for (int x = 0; x < fImage.width(); x++){
+			for (int y = 0; y < fImage.height(); y++){
+				float _gray = qGray(fImage.pixel(x, y)) / 255.f;
+				if (_gray < 0.999f){
+					if (_gray > _max){
+						_max = _gray;
+					}
+
+					if (_gray < _min){
+						_min = _gray;
+					}
+				}
+			}
+		}
+
+		// re-sampling
+		if (_min < _max){
+			for (int x = 0; x < fImage.width(); x++){
+				for (int y = 0; y < fImage.height(); y++){
+					float _gray = qGray(fImage.pixel(x, y)) / 255.f;
+					if (_gray < 0.999f){
+						_gray = (_gray - _min) / (_max - _min);
+						fImage.setPixel(x, y, qRgb((int)(_gray * 255.f), (int)(_gray * 255.f), (int)(_gray * 255.f)));
+					}
+				}
+			}
+		}
+
+	}
 }

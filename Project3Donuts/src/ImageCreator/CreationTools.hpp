@@ -30,6 +30,8 @@ namespace CreationTools{
 	//! \brief apply antialiasing filter in order to smooth sharp edges
 	std::unique_ptr<QImage> antiAliasing(const QImage& fImage);
 
+	//! \brief rescaling the depth map
+	void rescaleDepthMap(QImage& fImage);
 }
 
 

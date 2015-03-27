@@ -5,6 +5,7 @@ int Autostereogram::caseXY(int fx, int fy, int fwidth) {
 	return fy * fwidth + fx;
 }
 
+
 void Autostereogram::createWindow(bool fHasPreview){
 	Creation::createWindow(fHasPreview);
 
@@ -24,17 +25,17 @@ void Autostereogram::createWindow(bool fHasPreview){
 
 	QObject::connect(mAlgoTypeBox, SIGNAL(currentIndexChanged(int)), Creator::getCreator(), SLOT(launchAutostereogram(int)));
 
-	mTextureStyleLabel = new QLabel("Type de rendu : ", mWindow) ;
-	insertNewWidget(mTextureStyleLabel) ;
-	
-	mChooseTextureStyle = new QComboBox(mWindow) ;
-	mChooseTextureStyle->addItem("Aléatoire noir et blanc") ;
-	mChooseTextureStyle->addItem("Aléatoire niveaux de gris") ;
-	mChooseTextureStyle->addItem("Aléatoire couleur") ;
-	mChooseTextureStyle->addItem("Texture") ;
-	insertNewWidget(mChooseTextureStyle) ;
+	mTextureStyleLabel = new QLabel("Type de rendu : ", mWindow);
+	insertNewWidget(mTextureStyleLabel);
 
-	QObject::connect(mChooseTextureStyle, SIGNAL(currentIndexChanged(int)), SLOT(changeTextureStyle(int))) ;
+	mChooseTextureStyle = new QComboBox(mWindow);
+	mChooseTextureStyle->addItem("Aléatoire noir et blanc");
+	mChooseTextureStyle->addItem("Aléatoire niveaux de gris");
+	mChooseTextureStyle->addItem("Aléatoire couleur");
+	mChooseTextureStyle->addItem("Texture");
+	insertNewWidget(mChooseTextureStyle);
+
+	QObject::connect(mChooseTextureStyle, SIGNAL(currentIndexChanged(int)), SLOT(changeTextureStyle(int)));
 }
 
 
@@ -42,63 +43,68 @@ std::vector<float> Autostereogram::getDepth(const QImage& fImg) {
 	int _width = fImg.width();
 	int _height = fImg.height();
 
+	// depthmap
 	std::vector<float> result(_width * _height, 0.);
+
 	for (int i = 0; i < _height; ++i) {
 		for (int j = 0; j < _width; ++j) {
 			result[i * _width + j] = qGray(fImg.pixel(j, i)) / 255.f;
 		}
 	}
+
 	return result;
 }
 
+
 void Autostereogram::changeTextureStyle(int fSelectedTextureStyle){
-  switch (fSelectedTextureStyle) {
-  case 0 :
-    mTextureStyle = RANDNB ;
-    break ;
-  case 1 :
-    mTextureStyle = RANDGREY ;
-    break ;
-  case 2 :
-    mTextureStyle = RANDCOLOR ;
-    break ;
-  case 3 :
-    mTextureStyle = TEXTUREMAP ;
-    mTexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString());
-    break ;
-  }    
-  updatePreview();
+	switch (fSelectedTextureStyle) {
+	case 0:
+		mTextureStyle = RANDNB;
+		break;
+	case 1:
+		mTextureStyle = RANDGREY;
+		break;
+	case 2:
+		mTextureStyle = RANDCOLOR;
+		break;
+	case 3:
+		mTextureStyle = TEXTUREMAP;
+		mTexturePath = QFileDialog::getOpenFileName(0, "Texture...", QString());
+		break;
+	}
+	updatePreview();
 }
 
+
 void Autostereogram::colorRandom(int fx) {
-  switch (mTextureStyle) {
+	switch (mTextureStyle) {
 
-  case TEXTUREMAP :
-    break ;
-    
-  case RANDNB :
+	case TEXTUREMAP:
+		break;
 
-    /* 
-       Black-and white images will actually 
-       be in shades of grey if there is oversampling 
-    */
+	case RANDNB:
 
-    mred[fx] = (rand()&1) * 255 ;
-    mgreen[fx] = mred[fx] ;
-    mblue[fx] = mred[fx] ;
-    break ;
-    
-  case RANDGREY :
-    mred[fx] = rand() %256 ;
-    mgreen[fx] = mred[fx] ;
-    mblue[fx] = mred[fx] ;
-    break ;
-    
-  case RANDCOLOR :
-    mred[fx] = rand() %256;
-    mgreen[fx] = rand() %256;
-    mblue[fx] = rand() %256;
-    break ;
-   
-  }
+		/*
+		   Black-and white images will actually
+		   be in shades of grey if there is oversampling
+		   */
+
+		mRed[fx] = (rand() & 1) * 255;
+		mGreen[fx] = mRed[fx];
+		mBlue[fx] = mRed[fx];
+		break;
+
+	case RANDGREY:
+		mRed[fx] = rand() % 256;
+		mGreen[fx] = mRed[fx];
+		mBlue[fx] = mRed[fx];
+		break;
+
+	case RANDCOLOR:
+		mRed[fx] = rand() % 256;
+		mGreen[fx] = rand() % 256;
+		mBlue[fx] = rand() % 256;
+		break;
+
+	}
 }

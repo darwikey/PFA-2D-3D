@@ -7,6 +7,8 @@ class Object;
 class SceneRenderer;
 class Camera;
 
+//! \class TransformWidget
+//! 
 class TransformWidget
 {
 public:
@@ -18,6 +20,7 @@ public:
 		X, Y, Z
 	};
 
+	//! \brief Constructor 
 	TransformWidget(std::string fObjPath = std::string("resources/models/widget.obj"));
 	~TransformWidget();
 

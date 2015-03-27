@@ -28,9 +28,9 @@ void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera){
 
         // Scale
 		float _scale =  fCamera->getPosition().length();
-        mObjectX->changeObjectScale(_scale/10);
-        mObjectY->changeObjectScale(_scale/10);
-        mObjectZ->changeObjectScale(_scale/10);
+        mObjectX->changeObjectScale(_scale/20);
+        mObjectY->changeObjectScale(_scale/20);
+        mObjectZ->changeObjectScale(_scale/20);
 
         // Render
         fRenderer->render(mObjectX, fCamera, true);
@@ -54,7 +54,7 @@ void TransformWidget::render(SceneRenderer* fRenderer, Camera* fCamera, Object* 
         mObjectZ->changeObjectOrientation(QVector3D(1.57f, 0.f, 0.f));
 
         // Scale
-        float _scale = fCamera->getPosition().length() / 7.f;
+        float _scale = fCamera->getPosition().length() / 14.f;
         mObjectX->changeObjectScale(_scale);
         mObjectY->changeObjectScale(_scale);
         mObjectZ->changeObjectScale(_scale);

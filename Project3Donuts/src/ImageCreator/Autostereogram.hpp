@@ -15,38 +15,38 @@ public:
 
 protected:
 
-  virtual void createWindow(bool fHasPreview) override;
+	virtual void createWindow(bool fHasPreview) override;
 
 	virtual std::unique_ptr<CreationFile> render() override = 0;
 
 	//! \brief extract the depth of a depthmap 
 	std::vector<float> getDepth(const QImage& fImg);
 
-  //! \brief utilitary function to facilitate data access in a vector or array
+	//! \brief utilitary function to facilitate data access in a vector or array
 	int caseXY(int fx, int fy, int fwidth);
 
-  //! \brief colors a pixel randomly according to the chosen texture option
-  void colorRandom(int fx) ;
-  
-  enum Texture mTextureStyle = RANDNB ;
-  QComboBox * mChooseTextureStyle = nullptr ;
-  QString mTexturePath = "" ;
-  QImage mTexture ;
-  
-  QLabel * mTextureStyleLabel = nullptr ;
-  QLabel * mTexturePathLabel = nullptr ;
+	//! \brief colors a pixel randomly according to the chosen texture option
+	void colorRandom(int fx);
 
-  std::vector<int> mred ;
-  std::vector<int> mgreen ;
-  std::vector<int> mblue ;
+	enum Texture mTextureStyle = RANDNB;
+	QComboBox * mChooseTextureStyle = nullptr;
+	QString mTexturePath = "";
+	QImage mTexture;
 
-  const float MU = 1.f / 3.f ;
-			 
-private slots :
+	QLabel * mTextureStyleLabel = nullptr;
+	QLabel * mTexturePathLabel = nullptr;
 
-  //! \brief change texture style in the creation window
-  void changeTextureStyle(int fSelectedTextureStyle) ;
-  
+	std::vector<int> mRed;
+	std::vector<int> mGreen;
+	std::vector<int> mBlue;
+
+	const float MU = 1.f / 3.f;
+
+	private slots :
+
+	//! \brief change texture style in the creation window
+	void changeTextureStyle(int fSelectedTextureStyle);
+
 };
 
 
