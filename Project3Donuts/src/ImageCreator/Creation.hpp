@@ -9,8 +9,8 @@
 class Creator;
 
 
-  // ! \class Creation
-  // ! \brief Creation is the basic virtual class for the creation of any other image. However, this basic virtual class also corresponds to basic Photography
+  //! \class Creation
+  //! \brief Creation is the basic virtual class for the creation of any other image. However, this basic virtual class also corresponds to basic Photography
 class Creation : public QObject{
 	Q_OBJECT
 

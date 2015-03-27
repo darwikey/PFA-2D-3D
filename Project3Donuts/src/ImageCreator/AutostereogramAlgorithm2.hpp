@@ -6,8 +6,8 @@
 #include "Autostereogram.hpp"
 
 
-// ! \class AutostereogramAlgorithm2
-// ! \brief Second algorithm to create an autostereogram
+//! \class AutostereogramAlgorithm2
+//! \brief Second algorithm to create an autostereogram
 class AutostereogramAlgorithm2 : public Autostereogram {
   Q_OBJECT
 public:
