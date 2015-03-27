@@ -95,25 +95,39 @@ public:
     //! \param The path to the save file
     void createScene(const QString &fPath);
 
+	//! \brief tell if the scene have a name
     bool hasName();
-    void setName(std::string fName);
-    std::string getName();
+    
+	//! \brief set the scene name
+	void setName(std::string fName);
+    
+	//! \brief return the scene name
+	std::string getName();
 
+	//! \brief set the path where the scene is saved
     void setPath(std::string fPath);
+
+	//! \brief return the path where the scene is saved
     std::string getPath();
 
+	//! \brief find the list of all object which have a local path
     std::vector<std::string> getLocalObjects();
 
 private:
-	//! \brief Scene constructor for a new scene
+	//! \brief private scene constructor for a new scene
 	Scene();
 	~Scene();
+
+	//! \brief process the xml and extract the 3D coordinates
 	QVector3D nodeTreatment(QDomNode *fcurrent);
 	
+	//! \brief process the xml and extract the camera informations
 	bool cameraTreatment(QDomNode *fcurrent);
 
+	//! \brief process the xml and extract the object informations
 	bool objectTreatment(QDomNode *fcurrent);
 
+	//! \brief update the list of object contained in the scene
     void updateListObjects();
 	
 	

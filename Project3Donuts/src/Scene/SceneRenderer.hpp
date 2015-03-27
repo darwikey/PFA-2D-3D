@@ -15,9 +15,16 @@ class SceneRenderer : public MyGLWidget{
 public:
     SceneRenderer(QWidget *fParent = 0);
 
+	//! \brief init the opengl context and functions
     void initializeGL() override;
+
+	//! \brief init opengl parameter
 	void initOpengl();
+
+	//! \brief call when the window is resize
 	void resizeGL(int width, int height) override;
+
+	//! \brief call at each frame, render everything
 	void paintGL() override;
 
 	//! \brief 
@@ -27,7 +34,10 @@ public:
 	//! \param fRenderlowResolution if the model have a low resolution model, use it
 	void render(Object* fModel, Camera* fCamera, bool fRenderForeground, bool fRenderLowResolution = false);
     
+	//! \brief change the background color
 	void changeBackground(QVector3D fColor);
+
+	//! \brief set the background color
 	void setBackgroundColor(QColor fColor);
 
 private:

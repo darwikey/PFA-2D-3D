@@ -541,12 +541,15 @@ void Scene::setName(std::string fName){
 std::string Scene::getName(){
     return Scene::mName;
 }
+
 void Scene::setPath(std::string fPath){
     Scene::mPath = fPath;
 }
+
 std::string Scene::getPath(){
     return Scene::mPath;
 }
+
 std::vector<std::string> Scene::getLocalObjects()
 {
     std::vector<std::string> _pathlist;
