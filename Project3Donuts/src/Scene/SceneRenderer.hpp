@@ -13,6 +13,8 @@ class Camera;
 class SceneRenderer : public MyGLWidget{
 
 public:
+	//! \brief constructor 
+	//! \param fParent widget parent
     SceneRenderer(QWidget *fParent = 0);
 
 	//! \brief init the opengl context and functions
