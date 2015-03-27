@@ -1,7 +1,7 @@
 Cette partie présentera les différents algorithmes qui ont été choisis pour générer des anaglyphes dans le logiciel.
 
 \subsubsection{La génération des anaglyphes et ses défauts}
-	L'anaglyphe est une image issue d'un traitement particulier sur deux prises de vue stéréoscopiques et qui nécessite des lunettes particulières composées d'un filtre rouge (ou magenta ou jaune) pour un oeil et cyan (respectivement vert ou bleu) pour l'autre. 
+	L'anaglyphe est une image issue d'un traitement particulier sur deux prises de vue stéréoscopiques et qui nécessite des lunettes spécifiques composées d'un filtre rouge (ou magenta ou jaune) pour un oeil et cyan (respectivement vert ou bleu) pour l'autre. 
 	
 	La génération des anaglyphes passe par trois étapes essentiellement. Tous d'abord, une prise de vue stéréoscopique d'une scène 3D avec les deux points de vue éloignées d'une distance proche de celle entre les yeux, de manière à obtenir une vue pour chaque oeil, est nécessaire. Ensuite, un traitement d'image est opéré sur ces deux images obtenues, avec au minimum l'application de deux filtres rouge et cyan (ou deux autres couleurs correspondants à celles des lunettes). Finalement, les deux images résultantes sont superposées pour n'obtenir qu'une seule image qui pourra être visionnée à travers les lunettes avec une impression de trois dimensions.
 	
@@ -57,20 +57,28 @@ image resultat -> l'algo dubois avec saturation -> la diminution de saturation, 
 
 \subsubsection{Comparaison des différents algorithmes}
 
-En comparant les algorithmes, bien que la méthode Photoshop présente un résultat satisfaisant, il semblerait que la méthode de Dubois \cite{algoDubois}  soit celle qui produit un anaglyphe avec le moins d'artefact et qui donne la meilleure impression 3D. 
+En comparant les algorithmes, il semblerait que pour une scène contenant un ou des objets simples % %REF FIGURE DOGNUTS
+, la méthode Photoshop soit la plus efficace avec une impression de trois dimensions bien visible et peu d'artefacts. En ce qui concerne les objets plus complexes tels que % %REF FIGURE HAPPY
+les détails se perdent avec la méthode Photoshop alors qu'avec la méthode de Dubois tous les détails sont conservés dans l'image anaglyphe résultat. 
+% %dognuts photshop & dubois
+% %happy photoshop & happy dubois 
 
-Cependant, après plusieurs comparaisons des images (et ce par différentes personnes) la correction gamma employée dans la méthode de Dubois qui améliore l'impression 3D rendrait l'image plus difficile à percevoir la trois dimensions rapidement et fatiguerait plus vite les yeux que pour la méthode Photshop.
+Cependant, après plusieurs comparaisons des images (et ce par différentes personnes) la correction gamma employée dans la méthode de Dubois fatiguerait plus vite les yeux que pour la méthode Photshop.
 
+Par ailleurs, il a aussi été observé que l'utilisation de l'anti-aliasing combinée aux algorithmes de génération d'anaglyphe, peut permettre de renforcer l'impression de trois dimensions dans certains cas. Cependant, l'anti-aliasing aura aussi pour effet de perdre beaucoup de détails comme la figure REF le montre avec un comparatif d'algorithmes avec et sans utlisation d'anti-aliasing. 
+% %happy anti-aliasing dubois &  happy dubois (sans anti-aliasing)
+
+Un autre point remarqué lors des différentes observations est la fatigue des yeux provoquée par la vision des anaglyphes et celle-ci varie selon les algorithmes. Il semblerait que l'algorithme de Dubois fatiguerait plus vite les yeux et que l'utilisation d'anti-aliasing rendrait la perception plus agréable et donc moins fatiguante. 
 %l'algo dubois avec saturation -> la diminution de saturation, atténue trop les couleurs : moins bonne 3D mais moins fatiguant pour les yeux 
 
 \subsubsection{L'impression des anaglyphes}
 Dans ce projet, les anaglyphes générées par le logiciel étaient destinées à être visionnés sur écran mais aussi être imprimés sur papier. Le système de colorimétrie d'une imprimante est en CMJN (Cyan Magenta Jaune Noir) et son ensemble de couleur est plus réduit que celui des écrans. 
 
-INSERER Diagramme comparatif pour illustrer ?
+% %INSERER Diagramme comparatif pour illustrer ?
 
 Par conséquent, le problème pour l'impression réside tout d'abord en la conversion du système RVB au CMJN. Tout comme l'algortihme de Dubois avec la méthode des moindres carrés \cite{algoDubois}, il faudrait pouvoir convertir en CMJN en essayant d'obtenir une couleur qui sera la plus proche possible de celle en RVB. 
 
-ICI ??? Lorsque ce problème a été exposé en réunion avec les clients, il nous a été spécifié que nous n'avions pas besoin d'implémenter des méthodes pour améliorer l'impression. 
+Lorsque ce problème a été exposé en réunion avec les clients, il nous a été spécifié que nous n'avions pas besoin d'implémenter des méthodes pour améliorer l'impression. 
 
 Par ailleurs, la conversion n'est pas le seul problème puisque comme expliqué avec l'article Andrew J. Woods et Chris R. Harris \cite{anaglypheDefaut}, le support d'affichage est aussi important : dans ce cas, le type de papier rentre aussi en compte dans la qualité de l'anaglyphe. 
 %peut etre en conclu de cette partie anagyphe ? AJOUTER : certains fatiguent plus les yeux que d'autres
