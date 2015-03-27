@@ -55,29 +55,22 @@ void MainWindow::openfile()
 {
     QString _qfile = QFileDialog::getOpenFileName(0, "Importer", QString(), "Modeles (*.obj *.ply)");
     std::string _file = _qfile.toStdString();
+    int ret;
     if(_file!="")
     {
-//        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
-//                                    tr("Souhaitez vous creer une copie du modèle dans le dossier du répertoire ?\n"),
-//                                    QMessageBox::Yes | QMessageBox::No, this);
-//        _retBox.setButtonText(QMessageBox::Yes, "Oui");
-//        _retBox.setButtonText(QMessageBox::No, "Non");
-//        ret = _retBox.exec();
-//        if (ret == QMessageBox::Yes) {
-//            //changement _file
-//        }
-//        else{
-//            //chargement normal
-//        }
+        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                    tr("Souhaitez vous creer une copie du modèle dans le dossier du projet ?\n"),
+                                    QMessageBox::Yes | QMessageBox::No, this);
+        _retBox.setButtonText(QMessageBox::Yes, "Oui");
+        _retBox.setButtonText(QMessageBox::No, "Non");
+        ret = _retBox.exec();
 
         //now we computer the name of the object
         int _num=0;
         std::string  _num_name;
-        std::cout<<_file<<std::endl;
         std::string _name = _file.substr(_file.find_last_of('/')+1);
-        std::cout<<_name<<std::endl;
         _name = _name.substr(0,_name.find_last_of('.'));
-        std::cout<<_name<<std::endl;
+
         do
         {
             _num_name=_name;
@@ -91,8 +84,14 @@ void MainWindow::openfile()
         while(Scene::getScene()->getObject(_num_name.append(std::to_string(_num))) != nullptr);
 
         Scene::getScene()->getLoader()->loadObject(_file, _num_name);
+        //we copy the file and set the path to local
+        if (ret == QMessageBox::Yes) {
+            QFile::copy(_qfile, QString((Scene::getScene()->getPath() + _file.substr(_file.find_last_of('/')+1)).c_str()));
+            Scene::getScene()->getObject(_num_name)->setPath("#"+_file.substr(_file.find_last_of('/')+1));
+        }
+        //notify the window that a new change has yet to be saved
         newaction();
-    }
+     }
 }
 
 void MainWindow::newscene()
@@ -135,17 +134,22 @@ void MainWindow::openlibfile()
 
     QString _qfile = QFileDialog::getOpenFileName(0, "Importer", _dir, "Modeles (*.obj *.ply)");
     std::string _file = _qfile.toStdString();
+    int ret;
     if(_file!="")
     {
+        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                    tr("Souhaitez vous creer une copie du modèle dans le dossier du projet ?\n"),
+                                    QMessageBox::Yes | QMessageBox::No, this);
+        _retBox.setButtonText(QMessageBox::Yes, "Oui");
+        _retBox.setButtonText(QMessageBox::No, "Non");
+        ret = _retBox.exec();
 
-
+        //now we computer the name of the object
         int _num=0;
         std::string  _num_name;
-        std::cout<<_file<<std::endl;
         std::string _name = _file.substr(_file.find_last_of('/')+1);
-        std::cout<<_name<<std::endl;
         _name = _name.substr(0,_name.find_last_of('.'));
-        std::cout<<_name<<std::endl;
+
         do
         {
             _num_name=_name;
@@ -159,8 +163,15 @@ void MainWindow::openlibfile()
         while(Scene::getScene()->getObject(_num_name.append(std::to_string(_num))) != nullptr);
 
         Scene::getScene()->getLoader()->loadObject(_file, _num_name);
+
+        //we copy the file and set the path to local
+        if (ret == QMessageBox::Yes) {
+            QFile::copy(_qfile, QString((Scene::getScene()->getPath() + _file.substr(_file.find_last_of('/')+1)).c_str()));
+            Scene::getScene()->getObject(_num_name)->setPath("#"+_file.substr(_file.find_last_of('/')+1));
+        }
+        //notify the window that a new change has yet to be saved
         newaction();
-    }
+     }
 }
 
 void MainWindow::open()
@@ -229,10 +240,53 @@ void MainWindow::saveas()
 {
     QString _qfile = QFileDialog::getSaveFileName(0, "Sauvegarder", QString(), "Scene (*.xml)");
     std::string _file = _qfile.toStdString();
+
+    std::vector<std::string> _pathList;
+
     if(_file!="")
     {
+        _pathList = Scene::getScene()->getLocalObjects();
         std::size_t _begin = _file.find_last_of('/') + 1;
         std::size_t _end = _file.find_last_of('.');
+
+        if(_pathList.size()>0 && _file.substr(0,_begin)!=Scene::getScene()->getPath())
+        {
+            int ret;
+            QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                        tr("Votre scene contient des objets sauvegardés dans le dossier du projet\nSouhaitez vous les copier dans le nouveau dossier ?\n"),
+                                        QMessageBox::Yes | QMessageBox::No, this);
+            _retBox.setButtonText(QMessageBox::Yes, "Oui");
+            _retBox.setButtonText(QMessageBox::No, "Non");
+            ret = _retBox.exec();
+
+            std::string _localPath;
+            std::string _realPath;
+            std::string _newPath;
+
+            if (ret == QMessageBox::Yes) {
+
+                for (unsigned int i=0; i<_pathList.size();i++)
+                {
+                    _localPath = Scene::getScene()->getObject(_pathList[i])->getPath();
+                    _realPath = Scene::getScene()->getPath() + _localPath.substr(_localPath.find_last_of('#') + 1);
+                    _newPath = _file.substr(0,_begin) + _localPath.substr(_localPath.find_last_of('#') + 1);
+                    QFile::copy(QString(_realPath.c_str()), QString(_newPath.c_str()));
+
+                }
+            }
+            else
+            {
+                for (unsigned int i=0; i<_pathList.size();i++)
+                {
+                    _localPath = Scene::getScene()->getObject(_pathList[i])->getPath();
+                    _realPath = Scene::getScene()->getPath() + _localPath.substr(_localPath.find_last_of('#') + 1);
+                    Scene::getScene()->getObject(_pathList[i])->setPath(_realPath);
+                }
+
+            }
+
+        }
+
         Scene::getScene()->saveScene(_file);
         Scene::getScene()->setName(_file.substr(_begin, _end-_begin));
         Scene::getScene()->setPath(_file.substr(0,_begin));

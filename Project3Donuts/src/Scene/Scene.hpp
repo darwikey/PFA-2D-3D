@@ -71,7 +71,7 @@ public:
 	//! \brief get camera instance
 	Camera* getCamera();
 
-    //! \brief get the list of the objects in the scene
+    //! \brief get the listmodel of the objects in the scene
     QStringListModel* getListObjects();
 
 	//! \brief get the transform widget
@@ -98,9 +98,11 @@ public:
     bool hasName();
     void setName(std::string fName);
     std::string getName();
+
     void setPath(std::string fPath);
     std::string getPath();
 
+    std::vector<std::string> getLocalObjects();
 
 private:
 	//! \brief Scene constructor for a new scene

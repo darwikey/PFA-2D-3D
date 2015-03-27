@@ -132,6 +132,12 @@ public:
 	//! \brief return the path of the file 
     const std::string& getPath() const;
 
+    //! \brief change the path of the file
+    void setPath(std::string);
+
+    //! \brief tell us if the path is local
+    bool isPathLocal();
+
 	//! \brief return the number of face
 	int getFaceNumber();
 
