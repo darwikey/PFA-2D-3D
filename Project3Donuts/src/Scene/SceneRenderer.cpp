@@ -118,13 +118,6 @@ void SceneRenderer::render(Object* fModel, Camera* fCamera, bool fRenderForegrou
 }
 
 
-void SceneRenderer::changeBackground(QColor fColor){
-    QVector3D _color(fColor.red(), fColor.green(), fColor.blue());
-    _color = _color/ 255.f;
-    glClearColor(_color.x(), _color.y(), _color.z(), 1.f);
-}
-
-
 void SceneRenderer::changeBackground(QVector3D fColor){
 	glClearColor(fColor.x(), fColor.y(), fColor.z(), 1.f);
 }

@@ -18,7 +18,7 @@ mSceneRenderer(nullptr),
 mCamera(new Camera()),
 mTransformWidget(new TransformWidget),
 mObjects(new std::map<std::string, Object*>()),
-mLandmark(new TransformWidget){
+mLandmark(new TransformWidget("resources/models/landmark.obj")){
     mLandmark->changeState(TransformWidget::State::SCALE);
 }
 

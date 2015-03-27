@@ -6,7 +6,7 @@
 #include "Camera.hpp"
 
 
-TransformWidget::TransformWidget(){
+TransformWidget::TransformWidget(std::string fObjPath) : mObjPath(fObjPath){
 }
 
 TransformWidget::~TransformWidget(){
@@ -73,15 +73,14 @@ void TransformWidget::changeState(TransformWidget::State fState) {
         mObjectY = new Object();
         mObjectZ = new Object();
 
-        std::string _objPath = "resources/models/widget.obj";
-        ObjLoader _loaderX(_objPath);
-        ObjLoader _loaderY(_objPath);
-        ObjLoader _loaderZ(_objPath);
+		ObjLoader _loaderX(mObjPath);
+		ObjLoader _loaderY(mObjPath);
+		ObjLoader _loaderZ(mObjPath);
 
         if (!_loaderX.load(mObjectX)
             || !_loaderY.load(mObjectY)
             || !_loaderZ.load(mObjectZ)){
-            QMessageBox::critical(0, "Error", "Error opening " + QString(_objPath.c_str()));
+            QMessageBox::critical(0, "Error", "Error opening " + QString(mObjPath.c_str()));
         }
 
         mObjectX->computeColors();

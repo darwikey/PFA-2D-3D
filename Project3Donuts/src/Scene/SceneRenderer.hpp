@@ -27,7 +27,6 @@ public:
 	//! \param fRenderlowResolution if the model have a low resolution model, use it
 	void render(Object* fModel, Camera* fCamera, bool fRenderForeground, bool fRenderLowResolution = false);
     
-	void changeBackground(QColor fColor);
 	void changeBackground(QVector3D fColor);
 	void setBackgroundColor(QColor fColor);
 

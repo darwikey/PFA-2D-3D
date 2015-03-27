@@ -18,7 +18,7 @@ public:
 		X, Y, Z
 	};
 
-	TransformWidget();
+	TransformWidget(std::string fObjPath = std::string("resources/models/widget.obj"));
 	~TransformWidget();
 
 	//! \brief render the widget
@@ -51,6 +51,8 @@ private:
 	QVector2D mInitialMousePosition = QVector2D(0.f, 0.f);
 	QVector3D mInitialSelectedObject = QVector3D(0.f, 0.f, 0.f);
 	Direction mDirection = Direction::X;
+
+	std::string mObjPath;
 
 	Object* mObjectX = nullptr;
 	Object* mObjectY = nullptr;
