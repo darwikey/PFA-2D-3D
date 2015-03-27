@@ -8,7 +8,7 @@ class SceneRenderer;
 class Camera;
 
 //! \class TransformWidget
-//! 
+//! \brief 3D widget that will be render in the scene, user can manipulate it
 class TransformWidget
 {
 public:
