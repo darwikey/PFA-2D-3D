@@ -20,18 +20,21 @@ namespace XmlTools{
 		}
 		fStr.append("<x>");
 		fStr.append(std::to_string(fX));
+        std::replace(fStr.begin(), fStr.end(), ',', '.');
 		fStr.append("</x>\n");
 		for (_i = 0; _i<fTab + 1; _i++) {
 			fStr.append("\t");
 		}
 		fStr.append("<y>");
 		fStr.append(std::to_string(fY));
+        std::replace(fStr.begin(), fStr.end(), ',', '.');
 		fStr.append("</y>\n");
 		for (_i = 0; _i<fTab + 1; _i++) {
 			fStr.append("\t");
 		}
 		fStr.append("<z>");
 		fStr.append(std::to_string(fZ));
+        std::replace(fStr.begin(), fStr.end(), ',', '.');
 		fStr.append("</z>\n");
 		for (_i = 0; _i<fTab; _i++) {
 			fStr.append("\t");
