@@ -34,8 +34,29 @@ void Autostereogram::createWindow(bool fHasPreview){
 	mChooseTextureStyle->addItem("Aléatoire couleur");
 	mChooseTextureStyle->addItem("Texture");
 	insertNewWidget(mChooseTextureStyle);
+	
+	QObject::connect(mChooseTextureStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(changeTextureStyle(int)));
 
-	QObject::connect(mChooseTextureStyle, SIGNAL(currentIndexChanged(int)), SLOT(changeTextureStyle(int)));
+	mChooseView = new QGroupBox("Type de vue : ");
+	mViewAutostereogram = new QRadioButton("Autostéréogramme");
+	QObject::connect(mViewAutostereogram, SIGNAL(toggled(bool)), this, SLOT(changeView()));
+
+	mViewDepthMap = new QRadioButton("Carte de profondeur");
+	QObject::connect(mViewDepthMap, SIGNAL(toggled(bool)), this, SLOT(changeView()));
+
+	
+	mViewAutostereogram->setChecked(true) ;
+
+	mViewVBox = new QVBoxLayout();
+	mViewVBox->addWidget(mViewAutostereogram);
+	mViewVBox->addWidget(mViewDepthMap);
+	mViewVBox->addStretch(1);
+	
+	mChooseView->setLayout(mViewVBox);
+	
+	insertNewWidget(mChooseView);
+
+
 }
 
 
@@ -107,4 +128,9 @@ void Autostereogram::colorRandom(int fx) {
 		break;
 
 	}
+}
+
+void Autostereogram::changeView(){
+  mViewIsAutostereogram = mViewAutostereogram->isChecked();
+  updatePreview();
 }

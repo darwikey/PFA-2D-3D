@@ -73,7 +73,7 @@ private:
 	int mPositionNewWidget = 9;
 	unsigned int mAntiAliasingIteration = 0;
 	const QSize mPreviewImageSize = QSize(600, 600);
-	QVector3D mBackgroundColor = QVector3D(1.f, 1.f, 1.f);
+	QVector3D mBackgroundColor = QVector3D(0.5f, 0.5f, 0.5f);
 				
 public slots:
 	void updatePreview();

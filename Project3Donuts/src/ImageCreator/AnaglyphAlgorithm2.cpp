@@ -13,11 +13,15 @@ void AnaglyphAlgorithm2::createWindow(bool fHasPreview){
   Anaglyph::createWindow(fHasPreview);
 
   // Eyes distance
+  mGammaFilter = 2.2f;
+  
   mGammaFilterLabel = new QLabel(QString("Filtre Gamma %1").arg(mGammaFilter), mWindow);
   insertNewWidget(mGammaFilterLabel);
 
   mGammaFilterSlider = new QSlider(Qt::Orientation::Horizontal, mWindow);
-  mGammaFilterSlider->setValue(0);
+
+  mGammaFilterSlider->setValue(22);
+  
   mGammaFilterSlider->setRange(10,100);
   insertNewWidget(mGammaFilterSlider);
   QObject::connect(mGammaFilterSlider,

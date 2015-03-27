@@ -23,7 +23,6 @@ Creator::Creator(){
     mAnaglyphTable.push_back(new AnaglyphAlgorithm3());
 
 	// Autostereogram registration
-	mAutostereogramTable.push_back(new AutostereogramDepthMap()) ;
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm1());
 	mAutostereogramTable.push_back(new AutostereogramAlgorithm2());
 

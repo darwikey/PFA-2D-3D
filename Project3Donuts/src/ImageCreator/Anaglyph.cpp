@@ -34,14 +34,16 @@ void Anaglyph::createWindow(bool fHasPreview){
   QObject::connect(mChooseView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeChoosenView(int)));
 	
   // Eyes distance
-
+  mTranslation = 0.074f;
+  
   mTranslationLabel = new QLabel(QString("Translation %1").arg(mTranslation),
                                       mWindow);
   insertNewWidget(mTranslationLabel);
 
   mTranslationSlider = new QSlider(Qt::Orientation::Horizontal,
                                         mWindow);
-  mTranslationSlider->setValue(0);
+  mTranslationSlider->setValue(74);
+  
   mTranslationSlider->setRange(0,250);
   insertNewWidget(mTranslationSlider);
   QObject::connect(mTranslationSlider,
