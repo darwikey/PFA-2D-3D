@@ -25,7 +25,8 @@ public:
 	void hide();
 
 protected:
-
+	//! \brief create a new window, add all the widgets
+	//! \param fHasPreview tell if the window has a preview image
 	virtual void createWindow(bool fHasPreview = true);
 
 	//! \brief Creation contains virtual methods that could be redefined in other classes that inherit from this class.
@@ -37,7 +38,7 @@ protected:
 	//! \param fZoom should be > 0, 1 equals no zoom
 	std::unique_ptr<QImage> getColorMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f, QVector2D fTranslation = QVector2D(0.f, 0.f));
 
-	//! brief render the scene and return a depath map
+	//! \brief render the scene and return a depath map
 	std::unique_ptr<QImage> getDepthMap(float fHorizontalRotation = 0.f, float fVerticalRotation = 0.f, float fZoom = 1.f, QVector3D fTranslation = QVector3D(0.f, 0.f, 0.f));
 
 	//! \brief put a new widget in the interface window
@@ -72,7 +73,7 @@ private:
 	int mPositionNewWidget = 9;
 	unsigned int mAntiAliasingIteration = 0;
 	const QSize mPreviewImageSize = QSize(600, 600);
-	QVector3D mBackgroundColor = QVector3D(1.f, 1.f, 1.f);
+	QVector3D mBackgroundColor = QVector3D(0.5f, 0.5f, 0.5f);
 				
 public slots:
 	void updatePreview();

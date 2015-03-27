@@ -3,7 +3,7 @@
 
 #include "global.hpp"
 
-//! \class Creation file
+//! \class CreationFile
 //! \brief can contain an image or an animated image
 class CreationFile{
 public:
