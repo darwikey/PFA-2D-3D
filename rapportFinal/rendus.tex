@@ -32,14 +32,14 @@
 \paragraph{}
 	Pour générer un autostéréogramme, il faut utiliser une carte des profondeurs, ou carte de disparité, de l’objet à dissimuler. Cette carte s’obtient grâce à deux visions d’une même scène prises à deux endroits différents, et permet de mettre en avant les informations sur la profondeur de l’objet. Par exemple, la carte des profondeurs de la figure \ref{fig:carteProfondeur} a permis d’obtenir l’autostéréogramme de la figure \ref{fig:autostereogramme}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.2]{carteProfondeur.png}
 		\caption{\label{fig:carteProfondeur} Carte des profondeurs \protect \footnotemark }
 \end{figure}
 \footnotetext{\url{http://en.wikipedia.org/wiki/Autostereogram}}
 
-\begin{figure}[h]
+\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.4]{autostereog.png}
 		\caption{\label{fig:autostereogramme} Autostéréogramme obtenu \protect \footnotemark }
@@ -47,25 +47,26 @@
 \footnotetext{\url{http://en.wikipedia.org/wiki/Autostereogram}}
 
 \paragraph{}
-Il existe des algorithmes de génération d’autostéréogrammes très simples , comme celui proposé par Gary Beene \cite{garybeene}. Cependant un algorithme aussi peu optimisé produit des autostéréogrammes défecteux, comportant par exemple des échos (répétition d'une partie de l'objet 3D) ou des artefacts (défaut de l'objet 3D observé).
+Il existe des algorithmes de génération d’autostéréogrammes très simples , comme celui proposé par Gary Beene \cite{garybeene}. Cependant un algorithme aussi peu optimisé produit des autostéréogrammes défectueux, comportant par exemple des échos (répétition d'une partie de l'objet 3D) ou des artefacts (défaut de l'objet 3D observé).
 
-\paragraph{}
 Des algorithmes plus poussés ont été développés, comme celui présenté par Harold W. Thimbleby, Stuart Inglis et Ian H. Witten \cite{stereogram}, et celui proposé par W. A. Steer \cite{wasteer}, associés à une réalisation en C. Ils permettent la génération d’autostéréogrammes SIRDS (Single Image Random Dots Stereogram) à partir d’une image 2D. Ces articles présentent également des méthodes de correction de problèmes tels que l'écho ou la gestion des faces cachées (faces de l'objet tridimensionnel visibles par un seul œil). W. A. Steer propose de plus une méthode de génération d'autostéréogrammes utilisant un motif bitmap comme image de base plutôt qu'un nuage de points aléatoires, ce qui pallie à certaines limites des SIRDS comme le manque de détails et la grossièreté des surfaces courbes.
 
 \subsubsection{Les anaglyphes}
 
 \paragraph{}
-	Un anaglyphe est une image sur laquelle on superpose deux vues, si possible différentes, d’une scène. Un exemple d'anaglyphe est donné dans la figure \ref{fig:dubois}. La meilleure distance entre ces deux visions est la même que celle entre les deux yeux, afin que le cerveau puisse recréer la même vision en trois dimensions que dans la réalité.
-	
-\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.8]{algoDubois.png}
-		\caption{\label{fig:dubois} Anaglyphe \protect \footnotemark }
-\end{figure}
-\footnotetext{\url{http://zour.deviantart.com/art/Wernigerode-Boulevard-Dubois-Anaglyph-HDR-3D-276542278}}
+	Un anaglyphe est une image sur laquelle on superpose deux vues distinctes avec l'une correspondant à l'oeil gauche et l'autre à l'oeil droit d’une scène. Un exemple d'anaglyphe est donné dans la figure \ref{fig:anaglyphex}. La meilleure distance entre ces deux visions est la même que celle entre les deux yeux, afin que le cerveau puisse recréer la même vision en trois dimensions que dans la réalité.
 
-\paragraph{}
-	Les anaglyphes les plus fréquents sont les anaglyphes dits rouge-cyan. Ils se nomment ainsi car ils sont constitués d’une image sur laquelle on passe un filtre magenta, et une autre avec un filtre cyan (cf. figure \ref{fig:anaglyph}). Pour pouvoir visualiser le relief sur une telle image, on utilise une paire de lunettes rouge-cyan, dont chaque verre est un filtre pour l’une des deux couleurs de l’image. Le plus souvent, le filtre magenta est placé sur l’œil gauche, le cyan sur l’œil droit. En regardant l’image, l’œil gauche ne verra alors que la composante cyan, et inversement pour l’œil droit. Les deux images ayant un léger décalage, le cerveau va percevoir l’image comme si elle était en trois dimensions. Les anaglyphes rouge-cyan sont principalement intéressants sur des images en noir et blanc. En effet, quand il s’agit d’images en couleur, celles-ci sont souvent détériorées par l’usage des filtres, car les couleurs possèdent généralement de plusieurs composantes. A l’inverse, quand l’image est en nuances de gris, l’image n’est pas modifiée, juste mise en relief. Plusieurs types d'algorithmes existent pour créer des anaglyphes depuis des paires d'images. Ils se différencient par la qualité de l'anaglyphe en sortie en diminuant le nombre d'artefacts \cite{steteroAnaglyph} ou en améliorant le rendu pour l'impression \cite{printAnaglyph} par exemple.
+	Les anaglyphes les plus fréquents sont les anaglyphes dits rouge-cyan. Ils se nomment ainsi car ils sont constitués d’une image sur laquelle on passe un filtre rouge, et une autre avec un filtre cyan (cf. figure \ref{fig:anaglyph}). Pour pouvoir visualiser le relief sur une telle image, on utilise une paire de lunettes rouge-cyan, dont chaque verre est un filtre pour l’une des deux couleurs de l’image. Le plus souvent, le filtre rouge est placé sur l’œil gauche, le cyan sur l’œil droit. En regardant l’image, l’œil gauche ne verra alors que la composante cyan, et inversement pour l’œil droit. Les deux images ayant un léger décalage, le cerveau va percevoir l’image comme si elle était en trois dimensions. 
+	
+\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.3]{anaglyphex.png}
+		\caption{\label{fig:anaglyphex} Anaglyphe \protect \footnotemark }
+\end{figure}
+\footnotetext{\url{http://www.voyonsvoir.net/anaglyphe-page-coeur.html}}
+
+\paragraph{}	
+	Les anaglyphes rouge-cyan sont principalement intéressants sur des images en noir et blanc. En effet, quand il s’agit d’images en couleur, celles-ci sont souvent détériorées par l’usage des filtres, car les couleurs possèdent généralement de plusieurs composantes. A l’inverse, quand l’image est en nuances de gris, l’image n’est pas modifiée, juste mise en relief. Plusieurs types d'algorithmes existent pour créer des anaglyphes depuis des paires d'images. Ils se différencient par la qualité de l'anaglyphe en sortie en diminuant le nombre d'artefacts \cite{steteroAnaglyph} ou en améliorant le rendu pour l'impression \cite{printAnaglyph} par exemple.
 
 \begin{figure}[h]
 		\centering
