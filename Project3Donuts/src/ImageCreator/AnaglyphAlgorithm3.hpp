@@ -5,35 +5,35 @@
 #include "Anaglyph.hpp"
 
 
-//! \class AnaglyphAlgo2
-//! \brief First algorithm to create an anaglyph
+//! \class AnaglyphAlgorithm3
+//! \brief Third algorithm to create an anaglyph
 class AnaglyphAlgorithm3 : public Anaglyph{
-  Q_OBJECT
+	Q_OBJECT
 
 protected:
 
-  virtual void createWindow(bool fHasPreview = true) override;
+	virtual void createWindow(bool fHasPreview = true) override;
 
-  virtual std::unique_ptr<CreationFile> renderAnaglyph() override;
+	virtual std::unique_ptr<CreationFile> renderAnaglyph() override;
 
-  void storePixelValue(QRgb fPixel, float *fRgb);
+	void storePixelValue(QRgb fPixel, float *fRgb);
 
-  void rgbToReducedInterval(float *fRgb);
-  void reducedIntervalToRgb(float *fRgb);
+	void rgbToReducedInterval(float *fRgb);
+	void reducedIntervalToRgb(float *fRgb);
 
-  void rgbToHsl(float *fRgb, float *fHsl);
-  void hslToRgb(float *fRgb, float *fHsl);
+	void rgbToHsl(float *fRgb, float *fHsl);
+	void hslToRgb(float *fRgb, float *fHsl);
 
-  void sRgbGamma(float *fHsl);
-  void gammaCorrection(float *fHsl);
-  
-  void modifyLeftImage (float *fRgb);
-  void modifyRightImage(float *fRgb);
-	
+	void sRgbGamma(float *fHsl);
+	void gammaCorrection(float *fHsl);
+
+	void modifyLeftImage(float *fRgb);
+	void modifyRightImage(float *fRgb);
+
 private:
 
-  static const float mLeftFilter[9];
-  static const float mRightFilter[9];
+	static const float mLeftFilter[9];
+	static const float mRightFilter[9];
 };
 
 #endif
