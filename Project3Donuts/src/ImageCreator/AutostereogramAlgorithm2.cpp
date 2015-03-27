@@ -12,12 +12,20 @@ void AutostereogramAlgorithm2::createWindow(bool fHasPreview){
 
 
 std::unique_ptr<CreationFile> AutostereogramAlgorithm2::render(){
-
-	std::unique_ptr<QImage> _image = this->depthmapToAutostereogram();
+  
 	std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
+	
+	if (mViewIsAutostereogram) {
+	  std::unique_ptr<QImage> _image = this->depthmapToAutostereogram();
+	  _file->pushImage(std::move(_image));
+	}
 
-	_file->pushImage(std::move(_image));
-
+	else {
+	  std::unique_ptr<QImage> _depthMap = this->getDepthMap();
+	  _depthMap->invertPixels();
+	  _file->pushImage(std::move(_depthMap));
+	}
+	
 	return _file;
 }
 

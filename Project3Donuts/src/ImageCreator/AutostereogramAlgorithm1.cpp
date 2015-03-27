@@ -13,12 +13,20 @@ std::unique_ptr<CreationFile> AutostereogramAlgorithm1::render(){
 	int _E = this->round(2.5 * _DPI);
 
 	std::unique_ptr<QImage> _depthmap = this->getDepthMap();
-	std::unique_ptr<QImage> _image = this->depthmapToAutostereogram(*_depthmap, _E);
-
-
+	
 	std::unique_ptr<CreationFile> _file(new CreationFile(CreationFile::Type::IMAGE));
-	_file->pushImage(std::move(_image));
 
+	if (mViewIsAutostereogram) {
+	  std::unique_ptr<QImage> _image = this->depthmapToAutostereogram(*_depthmap, _E);
+	  _file->pushImage(std::move(_image));
+	}
+
+	else {
+	  _depthmap->invertPixels();
+		
+	  _file->pushImage(std::move(_depthmap));
+	}
+	
 	return _file;
 }
 
