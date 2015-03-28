@@ -443,6 +443,7 @@ void MainWindow::checkSettings(int result){ //this is a slot
        ui->actionTranslate->setShortcut(settings.value("Shortcuts/translate",QKeySequence("T")).value<QKeySequence>());
        ui->actionRotate->setShortcut(settings.value("Shortcuts/rotate",QKeySequence("R")).value<QKeySequence>());
        ui->actionScale->setShortcut(settings.value("Shortcuts/scale",QKeySequence("S")).value<QKeySequence>());
+       ui->transCamZero->setShortcut(settings.value("Shortcuts/cam_zero",QKeySequence("Z")).value<QKeySequence>());
     }
 }
 

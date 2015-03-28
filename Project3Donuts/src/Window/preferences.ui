@@ -23,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
@@ -202,7 +202,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QKeySequenceEdit" name="Translate_keySequenceEdit" native="true"/>
+        <widget class="QKeySequenceEdit" name="Translate_keySequenceEdit"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_10">
@@ -212,7 +212,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QKeySequenceEdit" name="Rotate_keySequenceEdit" native="true"/>
+        <widget class="QKeySequenceEdit" name="Rotate_keySequenceEdit"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_11">
@@ -222,7 +222,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QKeySequenceEdit" name="Scale_keySequenceEdit" native="true"/>
+        <widget class="QKeySequenceEdit" name="Scale_keySequenceEdit"/>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_12">
@@ -246,13 +246,13 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QKeySequenceEdit" name="ColorMap_keySequenceEdit" native="true"/>
+        <widget class="QKeySequenceEdit" name="ColorMap_keySequenceEdit"/>
        </item>
        <item row="6" column="1">
-        <widget class="QKeySequenceEdit" name="AutoStereogramme_keySequenceEdit" native="true"/>
+        <widget class="QKeySequenceEdit" name="AutoStereogramme_keySequenceEdit"/>
        </item>
        <item row="4" column="1">
-        <widget class="QKeySequenceEdit" name="Anaglyphe_keySequenceEdit" native="true"/>
+        <widget class="QKeySequenceEdit" name="Anaglyphe_keySequenceEdit"/>
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="label_15">
@@ -262,12 +262,22 @@
         </widget>
        </item>
        <item row="7" column="1">
-        <widget class="QKeySequenceEdit" name="Flipbook_keySequenceEdit" native="true"/>
+        <widget class="QKeySequenceEdit" name="Flipbook_keySequenceEdit"/>
        </item>
-       <item row="8" column="1">
+       <item row="9" column="1">
         <widget class="QPushButton" name="DefaultShortcutsButton">
          <property name="text">
           <string>Restaurer les valeurs par défaut</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QKeySequenceEdit" name="keySequenceEdit"/>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>TextLabel</string>
          </property>
         </widget>
        </item>
@@ -287,13 +297,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QKeySequenceEdit</class>
-   <extends>QWidget</extends>
-   <header>qkeysequenceedit.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>
