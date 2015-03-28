@@ -150,6 +150,7 @@ public:
 
 
 private:
+	//! \brief load all the shaders
 	void loadShader(SceneRenderer* fRenderer, Object::Shader fShader, QString fVertexShaderPath, QString fFragmentShaderPath);
 
 	//! \brief find vertex normals

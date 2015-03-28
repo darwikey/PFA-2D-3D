@@ -29,6 +29,7 @@ public:
 	//! \brief stop auto save function
     void stopAutoSave();
 
+	//! \brief teel if it saves in continue
     bool getContinue();
 
 private:

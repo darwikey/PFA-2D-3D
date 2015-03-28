@@ -10,8 +10,6 @@ int main(int argc, char * argv[]){
 
     Scene::getScene()->getTransformWidget()->changeState(TransformWidget::State::TRANSLATION);
 
-    //Scene::getScene()->saveScene("maScene.xml");
-
     Scene::getScene()->show();
     return app.exec();
 }

@@ -61,9 +61,16 @@ public:
 	//! \param fRayDirection, get ray direction in world space
 	void getMouseRay(QVector2D fMousePosition, QVector3D& fRayOrigin, QVector3D& fRayDirection);
 
+	//! \brief return the camera position
     QVector3D getPosition() const;
+
+	//! \brief return the camera rotation
     QVector3D getRotation() const;
+
+	//! \brief return the camera angle of view
     float getAngleOfView() const;
+
+	//! \brief return the point that the camera look at
 	QVector3D getLookAtPoint() const;
 
 
