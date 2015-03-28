@@ -3,9 +3,9 @@ Cette partie présentera les différents algorithmes qui ont été choisis pour 
 \subsubsection{La génération des anaglyphes et ses défauts}
 	L'anaglyphe est une image issue d'un traitement particulier sur deux prises de vue stéréoscopiques et qui nécessite des lunettes spécifiques composées d'un filtre rouge (ou magenta ou jaune) pour un \oe il et cyan (respectivement vert ou bleu) pour l'autre. 
 	
-	La génération des anaglyphes passe par trois étapes essentiellement. Tous d'abord, une prise de vue stéréoscopique d'une scène 3D avec les deux points de vue éloignées d'une distance proche de celle entre les yeux, de manière à obtenir une vue pour chaque \oe il, est nécessaire. Ensuite, un traitement d'image est opéré sur ces deux images obtenues, avec au minimum l'application de deux filtres rouge et cyan (ou deux autres couleurs correspondants à celles des lunettes). Finalement, les deux images résultantes sont superposées pour n'obtenir qu'une seule image qui pourra être visionnée à travers les lunettes avec une impression de trois dimensions.
+	La génération des anaglyphes passe par trois étapes essentiellement. Tous d'abord, une prise de vue stéréoscopique d'une scène 3D avec les deux points de vue éloignées d'une distance proche de celle entre les yeux, de manière à obtenir une vue pour chaque \oe il, est nécessaire. Ensuite, un traitement d'image est opéré sur ces deux images, avec au minimum l'application de deux filtres rouge et cyan (ou deux autres couleurs correspondants à celles des lunettes). Finalement, les deux images résultantes sont superposées pour n'obtenir qu'une seule image qui pourra être visionnée à travers les lunettes avec une impression de trois dimensions.
 	
-	Les algorithmes de génération des anaglyphes proposent des traitements d'image différents (deuxième étape) ayant pour but d'améliorer la qualité des anaglyphes. Un critère important pour juger de la qualité des anaglyphes est l'absence des artefacts. Ces derniers sont des perceptions d'un phénomène de diaphonie qui est le résultat d'une mauvaise séparation des deux vues (un \oe il perçoit un détail de la vue destinée à l'autre \oe il), et dégradent l'impression de trois dimensions. %parler des rivalités binoculaire..? 
+	Les algorithmes de génération des anaglyphes proposent des traitements d'image différents (deuxième étape) ayant pour but d'améliorer la qualité des anaglyphes. Un critère important pour juger de la qualité des anaglyphes est l'absence d'artefacts. Il s'agit de perceptions d'un phénomène de diaphonie qui est le résultat d'une mauvaise séparation des deux vues (un \oe il perçoit un détail de la vue destinée à l'autre \oe il), et dégradent l'impression de trois dimensions. %parler des rivalités binoculaire..? 
 
 	Cependant, aucun algorithme ne peut être parfait, comme il est expliqué dans l'article d' Andrew J. Woods et Chris R. Harris \cite{anaglypheDefaut}  : la qualité de l'anaglyphe dépend de l'image, des lunettes employées et du support affichant l'image (l'article traite principalement les écrans mais il en va de même pour des anaglyphes imprimés avec le choix du papier). Hormis les lunettes, les deux autres facteurs ont toujours été problématiques pour le traitement d'image en général.  
 	
@@ -44,7 +44,7 @@ Cette partie présentera les différents algorithmes qui ont été choisis pour 
 	\caption{\label{fig:moindresCarres} Anaglyphe obtenu avec la méthode des moindres carrés \protect}
 \end{figure}
 	
-	On constate qu'il y a très peu d'artefact et la 3D est de meileure qualité que pour la méthode Photoshop. Toutefois, la qualité en couleur est légèrement perdue et les détails de l'image sont peu visibles. 
+	On constate qu'il y a très peu d'artefact et la 3D est de meilleure qualité que pour la méthode Photoshop. Toutefois, la qualité en couleur est légèrement perdue et les détails de l'image sont peu visibles. 
 	
 
 \subsubsection{La méthode des moindres carrés avec saturation}
@@ -63,7 +63,7 @@ les détails se perdent avec la méthode Photoshop alors qu'avec la méthode de 
 % %dognuts photshop & dubois
 % %happy photoshop & happy dubois 
 
-Cependant, après plusieurs comparaisons des images (et ce par différentes personnes) la correction gamma employée dans la méthode de Dubois fatiguerait plus vite les yeux que pour la méthode Photshop.
+Cependant, après plusieurs comparaisons des images (et ce par différentes personnes) la correction gamma employée dans la méthode de Dubois fatiguerait plus vite les yeux que la méthode Photshop.
 
 Par ailleurs, il a aussi été observé que l'utilisation de l'anti-aliasing combinée aux algorithmes de génération d'anaglyphe, peut permettre de renforcer l'impression de trois dimensions dans certains cas. Cependant, l'anti-aliasing aura aussi pour effet de perdre beaucoup de détails comme la figure REF le montre avec un comparatif d'algorithmes avec et sans utlisation d'anti-aliasing. 
 % %happy anti-aliasing dubois &  happy dubois (sans anti-aliasing)
