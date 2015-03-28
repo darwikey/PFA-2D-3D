@@ -6,7 +6,7 @@
 
 
 //! \class AnaglyphAlgorithm1
-//! \brief First algorithm to create an anaglyph
+//! \brief First anaglyph algorithm based on photoshop method.
 class AnaglyphAlgorithm1 : public Anaglyph{
 	Q_OBJECT
 

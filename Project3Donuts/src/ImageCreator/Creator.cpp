@@ -4,7 +4,6 @@
 #include "AnaglyphAlgorithm2.hpp"
 #include "AnaglyphAlgorithm3.hpp"
 #include "Autostereogram.hpp"
-#include "AutostereogramDepthMap.hpp"
 #include "AutostereogramAlgorithm1.hpp"
 #include "AutostereogramAlgorithm2.hpp"
 #include "Flipbook.hpp"

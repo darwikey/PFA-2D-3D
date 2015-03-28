@@ -1,70 +1,75 @@
+
+
 LANGUE : ANGLAIS
-// //
+\\ \\
 ----------------------------------------------------------------------------------------------------------
-// //
-COMMENTAIRE : ANGLAIS
-// //
+\\ \\
+COMMENTAIRES : ANGLAIS
+\\ \\
 ----------------------------------------------------------------------------------------------------------
-// //
+\\ \\
 DOCUMENTATION : DOXYGEN dans le header
-// //
-//! \class MyClass
-//! \brief A brief explanation
-//! \param myParam : explanation
-//! \return explanation
-// //
-#ifndef EXAMPLE_HPP
-#define EXAMPLE_HPP
-#include <stdio>
-// //
-//! \class Example
-//! \brief blabla...
-// //
-class Example {
-	public:
-	//! \brief...
-	//! \param...
-	//! \return...
-// //
+\\ \\
+//! $\backslash$class MyClass
+\\
+//! $\backslash$brief A  brief explanation
+\\
+//! $\backslash$param myParam : explanation
+\\
+//! $\backslash$return explanation
+\\ \\
+\# ifndef EXAMPLE\_HPP\\
+\# define EXAMPLE\_HPP\\
+\# include <stdio>
+\\ \\
+//! $\backslash$class Example \\
+//! $\backslash$brief blabla...
+\\ \\
+class Example \{\\
+	public:\\
+	//! $\backslash$brief... \\
+	//! $\backslash$param... \\
+	//! $\backslash$return...
+\\ \\
 ----------------------------------------------------------------------------------------------------------
-// //
+\\ \\
 COMPILATION : CMAKE
-// //
+\\ \\
 ----------------------------------------------------------------------------------------------------------
-// //
+\\ \\
 Classe : MyClass
-// //
-Méthode Publique : int getTrue() {
-		   ...
-		   }
-// //
-Méthode Privée / Protégée : int myMethod() {
-			    ...
-		            }
-// //
-Méthode Test : void testMyMethod() {
-	       ...
-	       }
-// //
+\\ \\
+Méthode Publique : int getTrue() \{ \\
+		   ... \\
+		   \}
+\\ \\
+Méthode Privée / Protégée : int myMethod() \{ \\
+			    ... \\
+		            \}
+\\ \\
+Méthode Test : void testMyMethod() \{ \\
+	       ... \\
+	       \}
+\\ \\
 Méthode Getter / Setter : int getTrue() / void setTrue(int true)
-// //
+\\ \\
 ----------------------------------------------------------------------------------------------------------
-// //
-Variable locale : _myVariable
-// //
+\\ \\
+Variable locale : \_myVariable
+\\ \\
 Variable statique : sMyVariable
-// //
+\\ \\
 Argument fonction : fMyVariable
-// //
+\\ \\
 Attribut objet : mMyVariable
-// //
-Constante (non argument de méthode) : MY_CONSTANT
-// //
-/!\ Eviter : #define PI 3.14; /!\ Privilégie : const static float PI; /!\
-// //
+\\ \\
+Constante (non argument de méthode) : MY\_CONSTANT
+\\ \\
+/!$\backslash$  Eviter : \# define PI 3.14; /!$\backslash$  Privilégie : const static float PI; /!$\backslash$
+\\ \\
 ----------------------------------------------------------------------------------------------------------
-// //
+\\ \\
 Indentation : 4 spaces
-// //
-Espace avant et après opérateurs  =, +, -, &&, ... Sauf opérateurs unaires : *, &, ...
-// //
+\\ \\
+Espace avant et après opérateurs  =, +, -, \&\&, ... Sauf opérateurs unaires : *, \&, ...
+\\ \\

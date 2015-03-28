@@ -135,6 +135,8 @@ public:
 
         actionDepuis_la_bibliotheque = new QAction(MainWindow);
         actionDepuis_la_bibliotheque->setObjectName(QStringLiteral("actionDepuis_la_bibliotheque"));
+        actionDepuis_la_bibliotheque->setShortcut(QKeySequence("CTRL+I"));
+        actionDepuis_la_bibliotheque->setIcon(windowStyle->standardIcon(QStyle::SP_DirHomeIcon));
         
         actionDepuis_le_disque_dur = new QAction(MainWindow);
         actionDepuis_le_disque_dur->setObjectName(QStringLiteral("actionDepuis_le_disque_dur"));
@@ -151,6 +153,7 @@ public:
 
         actionNotice_utilisation = new QAction(MainWindow);
         actionNotice_utilisation->setObjectName(QStringLiteral("actionNotice_utilisation"));
+        actionNotice_utilisation->setShortcut(QKeySequence::HelpContents);
         
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
@@ -280,6 +283,7 @@ public:
         menuFen_tre->addAction(actionInverser_les_positions_des_fen_tres);
         toolBar->addAction(actionNouveau);
         toolBar->addAction(actionOuvrir);
+        toolBar->addAction(actionDepuis_la_bibliotheque);
         toolBar->addAction(actionEnregistrer);
         toolBar->addSeparator();
         toolBar->addAction(actionUndo);
@@ -343,8 +347,8 @@ public:
         actionEnregistrer->setText(QApplication::translate("MainWindow", "Enregistrer", 0));
         actionEnregistrer_sous->setText(QApplication::translate("MainWindow", "Enregistrer sous", 0));
         actionUndo->setText(QApplication::translate("MainWindow", "Annuler la derniere action", 0));
-        actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "depuis la bibliotheque", 0));
-        actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "depuis le disque dur", 0));
+        actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "Importer depuis la bibliotheque", 0));
+        actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "Importer depuis le disque dur", 0));
 		action_changer_couleur->setText(QApplication::translate("MainWindow", "Couleur de l'objet", 0));
 		actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));

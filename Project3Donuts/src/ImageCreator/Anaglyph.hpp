@@ -5,7 +5,7 @@
 #include "Creation.hpp"
 
 //! \class Anaglyph
-//! \brief virtual Anaglyph class to define every methods that will be needed in classes that will inherit from this one and that will define different algorithms
+//! \brief virtual Anaglyph class which define every methods that will be needed in classes which inherit from this one and will define different algorithms
 class Anaglyph : public Creation{
 	Q_OBJECT
 protected:

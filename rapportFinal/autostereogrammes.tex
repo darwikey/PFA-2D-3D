@@ -1,4 +1,6 @@
 
+        \subsubsection{Principe des algorithmes}
+
   Les deux algorithmes implémentés ont un squelette très similaire ; il s'agit, à partir de la carte des profondeurs, de lier deux par deux les pixels de l'image générée puis de colorier chaque paire de la même couleur. L'autostéréogramme est calculé ligne par ligne de la manière suivante : pour chaque point de l'image 3D, on calcule une paire de pixels correspondant à ce point en fonction de la profondeur de l'objet en ce point. Les deux pixels d'une paire sont ensuite colorés tous deux de la même couleur. 
 
   Les deux algorithmes sont dotés d'une technique anti-surfaces cachées (implémentée différemment dans les deux cas), c'est-à-dire que si un point de l'objet n'est vu que par un \oe il, on ne crée pas de paire de pixels lui correspondant. Cela permet d'éviter des défauts dans l'autostéréogramme.
