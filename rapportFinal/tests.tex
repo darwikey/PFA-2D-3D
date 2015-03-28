@@ -3,7 +3,7 @@ Pour valider la réalisation des besoins fonctionnels et non fonctionnels prése
 
 \subsubsection{Tests fonctionnels}
 \paragraph{}
-Concernant les besoins fonctionnels, nous avons manipulé le logiciel sous les différents systèmes d'exploitation envisagés, à savoir Windows et Linux.
+Concernant les besoins fonctionnels, nous avons manipulé le logiciel sous les différents systèmes d'exploitation envisagés, à savoir Windows et Linux. Les procédures de tests ont été listées en Annexe.
 Les différentes rotations de la caméra autour de la scène ont bien été implémentées, permettant à l'utilisateur de voir les objets qui y sont placés sous différents angles, et de s'en rapprocher ou de s'en éloigner grâce au zoom. La translation de la caméra a également été implémentée, même si son utilisation nécessite une souris.
 Les objets sont issus de fichiers d'extension OBJ version 3.0, ASCII, ou PLY, versions 1.0, ASCII et binaire. Ceux-ci peuvent ensuite être sélectionnés un par un, en cliquant sur la scène ou sur son nom dans la liste des objets. L'utilisateur peut alors les déplacer grâce à des translations et rotations selon trois axes, et modifier leur taille. Ils pourront également être supprimés de la scène.
 Enfin, les différents rendus prévus ont pu être obtenus à partir de la scène. Pour chacun d'entre eux, une nouvelle fenêtre est ouverte, proposant les paramètres modifiables pour la génération des photographies, anaglyphes, autostéréogrammes, et folioscopes. Pour chacun d'entre eux, on proposera une prévisualisation, et la possibilité d'enregistrer les images intermédiaires ayant permis ce résultat, à savoir les vues gauche et droite pour les anaglyphes, la carte des profondeurs pour les autostéréogrammes, et chaque image du folioscope permettant d'obtenir un GIF animé.
@@ -67,7 +67,9 @@ Le cahier des charges prévoyaient un affichage de 25fps pour un nombre de somme
     \centering
     \begin{tabular}{|l|c|c|c|}
       \hline
-      Nom du modèle & Nombre de sommets & Nombre de faces
+      Nom du modèle & Nombre de sommets & Nombre de faces \\ \hline
+      happy.ply & 543 652 & 1 087 716 \\ \hline
+      blade.ply & 882 954 & 1 765 388 \\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Modèles testés lors de la fluidité d'affichage}
@@ -79,11 +81,11 @@ Le cahier des charges prévoyaient un affichage de 25fps pour un nombre de somme
     \centering
     \begin{tabular}{|l|c|c|c|}
       \hline
-      Système d'exploitation & Windows 7 IntelCore I7 64bits & Windows 7 IntelCore I5 64bits \\ \hline
-      Carte graphique &  NVIDIA GetForce GTX 770 & NVIDIA GetForce GTX 760\\ \hline
-      Mémoire RAM & 8GoDDR3 & 8GoDDR3 \\ \hline \hline
-      happy.ply & 60 & 60  \\ \hline
-      blade.ply & 60 & 60 \\ \hline
+      Système d'exploitation & Windows 7 IntelCore I7 64bits & Windows 7 IntelCore I5 64bits & Windows 8 64bits\\ \hline
+      Carte graphique &  NVIDIA GetForce GTX 770 & NVIDIA GetForce GTX 760 & GT360M \\ \hline
+      Mémoire RAM & 8GoDDR3 & 8GoDDR3 & 4GoDDR3 \\ \hline \hline
+      happy.ply & 60 & 60 & 84 \\ \hline
+      blade.ply & 60 & 60 & 60\\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Test de fluidité sur les machines avec carte graphique}
@@ -95,11 +97,11 @@ Le cahier des charges prévoyaient un affichage de 25fps pour un nombre de somme
     \centering
     \begin{tabular}{|l|c|c|c|}
       \hline
-      Système d'exploitation & Windows 7 IntelCore I5 64bits & Fedora 21 IntelCore I3 64bits\\ \hline
-      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 40008GoDDR3 \\ \hline
-      Mémoire RAM & 8GoDDR3 & 4GoDDR3 \\ \hline \hline
-      happy.ply & 55 & 60 \\ \hline
-      blade.ply & 35 & 50 \\ \hline
+      Système d'exploitation & Windows 7 IntelCore I5 64bits & Fedora 21 IntelCore I3 64bits & ArchLinux\\ \hline
+      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 40008GoDDR3 & Intel Mobile Series 4 \\ \hline
+      Mémoire RAM & 8GoDDR3 & 4GoDDR3  & \\ \hline \hline
+      happy.ply & 55 & 60 & 8\\ \hline
+      blade.ply & 35 & 50 & 5\\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Test de fluidité sur les machines avec chipset graphique}
@@ -117,18 +119,18 @@ Pour tester les limites de notre logiciel, nous avons choisi d'importer plusieur
     \centering
     \begin{tabular}{|l|c|c|c|}
       \hline
-      Système d'exploitation & Windows 7 IntelCore I7 64bits & Windows 7 IntelCore I5 64bits \\ \hline
-      Carte graphique &  NVIDIA GetForce GTX 770 & NVIDIA GetForce GTX 760\\ \hline
-      Mémoire RAM & 8GoDDR3 & 8GoDDR3 \\ \hline \hline
-      543 652 sommets (1fois) & 60 & 60 \\ \hline
-      1 087 304 sommets (2fois) & 60 & 60 \\ \hline
-      1 630 956 sommets (3fois) & 60 & 60 \\ \hline
-      2 174 608 sommets (4fois) & 60 & 60 \\ \hline
-      2 718 260 sommets (5fois) & 60 & 60 \\ \hline
-      3 261 912 sommets (6fois) & 60 & 60 \\ \hline
-      3 805 564 sommets (7fois) & 60 & 60 \\ \hline
-      4 349 216 sommets (8fois) & Out of Memory & 60 \\ \hline
-      4 892 868 sommets (9 fois) & Out of Memory & Out of Memory \\ \hline
+      Système d'exploitation & Windows 7 IntelCore I7 64bits & Windows 7 IntelCore I5 64bits & Windows 8 64 bits\\ \hline
+      Carte graphique &  NVIDIA GetForce GTX 770 & NVIDIA GetForce GTX 760 & GT360M\\ \hline
+      Mémoire RAM & 8GoDDR3 & 8GoDDR3 & 4GoDDR3 \\ \hline \hline
+      543 652 sommets (1fois) & 60 & 60 & 84 \\ \hline
+      1 087 304 sommets (2fois) & 60 & 60 & 44 \\ \hline
+      1 630 956 sommets (3fois) & 60 & 60 & 30 \\ \hline
+      2 174 608 sommets (4fois) & 60 & 60 & 23 \\ \hline
+      2 718 260 sommets (5fois) & 60 & 60 & Out of Memory \\ \hline
+      3 261 912 sommets (6fois) & 60 & 60 & Out of Memory \\ \hline
+      3 805 564 sommets (7fois) & 60 & 60 & Out of Memory \\ \hline
+      4 349 216 sommets (8fois) & Out of Memory & 60 & Out of Memory  \\ \hline
+      4 892 868 sommets (9 fois) & Out of Memory & Out of Memory & Out of Memory \\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Test de charge sur les machines avec carte graphique}
@@ -140,18 +142,18 @@ Pour tester les limites de notre logiciel, nous avons choisi d'importer plusieur
     \centering
     \begin{tabular}{|l|c|c|c|}
       \hline
-      Système d'exploitation & Windows 7 IntelCore I5 64bits & Fedora 21 IntelCore I3 64bits\\ \hline
-      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 40008GoDDR3 \\ \hline
-      Mémoire RAM & 8GoDDR3 & 4GoDDR3 \\ \hline \hline
-      543 652 sommets (1fois) & 55 & 60 \\ \hline
-      1 087 304 sommets (2fois) & 29 & 34 \\ \hline
-      1 630 956 sommets (3fois) & 20 & 22 \\ \hline
-      2 174 608 sommets (4fois) & 15 & 16 \\ \hline
-      2 718 260 sommets (5fois) & Out of Memory & 13 \\ \hline
-      3 261 912 sommets (6fois) & Out of Memory & 10 \\ \hline
-      3 805 564 sommets (7fois) & Out of Memory & 9 \\ \hline
-      4 349 216 sommets (8fois) & Out of Memory & 6 \\ \hline
-      4 892 868 sommets (9 fois) & Out of Memory & Out of Memory \\ \hline
+      Système d'exploitation & Windows 7 IntelCore I5 64bits & Fedora 21 IntelCore I3 64bits & ArchLinux\\ \hline
+      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 4000 & Intel Mobile Series 4 \\ \hline
+      Mémoire RAM & 8GoDDR3 & 4GoDDR3 & \\ \hline \hline
+      543 652 sommets (1fois) & 55 & 60 & 8\\ \hline
+      1 087 304 sommets (2fois) & 29 & 34 & Out of Memory\\ \hline
+      1 630 956 sommets (3fois) & 20 & 22 & Out of Memory \\ \hline
+      2 174 608 sommets (4fois) & 15 & 16 & Out of Memory \\ \hline
+      2 718 260 sommets (5fois) & Out of Memory & 13 & Out of Memory \\ \hline
+      3 261 912 sommets (6fois) & Out of Memory & 10 & Out of Memory \\ \hline
+      3 805 564 sommets (7fois) & Out of Memory & 9 & Out of Memory \\ \hline
+      4 349 216 sommets (8fois) & Out of Memory & 6 & Out of Memory \\ \hline
+      4 892 868 sommets (9 fois) & Out of Memory & Out of Memory & Out of Memory \\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Test de charge sur les machines avec chipset graphique}
