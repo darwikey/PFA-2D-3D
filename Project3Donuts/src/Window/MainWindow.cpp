@@ -71,12 +71,15 @@ void MainWindow::openfile()
     int ret;
     if(_file!="")
     {
-        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
-                                    tr("Souhaitez vous creer une copie du modèle dans le dossier du projet ?\n"),
-                                    QMessageBox::Yes | QMessageBox::No, this);
-        _retBox.setButtonText(QMessageBox::Yes, "Oui");
-        _retBox.setButtonText(QMessageBox::No, "Non");
-        ret = _retBox.exec();
+        if(Scene::getScene()->hasName())
+        {
+            QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                tr("Souhaitez vous creer une copie du modèle dans le dossier du projet ?\n"),
+                                QMessageBox::Yes | QMessageBox::No, this);
+            _retBox.setButtonText(QMessageBox::Yes, "Oui");
+            _retBox.setButtonText(QMessageBox::No, "Non");
+            ret = _retBox.exec();
+        }
 
         //Compute the name of the object, it will be just the name of the file if it is not already taken. It will have a number in the end otherwise.
         int _num=0;
@@ -99,11 +102,13 @@ void MainWindow::openfile()
         Scene::getScene()->getLoader()->loadObject(_file, _num_name);
 
         //Copy the file and set the path to local if the user wanted so.
-        if (ret == QMessageBox::Yes) {
-            QFile::copy(_qfile, QString((Scene::getScene()->getPath() + _file.substr(_file.find_last_of('/')+1)).c_str()));
-            Scene::getScene()->getObject(_num_name)->setPath("#"+_file.substr(_file.find_last_of('/')+1));
+        if(Scene::getScene()->hasName())
+        {
+            if (ret == QMessageBox::Yes) {
+                QFile::copy(_qfile, QString((Scene::getScene()->getPath() + _file.substr(_file.find_last_of('/')+1)).c_str()));
+                Scene::getScene()->getObject(_num_name)->setPath("#"+_file.substr(_file.find_last_of('/')+1));
+            }
         }
-
         //Notify the window that a new change has yet to be saved
         newaction();
      }
@@ -157,12 +162,15 @@ void MainWindow::openlibfile()
 
     if(_file!="")
     {
-        QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
-                                    tr("Souhaitez vous creer une copie du modèle dans le dossier du projet ?\n"),
-                                    QMessageBox::Yes | QMessageBox::No, this);
-        _retBox.setButtonText(QMessageBox::Yes, "Oui");
-        _retBox.setButtonText(QMessageBox::No, "Non");
-        ret = _retBox.exec();
+        if(Scene::getScene()->hasName())
+        {
+            QMessageBox _retBox(QMessageBox::Question, tr("Project3Donut"),
+                                tr("Souhaitez vous creer une copie du modèle dans le dossier du projet ?\n"),
+                                QMessageBox::Yes | QMessageBox::No, this);
+            _retBox.setButtonText(QMessageBox::Yes, "Oui");
+            _retBox.setButtonText(QMessageBox::No, "Non");
+            ret = _retBox.exec();
+        }
 
         //Compute the name of the object, it will be just the name of the file if it is not already taken. It will have a number in the end otherwise.
         int _num=0;
@@ -185,10 +193,14 @@ void MainWindow::openlibfile()
         Scene::getScene()->getLoader()->loadObject(_file, _num_name);
 
         //Copy the file and set the path to local if the user wanted so.
-        if (ret == QMessageBox::Yes) {
-            QFile::copy(_qfile, QString((Scene::getScene()->getPath() + _file.substr(_file.find_last_of('/')+1)).c_str()));
-            Scene::getScene()->getObject(_num_name)->setPath("#"+_file.substr(_file.find_last_of('/')+1));
+        if(Scene::getScene()->hasName())
+        {
+            if (ret == QMessageBox::Yes) {
+                QFile::copy(_qfile, QString((Scene::getScene()->getPath() + _file.substr(_file.find_last_of('/')+1)).c_str()));
+                Scene::getScene()->getObject(_num_name)->setPath("#"+_file.substr(_file.find_last_of('/')+1));
+            }
         }
+
         //Notify the window that a new change has yet to be saved
         newaction();
      }
