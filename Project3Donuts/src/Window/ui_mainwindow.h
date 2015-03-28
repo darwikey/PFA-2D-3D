@@ -155,11 +155,7 @@ public:
 
         actionNotice_utilisation = new QAction(MainWindow);
         actionNotice_utilisation->setObjectName(QStringLiteral("actionNotice_utilisation"));
-<<<<<<< HEAD
-        actionNotice_utilisation->setShortcut(settings.value("Shortcuts/notice",QKeySequence("A")).value<QKeySequence>());
-=======
         actionNotice_utilisation->setShortcut(QKeySequence::HelpContents);
->>>>>>> origin/master
         
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
@@ -308,6 +304,7 @@ public:
         toolBar->addAction(actionAuto_st_r_ogrammes);
         toolBar->addAction(actionFlipbook);
         listView->addAction(deleteObject);
+        widget->addAction(transCamZero);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
