@@ -428,9 +428,8 @@ void MainWindow::notice()
 }
 
 void MainWindow::translateCameraToZero(){
-    std::cout << "Test 1\n";
     Scene::getScene()->getCamera()->translateCameraToZero();
-    std::cout << "Test 2\n";
+    ui->widget->update();
 }
 
 void MainWindow::checkSettings(int result){ //this is a slot

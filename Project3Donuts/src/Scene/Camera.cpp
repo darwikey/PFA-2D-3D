@@ -82,10 +82,8 @@ void Camera::translateCamera(QVector3D fTranslation){
 }
 
 void Camera::translateCameraToZero(){
-    //mPosition -= mLookAtPoint;
-    std::cout << "X " << mLookAtPoint.x() << " Y " << mLookAtPoint.y() << " Z " << mLookAtPoint.z() << "\n";
+    mPosition -= mLookAtPoint;
     mLookAtPoint = QVector3D(0,0,0);
-    std::cout << "X " << mLookAtPoint.x() << " Y " << mLookAtPoint.y() << " Z " << mLookAtPoint.z() << "\n";
 
     computeViewMatrix();
 }
