@@ -59,6 +59,7 @@ public:
 	QAction * actionTranslate;
     QAction * actionRotate;
     QAction * actionScale;
+    QAction * transCamZero;
 
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
@@ -140,9 +141,10 @@ public:
         
         actionDepuis_le_disque_dur = new QAction(MainWindow);
         actionDepuis_le_disque_dur->setObjectName(QStringLiteral("actionDepuis_le_disque_dur"));
+        actionDepuis_le_disque_dur->setShortcut(settings.value("Shortcuts/import",QKeySequence("I")).value<QKeySequence>());
         
-		action_changer_couleur = new QAction(MainWindow);
-		action_changer_couleur->setObjectName(QStringLiteral("action_changer_couleur"));
+        action_changer_couleur = new QAction(MainWindow);
+        action_changer_couleur->setObjectName(QStringLiteral("action_changer_couleur"));
 		
         actionPr_f_rences = new QAction(MainWindow);
         actionPr_f_rences->setObjectName(QStringLiteral("actionPr_f_rences"));
@@ -210,6 +212,11 @@ public:
         QIcon icon_s;
         icon_s.addFile(QStringLiteral("resources/icones/icone_scale.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionScale->setIcon(icon_s);
+
+        transCamZero = new QAction(MainWindow);
+        transCamZero->setObjectName(QStringLiteral("transCamZero"));
+        transCamZero->setShortcut(settings.value("Shortcuts/cam_zero",QKeySequence("Z")).value<QKeySequence>());
+
         
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -297,6 +304,7 @@ public:
         toolBar->addAction(actionAuto_st_r_ogrammes);
         toolBar->addAction(actionFlipbook);
         listView->addAction(deleteObject);
+        widget->addAction(transCamZero);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -332,7 +340,7 @@ public:
 		QObject::connect(actionRotate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToRotate()));
 		QObject::connect(actionScale, SIGNAL(triggered()), MainWindow, SLOT(changeModeToScale()));
 
-		
+                QObject::connect(transCamZero, SIGNAL(triggered()), MainWindow, SLOT(translateCameraToZero()));
 		
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

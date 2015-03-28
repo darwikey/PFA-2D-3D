@@ -81,6 +81,13 @@ void Camera::translateCamera(QVector3D fTranslation){
 	computeViewMatrix();
 }
 
+void Camera::translateCameraToZero(){
+    mPosition -= mLookAtPoint;
+    mLookAtPoint = QVector3D(0,0,0);
+
+    computeViewMatrix();
+}
+
 
 void Camera::translateCameraWithMouse(float fHorizontalAxe, float fVerticalAxe){
 	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());

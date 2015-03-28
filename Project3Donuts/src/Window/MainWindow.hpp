@@ -66,6 +66,7 @@ public slots:
 
    //! \brief Open the notice window.
    void notice();
+   void translateCameraToZero();
 
    //! \brief Change the current shortcuts if they have been modified in the ini file.
    void checkSettings(int);

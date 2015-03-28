@@ -36,6 +36,9 @@ public:
 	//! \brief translate the camera from its initial position with the value of the mouse; change the look at point
 	void translateCameraWithMouse(float fHorizontalAxe, float fVerticalAxe);
 
+    //! \brief translate the camera to see the center of the scene
+    void translateCameraToZero();
+
 	//! \brief move the camera in order to see all the object
 	//! \param the bounding sphere radius of the scene objects
 	void repositionCamera(float fBoundingSphereRadius);
