@@ -37,6 +37,7 @@ public slots:
    void editsettings();
    void about();
    void notice();
+   void translateCameraToZero();
 
    void checkSettings(int);
    void changeModeToTranslate();

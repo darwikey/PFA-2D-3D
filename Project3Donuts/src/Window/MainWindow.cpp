@@ -5,6 +5,7 @@
 #include "TransformWidget.hpp"
 #include "Loader.hpp"
 #include "Object.hpp"
+#include "Camera.hpp"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -385,6 +386,12 @@ void MainWindow::notice()
     win_notice->show();
 }
 
+void MainWindow::translateCameraToZero(){
+    std::cout << "Test 1\n";
+    Scene::getScene()->getCamera()->translateCameraToZero();
+    std::cout << "Test 2\n";
+}
+
 void MainWindow::checkSettings(int result){ //this is a slot
    if(result == QDialog::Accepted){
        //change keyboard bindings
@@ -396,7 +403,7 @@ void MainWindow::checkSettings(int result){ //this is a slot
        ui->actionTranslate->setShortcut(settings.value("Shortcuts/translate",QKeySequence("T")).value<QKeySequence>());
        ui->actionRotate->setShortcut(settings.value("Shortcuts/rotate",QKeySequence("R")).value<QKeySequence>());
        ui->actionScale->setShortcut(settings.value("Shortcuts/scale",QKeySequence("S")).value<QKeySequence>());
-   }
+    }
 }
 
 void MainWindow::changeModeToTranslate()

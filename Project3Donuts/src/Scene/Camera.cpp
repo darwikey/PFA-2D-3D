@@ -81,6 +81,15 @@ void Camera::translateCamera(QVector3D fTranslation){
 	computeViewMatrix();
 }
 
+void Camera::translateCameraToZero(){
+    //mPosition -= mLookAtPoint;
+    std::cout << "X " << mLookAtPoint.x() << " Y " << mLookAtPoint.y() << " Z " << mLookAtPoint.z() << "\n";
+    mLookAtPoint = QVector3D(0,0,0);
+    std::cout << "X " << mLookAtPoint.x() << " Y " << mLookAtPoint.y() << " Z " << mLookAtPoint.z() << "\n";
+
+    computeViewMatrix();
+}
+
 
 void Camera::translateCameraWithMouse(float fHorizontalAxe, float fVerticalAxe){
 	QQuaternion _quat = QQuaternion::fromAxisAndAngle(QVector3D(0.f, -1.f, 0.f), mRotation.x());
