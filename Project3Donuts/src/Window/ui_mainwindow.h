@@ -153,6 +153,7 @@ public:
 
         actionNotice_utilisation = new QAction(MainWindow);
         actionNotice_utilisation->setObjectName(QStringLiteral("actionNotice_utilisation"));
+        actionNotice_utilisation->setShortcut(QKeySequence::HelpContents);
         
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
