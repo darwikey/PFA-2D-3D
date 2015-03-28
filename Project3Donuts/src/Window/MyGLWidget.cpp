@@ -11,9 +11,14 @@
 
 
 MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
-    QGLWidget(fParent){
+    QGLWidget(fParent)
+{
+
     setWindowTitle(QString::fromUtf8(fName));
+
+    //Gives the focus to the window when it's clicked.
     setFocusPolicy(Qt::ClickFocus);
+
     if(framesPerSecond == 0)
         mTimer = NULL;
     else
@@ -24,11 +29,11 @@ MyGLWidget::MyGLWidget(int framesPerSecond, QWidget *fParent, char * fName):
         connect(mTimer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));
         mTimer->start( timerInterval );
     }
-
 }
 
-MyGLWidget::~MyGLWidget(){
-
+MyGLWidget::~MyGLWidget()
+{
+    delete mTimer;
 }
 
 void MyGLWidget::timeOutSlot()
@@ -36,7 +41,6 @@ void MyGLWidget::timeOutSlot()
 
 }
 
-//mouse Press Event
 void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 {
     mPrevMousePosition = fEvent->pos();
@@ -53,14 +57,14 @@ void MyGLWidget::mousePressEvent(QMouseEvent *fEvent)
 }
 
 
-void  MyGLWidget::mouseReleaseEvent(QMouseEvent *fEvent) {
+void  MyGLWidget::mouseReleaseEvent(QMouseEvent *fEvent)
+{
 	Scene::getScene()->getTransformWidget()->unselect();
-
     update();
 }
 
-//mouse Move Event
-void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
+void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent)
+{
 
     float _dx = (float)(fEvent->x() - mPrevMousePosition.x()) / 10;//viewport_size.width();
     float _dy = (float)(fEvent->y() - mPrevMousePosition.y()) / 7;//viewport_size.height();
@@ -84,7 +88,6 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *fEvent){
     update();
 }
 
-//wheel Event
 void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
 {
     float _dz = (float)fEvent->delta();
@@ -94,8 +97,6 @@ void MyGLWidget::wheelEvent( QWheelEvent * fEvent )
     update();
 }
 
-
-//key Press Event
 void MyGLWidget::keyPressEvent( QKeyEvent *fEvent )
 {
 

@@ -1,20 +1,18 @@
 #include "ClickLabel.hpp"
 
-ClickLabel::ClickLabel( const QPalette& color, QWidget * parent ) :
-    QLabel(parent)
-
+ClickLabel::ClickLabel( const QPalette& fcolor, QWidget * fparent ) :
+    QLabel(fparent)
   {
 	   setText("");
-       setPalette(QPalette(color));
+       setPalette(QPalette(fcolor));
        setAutoFillBackground(true);
   }
 
-  ClickLabel::~ClickLabel()
-  {
-  }
+ClickLabel::~ClickLabel()
+{
+}
 
-  void ClickLabel::mousePressEvent ( QMouseEvent * event )
-
-  {
-      emit clicked();
-  }
+void ClickLabel::mousePressEvent ( QMouseEvent * fevent )
+{
+    emit clicked();
+}
