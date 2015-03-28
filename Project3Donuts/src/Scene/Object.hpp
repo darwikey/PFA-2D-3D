@@ -156,9 +156,13 @@ private:
 	//! \brief find vertex normals
 	void computeNormals();
 
+	//! \brief compute the bounding box of the model
+	void computeModelBoundingBox();
+
 
 	bool mIsSelected = false;
 	BoundingBox mBoundingBox;
+	BoundingBox mModelBoundingBox;
 	QVector3D mPosition;
 	QVector3D mRotation; //in radian
 	QVector3D mScale;
@@ -169,6 +173,7 @@ private:
     std::vector<uint> mIndices;
     std::vector<QVector3D> mVertexColor;
 	QVector3D mGlobalColor = QVector3D(0.5f, 0.5f, 0.5f);
+	int mVertexNumber = 0;
 
 	bool mIsVboInitialized = false;
     QOpenGLVertexArrayObject mVAO;

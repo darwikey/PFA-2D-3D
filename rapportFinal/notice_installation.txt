@@ -1,0 +1,26 @@
+==============================================
+NOTICE D'INSTALLATION DU LOGICIEL PROJECT3DONUT
+==============================================
+
+==============================================
+DEPENDANCES :
+==============================================
+Qt 5.3.1
+
+
+==============================================
+SOUS WINDOWS
+==============================================
+Installer Qt 5.3.1
+Lancer CMake-gui
+Lors de la configuration, si CMake ne trouve pas les sources de Qt tout seul, il faut lui indiquer le chemin en rentrant dans le champ Qt5OpenGL_DIR :
+	* Chemin vers le dossier d'installation de Qt */Qt/5.3/*_opengl/lib/cmake/Qt5OpenGL
+	
+Si CMake ne trouve pas le chemin vers Qt5_Xml il faut rentrer dans le champ Qt5_Xml_DIR :
+	* Chemin vers le dossier d'installation de Qt */Qt/5.3/*_opengl/lib/cmake/Qt5Xml
+	
+	
+==============================================
+DOCUMENTATION
+==============================================
+La documentation peut être générée en utilisant la commande "make doc"
