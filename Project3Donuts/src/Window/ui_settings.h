@@ -82,6 +82,8 @@ public:
     QKeySequenceEdit *Anaglyphe_keySequenceEdit;
     QLabel *label_15;
     QKeySequenceEdit *Flipbook_keySequenceEdit;
+    QLabel *label_18;
+    QKeySequenceEdit *TranslateCameraToZero_keySequenceEdit;
     QPushButton *DefaultShortcutsButton;
     QDialogButtonBox *buttonBox;
 
@@ -318,10 +320,21 @@ public:
 
         formLayout->setWidget(7, QFormLayout::FieldRole, Flipbook_keySequenceEdit);
 
+        label_18 = new QLabel(shortcuts);
+        label_18->setObjectName(QStringLiteral("label_18"));
+
+        formLayout->setWidget(8, QFormLayout::LabelRole, label_18);
+
+        TranslateCameraToZero_keySequenceEdit = new QKeySequenceEdit(shortcuts);
+        TranslateCameraToZero_keySequenceEdit->setObjectName(QStringLiteral("TranslateCameraToZero_keySequenceEdit"));
+        TranslateCameraToZero_keySequenceEdit->setKeySequence(settings.value("Shortcuts/cam_zero",QKeySequence("Z")).value<QKeySequence>());
+
+        formLayout->setWidget(8, QFormLayout::FieldRole, TranslateCameraToZero_keySequenceEdit);
+
         DefaultShortcutsButton = new QPushButton(shortcuts);
         DefaultShortcutsButton->setObjectName(QStringLiteral("DefaultShortcutsButton"));
 
-        formLayout->setWidget(8, QFormLayout::FieldRole, DefaultShortcutsButton);
+        formLayout->setWidget(9, QFormLayout::FieldRole, DefaultShortcutsButton);
 
         tabWidget->addTab(shortcuts, QString());
 
@@ -379,6 +392,7 @@ public:
         label_13->setText(QApplication::translate("Dialog", "Calculer un anaglyphe \303\240 partir de la sc\303\250ne", 0));
         label_14->setText(QApplication::translate("Dialog", "Calculer un auto st\303\251r\303\251ogramme \303\240 partir de la sc\303\250ne", 0));
         label_15->setText(QApplication::translate("Dialog", "R\303\251aliser un flipbook", 0));
+        label_18->setText(QApplication::translate("Dialog", "Remettre la caméra au centre de la scène", 0));
         DefaultShortcutsButton->setText(QApplication::translate("Dialog", "Restaurer les valeurs par d\303\251faut", 0));
         tabWidget->setTabText(tabWidget->indexOf(shortcuts), QApplication::translate("Dialog", "Raccourcis", 0));
     } // retranslateUi
