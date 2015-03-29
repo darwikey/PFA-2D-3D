@@ -8,9 +8,7 @@ void AutostereogramAlgorithm1::createWindow(bool fHasPreview){
 
 std::unique_ptr<CreationFile> AutostereogramAlgorithm1::render(){
 
-	float _DPI = 75.f;
-
-	int _E = this->round(2.5 * _DPI);
+	int _E = this->round(2.5 * mResolution);
 
 	std::unique_ptr<QImage> _depthmap = this->getDepthMap();
 	

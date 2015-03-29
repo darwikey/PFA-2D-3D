@@ -147,12 +147,12 @@ std::unique_ptr<QImage> AutostereogramAlgorithm2::depthmapToAutostereogram() {
 	if (mTextureStyle == TEXTUREMAP)
 		mTexture.load(mTexturePath);
 
-	int _obsDist = DPI * 12;
-	int _E = DPI * 2.5;
+	int _obsDist = mResolution * 12;
+	int _E = mResolution * 2.5;
 
-	myShift = DPI / 16;
+	myShift = mResolution / 16;
 
-	int _maxdepth = DPI * 12; // maximum depth used
+	int _maxdepth = mResolution * 12; // maximum depth used
 	int _maxsep = (int)(((long)_E * _maxdepth) / (_maxdepth + _obsDist));
 
 	if (mTextureStyle == TEXTUREMAP && _maxsep > mTexture.width())

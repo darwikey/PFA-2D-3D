@@ -68,8 +68,10 @@ protected:
 	QDoubleSpinBox* mWidthBox = nullptr;
 	QDoubleSpinBox* mHeightBox = nullptr;
 
+  	float mResolution = 72.f;
+  
 private:
-	float mResolution = 72.f;
+
 	float mGamma = 1.f;
 	int mPositionNewWidget = 9;
 	unsigned int mAntiAliasingIteration = 0;
