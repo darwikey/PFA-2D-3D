@@ -329,7 +329,7 @@ void Scene::saveScene(const std::string& fPath) {
 
 	if (_ext != "xml") {
 		std::cerr << "File must have an XML extension !" << std::endl;
-		QMessageBox::critical(0, "Error", "Error with File Extension...");
+        QMessageBox::critical(0, "Error", "Error with File Extension, must be an XML file");
         return;
     }
 
