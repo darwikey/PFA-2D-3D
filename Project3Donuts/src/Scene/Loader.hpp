@@ -23,13 +23,13 @@ public:
 	//! \param name of the object in the scene
 	Object* loadObject(const std::string& fPath, const std::string& fObjectName);
 
-	//! \brief change delay detween save
+    //! \brief change delay between save
     void changeAutoSaveTimer(int fTimer);
 
 	//! \brief stop auto save function
     void stopAutoSave();
 
-	//! \brief teel if it saves in continue
+    //! \brief tell if autosave has to continue
     bool getContinue();
 
 private:
