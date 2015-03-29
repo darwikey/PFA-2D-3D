@@ -5,7 +5,7 @@ Des notices d'installation ou d'utilisation sont fournies dans ce
 dossier.
 
 Ce logiciel utilise les outils suivants :
-	- CMake, version ???
+	- CMake, version requise minimum 2.8
 	- Qt, version requise minimum 5.3.1
 	- OpenGL, version requise minimum ES 2.0
 
