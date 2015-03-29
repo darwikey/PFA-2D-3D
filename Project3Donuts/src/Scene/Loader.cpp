@@ -30,11 +30,13 @@ void Loader::changeAutoSaveTimer(int fTimer)
 
 void autoSave(int * fTimer){
     while(Scene::getScene()->getLoader()->getContinue()){
-        std::this_thread::sleep_for(std::chrono::seconds(5));
+        std::this_thread::sleep_for(std::chrono::seconds(*fTimer));
         if (Scene::getScene()->getLoader()->getContinue()){
+           //if Scene has no name, autosave has a default name
            if(!Scene::getScene()->hasName()){
                 Scene::getScene()->saveScene("autoSave.xml");
             }
+            //otherwise, autosave's name is composed with Scene name and "autoSave"
             else{
                 std::string _path;
                 std::string _name = Scene::getScene()->getName();

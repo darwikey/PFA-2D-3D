@@ -36,6 +36,9 @@ public:
 	//! \brief translate the camera from its initial position with the value of the mouse; change the look at point
 	void translateCameraWithMouse(float fHorizontalAxe, float fVerticalAxe);
 
+    //! \brief translate the camera to see the center of the scene
+    void translateCameraToZero();
+
 	//! \brief move the camera in order to see all the object
 	//! \param the bounding sphere radius of the scene objects
 	void repositionCamera(float fBoundingSphereRadius);
@@ -58,9 +61,16 @@ public:
 	//! \param fRayDirection, get ray direction in world space
 	void getMouseRay(QVector2D fMousePosition, QVector3D& fRayOrigin, QVector3D& fRayDirection);
 
+	//! \brief return the camera position
     QVector3D getPosition() const;
+
+	//! \brief return the camera rotation
     QVector3D getRotation() const;
+
+	//! \brief return the camera angle of view
     float getAngleOfView() const;
+
+	//! \brief return the point that the camera look at
 	QVector3D getLookAtPoint() const;
 
 

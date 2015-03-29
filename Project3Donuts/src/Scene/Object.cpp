@@ -90,12 +90,16 @@ void Object::initVbo(SceneRenderer* fRenderer)
 		mVertexbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
 		mVertexbuffer.bind();
 		mVertexbuffer.allocate(mVertices.data(), mVertices.size() * sizeof(QVector3D));
+		mVertices.clear();
+		mVertices.shrink_to_fit();
 
 		// Create a buffer and Fill it the the color data
 		mColorbuffer.create();
 		mColorbuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
 		mColorbuffer.bind();
 		mColorbuffer.allocate(mVertexColor.data(), mVertexColor.size() * sizeof(QVector3D));
+		mVertexColor.clear();
+		mVertexColor.shrink_to_fit();
 
 		// Create a buffer and Fill it the the index data
 		/*mIndexbuffer.create();
@@ -108,6 +112,14 @@ void Object::initVbo(SceneRenderer* fRenderer)
 		mNormalBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
 		mNormalBuffer.bind();
 		mNormalBuffer.allocate(mNormals.data(), mNormals.size() * sizeof(QVector3D));
+		mNormals.clear();
+		mNormals.shrink_to_fit();
+
+		// clean buffer
+		mIndices.clear();
+		mIndices.shrink_to_fit();
+		mTextureCoordinates.clear();
+		mTextureCoordinates.shrink_to_fit();
 	
 		initShader(fRenderer);
 		
@@ -211,7 +223,7 @@ void Object::draw(SceneRenderer* fRenderer)
 	bindAttributes(fRenderer);
 
 	// Draw triangles
-	fRenderer->glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
+	fRenderer->glDrawArrays(GL_TRIANGLES, 0, mVertexNumber);
 
 	releaseAttributes(fRenderer);
 	mVAO.release();
@@ -219,18 +231,23 @@ void Object::draw(SceneRenderer* fRenderer)
 
 
 void Object::computeBoundingBox(){
-	mBoundingBox.mVector0 = mBoundingBox.mVector1 = QVector3D(0.f, 0.f, 0.f);
+	mBoundingBox = mModelBoundingBox;
 
-	for (QVector3D _v : mVertices) {
-		mBoundingBox.mVector0.setX((_v.x() < mBoundingBox.mVector0.x()) ? _v.x() : mBoundingBox.mVector0.x());
-		mBoundingBox.mVector1.setX((mBoundingBox.mVector1.x() < _v.x()) ? _v.x() : mBoundingBox.mVector1.x());
-		mBoundingBox.mVector0.setY((_v.y() < mBoundingBox.mVector0.y()) ? _v.y() : mBoundingBox.mVector0.y());
-		mBoundingBox.mVector1.setY((mBoundingBox.mVector1.y() < _v.y()) ? _v.y() : mBoundingBox.mVector1.y());
-		mBoundingBox.mVector0.setZ((_v.z() < mBoundingBox.mVector0.z()) ? _v.z() : mBoundingBox.mVector0.z());
-		mBoundingBox.mVector1.setZ((mBoundingBox.mVector1.z() < _v.z()) ? _v.z() : mBoundingBox.mVector1.z());
-	}
+
 	mBoundingBox.mVector0 *= mScale;
 	mBoundingBox.mVector1 *= mScale;
+}
+
+
+void Object::computeModelBoundingBox(){
+	for (QVector3D _v : mVertices) {
+		mModelBoundingBox.mVector0.setX((_v.x() < mModelBoundingBox.mVector0.x()) ? _v.x() : mModelBoundingBox.mVector0.x());
+		mModelBoundingBox.mVector1.setX((mModelBoundingBox.mVector1.x() < _v.x()) ? _v.x() : mModelBoundingBox.mVector1.x());
+		mModelBoundingBox.mVector0.setY((_v.y() < mModelBoundingBox.mVector0.y()) ? _v.y() : mModelBoundingBox.mVector0.y());
+		mModelBoundingBox.mVector1.setY((mModelBoundingBox.mVector1.y() < _v.y()) ? _v.y() : mModelBoundingBox.mVector1.y());
+		mModelBoundingBox.mVector0.setZ((_v.z() < mModelBoundingBox.mVector0.z()) ? _v.z() : mModelBoundingBox.mVector0.z());
+		mModelBoundingBox.mVector1.setZ((mModelBoundingBox.mVector1.z() < _v.z()) ? _v.z() : mModelBoundingBox.mVector1.z());
+	}
 }
 
 
@@ -277,6 +294,7 @@ void Object::computeNormals(){
 
 
 void Object::normalizeData(){
+
 	computeNormals();
 
 	std::vector<QVector3D> _vertices;
@@ -300,20 +318,22 @@ void Object::normalizeData(){
 	}
 
 	mVertices = _vertices;
+	mVertexNumber = mVertices.size();
 	mTextureCoordinates = _vextureCoordinates;
 	mNormals = _normals;
 	mVertexColor = _color;
 
 	// Rescale the model in order to have a size of 1
-	mScale = QVector3D(1.f, 1.f, 1.f);
-	computeBoundingBox();
-	QVector3D _scale = mBoundingBox.mVector1 - mBoundingBox.mVector0;
+	computeModelBoundingBox();
+	QVector3D _scale = mModelBoundingBox.mVector1 - mModelBoundingBox.mVector0;
 	float _newScale = 0.5f * std::max(_scale.x(), std::max(_scale.y(), _scale.z()));
 	for (QVector3D& _v : mVertices) {
 		// rescale
 		_v /= _newScale;
 	}
 
+	// Compute the bounding box
+	computeModelBoundingBox();
 	computeBoundingBox();
 }
 

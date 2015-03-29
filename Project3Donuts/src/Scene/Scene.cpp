@@ -338,6 +338,7 @@ void Scene::saveScene(const std::string& fPath) {
 	//Scene definition
 	_data.append("<scene>\n");
 
+    //Objects definition
     std::map<std::string, Object*>::iterator _it = mObjects.load()->begin();
     for (_it; _it != mObjects.load()->end(); ++_it) {
         Object* _obj = _it->second;
@@ -380,6 +381,7 @@ QVector3D Scene::nodeTreatment(QDomNode *fcurrent){
     }
     QDomNode _coordinates = fcurrent->namedItem("coordinates");
 
+    //check for filled coordinates
     if (_coordinates.namedItem("x").isNull() || _coordinates.namedItem("y").isNull() || _coordinates.namedItem("z").isNull()){
         QMessageBox::warning(0,"Error : opening file","The XML document can not be used !\n");
 		return QVector3D(0, 0, 0);
@@ -476,8 +478,7 @@ bool Scene::objectTreatment(QDomNode *fcurrent){
 }
 
 void Scene::createScene(const QString &fPath){
-
-
+    //take the file name in a path
     std::string _path= fPath.toStdString();
     std::size_t _begin = _path.find_last_of('/') + 1;
     std::size_t _end = _path.find_last_of('.');
@@ -506,6 +507,8 @@ void Scene::createScene(const QString &fPath){
         QMessageBox::warning(0,"Error : bad file","XML document for loading scene must contain one and only one instance of camera");
         return;
     }
+
+    //adding camera to the scene
     QDomNode _cam = _cameraNode.item(0);
     bool c = cameraTreatment(&_cam);
     if (!c){
@@ -514,6 +517,7 @@ void Scene::createScene(const QString &fPath){
         return;
     }
 
+    //adding objects to the scene
     QDomNodeList _objectsNode = dom_element.elementsByTagName("object");
     QDomNode _current;
     
@@ -541,12 +545,15 @@ void Scene::setName(std::string fName){
 std::string Scene::getName(){
     return Scene::mName;
 }
+
 void Scene::setPath(std::string fPath){
     Scene::mPath = fPath;
 }
+
 std::string Scene::getPath(){
     return Scene::mPath;
 }
+
 std::vector<std::string> Scene::getLocalObjects()
 {
     std::vector<std::string> _pathlist;

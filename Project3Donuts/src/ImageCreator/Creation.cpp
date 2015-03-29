@@ -213,9 +213,12 @@ void Creation::startRender(){
 	QString _file = QFileDialog::getSaveFileName(mWindow, "Save", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
 	std::cout << "save image : " << _file.toStdString() << std::endl;
 
-	std::unique_ptr<CreationFile> _image = this->render();
+    if(_file!="")
+    {
+        std::unique_ptr<CreationFile> _image = this->render();
 
-	_image->save(_file);
+        _image->save(_file);
+    }
 }
 
 

@@ -6,11 +6,11 @@ Au cours de ce projet, certaines difficultés rencontrées auront parfois ralent
 L'implémentation des algorithmes d'anaglyphes et d'autostéréogrammes était le coeur de notre projet et du logiciel que nous avions à mettre en place, il était donc important que nous lui accordions un temps conséquent durant notre projet. C'est pour cela que nous avions initialement prévu de faire travailler deux personnes sur ces algorithmes durant un mois, en partant des recherches qui avaient été effectuées pour le cahier des charges. Toutefois, l'implémentation de deux algorithmes étant nécessaire pour chacun de ces rendus, ce mois a finalement été trop court pour nos équipes de programmeurs.
 
 \paragraph{}
-Pour les autostéréogrammes, le rendu donné par le premier algorithme choisi était découpé en tranches et ne donnait pas suffisament l'impression de profondeur comme il aurait dû, comme nous pouvoir le voir sur la figure \ref{fig:sphAutoste}.
+Pour les autostéréogrammes, le rendu donné par le premier algorithme choisi était découpé en tranches comme nous pouvoir le voir sur la figure \ref{fig:sphAutoste}.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.4]{bouleAutoste.png}
+\begin{figure}[h]               
+	\centering      
+	\includegraphics[scale=0.7]{bouleAutoste.png}
 	\caption{\label{fig:sphAutoste} Autostéréogramme d'une boule avec un effet en tranche \protect}
 \end{figure}
 
@@ -40,3 +40,15 @@ Pour permettre la portabilité et la maintenabilité du projet, nous avons chois
 La communauté Internet sur la bibliothèque Qt et son module OpenGL est très importante et de nombreux problèmes rencontrés ont pu être résolus facilement grâce à des recherches sur certains forums. 
 L'outil souvent utilisé dans la réalisation de projet Qt est QMake qui permet une compilation simplifiée avec Qt. Mais nous avons choisi de prendre CMake comme nous savions déjà l'utiliser.
 CMake étant très peu utilisé pour la bibliothèque Qt, il est parfois difficile de trouver sur Internet de l'aide pour inclure des modules, par exemple le module QtXml. La plupart de la documentation relative à ce problème est très simplement géré dans QMake, mais il aura fallu beaucoup de recherches pour parvenir à trouver les bons noms de bibliothèques et de modules pour l'inclure avec CMake.
+
+\subsubsection{Portabilité entre systèmes d'exploitation}
+\paragraph{}
+Tout au long de la réalisation du logiciel, il nous aura souvent fallu corriger des passages de code pour permettre la portabilité aussi bien sous Windows que sous Linux. Les conventions de codage nous auront aidé à assurer des noms de variables compatibles sous les deux environnements, mais cela n'aura parfois pas suffit. 
+\paragraph{}
+Un premier problème de portabilité s'est présenté avec les shaders, comme nous l'avons expliqué plus haut. Linux ne supportant pas toujours les cartes raphiques et les chipsets intégrés de la même façon que Windows, il a fallu utiliser une version plus récente pour s'assurer que le logiciel fonctionne.
+
+\paragraph{}
+Un autre cas a eu lieu lors de l'utilisation de threads pour la sauvegarde automatique. La fonction sleep() avait d'abord été utilisée, mais celle-ci ne fonctionnait que sous Linux ou avec le compilateur GCC sous Windows. Nous avons donc dû le remplacerpar l'appel de C++ sleep\_for, que l'on trouve dans le namespace this\_thread. 
+
+\paragraph{}
+La compatibilité a également été un souci pour le découpage des fichiers de chargement d'extension XML. Sous Windows, le stockage des flottants utilise un point pour séparer la partie entière de la partie décimale, aussi bien en lecture qu'en écriture. Sous Linux, la lecture utilise une virgule. Nous avons donc dû tenir compte de cette différence pour le découpage et l'utilisation de nos fichiers pour le chargement.

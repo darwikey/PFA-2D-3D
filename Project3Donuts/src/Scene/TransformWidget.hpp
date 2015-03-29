@@ -25,7 +25,14 @@ public:
 	~TransformWidget();
 
 	//! \brief render the widget
+	//! param fRenderer where the widget will be render
+	//! param fCamera active camera
+	//! param fSelectedObject the widget will be active on this object
     void render(SceneRenderer* fRenderer, Camera* fCamera, Object* fSelectedObject);
+
+	//! \brief render the widget
+	//! param fRenderer where the widget will be render
+	//! param fCamera active camera
     void render(SceneRenderer* fRenderer, Camera* fCamera);
 
 	//! \brief show the widget, and choose the transformation
@@ -34,7 +41,7 @@ public:
 	//! \brief tell if the widget is selected by the mouse
 	bool isSelected();
 
-	// \brief select with the mouse the widget
+	//! \brief select with the mouse the widget
 	void select(QVector2D fMousePosition);
 
 	//! \brief the widget can be manipulate with the mouse

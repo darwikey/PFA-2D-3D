@@ -59,6 +59,7 @@ public:
 	QAction * actionTranslate;
     QAction * actionRotate;
     QAction * actionScale;
+    QAction * transCamZero;
 
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
@@ -135,12 +136,15 @@ public:
 
         actionDepuis_la_bibliotheque = new QAction(MainWindow);
         actionDepuis_la_bibliotheque->setObjectName(QStringLiteral("actionDepuis_la_bibliotheque"));
+        actionDepuis_la_bibliotheque->setShortcut(QKeySequence("CTRL+I"));
+        actionDepuis_la_bibliotheque->setIcon(windowStyle->standardIcon(QStyle::SP_DirHomeIcon));
         
         actionDepuis_le_disque_dur = new QAction(MainWindow);
         actionDepuis_le_disque_dur->setObjectName(QStringLiteral("actionDepuis_le_disque_dur"));
+        actionDepuis_le_disque_dur->setShortcut(settings.value("Shortcuts/import",QKeySequence("I")).value<QKeySequence>());
         
-		action_changer_couleur = new QAction(MainWindow);
-		action_changer_couleur->setObjectName(QStringLiteral("action_changer_couleur"));
+        action_changer_couleur = new QAction(MainWindow);
+        action_changer_couleur->setObjectName(QStringLiteral("action_changer_couleur"));
 		
         actionPr_f_rences = new QAction(MainWindow);
         actionPr_f_rences->setObjectName(QStringLiteral("actionPr_f_rences"));
@@ -151,6 +155,7 @@ public:
 
         actionNotice_utilisation = new QAction(MainWindow);
         actionNotice_utilisation->setObjectName(QStringLiteral("actionNotice_utilisation"));
+        actionNotice_utilisation->setShortcut(QKeySequence::HelpContents);
         
         actionEffectuer_un_rendu = new QAction(MainWindow);
         actionEffectuer_un_rendu->setObjectName(QStringLiteral("actionEffectuer_un_rendu"));
@@ -207,6 +212,11 @@ public:
         QIcon icon_s;
         icon_s.addFile(QStringLiteral("resources/icones/icone_scale.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionScale->setIcon(icon_s);
+
+        transCamZero = new QAction(MainWindow);
+        transCamZero->setObjectName(QStringLiteral("transCamZero"));
+        transCamZero->setShortcut(settings.value("Shortcuts/cam_zero",QKeySequence("Z")).value<QKeySequence>());
+
         
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -280,6 +290,7 @@ public:
         menuFen_tre->addAction(actionInverser_les_positions_des_fen_tres);
         toolBar->addAction(actionNouveau);
         toolBar->addAction(actionOuvrir);
+        toolBar->addAction(actionDepuis_la_bibliotheque);
         toolBar->addAction(actionEnregistrer);
         toolBar->addSeparator();
         toolBar->addAction(actionUndo);
@@ -293,6 +304,7 @@ public:
         toolBar->addAction(actionAuto_st_r_ogrammes);
         toolBar->addAction(actionFlipbook);
         listView->addAction(deleteObject);
+        widget->addAction(transCamZero);
 		
         retranslateUi(MainWindow);
         QObject::connect(actionQuitter, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -328,7 +340,7 @@ public:
 		QObject::connect(actionRotate, SIGNAL(triggered()), MainWindow, SLOT(changeModeToRotate()));
 		QObject::connect(actionScale, SIGNAL(triggered()), MainWindow, SLOT(changeModeToScale()));
 
-		
+                QObject::connect(transCamZero, SIGNAL(triggered()), MainWindow, SLOT(translateCameraToZero()));
 		
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -343,8 +355,8 @@ public:
         actionEnregistrer->setText(QApplication::translate("MainWindow", "Enregistrer", 0));
         actionEnregistrer_sous->setText(QApplication::translate("MainWindow", "Enregistrer sous", 0));
         actionUndo->setText(QApplication::translate("MainWindow", "Annuler la derniere action", 0));
-        actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "depuis la bibliotheque", 0));
-        actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "depuis le disque dur", 0));
+        actionDepuis_la_bibliotheque->setText(QApplication::translate("MainWindow", "Importer depuis la bibliotheque", 0));
+        actionDepuis_le_disque_dur->setText(QApplication::translate("MainWindow", "Importer depuis le disque dur", 0));
 		action_changer_couleur->setText(QApplication::translate("MainWindow", "Couleur de l'objet", 0));
 		actionPr_f_rences->setText(QApplication::translate("MainWindow", "Pr\303\251f\303\251rences", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));

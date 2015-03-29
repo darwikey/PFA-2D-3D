@@ -9,8 +9,7 @@ La couleur des objets est également devenue un paramètre modifiable. Après s�
 
 Un repère a été placé dans la scène pour que l'utilisateur puisse à tout moment se repérer par rapport aux trois axes géométriques.
 
-Enfin, nous avons mis en place un antialiasing pour la génération des rendus.
-[EXPLICATION ANTIALIASING]
+Enfin, après avoir pris conscience que le rendu de base d'OpenGL présentait des problèmes au niveau des bords des objets. De l'anti-aliasing a été mis en place lors de la génération des rendus. Cela a permis d'augmenter la qualité des anaglyphes, en réduisant les artefacts au niveau des bordures.
 
 
 \paragraph{}
@@ -20,7 +19,9 @@ Ce projet a été conçu pour permettre son extensibilité, principalement au ni
 
 Bien que le logiciel permette à l'utilisateur de le personnaliser, certains raccourcis ou fonctionnalités n'ont pas été implémentés, comme la sélection multiple d'objets ou le clic droit sur un objet déjà sélectionné pour connaître d'éventuelles actions effectuables sur cet objet. Cette éventualité pourrait permettre de rendre le logiciel plus agréable à manipuler pour ses utilisateurs.
 
-Un autre objectif potentiel serait le passage du logiciel sous un environnement MAC. Faute de machines de test, nous n'avons pas eu l'occasion de tester notre code avec ce système d'exploitation, mais nous pensons que la transition vers celui-ci pourrait s'avérer relativement simple.
+Un autre objectif potentiel serait le passage du logiciel sous un environnement MAC. En effet, le logiciel a d'ores et déjà été compilé et executé sous ce système d'exploitation. Toutefois, l'interface graphique n'est pas complètement compatible, car celles-ci sont gérées différemment et devront être adaptées pour permettre l'utilisation complète du logiciel.
+
+Il existe des fichiers d'extension OBJ ou PLY qui peuvent contenir plusieurs objets. Ces fichiers peuvent être utilisés pour remplir une scène de notre logiciel, mais ils seront considérés comme un seul et même objet. En effet, ils sont reconnus sous un même nom, et seront sélectionnés et manipulés comme un seul bloc. Une amélioration serait de pouvoir charger un ensemble d'objets à partir d'un seul fichier, et de pouvoir manipuler chacun d'entre eux.
 
 Enfin, l'utilisation de la version 2.0 ES de la bibliothèque OpenGL offre la possibilité d'implémenter le logiciel sous d'autres plateformes, comme par exemple des tablettes graphiques ou des téléphones portables. On pourrait éventuellement imaginer prendre des photos d'une scène environnante et la transformer grâce à d'autres algorithmes en des anaglyphes ou des autostéréogrammes. 
 

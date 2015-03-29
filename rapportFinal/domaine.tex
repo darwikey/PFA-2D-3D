@@ -8,7 +8,7 @@
 \footnotetext{\url{http://www.blender.org/}}
 
 \paragraph{}
-	On appelle synthèse d’image l'ensemble des techniques qui permettent de visualiser des objets en trois dimensions en perspective sur un écran d'ordinateur, en tenant compte de lumières et de textures appliquées à l'objet. Il existe un grand nombre de techniques et les résultats obtenus peuvent eux aussi varier (perspective isométrique, perspective conique...). Nous nous préoccupons par la suite de la perspective conique, dite aussi vue naturelle. 
+	Dans ce rapport, on appellera synthèse d’image l'ensemble des techniques qui permettent de visualiser des objets en trois dimensions en perspective sur un écran d'ordinateur, en tenant compte de lumières et de textures appliquées à l'objet. Il existe un grand nombre de techniques et les résultats obtenus peuvent eux aussi varier (perspective isométrique, perspective conique...). Nous nous préoccupons par la suite de la perspective conique, dite aussi vue naturelle. 
 
 \paragraph{}
 	Bien souvent, la synthèse d'image utilise le principe de scène. Il s'agit d'un espace à trois dimensions dans lequel des objets peuvent être placés. Ces derniers sont décrits par un ensemble de points disposés dans l'espace.
@@ -17,7 +17,7 @@
 	Pour pouvoir observer la scène et les objets, il est nécessaire de les modéliser, c'est-à-dire d'afficher un rendu qui correspondrait à une vision de cette scène si elle était réelle. Pour cela, la machine simule le point de vue de l'utilisateur à l'aide d'une « caméra ». A partir de cette scène en trois dimensions, la caméra peut réaliser des projections ou photographies permettant de créer des anaglyphes, autostéréogrammes ou flipbooks. Plusieurs méthodes de projection existent, mais seule celle par matrice de projection sera utilisée.
 
 \paragraph{}
-	Ces matrices sont décrites à l’aide de coordonnées homogènes. Celles-ci ont été introduites afin que l’ensemble des transformations de type rotation, translation et homothétie puissent être écrites sous forme de matrice. Ainsi, le produit des matrices de transformation peut être calculé en amont pour pouvoir appliquer la matrice de la transformation résultante à l’ensemble des points de l’objet sans avoir à recalculer le produit pour chaque point.
+	Ces matrices sont décrites à l’aide de coordonnées homogènes. Celles-ci ont été introduites afin que l’ensemble des transformations de type rotation, translation et homothétie puissent être écrites sous forme de matrice de même dimension. Ainsi, le produit des matrices de transformation peut être calculé en amont pour pouvoir appliquer la matrice de la transformation résultante à l’ensemble des points de l’objet sans avoir à recalculer le produit pour chaque point.
 
 \paragraph{}
 	Pour pouvoir visualiser un modèle 3D il faut prendre en considération la lumière et sa réflexion sur l’objet. Si une sphère rouge était représentée dans un espace avec uniquement une lumière ambiante, il n’en ressortirait qu’un disque rouge, sans relief. En effet, la lumière ambiante atteint l’objet de la même façon en tout point. On ne peut donc pas savoir depuis un plan fixe s’il s’agit d’un objet en deux ou en trois dimensions. Si maintenant une lumière est ajoutée dans l’espace où est situé l’objet, celle-ci ne va pas atteindre tous les points de l’objet de la même façon. Elle sera plus faible sur un point plus éloignée, voire inexistante sur un point caché. En tenant compte de cette lumière, on peut obtenir une image comme présentée sur la figure \ref{fig:sphère}.
