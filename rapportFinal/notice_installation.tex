@@ -1,45 +1,41 @@
-===============================================\\
-NOTICE D'INSTALLATION DU LOGICIEL PROJECT3DONUT\\
-===============================================\\
-\\
-===============================================\\
-DEPENDANCES :\\
-===============================================\\
-Qt 5.3.1\\
-\\
-\\
-===============================================\\
-SOUS WINDOWS\\
-===============================================\\
-Installer Qt 5.3.1\\
+\noindent ===============================================\\
+\noindent DEPENDANCES :\\
+\noindent ===============================================\\
+\noindent Qt 5.3.1 (\url{https://download.qt.io/archive/qt/5.3/5.3.1/})\\
 
-Lancer CMake-gui\\
+\noindent ===============================================\\
+\noindent SOUS WINDOWS\\
+\noindent ===============================================\\
+\noindent Installer Qt 5.3.1\\
 
-Lors de la configuration, si CMake ne trouve pas les sources de Qt tout seul, il faut lui indiquer le chemin en rentrant dans le champ Qt5OpenGL\_DIR :\\
-	* Chemin vers le dossier d'installation de Qt */Qt/5.3/*\_opengl/lib/cmake/Qt5OpenGL\\
-	\\
-Si CMake ne trouve pas le chemin vers Qt5\_Xml il faut rentrer dans le champ Qt5\_Xml\_DIR :\\
-	* Chemin vers le dossier d'installation de Qt */Qt/5.3/*\_opengl/lib/cmake/Qt5Xml\\
-	\\
-	\\
-===============================================\\
-SOUS LINUX\\
-===============================================\\
-Installer Qt 5.3.1\\
+\noindent Lancer CMake-gui\\
 
-Ajouter à la variable d'environnement PATH la localisation de la librairie. \\
+\noindent Lors de la configuration, si CMake ne trouve pas les sources de Qt tout seul, il faut lui indiquer le chemin en rentrant dans le champ Qt5OpenGL\_DIR : (* Chemin vers le dossier d'installation de Qt)\\
 
-Créer un dossier build à la racine du projet Project3Donuts/build en s'assurant que CMakeLists.txt est bien à la racine Project3Donuts.\\
+*/Qt/5.3/*\_opengl/lib/cmake/Qt5OpenGL\\
 
-Se placer dans le dossier et faire ``cmake -DCMAKE\_BUILD\_TYPE=Release ..''\\
+\noindent Si CMake ne trouve pas le chemin vers Qt5\_Xml il faut rentrer dans le champ Qt5\_Xml\_DIR :\\
 
-Sortir du dossier ``cd ..''.\\
+* Chemin vers le dossier d'installation de Qt */Qt/5.3/*\_opengl/lib/cmake/Qt5Xml\\
 
-Lancer le logiciel ``./build/Project3Donut''.\\
+\noindent ===============================================\\
+\noindent SOUS LINUX\\
+\noindent ===============================================\\
+\noindent Installer Qt 5.3.1, CMake \\
 
-Si bumblebee et primus sont installés faire pour switcher sur la carte graphique : ``optirun -b primus ./build/Project3Donut''.\\
+\noindent Ajouter à la variable d'environnement PATH la localisation de la librairie. \\
 
-===============================================\\
-DOCUMENTATION\\
-===============================================\\
-La documentation peut être générée en utilisant la commande "make doc"\\
+\noindent Créer un dossier build à la racine du projet Project3Donuts/build en s'assurant que CMakeLists.txt est bien à la racine Project3Donuts.\\
+
+\noindent Se placer dans le dossier et faire ``cmake -DCMAKE\_BUILD\_TYPE=Release ..''\\
+
+\noindent Sortir du dossier ``cd ..''\\
+
+\noindent Lancer le logiciel ``./build/Project3Donut''\\
+
+\noindent Si bumblebee et primus sont installés faire pour switcher sur la carte graphique : ``optirun -b primus ./build/Project3Donut''\\
+
+\noindent ===============================================\\
+\noindent DOCUMENTATION\\
+\noindent ===============================================\\
+\noindent La documentation peut être générée en utilisant la commande "make doc"\\
