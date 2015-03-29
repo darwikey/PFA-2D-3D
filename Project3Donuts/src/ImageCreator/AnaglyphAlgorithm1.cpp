@@ -1,12 +1,10 @@
 #include "AnaglyphAlgorithm1.hpp"
 
-
 void AnaglyphAlgorithm1::createWindow(bool fHasPreview){
   Anaglyph::createWindow(fHasPreview);
 
 
 }
-
 
 std::unique_ptr<CreationFile> AnaglyphAlgorithm1::renderAnaglyph(){
 
@@ -21,10 +19,15 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm1::renderAnaglyph(){
     {
       for(int j=0; j<_image->size().width(); j++)
         {
+          //Create a pixel composed of :
+          //the value R from the left image
+          //the values G and B from the right image
+
           QRgb _value = qRgb(qRed(_left->pixel(j,i)),
                              qGreen(_right->pixel(j,i)),
                              qBlue(_right->pixel(j,i)));
-					
+
+          //Set the pixel created in the image destination
           _image->setPixel(j,i,_value);
         }
     }
