@@ -30,7 +30,6 @@ private :
   //! \brief Returns the autostereogram calculated from its depthmap
   std::unique_ptr<QImage> depthmapToAutostereogram() ;
   
-  const static int DPI = 75 ;
   const static int OVERSAMPLING = 4 ;
 
   std::vector<int> msameLeft ;
