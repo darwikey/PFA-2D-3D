@@ -73,6 +73,8 @@ public:
 	//! \brief return the point that the camera look at
 	QVector3D getLookAtPoint() const;
 
+    //! \brief set the point that the camera look at
+    QVector3D setLookAtPoint(QVector3D fPoint);
 
 private:
 	// \brief compute the view matrix
