@@ -1,5 +1,5 @@
 \subsubsection{Rendu avec OpenGL}
-L'ensemble des rendus est réalisé avec OpenGL et des shaders écrits en GLSL. Lorsque un objet est chargé dans la scène, le chargeur d'objet remplit des tableaux tels que la position des sommets, les couleurs et les normales associées aux sommets, et les indices associés aux sommets de chaque face.
+L'ensemble des rendus est réalisé avec OpenGL et des shaders écrits en GLSL. Lorsque un objet est chargé dans la scène, le chargeur d'objet remplit des tableaux avec des données telles que la position des sommets, les couleurs et les normales associées aux sommets, et les indices associés aux sommets de chaque face.
 
 Certains fichiers d'objets posent problème, notamment les fichiers avec le format .ply, qui ne possèdent pas d'informations sur les couleurs et les normales des sommets. Or ces informations sont indispensables pour avoir un beau rendu 2D. Ainsi si ces informations sont manquantes, la couleur de l'objet est mise à grise par défaut et les normales sont recalculées à partir de l'orientation des faces.
 
