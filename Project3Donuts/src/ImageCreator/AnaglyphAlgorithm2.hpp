@@ -11,8 +11,6 @@
  * as presented in his article "Conversion of a Stereo Pair to Anaglyph with the Least-Squares Projection Method "
  * which has been publicated in 2009
  */
-//! \class AnaglyphAlgorithm2
-//! \brief Secound algorithm to create an anaglyph
 class AnaglyphAlgorithm2 : public Anaglyph{
 	Q_OBJECT
 
