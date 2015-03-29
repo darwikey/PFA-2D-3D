@@ -3,7 +3,7 @@ Au cours de ce projet, certaines difficultés rencontrées auront parfois ralent
 
 \subsubsection{Implémentation des algorithmes}
 \paragraph{}
-L'implémentation des algorithmes d'anaglyphes et d'autostéréogrammes était le coeur de notre projet et du logiciel que nous avions à mettre en place, il était donc important que nous lui accordions un temps conséquent durant notre projet. C'est pour cela que nous avions initialement prévu de faire travailler deux personnes sur ces algorithmes durant un mois, en partant des recherches qui avaient été effectuées pour le cahier des charges. Toutefois, l'implémentation de deux algorithmes étant nécessaire pour chacun de ces rendus, ce mois a finalement été trop court pour nos équipes de programmeurs.
+L'implémentation des algorithmes d'anaglyphes et d'autostéréogrammes était le coeur de notre projet et du logiciel que nous avions à mettre en place, il était donc important que nous lui accordions un temps conséquent durant notre projet. C'est pour cela que nous avions initialement prévu de faire travailler deux personnes sur ces algorithmes durant un mois, en partant des recherches qui avaient été effectuées pour le cahier des charges. Mais cette durée était bien trop courte car elle n'était  pas uniquement dédiée au PFA et nous avons donc du la doubler.
 
 \paragraph{}
 Pour les autostéréogrammes, le rendu donné par le premier algorithme choisi était découpé en tranches comme nous pouvoir le voir sur la figure \ref{fig:sphAutoste}.
@@ -18,9 +18,13 @@ Cet effet avait en effet été souligné dans l'article de Witten, Inglis et Thi
 Il a alors fallu mettre en place le second algorithme que nous avons présenté précédemment dans ce rapport, ce qui a allongé la période de réalisation. De plus, l'optimisation proposé pour ce deuxième algorithme par W.A.Steer posait dans un premier temps problème pour la génération de l'autostéréogramme. Il aura alors fallu procéder étape par étape pour obtenir dans un premier temps un rendu sans l'optimisation de l'algorithme, qui aura été ajoutée par la suite.
 
 \paragraph{}
-Pour les anaglyphes, la première difficulté était la récupération de paires d'images sur lesquelles travailler. Notre équipe a tout d'abord essayé de travailler sur la scène avec OpenGL pour récupérer des images qu'ils pourraient utiliser. Toutefois, une autre difficulté, liée aux shaders comme nous le présenterons dans la partie qui suit, les a empêché de poursuivre dans cette voie. Ils ont donc choisi de travailler sur des images trouvées sur Internet afin d'avancer dans l'implémentation. 
-Une autre difficulté de l'algorithme des anaglyphes est le travail sur la saturation gamma. Pour permettre un rendu agréable à visualiser, notre équipe a cherché à travailler sur cette saturation, mais l'effet obtenu n'était pas toujours celui qu'ils espéraient. En effet, selon les couleurs supportées par les écrans d'ordinateur, il arrive que le rendu obtenu soit ``brûlé'', c'est-à-dire que comme les valeurs sont trop hautes l'ordinateur ne sait pas rendre la couleur et transforme les zones en blanc. Ce problème n'a malheureusement pas pu être résolu, car il faudrait pouvoir adapter l'algorithme aux caractéristiques de l'écran sur lequel il est testé.
-Enfin, nos clients souhaitant pouvoir imprimer les anaglyphes, il était très important que les couleurs lors de l'impression révèlent aussi bien l'anaglyphe. En effet, si un écran d'ordinateur possède les composantes rouge, verte et bleue pour son affichage, la plupart des imprimantes utilisent le pattern cyan, magenta, jaune et noir. Pour éviter d'éventuels artefacts qui auraient pu être causés par la transformation automatique des couleurs, il a fallu traiter celles-ci pour que l'impression soit le plus parfaite possible. Une fois de plus, un problème irrésolvable au moment de l'impression est l'imprimante qui sera utilisée. En effet, selon les caractéristiques de celles-ci, le pattern de couleur utilisé peut modifier l'effet du rendu. Nous avons choisi de travailler les couleurs pour un rendu sur une imprimante utilisant le pattern Cyan-Magenta-Jaune-Noir, qui sont les plus répandues.
+Concernant les anaglyphes, en raison de problèmes liés aux shaders sur les processeurs graphiques intégrées au début du projet, nous avons opté pour un prototype utilisant la librairie OpenCV et l'utilisation de pairs d'images sétéréoscopiques trouvés sur Internet pour tester les algorithmes.
+
+Quelques problèmes d'implémentations ont été rencontrés, notamment au niveau de dépassement dans les valeurs RGB des pixels (pixels brulés) dû à des formules mal appliqués ou à une simplification non-voulue d'un flottant en entier. Par exemple, dans l'algorithme de Dubois, il est demandé de vérifier que les valeurs réduites RGB des pixels additionés est bien comprise entre 0 et 1 avant l'addition.
+
+La lecture des articles scientifiques n'a pas été chose aisée. Nien souvent, la description des algorithmes restait floue. Pour l'implémentation de l'algorithme de Dubois nous avons par exemple choisi de n'exploiter qu'une partie de l'article et d'y ajouter une partie sur la correction gamma. D'autres combinaisons ont été faites. Par exemple dans le cas de Dubois, une modification est réalisée sur la saturation sans préciser comment adapter les valeurs RGB en conséquence. Des tests ont été faits avec une conversion de RGB vers HSL sans vraiment produire un résultat correcte.
+
+Pour l'impression des anaglyphes nous nous sommes rapidement rendu compte qu'un résultat de bonne qualité ne pouvait être obtenu que de manière empirique et qu'il n'était pas possible d'implémenter un algorithme permettant d'obtenir de manière général de bons rendus à l'impression quelque soit l'image en entrée, le support en sortie, et le périphérique pour l'impression. C'est pourquoi nous avons préféré laisser à l'utilisateur la possibilité de paramètrer comme bon lui semble le rendu.
 
 \subsubsection{L'utilisation de shaders}
 \paragraph{}
@@ -30,7 +34,7 @@ On appelle shaders des programmes informatiques qui vont travailler directement 
 Dans certains ordinateurs, et surtout dans les ordinateurs portables, il n'existe pas de carte graphique à proprement parler. Un chipset graphique en général moins puissant la remplace. Toutefois, ces chipsets peuvent empêcher l'utilisation de shaders trop récent.
 
 \paragraph{}
-Dans une première version de notre logiciel, nous avions souhaité utiliser la version 3.3 des shaders. Toutefois, celle-ci posait problèmes car elles n'étaient pas reconnue sous des machines Linux. La portabilité du logiciel étant primordiale, du moins sous les environnements Windows et Linux, nous avons dû effectuer une modification de l'ensemble du code déjà construit afin de passer à la version 2.0 des shaders qui est bien plus ancienne et qui permet la portabilité du logiciel sur quasiment toute les machines.
+Dans une première version de notre logiciel, nous avions souhaité utiliser la version 3.3 des shaders. Toutefois, celle-ci posait problèmes car elles n'étaient pas reconnue par certains chipsets présents sur les ordinateurs portables que nous utilisions. Du fait de problèmes avec la technologie Optimus les machines sous Linux utilise presque exclusivement le chipset intégré, cela posait un problème pour la portabilité. Celle-ci étant primordiale, nous avons dû effectuer une modification de l'ensemble du code déjà construit afin de passer à la version 2.0 des shaders qui est bien plus ancienne et qui permet la portabilité du logiciel sur quasiment toute les machines.
 
 \subsubsection{Les outils utilisés pour la réalisation du projet}
 \paragraph{}
@@ -43,9 +47,9 @@ CMake étant très peu utilisé pour la bibliothèque Qt, il est parfois diffici
 
 \subsubsection{Portabilité entre systèmes d'exploitation}
 \paragraph{}
-Tout au long de la réalisation du logiciel, il nous aura souvent fallu corriger des passages de code pour permettre la portabilité aussi bien sous Windows que sous Linux. Les conventions de codage nous auront aidé à assurer des noms de variables compatibles sous les deux environnements, mais cela n'aura parfois pas suffit. 
+Tout au long de la réalisation du logiciel, il nous aura souvent fallu corriger des passages de code pour permettre la portabilité aussi bien sous Windows que sous Linux. 
 \paragraph{}
-Un premier problème de portabilité s'est présenté avec les shaders, comme nous l'avons expliqué plus haut. Linux ne supportant pas toujours les cartes raphiques et les chipsets intégrés de la même façon que Windows, il a fallu utiliser une version plus récente pour s'assurer que le logiciel fonctionne.
+Un premier problème de portabilité s'est présenté avec les shaders, comme nous l'avons expliqué plus haut. Les machines portables avec la technologie Optimus rencontre des problèmes de ``switch'' sous linux entre le processeur graphiuque intégré et celui de la carte graphique. Il a fallu utiliser une version plus ancienne pour s'assurer que le logiciel fonctionne.
 
 \paragraph{}
 Un autre cas a eu lieu lors de l'utilisation de threads pour la sauvegarde automatique. La fonction sleep() avait d'abord été utilisée, mais celle-ci ne fonctionnait que sous Linux ou avec le compilateur GCC sous Windows. Nous avons donc dû le remplacerpar l'appel de C++ sleep\_for, que l'on trouve dans le namespace this\_thread. 

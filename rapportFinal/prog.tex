@@ -5,7 +5,7 @@ Cette partie détaillera la réalisation technique du logiciel Project3Donuts.
 La partie Réalisation de ce projet se sera étalée sur les mois de Décembre, Janvier, Février et Mars. Grâce à la réflexion effectuée durant la phase de rédaction du cahier des charges, nous avons pu aborder notre projet avec une idée claire des priorités.
 
 \paragraph{}
-L'implémentation des algorithmes de rendus étant centrale au projet, nous avons dès le début de la réalisation mis en place deux équipes de deux personnes pour les deux rendus principaux : les anaglyphes et les autostéréogrammes. Les folioscopes quand à eux ne demandaient pas d'algorithmes particulier, si ce n'est la manipulation de la caméra vis à vis de la scène qui allait être mise en place grâce à la troisième équipe.
+L'implémentation des algorithmes de rendus étant centrale au projet, nous avons dès le début de la réalisation mis en place deux équipes de deux personnes pour les deux rendus principaux : les anaglyphes et les autostéréogrammes. Les folioscopes quand à eux ne demandaient pas d'algorithmes particuliers, si ce n'est la manipulation de la caméra vis à vis de la scène qui allait être mise en place grâce à la troisième équipe.
 
 \paragraph{}
 Le travail sur la scène s'est basé sur le prototype généré lors de la phase du cahier des charges. Il a ainsi été amélioré pour intégrer les parseurs de fichiers objets qui allaient être nécessaires pour la génération des éléments de la scène, et rendre plus agrèable la manipulation des objets et les déplacements dans la scène.
@@ -26,21 +26,21 @@ Au final, la totalité des tâches prévues jusqu'au début du mois de Mars auro
 
 \subsubsection{Les algorithmes du logiciel}
 \paragraph{}
-Pour pouvoir permettre à l'utilisateur de notre logiciel d'obtenir des anaglyphes ou des autostéréogrammes il a fallu prospecter sur Internet afin de trouver suffisamment d'articles scientifiques et de sites traitant le sujet pour établir des comparaisons et choisir parmi toutes les solutions proposées celles qui offraient le meilleur résultat.
+Pour pouvoir permettre à l'utilisateur de notre logiciel d'obtenir des anaglyphes ou des autostéréogrammes il a fallu faire des recherches afin de trouver suffisamment d'articles scientifiques et de sites traitant le sujet pour établir des comparaisons et choisir parmi toutes les solutions proposées celles qui offraient le meilleur résultat.
 
 \paragraph{}
-Cet exercice s'est révélé assez complexe car le travail de recherche qui s'y rapporte a été long, et il était parfois difficile de trouver les bonnes informations pour répondre à nos interrogations. Nos clients nous auront longuement accompagné dans notre travail de recherche, et nous auront conseillé sur des outils pour trouver des articles pertinants. Cette partie ``Recherche de l'existant'', qui s'est principalement déroulée durant la phase de rédaction du cahier des charges, aura été formatrice car elle nous aura appris à utiliser les bons outils (comme google scholar\footnotemark) et les bons mots-clés pour rendre nos recherches fructueuses.
+Cet exercice s'est révélé assez complexe car le travail de recherche qui s'y rapporte a été long, et il était parfois difficile de trouver les bonnes informations pour répondre à nos interrogations. Nos clients nous auront longuement accompagné dans notre travail de recherche, et nous auront conseillés sur des outils pour trouver des articles pertinants. Cette partie ``Recherche de l'existant'', qui s'est principalement déroulée durant la phase de rédaction du cahier des charges, aura été formatrice car elle nous aura appris à utiliser les bons outils (comme google scholar\footnotemark) et les bons mots-clés pour rendre nos recherches fructueuses.
 \footnotetext{\url{http://scholar.google.fr/schhp?hl=fr}}
 \paragraph{}
 Une fois les algorithmes choisis, l'utilisation de cartes de profondeurs et de paires d'images stéréoscopiques trouvées sur Internet ont permis de faire des tests sur des prototypes indépendants du logiciel final. Leur implémentation s'est faite durant le dernier mois du projet. Il a donc fallu définir les entrées et les sorties pour chaque méthode, afin de satisfaire l'architecture du projet et de faciliter par la suite l'intégration d'autres algorithmes dans le logiciel.
 La partie gérant la scène est considérée comme une boite noire avec laquelle les algorithmes de rendus intéragissent. Seules les entrées et les sorties sont connues ce qui permet de garantir la modularité de la partie Rendu. 
 
 \paragraph{}
-Malgré les tests de pré-intégration faits sur les prototypes, des problèmes ont été rencontrés au moment de l'implémentation. Par exemple, pour les anaglyphes, le passage à l'utilisation de prises de vues issues de scènes non-réelles donnait des résultats de moins bonne qualité. Trouver le bon angle pour les couples d'images stéréoscopiques n'était pas non plus une chose aisée.
-Ce problème ne provenait finalement pas de l'algorithme en lui-même, mais de la scène utilisée. En effet, les tests effectués sur des images n'avaient pas de contours aussi nets que les objets de la scène, et le rendu obtenu était correct. Toutefois, les fichiers d'extension OBJ et PLY sont constitués de triangles, et leurs bords sont très marqués, ce qui cause parfois une erreur au moment de la génération de l'anaglyphe. Une solution possible pour régler ce problème aurait été de rendre les contours des objets moins abruptes, mais cette solution n'a pas été implémentée dans notre logiciel.
+Malgré les tests de pré-intégration faits sur les prototypes, des problèmes ont été rencontrés au moment de l'implémentation. Par exemple, pour les anaglyphes, le passage à l'utilisation de prises de vues issues de scènes non-réelles donnait des résultats de moins bonne qualité. Le fond blanc génant la bonne observation de la 3D, nous avons opté pour un fond plus gris par défaut et pouvant être changé. Trouver le bon angle pour les couples d'images stéréoscopiques n'était pas non plus une chose aisée. L'anti-aliasing permet de régler le problème de ``contours abruptes'' lié aux fichiers d'extensions .obj et .ply constitués de triangle en perdant en contre partie en détail.
 
 \paragraph{}
-Pour chacun des rendus, l'utilisateur a la possibilité de prévisualiser ce qu'il souhaite obtenir. Il peut également choisir de récupérer les rendus intermédiaires qui ont permis la génération des anaglyphes ou des autostéréogrammes, c'est-à-dire respectivement les vues stéréoscopiques gauche ou droite ou les cartes des profondeurs comme le montre la figure \ref{fig:depthLogiciel}.
+
+Pour chacun des rendus, l'utilisateur a la possibilité de prévisualiser ce qu'il souhaite obtenir. Il peut également choisir de récupérer les rendus intermédiaires qui ont permis la génération des anaglyphes ou des autostéréogrammes, c'est-à-dire respectivement la vue, la vue droite ou les cartes des profondeurs comme le montre la figure \ref{fig:depthLogiciel}.
 
 \begin{figure}[h]
 	\centering
@@ -53,11 +53,11 @@ Seuls les folioscopes ne proposent pas de prévisualisation avant l'enregistreme
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{testGif1.png}
-        \includegraphics[scale=0.3]{testGif3.png}
+	\includegraphics[scale=0.2]{testGif1.png}
+        \includegraphics[scale=0.2]{testGif3.png}
         \newline
-        \includegraphics[scale=0.3]{testGif5.png}
-        \includegraphics[scale=0.3]{testGif8.png}
+        \includegraphics[scale=0.2]{testGif5.png}
+        \includegraphics[scale=0.2]{testGif8.png}
 	\caption{\label{fig:flipbook_logiciel} Différentes vues d'un flipbook obtenu grâce au logiciel \protect}
 \end{figure}
 
@@ -66,13 +66,17 @@ Au final, le travail sur les algorithmes fut très enrichissant car bien plus th
 
 \begin{figure}[h]
 	\centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.3]{rendu_new.png}
+=======
+	\includegraphics[scale=0.3]{rendu.png}
+>>>>>>> 3de498cdb82dda035da56b8a0155d923a4ecab4a
 	\caption{\label{fig:screenRendu} Obtention d'un anaglyphe dans le logiciel \protect}
 \end{figure}
 
 \subsubsection{La manipulation de la scène}
 \paragraph{}
-Grâce à la rédaction du cahier des charges, les notions de scène en trois dimensions, de caméra et d'objet avaient été acquises par notre équipe avant la phase d'implémentation. Un premier prototype de la scène, présenté dans la partie Cahier des charges, aura permis une première manipulation de ces notions et des bibliothèques Qt et OpenGL pour Qt afin de créer une première scène constituée d'un seul objet. Les manipulations premières de la scène, notamment la rotation de la caméra tout autour de la scène, auront ainsi été mises en place pour pouvoir juger des capacités des bibliothèques, et déterminer la faisabilité de nos objectifs.
+Grâce à la rédaction du cahier des charges, les notions de scène en trois dimensions, de caméra et d'objet avaient été acquises par notre équipe avant la phase d'implémentation. Un premier prototype de la scène, présenté dans la partie Cahier des charges, a permis une première manipulation de ces notions et des bibliothèques Qt et OpenGL pour Qt afin de créer une première scène constituée d'un seul objet. Les manipulations premières de la scène, notamment la rotation de la caméra tout autour de la scène, auront ainsi été mises en place pour pouvoir juger des capacités des bibliothèques, et déterminer la faisabilité de nos objectifs.
 
 \paragraph{}
 Dès la fin du cahier des charges, la manipulation de la scène dans le logiciel aura été grandement modifiée. Les parseurs auront été finalisés pour pouvoir charger l'ensemble des fichiers objets demandés par les clients, et le stockage des objets aura été implémenté de telle façon que la gestion de plusieurs objets dans la scène a directement été opérationnelle. 
@@ -97,7 +101,7 @@ La fenêtre principale du logiciel est montrée dans la figure \ref{fig:screenSc
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.4]{Scene.png}
+	\includegraphics[scale=0.3]{Scene.png}
 	\caption{\label{fig:screenScene} Visualisation de la scène dans le logiciel \protect}
 \end{figure}
 
@@ -113,7 +117,7 @@ La sauvegarde manuelle s'effectue de la même façon que dans la plupart des log
 Pour la deuxième sauvegarde, nous avons dû utiliser nos connaissances acquises au cours des enseignements de Programmation Système et de Système d'Exploitation. Nous avons en effet vu d'une part comment utiliser des Threads, et d'autre part qu'un Thread en train de dormir ne demande pas d'intervention du processeur. Nous avons ainsi mis en place la création d'un Thread dès l'ajout d'un premier objet dans une scène, qui va dormir durant un certain temps avant d'effectuer une sauvegarde automatique puis de se rendormir. Cette attente passive permet ainsi de ne pas gaspiller de temps du processeur, et de conserver les avancées de la scène en cas d'arrêt non souhaité du logiciel. De plus, le temps d'attente entre deux sauvegardes automatiques peut être choisi par l'utilisateur grâce aux paramètres du logiciel.
 
 \paragraph{}
-La difficulté principale du chargement de la scène est de s'assurer de la validité du fichier XML passé en paramètre. Ainsi, de nombreuses vérifications, au fur et à mesure de la lecture du fichier, sont nécessaires afin de pouvoir créer une scène fonctionnelle. La bibliothèque QtXml aura été assez simple d'utilisation, et le chargement aura donc pu être rapidement mis en place, tout d'abord en parallèle du projet pour s'assurer que seuls les fichiers XML valides sont acceptés, puis après intégration pour s'assurer de l'appel des constructeurs et de la génération de la scène souhaitée.
+La difficulté principale du chargement de la scène est de s'assurer de la validité du fichier XML passé en paramètre. Ainsi, de nombreuses vérifications, au fur et à mesure de la lecture du fichier, sont nécessaires afin de pouvoir créer une scène fonctionnelle. La bibliothèque QtXml aura été assez simple d'utilisation, et le chargement aura donc pu être rapidement mis en place, tout d'abord en parallèle du projet pour s'assurer que seuls les fichiers XML valides soient acceptés, puis après intégration pour s'assurer de l'appel des constructeurs et de la génération de la scène souhaitée.
 
 \paragraph{}
 L'utilisation du module QtXMl aura toutefois posé problème avec l'utilisation de CMake. En effet, la plupart des informations données sur Internet permettent l'utilisation de ces modules avec QMake, et l'intégration est alors relativement simple. Pour l'intégrer à CMake, il aura fallu comprendre précisément le fonctionnement de CMake et trouver les bons noms de paquetages à intégrer afin que le module puisse être utilisé dans le logiciel.
@@ -124,14 +128,14 @@ L'architecture prévisionnelle de notre projet n'aura que peu été modifiée au
 
 \begin{figure}[h]
 		\centering
-        \includegraphics[scale=0.5]{paquetages.png}
+        \includegraphics[scale=0.4]{paquetages.png}
 		\caption{\label{fig:archi} Diagramme des paquetages en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
 
 \begin{figure}[h]
 		\centering
-		\includegraphics[scale=0.5]{f_creation.png}
+		\includegraphics[scale=0.4]{f_creation.png}
 		\caption{\label{fig:creation} Paquetage Creation en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
@@ -142,11 +146,11 @@ Le paquetage Création tel que présenté dans la figure \ref{fig:creation} n'a 
 
 Le paquetage Interface contient les classes principales permettant la génération des fenêtres du logiciel. Le logiciel QtCreator aura été utilisé pour aider à la génération des ces fichiers sources.
 
-Le paquetage Scene a quant à lui été modifié. Si nous avions initialement prévu que ce soit le Chargeur qui se charge de créer la scène et les objets qui s'y trouvent, c'est finalement la classe Scene en elle-même qui est devenue le point d'entrée du paquetage Scène. Elle se charge ensuite de transférer les informations nécessaires au Chargeur pour qu'il se puisse créer les objets. Le paquetage final de la Scène est présenté dans la figure \ref{fig:scene}.
+Le paquetage Scene a quant à lui été modifié. Si nous avions initialement prévu que ce soit le Chargeur qui se charge de créer la scène et les objets qui s'y trouvent, c'est finalement la classe Scene en elle-même qui est devenue le point d'entrée du paquetage Scène. Elle se charge ensuite de transférer les informations nécessaires au Chargeur pour qu'il puisse créer les objets. Le paquetage final de la Scène est présenté dans la figure \ref{fig:scene}.
 
 \begin{figure}[h]
 		\centering
-                \includegraphics[scale=0.5]{f_scene.png}
+                \includegraphics[scale=0.4]{f_scene.png}
 		\caption{\label{fig:scene} Paquetage Scene en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
