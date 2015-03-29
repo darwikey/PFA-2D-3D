@@ -92,7 +92,29 @@ void Creation::createWindow(bool fHasPreview){
 
 	QObject::connect(mAntialiasingBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeAntialiasing(int)));
 
+	// Image size
 
+	mWidthBox = new QDoubleSpinBox(mWindow);
+	mWidthBox->setMinimum(0.f);
+	mWidthBox->setPrefix("Largeur ");
+	mWidthBox->setSuffix(" cm");
+	mWidthBox->setValue(29.7f);
+	mWidthBox->setSingleStep(1.f);
+	mVLayoutMenu->addWidget(mWidthBox);
+	
+	QObject::connect(mWidthBox, SIGNAL(valueChanged(double)), this, SLOT(changeImageWidth(double)));
+	
+	mHeightBox = new QDoubleSpinBox(mWindow);
+	mHeightBox->setMinimum(0.f);
+	mHeightBox->setPrefix("Hauteur ");
+	mHeightBox->setSuffix(" cm");
+	mHeightBox->setValue(21.f);
+	mHeightBox->setSingleStep(1.f);
+	mVLayoutMenu->addWidget(mHeightBox);
+	
+	QObject::connect(mHeightBox, SIGNAL(valueChanged(double)), this, SLOT(changeImageHeight(double)));
+
+	
 	// Preview Image
 	if (fHasPreview){
 		mPreviewImage = new QLabel(mWindow);
@@ -183,7 +205,7 @@ void Creation::insertNewWidget(QWidget* fWidget){
 
 
 QPoint Creation::getImageSize(){
-	QPoint _point((int)(mResolution * 11.69333f), (int)(mResolution * 8.26666f));
+	QPoint _point((int)(mResolution * mImageWidth), (int)(mResolution * mImageHeight));
 	return _point;
 }
 
@@ -240,4 +262,12 @@ void Creation::changeBackgroundColor(){
     QColor _color = QColorDialog::getColor(Qt::white, mWindow, "Choisir une couleur", QColorDialog::DontUseNativeDialog);
 
 	mBackgroundColor = QVector3D(_color.red() / 255.f, _color.green() / 255.f, _color.blue() / 255.f);
+}
+
+void Creation::changeImageWidth(double fWidth) {
+  mImageWidth = fWidth / 2.54f;
+}
+
+void Creation::changeImageHeight(double fHeight) {
+  mImageHeight = fHeight / 2.54f;
 }

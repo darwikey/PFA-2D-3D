@@ -42,10 +42,8 @@ protected:
 	QLabel * mTextureStyleLabel = nullptr;
 	QLabel * mTexturePathLabel = nullptr;
 
-        QGroupBox * mChooseView = nullptr;
-        QRadioButton * mViewAutostereogram = nullptr;
-        QRadioButton * mViewDepthMap = nullptr;
-        QVBoxLayout * mViewVBox = nullptr;
+        QComboBox * mChooseView = nullptr;
+        QLabel * mChooseViewLabel = nullptr;
   
         //! \brief is true if the chosen view is the result of the chosen algorithm, false if it is the depth map
         bool mViewIsAutostereogram = true;
@@ -59,6 +57,11 @@ protected:
         //! \brief filled with the blue value of each pixel for each line of the image
 	std::vector<int> mBlue;
 
+  //! \brief resulting image's height
+  
+  
+  //! \brief resulting image's width
+  
 	const float MU = 1.f / 3.f;
 
 	private slots :
@@ -67,7 +70,7 @@ protected:
 	void changeTextureStyle(int fSelectedTextureStyle);
 
         //! \brief changes selected view (depth map or autostereogram)
-        void changeView();
+        void changeView(int fSelectedView);
 };
 
 

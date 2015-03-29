@@ -37,25 +37,15 @@ void Autostereogram::createWindow(bool fHasPreview){
 	
 	QObject::connect(mChooseTextureStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(changeTextureStyle(int)));
 
-	mChooseView = new QGroupBox("Type de vue : ");
-	mViewAutostereogram = new QRadioButton("Autostéréogramme");
-	QObject::connect(mViewAutostereogram, SIGNAL(toggled(bool)), this, SLOT(changeView()));
-
-	mViewDepthMap = new QRadioButton("Carte de profondeur");
-	QObject::connect(mViewDepthMap, SIGNAL(toggled(bool)), this, SLOT(changeView()));
-
+	mChooseViewLabel = new QLabel("Vue : ", mWindow);
+	insertNewWidget(mChooseViewLabel);
 	
-	mViewAutostereogram->setChecked(true) ;
-
-	mViewVBox = new QVBoxLayout();
-	mViewVBox->addWidget(mViewAutostereogram);
-	mViewVBox->addWidget(mViewDepthMap);
-	mViewVBox->addStretch(1);
-	
-	mChooseView->setLayout(mViewVBox);
-	
+	mChooseView = new QComboBox(mWindow);
+	mChooseView->addItem("Autostéréogramme");
+	mChooseView->addItem("Carte de profondeur");
 	insertNewWidget(mChooseView);
 
+	QObject::connect(mChooseView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeView(int)));
 
 }
 
@@ -130,7 +120,7 @@ void Autostereogram::colorRandom(int fx) {
 	}
 }
 
-void Autostereogram::changeView(){
-  mViewIsAutostereogram = mViewAutostereogram->isChecked();
+void Autostereogram::changeView(int fSelectedView){
+  mViewIsAutostereogram = (fSelectedView == 0);
   updatePreview();
 }

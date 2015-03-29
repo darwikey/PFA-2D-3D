@@ -65,19 +65,24 @@ protected:
 	QPushButton* mRenderButton = nullptr;
 	QPushButton* mSaveButton = nullptr;
 	QLabel* mPreviewImage = nullptr;
-
-
+  QDoubleSpinBox* mWidthBox = nullptr;
+  QDoubleSpinBox* mHeightBox = nullptr;
+  
 private:
-	float mResolution = 72.f;
+  float mResolution = 72.f;
 	float mGamma = 1.f;
 	int mPositionNewWidget = 9;
 	unsigned int mAntiAliasingIteration = 0;
 	const QSize mPreviewImageSize = QSize(600, 600);
-	QVector3D mBackgroundColor = QVector3D(0.5f, 0.5f, 0.5f);
-				
+	QVector3D mBackgroundColor = QVector3D(0.5f, 0.5f, 0.5f);	
+  double mImageWidth = 11.69333f;
+  double mImageHeight = 8.26666f;
+			   
 public slots:
 	void updatePreview();
-																				 
+
+			    
+								 
 private slots:
 	void changeResolution(int fResolution);
 
@@ -88,6 +93,10 @@ private slots:
 	void changeAntialiasing(int fIteration);
 
 	void changeBackgroundColor();
+
+  void changeImageWidth(double fWidth);
+
+  void changeImageHeight(double fHeight);
 };
 
 #endif
