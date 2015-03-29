@@ -41,7 +41,7 @@ Ce problème ne provenait finalement pas de l'algorithme en lui-même, mais de l
 
 \paragraph{}
 Pour chacun des rendus, l'utilisateur a la possibilité de prévisualiser ce qu'il souhaite obtenir. Il peut également choisir de récupérer les rendus intermédiaires qui ont permis la génération des anaglyphes ou des autostéréogrammes, c'est-à-dire respectivement les vues stéréoscopiques gauche ou droite ou les cartes des profondeurs comme le montre la figure \ref{fig:depthLogiciel}.
-
+\clearpage
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{depth_logiciel.png}
@@ -124,20 +124,20 @@ L'architecture prévisionnelle de notre projet n'aura que peu été modifiée au
 
 \begin{figure}[h]
 		\centering
-                \includegraphics[scale=0.5]{paquetages.png}
+        \includegraphics[scale=0.5]{paquetages.png}
 		\caption{\label{fig:archi} Diagramme des paquetages en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
 
-
-Le paquetage Création tel que présenté dans la figure \ref{fig:creation} n'a pas connu de modifications particulières. En effet, les dépendances entre les différentes classes étaient très importantes pour l'extensibilité du logiciel. Toutefois, de nouvelles classes ont été ajoutées, pour permettre la création des images et des folioscopes.
-
 \begin{figure}[h]
 		\centering
-                \includegraphics[scale=0.5]{f_creation.png}
+		\includegraphics[scale=0.5]{f_creation.png}
 		\caption{\label{fig:creation} Paquetage Creation en fin de projet \protect \footnotemark}
 \end{figure}
 \footnotetext{Réalisé grâce au logiciel Gliffy : \url{www.gliffy.com}}
+
+Le paquetage Création tel que présenté dans la figure \ref{fig:creation} n'a pas connu de modifications particulières. En effet, les dépendances entre les différentes classes étaient très importantes pour l'extensibilité du logiciel. Toutefois, de nouvelles classes ont été ajoutées, pour permettre la création des images et des folioscopes.
+
 
 
 Le paquetage Interface contient les classes principales permettant la génération des fenêtres du logiciel. Le logiciel QtCreator aura été utilisé pour aider à la génération des ces fichiers sources.
