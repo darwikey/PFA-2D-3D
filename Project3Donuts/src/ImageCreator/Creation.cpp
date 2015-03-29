@@ -142,6 +142,7 @@ std::unique_ptr<QImage> Creation::getColorMap(float fHorizontalRotation, float f
 	
 	// Create a new camera
 	Camera _camera(_sceneCamera->getPosition(), _sceneCamera->getRotation(), 60.f);
+    _camera.setLookAtPoint(_sceneCamera->getLookAtPoint());
 	_camera.translateCameraWithMouse(fTranslation.x(), fTranslation.y());
 	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
 
@@ -167,6 +168,7 @@ std::unique_ptr<QImage> Creation::getDepthMap(float fHorizontalRotation, float f
 
 	// Create a new camera
 	Camera _camera(_sceneCamera->getPosition(), _sceneCamera->getRotation(), 60.f);
+    _camera.setLookAtPoint(_sceneCamera->getLookAtPoint());
 	_camera.translateCamera(fTranslation);
 	_camera.moveCamera(fHorizontalRotation, fVerticalRotation, fZoom);
 

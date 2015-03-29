@@ -250,3 +250,8 @@ float Camera::getAngleOfView() const{
 QVector3D Camera::getLookAtPoint() const{
 	return mLookAtPoint;
 }
+
+QVector3D Camera::setLookAtPoint(QVector3D fPoint)
+{
+    mLookAtPoint=fPoint;
+}
