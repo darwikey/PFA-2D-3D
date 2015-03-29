@@ -24,6 +24,7 @@ Pour s'assurer de la portabilité du logiciel, nous avons effectué les manipula
       Système d'exploitation & Système graphique & Mémoire RAM \\ \hline \hline
       Windows 7 IntelCore I7 64bits & NVIDIA GetForce GTX 770 & 8Go DDR3 \\ \hline
       Windows 7 IntelCore I5 64bits & NVIDIA GetForce GTX 760 & 8Go DDR3 \\ \hline
+      Windows 8 64bits & GT720M & 4GoDDR3 \\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Machines de tests avec carte graphique}
@@ -40,6 +41,8 @@ Les machines de tests possédant un chipset sont données dans la figure \ref{ma
       Système d'exploitation & Système graphique & Mémoire RAM \\ \hline \hline
       Windows 7 IntelCore I5 64bits & Intel HD Graphics 4000 & 8GoDDR3 \\ \hline
       Fedora 21 IntelCore I3 64bits & Intel HD Graphics 4000 & 4GoDDR3 \\ \hline
+      Debian Jessie IntelCore I7 64 bits & Intel HD Graphics 4000 & 4GoDDR3 \\ \hline
+      ArchLinux & Intel Mobile Series 4 & \\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Machines de tests avec Chipset graphique}
@@ -47,20 +50,10 @@ Les machines de tests possédant un chipset sont données dans la figure \ref{ma
 \end{figure}
 
 \paragraph{}
-La fluidité du logiciel a été testée grâce aux modèles happy.ply et blade.ply qui avaient servi de modèles lors de la réalisation du cahier des charges. Ces objets sont respectivement composés de 543 652 sommets et de 882 954 sommets. Les valeurs de frame par seconde (fps) ont été testées grâce au logiciel Fraps\footnotemark.
-Sur une machine Windows disposant d'un chipset graphique, on obtient des résultats allant entre 30 et 55 fps pour ces deux modèles, comme le montre la figure \ref{fig:fps_windows_chipset}. 
-\footnotetext{\url{http://www.fraps.com/}}
+Nous avons pu ainsi nous assurer de la portabilité de notre logiciel sur la plupart des machines présentées dans le cahier des charges. Toutefois, le logiciel n'a pas pu être testé sur la machine Windows XP 32bits qui était prévue à cause de difficultés avec les outils du logiciel, notamment pour l'utilisation de CMake.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.3]{happy_fps.png}
-        \includegraphics[scale=0.3]{blade_fps.png}
-       	\caption{\label{fig:fps_windows_chipset} Test de fps sur une machine Windows avec chipset graphique\protect}
-\end{figure}
-[RESULTATS WINDOWS/LINUX/CHIPSET]
-[RESULTAT SANS CHIPSET]
-
-Le cahier des charges prévoyaient un affichage de 25fps pour un nombre de sommets au moins cinq fois inférieur à celui de 'happy.ply' (prévision de 25 fps pour 100 000 sommets avec un chipset graphique, alors qu'on en obtient cette fluidité pour plus de 500 000 points). Ce même test de fluidité a été réalisé sur d'autres machines de notre équipe, sur les modèles présentés dans la figure \ref{fig:modeles}. Les résultats sont donnés dans la figure \ref{fig:fps_cg} pour les machines avec carte graphique, et dans la figure \ref{fig:fps_chip} pour les machines avec chipset.
+\paragraph{}
+La fluidité du logiciel a été testée grâce aux modèles happy.ply et blade.ply qui sont présentés dans la figure \ref{fig:modeles}. Les valeurs de frame par seconde (fps) ont été testées grâce au logiciel Fraps\footnotemark. Les résultats sont donnés dans la figure \ref{fig:fps_cg} pour les machines avec carte graphique, et dans la figure \ref{fig:fps_chip} pour les machines avec chipset.
 
 \begin{figure}[h]
   \begin{changemargin}{-4cm}{-4cm}
@@ -84,8 +77,8 @@ Le cahier des charges prévoyaient un affichage de 25fps pour un nombre de somme
       Système d'exploitation & Windows 7 IntelCore I7 64bits & Windows 7 IntelCore I5 64bits & Windows 8 64bits\\ \hline
       Carte graphique &  NVIDIA GetForce GTX 770 & NVIDIA GetForce GTX 760 & GT360M \\ \hline
       Mémoire RAM & 8GoDDR3 & 8GoDDR3 & 4GoDDR3 \\ \hline \hline
-      happy.ply & 60 & 60 & 84 \\ \hline
-      blade.ply & 60 & 60 & 60\\ \hline
+      happy.ply & 60fps & 60fps & 84fps \\ \hline
+      blade.ply & 60fps & 60fps & 60fps\\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Test de fluidité sur les machines avec carte graphique}
@@ -95,13 +88,13 @@ Le cahier des charges prévoyaient un affichage de 25fps pour un nombre de somme
 \begin{figure}[h]
   \begin{changemargin}{-4cm}{-4cm}
     \centering
-    \begin{tabular}{|l|c|c|c|}
+    \begin{tabular}{|l|c|c|c|c|}
       \hline
-      Système d'exploitation & Windows 7 IntelCore I5 64bits & Fedora 21 IntelCore I3 64bits & ArchLinux\\ \hline
-      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 40008GoDDR3 & Intel Mobile Series 4 \\ \hline
-      Mémoire RAM & 8GoDDR3 & 4GoDDR3  & \\ \hline \hline
-      happy.ply & 55 & 60 & 8\\ \hline
-      blade.ply & 35 & 50 & 5\\ \hline
+      Système d'exploitation & Windows 7 IntelCore I5 & Fedora 21 IntelCore I3 & Debian Jessie IntelCore I7 & ArchLinux \\ \hline
+      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 4000 & Intel HD Graphics 4000 & Intel Mobile Series 4 \\ \hline
+      Mémoire RAM & 8GoDDR3 & 4GoDDR3  & 6GoDDR3 & -\\ \hline \hline
+      happy.ply & 55fps & 60fps & 47fps & 8fps\\ \hline
+      blade.ply & 35fps & 50fps & 32fps & 5fps\\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Test de fluidité sur les machines avec chipset graphique}
@@ -109,7 +102,7 @@ Le cahier des charges prévoyaient un affichage de 25fps pour un nombre de somme
 \end{figure}
 
 \paragraph{}
-L'ensemble de ces tests auront permis de s'assurer de la conformité de notre projet au Cahier des charges. 
+Notre cahier des charges prévoyait pour les machines à carte graphique une fluidité de 25 fps pour un minimum de 350 000 points, et pour les machines à chipset graphique une fluidité de 25 fps pour un minimum de 100 000 sommets. La seule machine qui ne parvient pas à ces capacités est celle utilisant ArchLinux comme système d'exploitation. Toutefois, lors des essais pour le cahier des charges, cette machine ne permettait pas l'ouverture du fichier 'happy.ply' sous Meshlab, et avait été mise à l'écart car son chipset était moins récent qu'un chipset Inter HD Graphics 4000. Le logiciel répond donc bien aux besoins en fluidité demandé dans le cahier des charges.
 
 \subsubsection{Test de charge}
 Pour tester les limites de notre logiciel, nous avons choisi d'importer plusieurs exemplaires d'un même modèle, 'happy.ply' présenté dans la figure \ref{fig:modeles}, dans une scène. Les résultats de ce test de charge sont donnés dans la figure \ref{fig:charge_cg} pour les machines avec carte graphique, et dans la figure \ref{fig:charge_chip} pour les machines avec chipset.
@@ -122,14 +115,14 @@ Pour tester les limites de notre logiciel, nous avons choisi d'importer plusieur
       Système d'exploitation & Windows 7 IntelCore I7 64bits & Windows 7 IntelCore I5 64bits & Windows 8 64 bits\\ \hline
       Carte graphique &  NVIDIA GetForce GTX 770 & NVIDIA GetForce GTX 760 & GT360M\\ \hline
       Mémoire RAM & 8GoDDR3 & 8GoDDR3 & 4GoDDR3 \\ \hline \hline
-      543 652 sommets (1fois) & 60 & 60 & 84 \\ \hline
-      1 087 304 sommets (2fois) & 60 & 60 & 44 \\ \hline
-      1 630 956 sommets (3fois) & 60 & 60 & 30 \\ \hline
-      2 174 608 sommets (4fois) & 60 & 60 & 23 \\ \hline
-      2 718 260 sommets (5fois) & 60 & 60 & Out of Memory \\ \hline
-      3 261 912 sommets (6fois) & 60 & 60 & Out of Memory \\ \hline
-      3 805 564 sommets (7fois) & 60 & 60 & Out of Memory \\ \hline
-      4 349 216 sommets (8fois) & Out of Memory & 60 & Out of Memory  \\ \hline
+      543 652 sommets (1fois) & 60fps & 60fps & 84fps \\ \hline
+      1 087 304 sommets (2fois) & 60fps & 60fps & 44fps \\ \hline
+      1 630 956 sommets (3fois) & 60fps & 60fps & 30fps \\ \hline
+      2 174 608 sommets (4fois) & 60fps & 60fps & 23fps \\ \hline
+      2 718 260 sommets (5fois) & 60fps & 60fps & Out of Memory \\ \hline
+      3 261 912 sommets (6fois) & 60fps & 60fps & Out of Memory \\ \hline
+      3 805 564 sommets (7fois) & 60fps & 60fps & Out of Memory \\ \hline
+      4 349 216 sommets (8fois) & Out of Memory & 60fps & Out of Memory  \\ \hline
       4 892 868 sommets (9 fois) & Out of Memory & Out of Memory & Out of Memory \\ \hline
     \end{tabular}
   \end{changemargin}
@@ -140,24 +133,55 @@ Pour tester les limites de notre logiciel, nous avons choisi d'importer plusieur
 \begin{figure}[h]
   \begin{changemargin}{-4cm}{-4cm}
     \centering
-    \begin{tabular}{|l|c|c|c|}
+    \begin{tabular}{|l|c|c|c|c|}
       \hline
-      Système d'exploitation & Windows 7 IntelCore I5 64bits & Fedora 21 IntelCore I3 64bits & ArchLinux\\ \hline
-      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 4000 & Intel Mobile Series 4 \\ \hline
-      Mémoire RAM & 8GoDDR3 & 4GoDDR3 & \\ \hline \hline
-      543 652 sommets (1fois) & 55 & 60 & 8\\ \hline
-      1 087 304 sommets (2fois) & 29 & 34 & Out of Memory\\ \hline
-      1 630 956 sommets (3fois) & 20 & 22 & Out of Memory \\ \hline
-      2 174 608 sommets (4fois) & 15 & 16 & Out of Memory \\ \hline
-      2 718 260 sommets (5fois) & Out of Memory & 13 & Out of Memory \\ \hline
-      3 261 912 sommets (6fois) & Out of Memory & 10 & Out of Memory \\ \hline
-      3 805 564 sommets (7fois) & Out of Memory & 9 & Out of Memory \\ \hline
-      4 349 216 sommets (8fois) & Out of Memory & 6 & Out of Memory \\ \hline
-      4 892 868 sommets (9 fois) & Out of Memory & Out of Memory & Out of Memory \\ \hline
+      Système d'exploitation & Windows 7 IntelCore I5 & Fedora 21 IntelCore I3 & Debian Jessie IntelCore I7 & ArchLinux\\ \hline
+      Chipset graphique &  Intel HD Graphics 4000 & Intel HD Graphics 4000 & Intel HD Graphics 4000 & Intel Mobile Series 4 \\ \hline
+      Mémoire RAM & 8GoDDR3 & 4GoDDR3 & 4GoDDR3 & \\ \hline \hline
+      543 652 sommets (1fois) & 55fps & 60fps & 47fps & 8fps\\ \hline
+      1 087 304 sommets (2fois) & 29fps & 34fps & 24fps & Out of Memory\\ \hline
+      1 630 956 sommets (3fois) & 20fps & 22fps & 16fps & Out of Memory \\ \hline
+      2 174 608 sommets (4fois) & 15fps & 16fps & 11fps & Out of Memory \\ \hline
+      2 718 260 sommets (5fois) & Out of Memory & 13fps & 9fps & Out of Memory \\ \hline
+      3 261 912 sommets (6fois) & Out of Memory & 10fps & Out of Memory & Out of Memory \\ \hline
+      3 805 564 sommets (7fois) & Out of Memory & 9fps & Out of Memory & Out of Memory \\ \hline
+      4 349 216 sommets (8fois) & Out of Memory & 6fps & Out of Memory & Out of Memory \\ \hline
+      4 892 868 sommets (9 fois) & Out of Memory & Out of Memory & Out of Memory & Out of Memory \\ \hline
     \end{tabular}
   \end{changemargin}
   \caption{Test de charge sur les machines avec chipset graphique}
   \label{tab:fps_chip}
+\end{figure}
+
+\paragraph{}
+Ce test de charge montre que les performances de notre logiciel sont bien supérieures à celles que nous espérions au moment de la rédaction du Cahier des charges. Toutefois, on remarque qu'à partir d'un certain nombre de points, le logiciel ne parvient plus à charger les objets faute de mémoire. En effet, chaque point est stocké en mémoire, ce qui prend de plus en plus de place et cause l'arrêt du logiciel lorsqu'il n'y a plus de place. 
+
+\paragraph{}
+Une amélioration a pu être faite sur le logiciel pour permettre le chargement de plus de points, grâce aux shaders. En effet, lors de l'affichage, les données à utiliser sont envoyées à la carte ou au processeur graphique qui les stocke. Cette méthode améliore la fluidité d'affichage car si ces données devaient être envoyées depuis le processeur jusqu'à la carte graphique à chaque rafraîchissement de la fenêtre, le rendu serait nettement moins rapide. Un autre effet positif de ce stockage dans la carte graphique est que les données n'ont plus besoin d'être stockées en mémoire une fois qu'elles ont été envoyées. Le processeur peut donc les libérer pour créer de nouveaux points, et augmenter le nombre de points possibles dans le scène, comme le montre les deux exemples fournis dans la figure \ref{fig:charge_v2}.
+
+\begin{figure}[h]
+  \begin{changemargin}{-4cm}{-4cm}
+    \centering
+    \begin{tabular}{|l|c|c|}
+      \hline
+      Système d'exploitation & Windows 7 IntelCore I7 64bits & Windows 7 IntelCore I5 64bits\\ \hline
+      Carte graphique &  NVIDIA GetForce GTX 770 & Intel HD Graphics 4000\\ \hline
+      Mémoire RAM & 8GoDDR3 & 8GoDDR3 \\ \hline \hline
+      543 652 sommets (1fois) & 60fps & 55fps \\ \hline
+      1 087 304 sommets (2fois) & 60fps & 29fps \\ \hline
+      2 718 260 sommets (5fois) & 60fps & 12fps \\ \hline
+      4 349 216 sommets (8fois) & 60fps & 8fps  \\ \hline
+      4 892 868 sommets (9 fois) & 60fps  & Out of Memory \\ \hline
+      7 067 476 sommets (13 fois) & 30fps & Out of Memory \\ \hline
+      7 611 128 sommets (14 fois) & 25fps & Out of Memory \\ \hline
+      8 154 780 sommets (15 fois) & 20fps & Out of Memory \\ \hline
+      10 873 040 sommets (20 fois) & 11fps & Out of Memory \\ \hline
+      13 591 300 sommets (25 fois) & 9fps & Out of Memory \\ \hline
+      14 134 952 sommets (26 fois) & Out of Memory & Out of Memory \\ \hline
+    \end{tabular}
+  \end{changemargin}
+  \caption{Test de charge sur les machines avec carte graphique}
+  \label{tab:fps_cg}
 \end{figure}
 
 \subsubsection{Tests de profilage}

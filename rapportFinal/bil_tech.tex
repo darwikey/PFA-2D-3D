@@ -2,10 +2,10 @@
 Au final, l'ensemble des manipulations de la scène et de ses objets qui avaient été promises dans le cahier des charges ont été implémentées. De même, l'ensemble des rendus prévu est générable à partir de la scène, deux algorithmes de génération sont proposés pour les autostéréogrammes et trois pour les anaglyphes.
 
 \paragraph{}
-Au niveau des besoins non fonctionnels, la portabilité aura été respectée malgré l'utilisation des shaders qui auraient pu poser problème sur certaines machines. Grâce aux nombreux modules proposés par la bibliothèque Qt, portable et très complète, des solutions auront été trouvées pour l'ensemble des modules et des cas d'utilisation sans avoir à sacrifier de fonctionnalité pour permettre l'utilisation du logiciel aussi bien sous Windows que sous Linux.
+Au niveau des besoins non fonctionnels, la portabilité aura été presque respectée malgré l'utilisation des shaders qui auraient pu poser problème sur certaines machines. Grâce aux nombreux modules proposés par la bibliothèque Qt, portable et très complète, des solutions auront été trouvées pour l'ensemble des modules et des cas d'utilisation sans avoir à sacrifier de fonctionnalité pour permettre l'utilisation du logiciel aussi bien sous Windows que sous Linux. La seule exception reste la machine Windows XP 32 bits qui avait été prévue lors de la phase du Cahier des Charges, car cette machine n'a pas pu être testée à cause de difficultés avec les outils utilisés, notamment CMake.
 
 \paragraph{}
-Bien que l'indication ne soit pas donnée dans le logiciel, l'utilisation de Project3Donuts en parallèle de l'utilisation du logiciel Fraps\footnotemark nous a permis de vérifier la fluidité du logiciel. Grâce notamment aux modèles 'happy.ply' et 'blade.ply' présentés dans le cahier des charges, les valeurs de frames par seconde données dans le cahier des charges ont été validées.
+Bien que l'indication ne soit pas donnée dans le logiciel, l'utilisation de Project3Donuts en parallèle de l'utilisation du logiciel Fraps\footnotemark nous a permis de vérifier la fluidité du logiciel. Grâce notamment aux modèles 'happy.ply' et 'blade.ply' présentés dans le cahier des charges, les valeurs de frames par seconde données dans le cahier des charges ont été largement validées sur l'ensemble des machines.
 \footnotetext{\url{http://www.fraps.com/}}
 \paragraph{}
 Enfin, la maintenabilité du logiciel sera également possible grâce au choix des outils et à l'architecture du projet. 
@@ -13,5 +13,5 @@ Tout d'abord, l'utilisation de Qt5, qui est actuellement la plus récente versio
 L'architecture a également été pensée pour permettre cette maintenabilité. En effet, la présence des différents rendus et de plusieurs algorithmes pour chaque rendu montre bien qu'il est aisé d'en ajouter de nouveau.
 
 \paragraph{}
-Ce bilan positif montre que l'ensemble des besoins fonctionnels et non fonctionnels ciblés dans le cahier des charges ont été implémentés avec succès. Nous espérons que ce projet sera réutilisé et maintenu, puisqu'il a été conçu dans cette optique. Il sera éventuellement possible de créer une application mobile à partir du code existant, ou d'ajouter et de tester d'autres algorithmes ou d'autre rendus possibles à partir d'une scène en trois dimensions. Nous espérons également que nos clients auront été satisfaits du travail réalisé et du logiciel final. 
+Ce bilan positif montre qu'une très grande majorité des besoins fonctionnels et non fonctionnels ont pu être mis en place dans notre logiciel. Nous espérons que ce projet sera réutilisé et maintenu, puisqu'il a été conçu dans cette optique. Il sera éventuellement possible de créer une application mobile à partir du code existant, ou d'ajouter et de tester d'autres algorithmes ou d'autre rendus possibles à partir d'une scène en trois dimensions. Nous espérons également que nos clients auront été satisfaits du travail réalisé et du logiciel final. 
 
