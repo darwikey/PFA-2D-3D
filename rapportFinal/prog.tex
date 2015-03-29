@@ -31,32 +31,33 @@ Pour pouvoir permettre à l'utilisateur de notre logiciel d'obtenir des anaglyph
 \paragraph{}
 Cet exercice s'est révélé assez complexe car le travail de recherche qui s'y rapporte a été long, et il était parfois difficile de trouver les bonnes informations pour répondre à nos interrogations. Nos clients nous auront longuement accompagné dans notre travail de recherche, et nous auront conseillés sur des outils pour trouver des articles pertinants. Cette partie ``Recherche de l'existant'', qui s'est principalement déroulée durant la phase de rédaction du cahier des charges, aura été formatrice car elle nous aura appris à utiliser les bons outils (comme google scholar\footnotemark) et les bons mots-clés pour rendre nos recherches fructueuses.
 \footnotetext{\url{http://scholar.google.fr/schhp?hl=fr}}
+
 \paragraph{}
 Une fois les algorithmes choisis, l'utilisation de cartes de profondeurs et de paires d'images stéréoscopiques trouvées sur Internet ont permis de faire des tests sur des prototypes indépendants du logiciel final. Leur implémentation s'est faite durant le dernier mois du projet. Il a donc fallu définir les entrées et les sorties pour chaque méthode, afin de satisfaire l'architecture du projet et de faciliter par la suite l'intégration d'autres algorithmes dans le logiciel.
 La partie gérant la scène est considérée comme une boite noire avec laquelle les algorithmes de rendus intéragissent. Seules les entrées et les sorties sont connues ce qui permet de garantir la modularité de la partie Rendu. 
 
-\paragraph{}
+
 Malgré les tests de pré-intégration faits sur les prototypes, des problèmes ont été rencontrés au moment de l'implémentation. Par exemple, pour les anaglyphes, le passage à l'utilisation de prises de vues issues de scènes non-réelles donnait des résultats de moins bonne qualité. Le fond blanc génant la bonne observation de la 3D, nous avons opté pour un fond plus gris par défaut et pouvant être changé. Trouver le bon angle pour les couples d'images stéréoscopiques n'était pas non plus une chose aisée. L'anti-aliasing permet de régler le problème de ``contours abruptes'' lié aux fichiers d'extensions .obj et .ply constitués de triangle en perdant en contre partie en détail.
 
-\paragraph{}
+
 Pour chacun des rendus, l'utilisateur a la possibilité de prévisualiser ce qu'il souhaite obtenir. Il peut également choisir de récupérer les rendus intermédiaires qui ont permis la génération des anaglyphes ou des autostéréogrammes, c'est-à-dire respectivement la vue, la vue droite ou les cartes des profondeurs comme le montre la figure \ref{fig:depthLogiciel}.
-\clearpage
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.4]{depth_logiciel.png}
+	\includegraphics[scale=0.3]{depth_logiciel.png}
 	\caption{\label{fig:depthLogiciel} Carte des profondeurs permettant d'obtenir un autostéréogramme \protect}
 \end{figure}
 
-\paragraph{}
+
 Seuls les folioscopes ne proposent pas de prévisualisation avant l'enregistrement. Toutefois, ils proposent eux aussi d'enregistrer soit un GIF animé, soit l'ensemble des vues isolées, comme celles montrées dans la figure \ref{fig:flipbook_logiciel}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{testGif1.png}
-        \includegraphics[scale=0.2]{testGif3.png}
-        \newline
-        \includegraphics[scale=0.2]{testGif5.png}
-        \includegraphics[scale=0.2]{testGif8.png}
+    \includegraphics[scale=0.2]{testGif3.png}
+    \newline
+    \includegraphics[scale=0.2]{testGif5.png}
+    \includegraphics[scale=0.2]{testGif8.png}
 	\caption{\label{fig:flipbook_logiciel} Différentes vues d'un flipbook obtenu grâce au logiciel \protect}
 \end{figure}
 
@@ -65,7 +66,7 @@ Au final, le travail sur les algorithmes fut très enrichissant car bien plus th
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.3]{rendu.png}
+	\includegraphics[scale=0.3]{rendu_new.png}
 	\caption{\label{fig:screenRendu} Obtention d'un anaglyphe dans le logiciel \protect}
 \end{figure}
 
