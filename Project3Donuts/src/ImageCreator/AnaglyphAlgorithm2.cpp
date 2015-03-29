@@ -46,18 +46,23 @@ std::unique_ptr<CreationFile> AnaglyphAlgorithm2::renderAnaglyph(){
     {
       for(int j=0; j<_image->size().width(); j++)
         {
+          //applies Gamma correction to the Left image
           applyGamma(_left->pixel(j,i), _rgbLeft);
           modifyLeftImage(_rgbLeft);
 
+          //applies Gamma correction to the Right image
           applyGamma(_right->pixel(j,i), _rgbRight);
           modifyRightImage(_rgbRight);
 
+          //Add the two matrix (left view and right view)
           for(int k=0; k<3; k++)
             {
               _rgb[k] = _rgbLeft[k] + _rgbRight[k];
             }
 
           value = applyGammaRevert(_rgb);
+
+          //Set result pixel in the image destination
           _image->setPixel(j,i,value);
         }
     }
@@ -80,6 +85,7 @@ void AnaglyphAlgorithm2::modifyLeftImage(float *fRgb){
   fRgb[1] = std::max(std::min(_vector(1,0), 1.f), 0.f);
   fRgb[2] = std::max(std::min(_vector(2,0), 1.f), 0.f);
 }
+
 
 void AnaglyphAlgorithm2::modifyRightImage(float *fRgb){
 
