@@ -49,7 +49,7 @@ CMake étant très peu utilisé pour la bibliothèque Qt, il est parfois diffici
 \paragraph{}
 Tout au long de la réalisation du logiciel, il nous aura souvent fallu corriger des passages de code pour permettre la portabilité aussi bien sous Windows que sous Linux. 
 \paragraph{}
-Un premier problème de portabilité s'est présenté avec les shaders, comme nous l'avons expliqué plus haut. Les machines portables avec la technologie Optimus rencontre des problèmes de ``switch'' sous linux entre le processeur graphiuque intégré et celui de la carte graphique. Il a fallu utiliser une version plus ancienne pour s'assurer que le logiciel fonctionne.
+Un premier problème de portabilité s'est présenté avec les shaders, comme nous l'avons expliqué plus haut. Les machines portables avec la technologie Optimus rencontre des problèmes de ``switch'' sous linux entre le processeur graphiuque intégré et celui de la carte graphique. Il a fallu utiliser une version plus ancienne pour s'assurer que le logiciel fonctionne. Malgré cette modification, quelques problèmes d'affichage subsistent encore sous Linux, mais ils n'empêchent pas la bonne exécution de l'application.
 
 \paragraph{}
 Un autre cas a eu lieu lors de l'utilisation de threads pour la sauvegarde automatique. La fonction sleep() avait d'abord été utilisée, mais celle-ci ne fonctionnait que sous Linux ou avec le compilateur GCC sous Windows. Nous avons donc dû le remplacerpar l'appel de C++ sleep\_for, que l'on trouve dans le namespace this\_thread. 
