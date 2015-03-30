@@ -107,7 +107,7 @@ La fluidité du logiciel a été testée grâce aux modèles happy.ply et blade.
 \paragraph{}
 Notre cahier des charges prévoyait pour les machines à carte graphique une fluidité de 25 fps pour un minimum de 350 000 points, et pour les machines à chipset graphique une fluidité de 25 fps pour un minimum de 100 000 sommets. La seule machine qui ne parvient pas à ces capacités est celle utilisant ArchLinux comme système d'exploitation. Toutefois, lors des essais pour le cahier des charges, cette machine ne permettait pas l'ouverture du fichier 'happy.ply' sous Meshlab, et avait été mise à l'écart car son chipset était moins récent qu'un chipset Inter HD Graphics 4000. Le logiciel répond donc bien aux besoins en fluidité demandé dans le cahier des charges.
 
-\subsubsection{Test de charge}
+\subsubsection{Tests de charge}
 Pour tester les limites de notre logiciel, nous avons choisi d'importer plusieurs exemplaires d'un même modèle, 'happy.ply' présenté dans la figure \ref{tab:modeles}, dans une scène. Les résultats de ce test de charge sont donnés dans la figure \ref{tab:charge_cg} pour les machines avec carte graphique, et dans la figure \ref{tab:charge_chip} pour les machines avec chipset.
 
 \begin{figure}[h]
@@ -190,5 +190,5 @@ Une amélioration a pu être faite sur le logiciel pour permettre le chargement 
 \subsubsection{Tests de profilage}
 \paragraph{}
 Pour s'assurer de la qualité du code, nous avons choisi d'utiliser l'outil Valgrind. Celui-ci permet notamment de détecter des fuites mémoire dans le déroulement du logiciel. Si toutes n'ont pas pu être évitées, l'utilisation des \texttt{std::unique\_ptr} a permis de s'assurer que certaines instances ne pouvaient pas être dupliquées. Nous avons ainsi pu éviter de nombreuses fuites mémoires.
-
+\clearpage
 
