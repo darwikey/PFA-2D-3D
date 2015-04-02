@@ -1,0 +1,483 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{enumerate}
+\usepackage{array,multirow,colortbl}
+\usepackage{enumitem}
+\usepackage{animate}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{cite}
+\usepackage[numbers]{natbib}
+\usepackage[T1]{fontenc}
+\usepackage[default]{gillius}
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[PFA 2014-2015]{PFA 2014-2015 \\ \huge De la 3D vers la 2D} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Anaïs Boher, Yohann Cabon, Magali Chauvat, Akané Levy, Thomas Marcelin, Xavier Maupeu, Alexandre Philippi} 
+
+\institute[Enseirb-Matmeca] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{École Nationale Supérieur d'Électronique, Informatique, Télécommunications, Mathématique et Mécanique de Bordeaux
+}
+\date{} %2014-2015} % Date, can be changed to a custom date
+
+\begin{document}
+\graphicspath{{./images/}{.}}
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\begin{figure}[b]
+\includegraphics[scale=0.4]{logo.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Plan}
+\begin{itemize}[label=$\bullet$]
+  \item Présentation du sujet
+  \item Besoins non fonctionnels et contraintes
+  \item Besoins fonctionnels
+  \item Présentation du logiciel
+  \item Présentation des rendus
+  \item Difficultés rencontrées
+  \item Bilan technique 
+  \item Gestion de projet 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Présentation du sujet}
+\begin{itemize}[label=$\bullet$]
+\item Project3Donuts
+\item Scène 3D
+\item Synthèse d'images, anaglyphes, autostéréogrammes, flipbooks
+\end{itemize}
+\arrayrulecolor{white}
+\begin{tabular}{l|r}
+\includegraphics[scale=0.25]{donuts_photoshop.png}
+&
+\includegraphics[scale=0.25]{autostereogramme1texture.png}
+\end{tabular}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Présentation du sujet}
+\begin{itemize}[label=$\bullet$]
+\item Flipbooks
+\end{itemize}
+\begin{tabular}{l|c|r}
+\includegraphics[scale=0.15]{flip1.png}
+&
+\includegraphics[scale=0.15]{flip2.png}
+&
+\includegraphics[scale=0.15]{flip3.png}
+\end{tabular}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Besoins non fonctionnels et contraintes}
+\begin{itemize}[label=$\bullet$]
+\item Extensibilité
+\end{itemize}
+\centering
+\includegraphics[scale=0.25]{extensibilite.png}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Besoins non fonctionnels et contraintes}
+\begin{itemize}[label=$\bullet$]
+\item Portabilité
+\end{itemize}
+\centering
+\includegraphics[scale=0.7]{portabilite.png}
+\\
+Même screen sous Linux 
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Besoins non fonctionnels et contraintes}
+\begin{itemize}[label=$\bullet$]
+\item Fluidité
+\end{itemize}
+\centering
+\includegraphics[scale=0.7]{fluidite.png}
+\\
+Même screen avec cg 
+\end{frame}
+
+%%------------------------------------------------
+
+\begin{frame}
+\frametitle{Besoins fonctionnels}
+\begin{itemize}[label=$\bullet$]
+\item Manipulation d'une scène en trois dimensions
+\item Manipulation de plusieurs objets
+\item Sauvegardes et chargement
+\item Rendus
+\end{itemize}
+\end{frame}
+
+%%------------------------------------------------
+
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\includegraphics[scale=0.22]{logiciel.png}
+\end{frame}
+
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+
+\centering
+\includegraphics[scale=0.3]{logiciel1.png}
+\end{frame}
+
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+
+\centering
+\animategraphics[autoplay,loop,height=3cm]{1}{gifimages/rendu_gif_}{00}{49}
+
+\end{frame}
+
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+\item Anaglyphes : Méthode Photoshop \cite{stereoAnaglyph}
+	\begin{itemize}[label=$\circ$]
+	\item Algorithme "de base"
+	\item Composé de trois étapes 
+	\item Première étape : translation de la prise de vue d'une distance proche à celles entre les yeux 
+	\end{itemize}
+\end{itemize}
+\begin{tabular}{l|r}
+\includegraphics[scale=0.15]{flip1.png}
+vue gauche
+&
+\includegraphics[scale=0.15]{flip2.png}
+vue droite
+\end{tabular}
+\end{frame}
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+\item Anaglyphes : Méthode Photoshop \cite{stereoAnaglyph}
+	\begin{itemize}[label=$\circ$]
+	\item Deuxième étape : extraction du canal rouge pour la vue gauche, canaux verts et bleus pour la vue droite 
+	\end{itemize}
+\end{itemize}
+\begin{tabular}{l|r}
+\includegraphics[scale=0.15]{flip1.png}
+&
+\includegraphics[scale=0.15]{flip2.png}
+\end{tabular}
+\end{frame}%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+\item Anaglyphes : Méthode Photoshop \cite{stereoAnaglyph}
+	\begin{itemize}[label=$\circ$]
+	\item Troisième étape : reconstitution des canaux RGB à partir des deux images
+	\end{itemize}
+
+\centering
+\includegraphics[scale=0.25]{donuts_photoshop.png}
+	\begin{itemize}[label=$\circ$]
+	\item Méthode efficace pour des objets simples ayant peu de détails
+	\end{itemize}
+\end{itemize}
+\end{frame}
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+\item Anaglyphes : Méthode Dubois \cite{algoDubois}
+	\begin{itemize}[label=$\circ$]
+	\item Algorithme plus élaboré
+	\item Conservation des détails de l'objet dans l'anaglyphe 
+	\end{itemize}
+\end{itemize}
+\centering
+\includegraphics[scale=0.35]{happy_dubois.png}
+
+\end{frame}
+
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+\item Autostéréogrammes : Algorithme de Thimbelby, Inglis, Witten \cite{stereogram}
+	\begin{itemize}[label=$\circ$]
+	\item Algorithme "de base"
+	\item Plus adapté aux formes simples et peu détaillés
+	\end{itemize}
+\end{itemize}
+\begin{tabular}{l|r}
+\centering
+\includegraphics[scale=0.22]{donutdepth.png}
+&
+\centering
+\includegraphics[scale=0.22]{donut1.png}
+\end{tabular}
+
+\end{frame}
+
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+	\item Autostéréogrammes : Algorithme de W.A Steer \cite{wasteer}
+	\begin{itemize}[label=$\circ$]
+	\item Algorithme plus élaboré
+	\item Amélioration 3D : oversampling
+	\item Amélioration 2D : coloration symétrique
+	\end{itemize}
+\end{itemize}
+\begin{tabular}{l|r}
+\includegraphics[scale=0.22]{donutdepth.png}
+&
+\includegraphics[scale=0.22]{donut2.png}
+\end{tabular}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Difficultés rencontrées}
+\begin{itemize}[label=$\bullet$]
+\item Utilisation des shaders
+\item Portabilité Windows/Linux
+\item Recherche des algorithmes
+\end{itemize}
+\begin{tabular}{l|r}
+\includegraphics[scale=0.315]{rendu_sans_shader.png}
+&
+\includegraphics[scale=0.20]{singe_shaders.png}
+\end{tabular}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Bilan technique}
+\begin{itemize}[label=$\bullet$]
+\item Besoins fonctionnels
+	\begin{itemize}[label=$\circ$]
+	\item Manipuation de la scène
+	\item Manipulation des objets
+	\item Sauvegardes et chargement
+	\item Anaglyphes, autostéréogrammes, flipbook
+	\end{itemize}
+\item Besoins non fonctionnels
+	\begin{itemize}[label=$\circ$]
+	\item Extensibilité
+	\item Portabilité
+	\item Fluidité
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%------------------------------------------------%
+
+\begin{frame}
+\frametitle{Gestion de projet}
+\begin{itemize}[label=$\bullet$]
+\item Cahier des charges
+	\begin{itemize}[label=$\circ$]
+	\item Recherche de l'existant
+	\item Définition des besoins fonctionnels et non fonctionnels
+	\item Prototypes de tests
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Gestion de projet}
+\begin{itemize}[label=$\bullet$]
+\item Réalisation du diagramme de Gantt
+\end{itemize}
+{\fontsize{7}{8}\selectfont
+\arrayrulecolor{black}
+\begin{tabular}{lcr}
+
+\textbf{Tâche} & \textbf{Durée Prévisionnelle} & \textbf{Durée réelle} \\
+\\
+\hline
+\\
+Recherche et implémentation \\des algorithmes &
+4 semaines & 13 semaines \\
+\hline
+\\
+Insertion de plusieurs objets \\ dans une scène &
+3 semaines en fin de projet & 
+1 semaine et demie \\ inclus dans 
+une autre tâche \\ en début de projet \\
+\hline
+\\
+Génération des flipbooks & 2semaines & 2 semaines \\
+\hline
+\\
+Sauvegarde et chargement & 2 semaines puis 3 semaines &
+7 semaines dont 4 effectives \\
+\hline
+\\
+Prise de décision pour les shaders & X & 3 semaines\\
+
+\end{tabular}
+}
+\end{frame}
+
+%%------------------------------------------------%
+
+\begin{frame}
+\frametitle{Gestion de projet}
+\begin{itemize}[label=$\bullet$]
+\item Intérêts de ce projet
+	\begin{itemize}[label=$\circ$]
+	\item Projet de taille importante et équipe nombreuse
+	\item Développement en méhode "agile"
+	\end{itemize}
+\item Quelques difficultés
+	\begin{itemize}[label=$\circ$]
+	\item Appréciation des durée des tâches
+	\item Gestion d'équipe
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Conclusion}
+\begin{itemize}[label=$\bullet$]
+\item Première rédaction d'un cahier des charges
+\item Projet proches des conditions en entreprise
+\item Découverte de la synthèse d'image
+\end{itemize}
+\end{frame}
+
+%%------------------------------------------------
+%
+\frame[allowframebreaks]{\frametitle{Bibliographie}
+	\bibliographystyle{unsrtnat}
+	\bibliography{bibli}
+	}
+	
+%------------------------------------------------
+	%
+\begin{frame}
+\Huge{\centerline{Merci pour votre attention}}
+\centering
+\includegraphics[scale=0.35]{happy_dubois.png}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
