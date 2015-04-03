@@ -98,7 +98,7 @@
 \author{Anaïs Boher, Yohann Cabon, Magali Chauvat, Akané Levy, Thomas Marcelin, Xavier Maupeu, Alexandre Philippi} 
 
 \institute[Enseirb-Matmeca] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
-{École Nationale Supérieur d'Électronique, Informatique, Télécommunications, Mathématique et Mécanique de Bordeaux
+{École Nationale Supérieure d'Électronique, Informatique, Télécommunications, Mathématique et Mécanique de Bordeaux
 }
 \date{} %2014-2015} % Date, can be changed to a custom date
 
@@ -110,8 +110,9 @@
 \includegraphics[scale=0.4]{logo.png}
 \end{figure}
 \end{frame}
-
-
+% %TODO : client et chargé de TD
+% %TODO : numero de page
+% % TODO : caption pour les images 
 \begin{frame}
 \frametitle{Plan}
 \begin{itemize}[label=$\bullet$]
@@ -125,26 +126,40 @@
   \item Gestion de projet 
 \end{itemize}
 \end{frame}
+%plan sur le cote 
+%introduction
+%cahier des charges 
+%implementation
+%gestion des projets
 
 %------------------------------------------------
+% %TODO : remplacer par un schéma, les points 
+% TODO objectif: représentation d'une scène
+%parler des anaglyphes, autostéreogrammes, flipbooks 
+%slide 1:  schéma 
+% slide d'après : anaglyphes/autostereogrammes/gif/scene
 
 \begin{frame}
 \frametitle{Présentation du sujet}
 \begin{itemize}[label=$\bullet$]
-\item Project3Donuts
+\item Project3Donuts %remplacer par un schéma
 \item Scène 3D
 \item Synthèse d'images, anaglyphes, autostéréogrammes, flipbooks
 \end{itemize}
 \arrayrulecolor{white}
 \begin{tabular}{l|r}
-\includegraphics[scale=0.25]{donuts_photoshop.png}
+\includegraphics[scale=0.25]{donuts_photoshop.png} % pas obligé de mettre des donuts
 &
-\includegraphics[scale=0.25]{autostereogramme1texture.png}
+\includegraphics[scale=0.25]{autostereogramme1texture.png} % de même
 \end{tabular}
 
 \end{frame}
 
 %------------------------------------------------
+
+% % TODO changer par un gif ici, pas obligé de mettre les donuts
+% % TODO : faire apparaître le mot "folioscope"
+
 
 \begin{frame}
 \frametitle{Présentation du sujet}
@@ -161,7 +176,8 @@
 \end{frame}
 
 %------------------------------------------------
-
+% TODO : les besoins en liste 
+%
 \begin{frame}
 \frametitle{Besoins non fonctionnels et contraintes}
 \begin{itemize}[label=$\bullet$]
@@ -172,6 +188,10 @@
 \end{frame}
 
 %------------------------------------------------
+% ensuite présenter archi  
+% ATTENTION pas de capture d'écran ici
+% TODO : présenter l'architecture qui remplie les besoins du cahier de charge
+% classes virtuelles pour l'extensibilité par ex
 
 \begin{frame}
 \frametitle{Besoins non fonctionnels et contraintes}
@@ -196,7 +216,6 @@ Même screen sous Linux
 \\
 Même screen avec cg 
 \end{frame}
-
 %%------------------------------------------------
 
 \begin{frame}
@@ -210,11 +229,14 @@ Même screen avec cg
 \end{frame}
 
 %%------------------------------------------------
-
+% TODO : au début présentation du logiciel, faire une scène 2 thores, en rendu, flipbook, anaglyphes, autostereogrammes, 
+% que le résultat
 \begin{frame}
 \frametitle{Présentation du logiciel}
 \includegraphics[scale=0.22]{logiciel.png}
 \end{frame}
+% TODO : couper les screens et les remplir
+% TODO : mettre des sous titres
 
 %%------------------------------------------------
 %
@@ -235,8 +257,55 @@ Même screen avec cg
 
 \end{frame}
 
+
+%%------------------------------------------------
+% ORAL : demande une certaine gymnastique de voir les autostéréogrammes
+% recherche existant , choix d'implémenter deux pour avoir deux rendus différents
+
+
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+\item Autostéréogrammes : Algorithme de Thimbelby, Inglis, Witten \cite{stereogram}
+	\begin{itemize}[label=$\circ$]
+	\item Algorithme "de base"
+	\item Plus adapté aux formes simples et peu détaillés
+	\end{itemize}
+\end{itemize}
+\begin{tabular}{l|r}
+\centering
+\includegraphics[scale=0.22]{donutdepth.png}
+&
+\centering
+\includegraphics[scale=0.22]{donut1.png}
+\end{tabular}
+
+\end{frame}
+
 %%------------------------------------------------
 %
+\begin{frame}
+\frametitle{Présentation du logiciel}
+\begin{itemize}[label=$\bullet$]
+	\item Autostéréogrammes : Algorithme de W.A Steer \cite{wasteer}
+	\begin{itemize}[label=$\circ$]
+	\item Algorithme plus élaboré
+	\item Amélioration 3D : suréchantillonage
+	\item Amélioration 2D : coloration symétrique
+	\end{itemize}
+\end{itemize}
+\begin{tabular}{l|r}
+\includegraphics[scale=0.22]{donutdepth.png}
+&
+\includegraphics[scale=0.22]{donut2.png}
+\end{tabular}
+
+\end{frame}
+
+%%------------------------------------------------
+%
+
+% % ORAL : on avait deux images de base on les a pas généré ! 
 \begin{frame}
 \frametitle{Présentation du logiciel}
 \begin{itemize}[label=$\bullet$]
@@ -287,14 +356,19 @@ vue droite
 	\end{itemize}
 \end{itemize}
 \end{frame}
+
+% TODO : rajouter slide : mettre pour happy avec photoshop : marche moins bien 
+
 %%------------------------------------------------
 %
+% ORAL : on a continué notre recherche
+% les vraies deux images décalées
 \begin{frame}
 \frametitle{Présentation du logiciel}
 \begin{itemize}[label=$\bullet$]
 \item Anaglyphes : Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
-	\item Algorithme plus élaboré
+	\item Combinaison de couleurs plus élaborée
 	\item Conservation des détails de l'objet dans l'anaglyphe 
 	\end{itemize}
 \end{itemize}
@@ -303,63 +377,15 @@ vue droite
 
 \end{frame}
 
-%%------------------------------------------------
-%
-\begin{frame}
-\frametitle{Présentation du logiciel}
-\begin{itemize}[label=$\bullet$]
-\item Autostéréogrammes : Algorithme de Thimbelby, Inglis, Witten \cite{stereogram}
-	\begin{itemize}[label=$\circ$]
-	\item Algorithme "de base"
-	\item Plus adapté aux formes simples et peu détaillés
-	\end{itemize}
-\end{itemize}
-\begin{tabular}{l|r}
-\centering
-\includegraphics[scale=0.22]{donutdepth.png}
-&
-\centering
-\includegraphics[scale=0.22]{donut1.png}
-\end{tabular}
-
-\end{frame}
-
-%%------------------------------------------------
-%
-\begin{frame}
-\frametitle{Présentation du logiciel}
-\begin{itemize}[label=$\bullet$]
-	\item Autostéréogrammes : Algorithme de W.A Steer \cite{wasteer}
-	\begin{itemize}[label=$\circ$]
-	\item Algorithme plus élaboré
-	\item Amélioration 3D : oversampling
-	\item Amélioration 2D : coloration symétrique
-	\end{itemize}
-\end{itemize}
-\begin{tabular}{l|r}
-\includegraphics[scale=0.22]{donutdepth.png}
-&
-\includegraphics[scale=0.22]{donut2.png}
-\end{tabular}
-
-\end{frame}
-
-
 %------------------------------------------------
-
 \begin{frame}
-\frametitle{Difficultés rencontrées}
+\frametitle{Besoins non fonctionnels}
 \begin{itemize}[label=$\bullet$]
-\item Utilisation des shaders
-\item Portabilité Windows/Linux
-\item Recherche des algorithmes
+ 	\item Portabilité : Linux (debian Jessie, Fedora, ArchLinux), Windows (Windows 7, Windows 8, )
+	\item Fluidité : 
 \end{itemize}
-\begin{tabular}{l|r}
-\includegraphics[scale=0.315]{rendu_sans_shader.png}
-&
-\includegraphics[scale=0.20]{singe_shaders.png}
-\end{tabular}
 \end{frame}
+% TODO fluidite : mettre un tableau
 
 %------------------------------------------------
 
@@ -367,34 +393,62 @@ vue droite
 \frametitle{Bilan technique}
 \begin{itemize}[label=$\bullet$]
 \item Besoins fonctionnels
-	\begin{itemize}[label=$\circ$]
-	\item Manipuation de la scène
+	\begin{itemize}[label=$\checkmark$]
+	\item Manipulation de la scène
 	\item Manipulation des objets
-	\item Sauvegardes et chargement
+	\item Sauvegardes automatiques et manuelles, chargement
 	\item Anaglyphes, autostéréogrammes, flipbook
 	\end{itemize}
 \item Besoins non fonctionnels
-	\begin{itemize}[label=$\circ$]
+	\begin{itemize}[label=$\checkmark$]
 	\item Extensibilité
-	\item Portabilité
-	\item Fluidité
+	\item Portabilité  
+	\item Fluidité % TODO : mettre tableau avec nombre de FPS une slide à rajouter 
 	\end{itemize}
 \end{itemize}
 \end{frame}
 
 %%------------------------------------------------%
+% % XAVIER : rajouter choix techniques, bibliothéques (C++ 11)
 
 \begin{frame}
-\frametitle{Gestion de projet}
-\begin{itemize}[label=$\bullet$]
-\item Cahier des charges
-	\begin{itemize}[label=$\circ$]
-	\item Recherche de l'existant
-	\item Définition des besoins fonctionnels et non fonctionnels
-	\item Prototypes de tests
-	\end{itemize}
-\end{itemize}
+\frametitle{Choix techniques}
+
 \end{frame}
+%%------------------------------------------------%
+
+\begin{frame}
+\frametitle{Difficultés rencontrées}
+\begin{itemize}[label=$\bullet$]
+\item Difficultés techniques
+\begin{itemize}[label=$\circ$]
+\item Utilisation des shaders
+\item Portabilité Windows/Linux
+\end{itemize}
+\item Difficulté algorithmique %Bon terme ?
+\begin{itemize}[label=$\circ$]
+\item Sélection et adaptation d'algorithmes
+\end{itemize}
+\end{itemize}
+\begin{tabular}{l|r}
+\includegraphics[scale=0.315]{rendu_sans_shader.png}
+&
+\includegraphics[scale=0.20]{singe_shaders.png}
+\end{tabular}
+\end{frame}
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{Gestion de projet}
+%\begin{itemize}[label=$\bullet$]
+%\item Cahier des charges
+%	\begin{itemize}[label=$\circ$]
+%	\item Recherche de l'existant
+%	\item Définition des besoins fonctionnels et non fonctionnels
+%	\item Prototypes de tests
+%	\end{itemize}
+%\end{itemize}
+%\end{frame}
 
 %------------------------------------------------
 
@@ -453,7 +507,7 @@ Prise de décision pour les shaders & X & 3 semaines\\
 \end{frame}
 
 %------------------------------------------------
-
+% TODO : conclusion à enlever 
 \begin{frame}
 \frametitle{Conclusion}
 \begin{itemize}[label=$\bullet$]
@@ -465,17 +519,19 @@ Prise de décision pour les shaders & X & 3 semaines\\
 
 %%------------------------------------------------
 %
+% faire une transition pour la bliblioraphie
 \frame[allowframebreaks]{\frametitle{Bibliographie}
 	\bibliographystyle{unsrtnat}
 	\bibliography{bibli}
 	}
 	
 %------------------------------------------------
-	%
-\begin{frame}
-\Huge{\centerline{Merci pour votre attention}}
-\centering
-\includegraphics[scale=0.35]{happy_dubois.png}
+	% juste dire à l'oral merci pour votre attention
+	% TODO : annuler le style de cette slide et laisse l'image en grand 
+\begin{frame} 
+%\Huge{\centerline{Merci pour votre attention}}
+%\centering
+\includegraphics[scale=0.55]{happy_dubois.png}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
