@@ -58,8 +58,8 @@
 %\usetheme{Montpellier}
 %\usetheme{PaloAlto}
 %\usetheme{Pittsburgh}
-\usetheme{Rochester}
-%\usetheme{Singapore}
+%\usetheme{Rochester}
+\usetheme{Singapore}
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
 
@@ -83,9 +83,9 @@
 %\usecolortheme{wolverine}
 
 %\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
-%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
 
-%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 }
 
 
@@ -95,37 +95,59 @@
 
 \title[PFA 2014-2015]{PFA 2014-2015 \\ \huge De la 3D vers la 2D} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author{Anaïs Boher, Yohann Cabon, Magali Chauvat, Akané Levy, Thomas Marcelin, Xavier Maupeu, Alexandre Philippi} 
-
+\author{Anaïs BOHER, Yohann CABON, Magali CHAUVAT, Akané LEVY, Thomas MARCELIN, Xavier MAUPEU, Alexandre PHILIPPI
+\\ \and \\
+\underline{Clients :} Carole BLANC, Pascal DESBARATS 
+\\
+\underline{Encadrant :} Sylvain LOMBARDY} 
+%\author{Clients : Carole BLANC, Pascal DESBARATS}
+%\author{Encadrant : Sylvain LOMBARDY}
 \institute[Enseirb-Matmeca] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {École Nationale Supérieure d'Électronique, Informatique, Télécommunications, Mathématique et Mécanique de Bordeaux
 }
 \date{} %2014-2015} % Date, can be changed to a custom date
 
+\setbeamertemplate{section in head/foot}{\hfill\insertsectionheadnumber.~\insertsectionhead}
+\setbeamertemplate{section in head/foot shaded}{\color{structure!50}\hfill\insertsectionheadnumber.~\insertsectionhead}
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+
 \begin{document}
 \graphicspath{{./images/}{.}}
+
+
+%------------------------------------------------
+
+\section{Introduction}
+
 \begin{frame}
 \titlepage % Print the title page as the first slide
-\begin{figure}[b]
-\includegraphics[scale=0.4]{logo.png}
-\end{figure}
+
+%\begin{figure}[B]
+%\includegraphics[scale=0.4]{logo.png}
+%\end{figure}
 \end{frame}
 % %TODO : client et chargé de TD
 % %TODO : numero de page
 % % TODO : caption pour les images 
-\begin{frame}
-\frametitle{Plan}
-\begin{itemize}[label=$\bullet$]
-  \item Présentation du sujet
-  \item Besoins non fonctionnels et contraintes
-  \item Besoins fonctionnels
-  \item Présentation du logiciel
-  \item Présentation des rendus
-  \item Difficultés rencontrées
-  \item Bilan technique 
-  \item Gestion de projet 
-\end{itemize}
-\end{frame}
+
+%------------------------------------------------
+
+%\texttt{\begin{frame}
+%\frametitle{Plan}
+%\begin{itemize}[label=$\bullet$]
+%  \item Présentation du sujet
+%  \item Besoins non fonctionnels et contraintes
+%  \item Besoins fonctionnels
+%  \item Présentation du logiciel
+%  \item Présentation des rendus
+%  \item Difficultés rencontrées
+%  \item Bilan technique 
+%  \item Gestion de projet 
+%\end{itemize}
+%\flushright
+%\insertframenumber{} / \inserttotalframenumber
+%
+%\end{frame}
 %plan sur le cote 
 %introduction
 %cahier des charges 
@@ -141,6 +163,7 @@
 
 \begin{frame}
 \frametitle{Présentation du sujet}
+
 \begin{itemize}[label=$\bullet$]
 \item Project3Donuts %remplacer par un schéma
 \item Scène 3D
@@ -152,7 +175,6 @@
 &
 \includegraphics[scale=0.25]{autostereogramme1texture.png} % de même
 \end{tabular}
-
 \end{frame}
 
 %------------------------------------------------
@@ -178,6 +200,8 @@
 %------------------------------------------------
 % TODO : les besoins en liste 
 %
+\section{Cahier des charges}
+
 \begin{frame}
 \frametitle{Besoins non fonctionnels et contraintes}
 \begin{itemize}[label=$\bullet$]
@@ -202,6 +226,7 @@
 \includegraphics[scale=0.7]{portabilite.png}
 \\
 Même screen sous Linux 
+
 \end{frame}
 
 %------------------------------------------------
@@ -215,6 +240,7 @@ Même screen sous Linux
 \includegraphics[scale=0.7]{fluidite.png}
 \\
 Même screen avec cg 
+
 \end{frame}
 %%------------------------------------------------
 
@@ -226,14 +252,19 @@ Même screen avec cg
 \item Sauvegardes et chargement
 \item Rendus
 \end{itemize}
+
 \end{frame}
 
 %%------------------------------------------------
 % TODO : au début présentation du logiciel, faire une scène 2 thores, en rendu, flipbook, anaglyphes, autostereogrammes, 
 % que le résultat
+
+\section{Implémentation}
+
 \begin{frame}
 \frametitle{Présentation du logiciel}
 \includegraphics[scale=0.22]{logiciel.png}
+
 \end{frame}
 % TODO : couper les screens et les remplir
 % TODO : mettre des sous titres
@@ -245,6 +276,7 @@ Même screen avec cg
 
 \centering
 \includegraphics[scale=0.3]{logiciel1.png}
+
 \end{frame}
 
 %%------------------------------------------------
@@ -323,6 +355,7 @@ vue gauche
 \includegraphics[scale=0.15]{flip2.png}
 vue droite
 \end{tabular}
+
 \end{frame}
 %%------------------------------------------------
 %
@@ -339,7 +372,10 @@ vue droite
 &
 \includegraphics[scale=0.15]{flip2.png}
 \end{tabular}
-\end{frame}%%------------------------------------------------
+
+\end{frame}
+
+%%------------------------------------------------
 %
 \begin{frame}
 \frametitle{Présentation du logiciel}
@@ -355,6 +391,7 @@ vue droite
 	\item Méthode efficace pour des objets simples ayant peu de détails
 	\end{itemize}
 \end{itemize}
+
 \end{frame}
 
 % TODO : rajouter slide : mettre pour happy avec photoshop : marche moins bien 
@@ -378,12 +415,14 @@ vue droite
 \end{frame}
 
 %------------------------------------------------
+
 \begin{frame}
 \frametitle{Besoins non fonctionnels}
 \begin{itemize}[label=$\bullet$]
  	\item Portabilité : Linux (debian Jessie, Fedora, ArchLinux), Windows (Windows 7, Windows 8, )
 	\item Fluidité : 
 \end{itemize}
+
 \end{frame}
 % TODO fluidite : mettre un tableau
 
@@ -406,6 +445,7 @@ vue droite
 	\item Fluidité % TODO : mettre tableau avec nombre de FPS une slide à rajouter 
 	\end{itemize}
 \end{itemize}
+
 \end{frame}
 
 %%------------------------------------------------%
@@ -435,6 +475,7 @@ vue droite
 &
 \includegraphics[scale=0.20]{singe_shaders.png}
 \end{tabular}
+
 \end{frame}
 %------------------------------------------------
 
@@ -451,6 +492,8 @@ vue droite
 %\end{frame}
 
 %------------------------------------------------
+\section{Gestion de projet}
+
 
 \begin{frame}
 \frametitle{Gestion de projet}
@@ -486,6 +529,7 @@ Prise de décision pour les shaders & X & 3 semaines\\
 
 \end{tabular}
 }
+
 \end{frame}
 
 %%------------------------------------------------%
@@ -504,6 +548,7 @@ Prise de décision pour les shaders & X & 3 semaines\\
 	\item Gestion d'équipe
 	\end{itemize}
 \end{itemize}
+
 \end{frame}
 
 %------------------------------------------------
@@ -515,6 +560,7 @@ Prise de décision pour les shaders & X & 3 semaines\\
 \item Projet proches des conditions en entreprise
 \item Découverte de la synthèse d'image
 \end{itemize}
+
 \end{frame}
 
 %%------------------------------------------------
@@ -523,6 +569,7 @@ Prise de décision pour les shaders & X & 3 semaines\\
 \frame[allowframebreaks]{\frametitle{Bibliographie}
 	\bibliographystyle{unsrtnat}
 	\bibliography{bibli}
+		
 	}
 	
 %------------------------------------------------
@@ -532,6 +579,7 @@ Prise de décision pour les shaders & X & 3 semaines\\
 %\Huge{\centerline{Merci pour votre attention}}
 %\centering
 \includegraphics[scale=0.55]{happy_dubois.png}
+
 \end{frame}
 
 %----------------------------------------------------------------------------------------
