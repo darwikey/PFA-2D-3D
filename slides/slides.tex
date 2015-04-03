@@ -116,7 +116,7 @@
 
 %------------------------------------------------
 
-\section{Introduction}
+
 
 \begin{frame}
 \titlepage % Print the title page as the first slide
@@ -130,22 +130,6 @@
 
 %------------------------------------------------
 
-%\texttt{\begin{frame}
-%\frametitle{Plan}
-%\begin{itemize}[label=$\bullet$]
-%  \item Présentation du sujet
-%  \item Besoins non fonctionnels et contraintes
-%  \item Besoins fonctionnels
-%  \item Présentation du logiciel
-%  \item Présentation des rendus
-%  \item Difficultés rencontrées
-%  \item Bilan technique 
-%  \item Gestion de projet 
-%\end{itemize}
-%\flushright
-%\insertframenumber{} / \inserttotalframenumber
-%
-%\end{frame}
 %plan sur le cote 
 %introduction
 %cahier des charges 
@@ -153,6 +137,20 @@
 %gestion des projets
 
 %------------------------------------------------
+\section{Introduction}
+
+% TODO : remplir la slide du contexte
+\begin{frame}
+\frametitle{Contexte}
+
+\begin{itemize}[label=$\bullet$]
+\item Projet proposé par des chercheurs du LaBRI
+\item parler du domaine ?
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
 % %TODO : remplacer par un schéma, les points 
 % TODO objectif: représentation d'une scène
 %parler des anaglyphes, autostéreogrammes, flipbooks 
@@ -163,16 +161,35 @@
 \frametitle{Présentation du sujet}
 
 \begin{itemize}[label=$\bullet$]
-\item Project3Donuts %remplacer par un schéma
-\item Scène 3D
-\item Synthèse d'images, anaglyphes, autostéréogrammes, flipbooks
+\item Schéma A FAIRE
 \end{itemize}
-\arrayrulecolor{white}
-\begin{tabular}{l|r}
-\includegraphics[scale=0.25]{donuts_photoshop.png} % pas obligé de mettre des donuts
-&
-\includegraphics[scale=0.25]{autostereogramme1texture.png} % de même
-\end{tabular}
+\end{frame}
+
+%------------------------------------------------
+
+% % TODO : MAGALI tu peux vérifier le caption et mettre ce qu'il faut, et remplacer l'image aussi
+\begin{frame}
+
+\frametitle{Exemple d'autostéréogramme}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{autostereogramme1texture.png} % de même
+\caption{Autostéréogramme d'une scène contenant deux tores}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Exemple d'anaglyphe}
+\begin{figure}
+\centering
+\includegraphics[scale=0.38]{donuts_photoshop.png} % pas obligé de mettre des donuts
+\caption{Anaglyphe d'une scène contenant deux tores}
+\end{figure}
+
 \end{frame}
 
 %------------------------------------------------
@@ -182,17 +199,14 @@
 
 
 \begin{frame}
-\frametitle{Présentation du sujet}
-\begin{itemize}[label=$\bullet$]
-\item Flipbooks
-\end{itemize}
-\begin{tabular}{l|c|r}
-\includegraphics[scale=0.15]{flip1.png}
-&
-\includegraphics[scale=0.15]{flip2.png}
-&
-\includegraphics[scale=0.15]{flip3.png}
-\end{tabular}
+
+\frametitle{Exemple de flipbook, folioscope}
+
+\begin{figure}
+\centering
+\animategraphics[autoplay,loop,height=6cm]{1}{gifimages/rendu_gif_}{00}{49}
+\caption{Animation gif avec un mouvement de rotation autour d'une scène contenant deux tores}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -200,13 +214,24 @@
 %
 \section{Cahier des charges}
 
+
 \begin{frame}
 \frametitle{Besoins non fonctionnels et contraintes}
 \begin{itemize}[label=$\bullet$]
-\item Extensibilité
+\item Besoins fonctionnels
+	\begin{itemize}[label=$\circ$]
+	\item Manipulation de la scène
+	\item Manipulation des objets
+	\item Sauvegardes automatiques et manuelles, chargement
+	\item Anaglyphes, autostéréogrammes, flipbook
+	\end{itemize}
+\item Besoins non fonctionnels
+	\begin{itemize}[label=$\circ$]
+	\item Extensibilité
+	\item Portabilité
+	\item Fluidité
+	\end{itemize}
 \end{itemize}
-\centering
-\includegraphics[scale=0.25]{extensibilite.png}
 \end{frame}
 
 %------------------------------------------------
@@ -216,92 +241,136 @@
 % classes virtuelles pour l'extensibilité par ex
 
 \begin{frame}
-\frametitle{Besoins non fonctionnels et contraintes}
+\frametitle{Architecture}
 \begin{itemize}[label=$\bullet$]
-\item Portabilité
+\item Extensibilité : classes virtuelles  
 \end{itemize}
 \centering
-\includegraphics[scale=0.7]{portabilite.png}
-\\
-Même screen sous Linux 
-
+\includegraphics[scale=0.25]{extensibilite.png}
 \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}
-\frametitle{Besoins non fonctionnels et contraintes}
-\begin{itemize}[label=$\bullet$]
-\item Fluidité
-\end{itemize}
-\centering
-\includegraphics[scale=0.7]{fluidite.png}
-\\
-Même screen avec cg 
+%\begin{frame}
+%\frametitle{Besoins non fonctionnels et contraintes}
+%\begin{itemize}[label=$\bullet$]
+%\item Portabilité
+%\end{itemize}
+%\centering
+%\includegraphics[scale=0.7]{portabilite.png}
+%\\
+%Même screen sous Linux 
+%
+%\end{frame}
 
-\end{frame}
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{Besoins non fonctionnels et contraintes}
+%\begin{itemize}[label=$\bullet$]
+%\item Fluidité
+%\end{itemize}
+%\centering
+%\includegraphics[scale=0.7]{fluidite.png}
+%\\
+%Même screen avec cg 
+%
+%\end{frame}
 %%------------------------------------------------
 
-\begin{frame}
-\frametitle{Besoins fonctionnels}
-\begin{itemize}[label=$\bullet$]
-\item Manipulation d'une scène en trois dimensions
-\item Manipulation de plusieurs objets
-\item Sauvegardes et chargement
-\item Rendus
-\end{itemize}
-
-\end{frame}
-
 %%------------------------------------------------
-% TODO : au début présentation du logiciel, faire une scène 2 thores, en rendu, flipbook, anaglyphes, autostereogrammes, 
+% TODO : au début présentation du logiciel, faire une scène 2 tores, en rendu, flipbook, anaglyphes, autostereogrammes, 
 % que le résultat
 
 \section{Implémentation}
 
 \begin{frame}
 \frametitle{Présentation du logiciel}
+\begin{figure}
 \includegraphics[scale=0.22]{logiciel.png}
-
+\caption{Vue du logiciel}
+\end{figure}
 \end{frame}
 % TODO : couper les screens et les remplir
 % TODO : mettre des sous titres
 
 %%------------------------------------------------
 %
+% TODO : MAGALI screen shot plz
 \begin{frame}
-\frametitle{Présentation du logiciel}
-
+\frametitle{Présentation du logiciel : rendu de la scène}
+\begin{figure}
 \centering
 \includegraphics[scale=0.3]{logiciel1.png}
+\caption{Rendu d'une scène contenant deux tores}
+\end{figure}
 
 \end{frame}
 
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Présentation du logiciel}
-
+\frametitle{Présentation du logiciel : folioscope}
+\begin{figure}
 \centering
-\animategraphics[autoplay,loop,height=3cm]{1}{gifimages/rendu_gif_}{00}{49}
-
+\animategraphics[autoplay,loop,height=6.5cm]{1}{gifimages/rendu_gif_}{00}{49}
+\caption{Gif animé obtenu à partir du logiciel}
+\end{figure}
 \end{frame}
 
 
+
+%%------------------------------------------------
+%
+% TODO : MAGALI screen shot plz
+\begin{frame}
+\frametitle{Présentation du logiciel : autostéréogramme}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{donut1.png}
+\caption{Autostéreogramme obtenu à partir du logiciel}
+\end{figure}
+\end{frame}
+
+%%------------------------------------------------
+%
+% TODO : MAGALI screen shot plz
+\begin{frame}
+\frametitle{Présentation du logiciel : anaglyphe}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{donuts_photoshop.png}
+\caption{Anaglyphe obtenu à partir du logiciel}
+\end{figure}
+\end{frame}
+
+%%------------------------------------------------
+
+%
+\begin{frame}
+\frametitle{Explication autostéréogramme}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.22]{donutdepth.png}
+\caption{Carte des profondeurs obtenue avec le logiciel}
+\end{figure}
+\end{frame}
 %%------------------------------------------------
 % ORAL : demande une certaine gymnastique de voir les autostéréogrammes
 % recherche existant , choix d'implémenter deux pour avoir deux rendus différents
-
+\arrayrulecolor{white}   
 
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Autostéréogramme}
 \begin{itemize}[label=$\bullet$]
-\item Autostéréogrammes : Algorithme de Thimbelby, Inglis, Witten \cite{stereogram}
+\item Algorithme de Thimbelby, Inglis, Witten \cite{stereogram}
 	\begin{itemize}[label=$\circ$]
 	\item Algorithme "de base"
 	\item Plus adapté aux formes simples et peu détaillés
 	\end{itemize}
 \end{itemize}
+
 \begin{tabular}{l|r}
 \centering
 \includegraphics[scale=0.22]{donutdepth.png}
@@ -314,14 +383,16 @@ Même screen avec cg
 
 %%------------------------------------------------
 %
+% TODO : MAGALI complexite à rajouter
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Autostéréogramme}
 \begin{itemize}[label=$\bullet$]
-	\item Autostéréogrammes : Algorithme de W.A Steer \cite{wasteer}
+	\item Algorithme de W.A Steer \cite{wasteer}
 	\begin{itemize}[label=$\circ$]
 	\item Algorithme plus élaboré
 	\item Amélioration 3D : suréchantillonage
 	\item Amélioration 2D : coloration symétrique
+	\item Complexité à rajouter
 	\end{itemize}
 \end{itemize}
 \begin{tabular}{l|r}
@@ -331,15 +402,15 @@ Même screen avec cg
 \end{tabular}
 
 \end{frame}
-
 %%------------------------------------------------
+
 %
 
 % % ORAL : on avait deux images de base on les a pas généré ! 
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Anaglyphe}
 \begin{itemize}[label=$\bullet$]
-\item Anaglyphes : Méthode Photoshop \cite{stereoAnaglyph}
+\item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
 	\item Algorithme "de base"
 	\item Composé de trois étapes 
@@ -358,9 +429,9 @@ vue droite
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Anaglyphe}
 \begin{itemize}[label=$\bullet$]
-\item Anaglyphes : Méthode Photoshop \cite{stereoAnaglyph}
+\item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
 	\item Deuxième étape : extraction du canal rouge pour la vue gauche, canaux verts et bleus pour la vue droite 
 	\end{itemize}
@@ -376,15 +447,18 @@ vue droite
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Anaglyphe}
 \begin{itemize}[label=$\bullet$]
-\item Anaglyphes : Méthode Photoshop \cite{stereoAnaglyph}
+\item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
 	\item Troisième étape : reconstitution des canaux RGB à partir des deux images
 	\end{itemize}
 
+\begin{figure}
 \centering
 \includegraphics[scale=0.25]{donuts_photoshop.png}
+\caption{Anaglyphe avec la méthode Photoshop d'un objet simple ayant peu de détails }
+\end{figure}
 	\begin{itemize}[label=$\circ$]
 	\item Méthode efficace pour des objets simples ayant peu de détails
 	\end{itemize}
@@ -392,6 +466,27 @@ vue droite
 
 \end{frame}
 
+
+%%------------------------------------------------
+%
+\begin{frame}
+\frametitle{Anaglyphe}
+\begin{itemize}[label=$\bullet$]
+\item Méthode Photoshop \cite{stereoAnaglyph}
+	\begin{itemize}[label=$\circ$]
+	\item Méthode moins efficace pour les objets complexes 
+	\item Plusieurs artefacts visibles
+	\item Les détails ne sont pas soignés
+	\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{happy_photoshop.png}
+\caption{Anaglyphe avec la méthode Photoshop d'un objet complexe ayant beaucoup de détails }
+\end{figure}
+	
+\end{itemize}
+
+\end{frame}
 % TODO : rajouter slide : mettre pour happy avec photoshop : marche moins bien 
 
 %%------------------------------------------------
@@ -399,19 +494,39 @@ vue droite
 % ORAL : on a continué notre recherche
 % les vraies deux images décalées
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Anaglyphe}
 \begin{itemize}[label=$\bullet$]
-\item Anaglyphes : Méthode Dubois \cite{algoDubois}
+\item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
 	\item Combinaison de couleurs plus élaborée
 	\item Conservation des détails de l'objet dans l'anaglyphe 
 	\end{itemize}
 \end{itemize}
+\begin{figure}
 \centering
-\includegraphics[scale=0.35]{happy_dubois.png}
+\includegraphics[scale=0.3]{happy_dubois.png}
+\caption{Anaglyphe avec l'algorithme de Dubois d'un objet complexe ayant beaucoup de détails}
+\end{figure}
 
 \end{frame}
 
+%%------------------------------------------------
+%
+% 
+\begin{frame}
+\frametitle{Anaglyphe}
+\begin{itemize}[label=$\bullet$]
+\item Méthode Dubois \cite{algoDubois}
+	\begin{itemize}[label=$\circ$]
+	\item Légèrement moins efficace pour les objets simples : 
+	\end{itemize}
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{happy_dubois.png}
+\caption{Anaglyphe avec l'algorithme de Dubois d'un objet simple avec peu de détails}
+\end{figure}
+\end{frame}
 %------------------------------------------------
 
 \begin{frame}
@@ -575,8 +690,11 @@ Prise de décision pour les shaders & X & 3 semaines\\
 	% TODO : annuler le style de cette slide et laisse l'image en grand 
 \begin{frame} 
 %\Huge{\centerline{Merci pour votre attention}}
-%\centering
-\includegraphics[scale=0.55]{happy_dubois.png}
+\begin{figure}
+\hspace*{-1cm}
+\centering
+\includegraphics[scale=0.6]{happy_dubois.png}
+\end{figure}
 
 \end{frame}
 
