@@ -235,6 +235,28 @@
 \end{frame}
 
 %------------------------------------------------
+
+\begin{frame}
+\frametitle{Architecture}
+\centering
+\begin{figure}
+  \includegraphics[scale=0.4]{paquetages.jpg}
+  \caption{Diagramme des paquetages}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Architecture}
+\centering
+\begin{figure}
+  \includegraphics[scale=0.4]{scene.png}
+  \caption{Paquetage scène}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
 % 
 % ensuite présenter archi  
 % ATTENTION pas de capture d'écran ici
@@ -244,10 +266,13 @@
 \begin{frame}
 \frametitle{Architecture}
 \begin{itemize}[label=$\bullet$]
-\item Extensibilité : utilisation de classes virtuelles pour chaque type de rendus
+\item Extensibilité : utilisation de classes virtuelles
 \end{itemize}
-%% \centering
-%% \includegraphics[scale=0.25]{extensibilite.png}
+\centering
+\begin{figure}
+  \includegraphics[scale=0.25]{extensibilite.png}
+  \caption{Paquetage création}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -576,7 +601,7 @@ vue droite
 \begin{frame}
 \frametitle{Besoins non fonctionnels}
 \begin{itemize}[label=$\bullet$]
- 	\item Portabilité : Linux (debian Jessie, Fedora, ArchLinux), Windows (Windows 7, Windows 8, )
+ 	\item Portabilité : Linux (debian Jessie, Fedora, ArchLinux), Windows (Windows 7, Windows 8)
 	\item Fluidité : 
 \end{itemize}
 
@@ -592,8 +617,8 @@ vue droite
 	\begin{itemize}[label=$\checkmark$]
 	\item Manipulation de la scène
 	\item Manipulation des objets
-	\item Sauvegardes automatiques et manuelles, chargement
-	\item Anaglyphes, autostéréogrammes, flipbook
+	\item Sauvegarde et chargement
+	\item Anaglyphes, autostéréogrammes, folioscopes
 	\end{itemize}
 \item Besoins non fonctionnels
 	\begin{itemize}[label=$\checkmark$]
@@ -615,9 +640,10 @@ vue droite
 \item Utilisation des shaders
 \item Portabilité Windows/Linux
 \end{itemize}
-\item Difficulté algorithmique %Bon terme ?
+\item Difficultés d'implémentations
 \begin{itemize}[label=$\circ$]
-\item Sélection et adaptation d'algorithmes
+\item Choix des algorithmes
+\item Compréhension et implémentation
 \end{itemize}
 \end{itemize}
 \begin{tabular}{l|r}
