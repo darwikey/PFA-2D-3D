@@ -664,32 +664,18 @@
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Besoins non fonctionnels}
+\frametitle{Besoins non fonctionnels - Portabilité}
 \begin{itemize}[label=$\bullet$]
- 	\item Portabilité : Linux (debian Jessie, Fedora, ArchLinux), Windows (Windows 7, Windows 8)
-	\item Fluidité : 
-\end{itemize}
-
-\end{frame}
-% TODO fluidite : mettre un tableau
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Bilan technique}
-\begin{itemize}[label=$\bullet$]
-\item Besoins fonctionnels
-	\begin{itemize}[label=$\checkmark$]
-	\item Manipulation de la scène
-	\item Manipulation des objets
-	\item Sauvegarde et chargement
-	\item Anaglyphes, autostéréogrammes, folioscopes
+ 	\item Linux
+ 	\begin{itemize}[label=$\checkmark$]
+	\item Debian Jessie (64bits)
+	\item Fedora 21 (64bits)
+	\item ArchLinux (64bits)
 	\end{itemize}
-\item Besoins non fonctionnels
+	\item Windows
 	\begin{itemize}[label=$\checkmark$]
-	\item Extensibilité
-	\item Portabilité  
-	\item Fluidité % TODO : mettre tableau avec nombre de FPS une slide à rajouter 
+	\item Windows 7 (64bits)
+	\item Windows 8 (64bits)
 	\end{itemize}
 \end{itemize}
 
@@ -727,6 +713,28 @@ NVidia GeForce GTX 770 & 25 &
 
 \end{tabular}
 }
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Bilan technique}
+\begin{itemize}[label=$\bullet$]
+\item Besoins fonctionnels
+	\begin{itemize}[label=$\checkmark$]
+	\item Manipulation de la scène
+	\item Manipulation des objets
+	\item Sauvegarde et chargement
+	\item Anaglyphes, autostéréogrammes, folioscopes
+	\end{itemize}
+\item Besoins non fonctionnels
+	\begin{itemize}[label=$\checkmark$]
+	\item Extensibilité
+	\item Portabilité  
+	\item Fluidité % TODO : mettre tableau avec nombre de FPS une slide à rajouter 
+	\end{itemize}
+\end{itemize}
 
 \end{frame}
 
@@ -796,10 +804,6 @@ NVidia GeForce GTX 770 & 25 &
 \\
 \hline
 \\
-Recherche et implémentation \\des algorithmes &
-4 semaines & 13 semaines \\
-\hline
-\\
 Génération des flipbooks & 2semaines & 2 semaines \\
 \hline
 \\
@@ -814,6 +818,10 @@ Sauvegarde et chargement & 2 semaines puis 3 semaines &
 \hline
 \\
 Prise de décision pour les shaders & X & 3 semaines\\
+Recherche et implémentation \\des algorithmes &
+4 semaines & 13 semaines \\
+\hline
+\\
 
 \end{tabular}
 }
