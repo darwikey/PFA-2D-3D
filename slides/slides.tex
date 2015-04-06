@@ -25,6 +25,8 @@
 \usepackage{animate}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[compatibility=false]{caption}
+\usepackage{subcaption}
 \usepackage{cite}
 \usepackage[numbers]{natbib}
 \usepackage[T1]{fontenc}
@@ -414,14 +416,21 @@
 	\item Plus adapté aux formes simples et peu détaillés
 	\end{itemize}
 \end{itemize}
+\begin{figure}
+\centering
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{donutdepth.png}
+  \caption{Carte de profondeurs}
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{donut1.png}
+  \caption{Autostéréogramme réalisé}
+\end{subfigure}
+\caption{Résultat obtenu avec l'algorithme de Thimbelby, Inglis, Witten}
+\end{figure}
 
-\begin{tabular}{l|r}
-\centering
-\includegraphics[scale=0.22]{donutdepth.png}
-&
-\centering
-\includegraphics[scale=0.22]{donut1.png}
-\end{tabular}
 
 \end{frame}
 
@@ -439,11 +448,25 @@
 	\item Complexité : $O(mn)$
 	\end{itemize}
 \end{itemize}
-\begin{tabular}{l|r}
-\includegraphics[scale=0.22]{donutdepth.png}
-&
-\includegraphics[scale=0.22]{donut2.png}
-\end{tabular}
+\begin{figure}
+\centering
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{donutdepth.png}
+  \caption{Carte de profondeurs}
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{donut2.png}
+  \caption{Autostéréogramme réalisé}
+\end{subfigure}
+\caption{Résultat obtenu avec l'algorithme de W.A Steer}
+\end{figure}
+%\begin{tabular}{l|r}
+%\includegraphics[scale=0.22]{donutdepth.png}
+%&
+%\includegraphics[scale=0.22]{donut2.png}
+%\end{tabular}
 
 \end{frame}
 %%------------------------------------------------
@@ -461,15 +484,23 @@
 	\item Première étape : translation de la prise de vue d'une distance proche à celles entre les yeux 
 	\end{itemize}
 \end{itemize}
-\begin{tabular}{l|r}
-\includegraphics[scale=0.15]{flip1.png}
-vue gauche
-&
-\includegraphics[scale=0.15]{flip2.png}
-vue droite
-\end{tabular}
 
-\end{frame}
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{gauche.png}
+  \caption{Prise de vue correspondant à la vue gauche}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{droite.png}
+  \caption{Prise de vue correspondant à la vue droite}
+\end{subfigure}
+\caption{Les deux prises de vue obtenues avec translation}
+\end{figure}
+
+	\end{frame}
 %%------------------------------------------------
 %
 \begin{frame}
@@ -480,13 +511,23 @@ vue droite
 	\item Deuxième étape : extraction du canal rouge pour la vue gauche, canaux verts et bleus pour la vue droite 
 	\end{itemize}
 \end{itemize}
-\begin{tabular}{l|r}
-\includegraphics[scale=0.15]{flip1.png}
-&
-\includegraphics[scale=0.15]{flip2.png}
-\end{tabular}
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{gauche_rouge.png}
+  \caption{Vue gauche avec extraction du canal rouge}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{droite_cyan.png}
+  \caption{Vue droite avec extraction des canaux bleu et vert}
+\end{subfigure}
+\caption{Les deux vues rouge et cyan}
+\end{figure}
 
-\end{frame}
+
+	\end{frame}
 
 %%------------------------------------------------
 %
@@ -495,18 +536,16 @@ vue droite
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
-	\item Troisième étape : reconstitution des canaux RGB à partir des deux images
-	\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.25]{donuts_photoshop.png}
-\caption{Anaglyphe avec la méthode Photoshop d'un objet simple ayant peu de détails }
-\end{figure}
-	\begin{itemize}[label=$\circ$]
+	\item Troisième étape : composition de l'image à partir des canaux RGB des deux images
 	\item Méthode efficace pour des objets simples ayant peu de détails
 	\end{itemize}
 \end{itemize}
+\begin{figure}
+\centering
+\includegraphics[scale=0.28]{donuts_photoshop.png}
+\caption{Anaglyphe avec la méthode Photoshop d'un objet simple ayant peu de détails }
+\end{figure}
+
 
 \end{frame}
 
@@ -562,12 +601,12 @@ vue droite
 \begin{itemize}[label=$\bullet$]
 \item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
-	\item Légèrement moins efficace pour les objets simples : 
+	\item Légèrement moins efficace pour les objets simples 
 	\end{itemize}
 \end{itemize}
 \begin{figure}
 \centering
-\includegraphics[scale=0.35]{happy_dubois.png}
+\includegraphics[scale=0.35]{donuts_dubois.png}
 \caption{Anaglyphe avec l'algorithme de Dubois d'un objet simple avec peu de détails}
 \end{figure}
 \end{frame}
@@ -620,11 +659,22 @@ vue droite
 \item Sélection et adaptation d'algorithmes
 \end{itemize}
 \end{itemize}
-\begin{tabular}{l|r}
-\includegraphics[scale=0.315]{rendu_sans_shader.png}
-&
-\includegraphics[scale=0.20]{singe_shaders.png}
-\end{tabular}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{rendu_sans_shader.png}
+  \caption{Rendu sans shaders}
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{singe_shaders.png}
+  \caption{Rendu avec shaders}
+\end{subfigure}
+\caption{Comparaison de rendu avec ou sans shaders}
+\end{figure}
+
 
 \end{frame}
 %------------------------------------------------
