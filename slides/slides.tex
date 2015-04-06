@@ -110,7 +110,7 @@
 
 \setbeamertemplate{section in head/foot}{\hfill\insertsectionheadnumber.~\insertsectionhead}
 \setbeamertemplate{section in head/foot shaded}{\color{structure!50}\hfill\insertsectionheadnumber.~\insertsectionhead}
-\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+\setbeamertemplate{section in toc}{ \inserttocsectionnumber.~\inserttocsection}
 
 \begin{document}
 \graphicspath{{./images/}{.}}
@@ -239,7 +239,7 @@
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Architecture}
+\frametitle{Architecture (1/3)}
 \centering
 \begin{figure}
   \includegraphics[scale=0.4]{paquetages.jpg}
@@ -250,7 +250,7 @@
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Architecture}
+\frametitle{Architecture (2/3)}
 \centering
 \begin{figure}
   \includegraphics[scale=0.4]{scene.png}
@@ -266,7 +266,7 @@
 % du genre classes virtuelles pour l'extensibilité par ex
 
 \begin{frame}
-\frametitle{Architecture}
+\frametitle{Architecture (3/3)}
 \begin{itemize}[label=$\bullet$]
 \item Extensibilité : utilisation de classes virtuelles
 \end{itemize}
@@ -313,7 +313,7 @@
 \section{Implémentation}
 
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Présentation du logiciel (1/5)}
 \begin{figure}
 \includegraphics[scale=0.22]{logiciel.png}
 \caption{Vue du logiciel}
@@ -326,7 +326,7 @@
 %
 % TODO : MAGALI screen shot plz
 \begin{frame}
-\frametitle{Présentation du logiciel : rendu de la scène}
+\frametitle{Présentation du logiciel (2/5) : rendu de la scène}
 \begin{figure}
 \centering
 \includegraphics[scale=0.3]{rendu.png}
@@ -338,7 +338,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Présentation du logiciel : folioscope}
+\frametitle{Présentation du logiciel (3/5) : folioscope}
 \begin{figure}
 \centering
 \animategraphics[autoplay,loop,height=6.5cm]{1}{gifimages/rendu_gif_}{00}{49}
@@ -352,7 +352,7 @@
 %
 % TODO : MAGALI screen shot plz
 \begin{frame}
-\frametitle{Présentation du logiciel : autostéréogramme}
+\frametitle{Présentation du logiciel (4/5) : autostéréogramme}
 \begin{figure}
 \centering
 \includegraphics[scale=0.31]{renduautostereogrammes.png}
@@ -364,7 +364,7 @@
 %
 % TODO : MAGALI screen shot plz
 \begin{frame}
-\frametitle{Présentation du logiciel : anaglyphe}
+\frametitle{Présentation du logiciel (5/5) : anaglyphe}
 \begin{figure}
 \centering
 \includegraphics[scale=0.31]{renduanaglyphe.png}
@@ -500,7 +500,7 @@
 
 % % ORAL : on avait deux images de base on les a pas généré ! 
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (1/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -529,7 +529,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (2/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -557,7 +557,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (3/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -578,7 +578,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (4/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -602,7 +602,7 @@
 % ORAL : on a continué notre recherche
 % les vraies deux images décalées
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (5/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
@@ -622,7 +622,7 @@
 %
 % 
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (6/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
