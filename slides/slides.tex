@@ -302,7 +302,7 @@
 \frametitle{Présentation du logiciel : rendu de la scène}
 \begin{figure}
 \centering
-\includegraphics[scale=0.3]{logiciel1.png}
+\includegraphics[scale=0.3]{rendu.png}
 \caption{Rendu d'une scène contenant deux tores}
 \end{figure}
 
@@ -328,7 +328,7 @@
 \frametitle{Présentation du logiciel : autostéréogramme}
 \begin{figure}
 \centering
-\includegraphics[scale=0.4]{donut1.png}
+\includegraphics[scale=0.31]{renduautostereogrammes.png}
 \caption{Autostéreogramme obtenu à partir du logiciel}
 \end{figure}
 \end{frame}
@@ -340,7 +340,7 @@
 \frametitle{Présentation du logiciel : anaglyphe}
 \begin{figure}
 \centering
-\includegraphics[scale=0.4]{donuts_photoshop.png}
+\includegraphics[scale=0.31]{renduanaglyphe.png}
 \caption{Anaglyphe obtenu à partir du logiciel}
 \end{figure}
 \end{frame}
@@ -387,7 +387,12 @@
 
 %
 \begin{frame}
-\frametitle{Explication autostéréogramme}
+\frametitle{Autostéréogramme : principe}
+
+\begin{itemize}[label=$\bullet$]
+\item Génération d'une carte de profondeurs
+\item Obtention de l'autostéréogramme
+\end{itemize}
 
 \begin{figure}
 \centering
@@ -405,7 +410,7 @@
 \begin{itemize}[label=$\bullet$]
 \item Algorithme de Thimbelby, Inglis, Witten \cite{stereogram}
 	\begin{itemize}[label=$\circ$]
-	\item Algorithme "de base"
+	\item Algorithme ``de base''
 	\item Plus adapté aux formes simples et peu détaillés
 	\end{itemize}
 \end{itemize}
@@ -431,7 +436,7 @@
 	\item Algorithme plus élaboré
 	\item Amélioration 3D : suréchantillonage
 	\item Amélioration 2D : coloration symétrique
-	\item Complexité à rajouter
+	\item Complexité : $O(mn)$
 	\end{itemize}
 \end{itemize}
 \begin{tabular}{l|r}
@@ -451,7 +456,7 @@
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
-	\item Algorithme "de base"
+	\item Algorithme ``de base''
 	\item Composé de trois étapes 
 	\item Première étape : translation de la prise de vue d'une distance proche à celles entre les yeux 
 	\end{itemize}
