@@ -507,8 +507,7 @@
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
 	\item Algorithme ``de base''
-	\item Composé de trois étapes 
-	\item Première étape : translation de la prise de vue d'une distance proche à celle entre les yeux 
+	\item En entrée : deux prises de vues. L'une est la translatée d'un écart pupillaire par rapport à l'autre.
 	\end{itemize}
 \end{itemize}
 
@@ -533,9 +532,11 @@
 \begin{frame}
 \frametitle{Anaglyphe (2/6)}
 \begin{itemize}[label=$\bullet$]
-\item Méthode Photoshop \cite{stereoAnaglyph}
-	\begin{itemize}[label=$\circ$]
-	\item Deuxième étape : extraction du canal rouge pour la vue gauche, canaux verts et bleus pour la vue droite 
+\item Méthode Photoshop \cite{stereoAnaglyph} : 
+	\begin{itemize}[label=$\circ$] 
+	\item Traitements différents pour les deux prises de vue
+	\item Pour la vue gauche, extraction du canal rouge
+	\item Pour la vue droite, extraction des canaux verts et bleus
 	\end{itemize}
 \end{itemize}
 \begin{figure}
@@ -563,7 +564,7 @@
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
-	\item Troisième étape : composition de l'image à partir des canaux RGB des deux images
+	\item Composition de l'image résultat à partir des canaux RGB des deux images
 	\item Méthode efficace pour des objets simples ayant peu de détails
 	\end{itemize}
 \end{itemize}
