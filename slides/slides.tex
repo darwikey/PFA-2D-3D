@@ -119,7 +119,7 @@
 %------------------------------------------------
 
 
-% TODO GENERAL : modifier les caption & rajouter image lunettes anaglyphes
+% OK : modifier les caption & rajouter image lunettes anaglyphes
 
 \begin{frame}
 \titlepage % Print the title page as the first slide
@@ -129,7 +129,7 @@
 \includegraphics[scale=0.4]{logo.png}
 \end{figure}
 \end{frame}
-% % TODO : caption pour les images 
+% % OK : caption pour les images 
 
 %------------------------------------------------
 
@@ -188,7 +188,7 @@
 
 %------------------------------------------------
 
-% % TODO : MAGALI tu peux vérifier le caption et mettre ce qu'il faut, et remplacer l'image aussi
+% % OK : MAGALI tu peux vérifier le caption et mettre ce qu'il faut, et remplacer l'image aussi
 \begin{frame}
 
 \frametitle{Présentation du sujet (2/4)}
@@ -206,7 +206,7 @@
 \end{frame}
 
 %------------------------------------------------
-% TODO: rajouter une image de lunettes
+% OK: rajouter une image de lunettes
 \begin{frame}
 
 \frametitle{Présentation du sujet (3/4)}
@@ -227,7 +227,7 @@
 
 %------------------------------------------------
 
-% % TODO : mettre une image de flipbooks (en laissant l'animation à côté)
+% % OK : mettre une image de flipbooks (en laissant l'animation à côté)
 
 \begin{frame}
 
@@ -404,7 +404,7 @@
 
 %%------------------------------------------------
 
-% % TODO : remplir les sous points
+% % OK : remplir les sous points
 
 \begin{frame}
 \frametitle{Choix techniques}
@@ -462,11 +462,18 @@
 \item Génération d'une carte de profondeurs
 \item Obtention de l'autostéréogramme
 \end{itemize}
-
 \begin{figure}
-\centering
-\includegraphics[scale=0.22]{donutdepth.png}
-\caption{Carte des profondeurs obtenue avec le logiciel}
+\caption{Du rendu de la scène 3D à la carte de profondeurs}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{rendu_donuts.png}
+  \caption{Scène 3D avec deux tores}
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{donutdepth.png}
+  \caption{Carte de profondeurs}
+\end{subfigure}
 \end{figure}
 \end{frame}
 %%------------------------------------------------
