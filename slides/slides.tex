@@ -110,7 +110,7 @@
 
 \setbeamertemplate{section in head/foot}{\hfill\insertsectionheadnumber.~\insertsectionhead}
 \setbeamertemplate{section in head/foot shaded}{\color{structure!50}\hfill\insertsectionheadnumber.~\insertsectionhead}
-\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+\setbeamertemplate{section in toc}{ \inserttocsectionnumber.~\inserttocsection}
 
 \begin{document}
 \graphicspath{{./images/}{.}}
@@ -138,7 +138,6 @@
 %implementation
 %gestion des projets
 
-%------------------------------------------------
 \section{Introduction}
 % TODO : INTRO a remplir : THOMAS
 % TODO : remplir la slide du contexte
@@ -147,7 +146,8 @@
 
 \begin{itemize}[label=$\bullet$]
 \item Projet proposé par des chercheurs du LaBRI
-\item parler du domaine ?
+\item Objectif : visualisation et manipulation d'une scène 3D
+\item Tromper le cerveau sur la perception d'une image
 \end{itemize}
 \end{frame}
 
@@ -160,9 +160,17 @@
 % slide d'après : anaglyphes/autostereogrammes/gif/scene
 
 \begin{frame}
-  \frametitle{Présentation du sujet}
-  \centering
-  \includegraphics[scale=0.36]{schema.png}
+
+\frametitle{Présentation du sujet (1/4)}
+
+\begin{itemize}[label=$\bullet$]
+\item Schéma d'utilisation
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{schema.png} % de même
+\caption{Schéma d'utilisation du logiciel}
+\end{figure}
 
 \end{frame}
 
@@ -171,12 +179,17 @@
 % % TODO : MAGALI tu peux vérifier le caption et mettre ce qu'il faut, et remplacer l'image aussi
 \begin{frame}
 
-\frametitle{Exemple d'autostéréogramme}
+\frametitle{Présentation du sujet (2/4)}
+
+\begin{itemize}[label=$\bullet$]
+\item Autostéréogramme
+\end{itemize}
 \begin{figure}
 \centering
-\includegraphics[scale=0.4]{autostereogramme1texture.png} % de même
-\caption{Autostéréogramme d'une scène contenant deux tores}
+\includegraphics[scale=0.4]{autostereog.png} % de même
+\caption{Autostéréogramme d'un requin \footnotemark}
 \end{figure}
+\footnotetext{\url{http://en.wikipedia.org/wiki/Autostereogram}}
 
 \end{frame}
 
@@ -184,12 +197,17 @@
 
 \begin{frame}
 
-\frametitle{Exemple d'anaglyphe}
+\frametitle{Présentation du sujet (3/4)}
+
+\begin{itemize}[label=$\bullet$]
+\item Anaglyphe
+\end{itemize}
 \begin{figure}
 \centering
-\includegraphics[scale=0.38]{donuts_photoshop.png} % pas obligé de mettre des donuts
-\caption{Anaglyphe d'une scène contenant deux tores}
+\includegraphics[scale=0.4]{anaglyphe-cratere-puy.jpg} % pas obligé de mettre des donuts
+\caption{Anaglyphe d'un paysage \footnotemark}
 \end{figure}
+\footnotetext{\url{http://www.photo-stereo.com/images/anaglyphe-cratere-puy.jpg}}
 
 \end{frame}
 
@@ -201,17 +219,21 @@
 
 \begin{frame}
 
-\frametitle{Exemple de flipbook/ folioscope}
+\frametitle{Présentation du sujet (4/4)}
 
+\begin{itemize}[label=$\bullet$]
+\item Flipbook (folioscope)
+\end{itemize}
 \begin{figure}
 \centering
-\animategraphics[autoplay,loop,height=6cm]{1}{gifimages/rendu_gif_}{00}{49}
-\caption{Animation gif avec un mouvement de rotation autour d'une scène contenant deux tores}
+\animategraphics[autoplay,loop,height=5cm]{18}{gifimages/ex_gif_}{00}{29}
+\caption{Animation gif\footnotemark}
 \end{figure}
+\footnotetext{\url{http://shyrobotics.com/wp-content/uploads/2012/09/Mouvement-precession.gif}}
 \end{frame}
 
 %------------------------------------------------
-% TODO : les besoins en liste 
+% OK : les besoins en liste 
 %
 \section{Cahier des charges}
 
@@ -238,7 +260,7 @@
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Architecture}
+\frametitle{Architecture (1/3)}
 \centering
 \begin{figure}
   \includegraphics[scale=0.4]{paquetages.jpg}
@@ -249,7 +271,7 @@
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Architecture}
+\frametitle{Architecture (2/3)}
 \centering
 \begin{figure}
   \includegraphics[scale=0.4]{scene.png}
@@ -265,7 +287,7 @@
 % du genre classes virtuelles pour l'extensibilité par ex
 
 \begin{frame}
-\frametitle{Architecture}
+\frametitle{Architecture (3/3)}
 \begin{itemize}[label=$\bullet$]
 \item Extensibilité : utilisation de classes virtuelles
 \end{itemize}
@@ -276,35 +298,6 @@
 \end{figure}
 \end{frame}
 
-%------------------------------------------------
-
-%\begin{frame}
-%\frametitle{Besoins non fonctionnels et contraintes}
-%\begin{itemize}[label=$\bullet$]
-%\item Portabilité
-%\end{itemize}
-%\centering
-%\includegraphics[scale=0.7]{portabilite.png}
-%\\
-%Même screen sous Linux 
-%
-%\end{frame}
-
-%------------------------------------------------
-
-%\begin{frame}
-%\frametitle{Besoins non fonctionnels et contraintes}
-%\begin{itemize}[label=$\bullet$]
-%\item Fluidité
-%\end{itemize}
-%\centering
-%\includegraphics[scale=0.7]{fluidite.png}
-%\\
-%Même screen avec cg 
-%
-%\end{frame}
-%%------------------------------------------------
-
 %%------------------------------------------------
 % TODO : au début présentation du logiciel, faire une scène 2 tores, en rendu, flipbook, anaglyphes, autostereogrammes, 
 % que le résultat
@@ -312,23 +305,26 @@
 \section{Implémentation}
 
 \begin{frame}
-\frametitle{Présentation du logiciel}
+\frametitle{Présentation du logiciel (1/5)}
 \begin{figure}
 \includegraphics[scale=0.22]{logiciel.png}
 \caption{Vue du logiciel}
 \end{figure}
 \end{frame}
-% TODO : couper les screens et les remplir
-% TODO : mettre des sous titres
+% OK : couper les screens et les remplir
+% OK : mettre des sous titres
 
 %%------------------------------------------------
 %
-% TODO : MAGALI screen shot plz
+% OK : MAGALI screen shot plz
 \begin{frame}
-\frametitle{Présentation du logiciel : rendu de la scène}
+\frametitle{Présentation du logiciel (2/5)}
+\begin{itemize}[label=$\bullet$]
+\item Rendu de la scène
+\end{itemize}
 \begin{figure}
 \centering
-\includegraphics[scale=0.3]{rendu.png}
+\includegraphics[scale=0.28]{rendu.png}
 \caption{Rendu d'une scène contenant deux tores}
 \end{figure}
 
@@ -337,10 +333,13 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Présentation du logiciel : folioscope}
+\frametitle{Présentation du logiciel (3/5)}
+\begin{itemize}[label=$\bullet$]
+\item Flipbook (folioscope)
+\end{itemize}
 \begin{figure}
 \centering
-\animategraphics[autoplay,loop,height=6.5cm]{1}{gifimages/rendu_gif_}{00}{49}
+\animategraphics[autoplay,loop,height=6.5cm]{20}{gifimages/rendu_gif_}{00}{49}
 \caption{Gif animé obtenu à partir du logiciel}
 \end{figure}
 \end{frame}
@@ -349,24 +348,30 @@
 
 %%------------------------------------------------
 %
-% TODO : MAGALI screen shot plz
+% OK : MAGALI screen shot plz
 \begin{frame}
-\frametitle{Présentation du logiciel : autostéréogramme}
+\frametitle{Présentation du logiciel (4/5)}
+\begin{itemize}[label=$\bullet$]
+\item Autostéréogramme
+\end{itemize}
 \begin{figure}
 \centering
-\includegraphics[scale=0.31]{renduautostereogrammes.png}
+\includegraphics[scale=0.28]{renduautostereogrammes.png}
 \caption{Autostéreogramme obtenu à partir du logiciel}
 \end{figure}
 \end{frame}
 
 %%------------------------------------------------
 %
-% TODO : MAGALI screen shot plz
+% OK : MAGALI screen shot plz
 \begin{frame}
-\frametitle{Présentation du logiciel : anaglyphe}
+\frametitle{Présentation du logiciel (5/5)}
+\begin{itemize}[label=$\bullet$]
+\item Anaglyphe
+\end{itemize}
 \begin{figure}
 \centering
-\includegraphics[scale=0.31]{renduanaglyphe.png}
+\includegraphics[scale=0.28]{renduanaglyphe.png}
 \caption{Anaglyphe obtenu à partir du logiciel}
 \end{figure}
 \end{frame}
@@ -499,7 +504,7 @@
 
 % % ORAL : on avait deux images de base on les a pas généré ! 
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (1/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -528,7 +533,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (2/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -556,7 +561,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (3/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -577,7 +582,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (4/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -601,7 +606,7 @@
 % ORAL : on a continué notre recherche
 % les vraies deux images décalées
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (5/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
@@ -621,7 +626,7 @@
 %
 % 
 \begin{frame}
-\frametitle{Anaglyphe}
+\frametitle{Anaglyphe (6/6)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
@@ -637,32 +642,18 @@
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Besoins non fonctionnels}
+\frametitle{Besoins non fonctionnels - Portabilité}
 \begin{itemize}[label=$\bullet$]
- 	\item Portabilité : Linux (debian Jessie, Fedora, ArchLinux), Windows (Windows 7, Windows 8)
-	\item Fluidité : 
-\end{itemize}
-
-\end{frame}
-% TODO fluidite : mettre un tableau
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Bilan technique}
-\begin{itemize}[label=$\bullet$]
-\item Besoins fonctionnels
-	\begin{itemize}[label=$\checkmark$]
-	\item Manipulation de la scène
-	\item Manipulation des objets
-	\item Sauvegarde et chargement
-	\item Anaglyphes, autostéréogrammes, folioscopes
+ 	\item Linux
+ 	\begin{itemize}[label=$\checkmark$]
+	\item Debian Jessie (64bits)
+	\item Fedora 21 (64bits)
+	\item ArchLinux (64bits)
 	\end{itemize}
-\item Besoins non fonctionnels
+	\item Windows
 	\begin{itemize}[label=$\checkmark$]
-	\item Extensibilité
-	\item Portabilité  
-	\item Fluidité % TODO : mettre tableau avec nombre de FPS une slide à rajouter 
+	\item Windows 7 (64bits)
+	\item Windows 8 (64bits)
 	\end{itemize}
 \end{itemize}
 
@@ -671,7 +662,7 @@
 %%------------------------------------------------%
 
 \begin{frame}
-\frametitle{Fluidité}
+\frametitle{Besoins non fonctionnels - Fluidité}
 \begin{itemize}[label=$\bullet$]
 \item Résultats obtenus avec la version finale du logiciel
 \end{itemize}
@@ -700,6 +691,32 @@ NVidia GeForce GTX 770 & 25 &
 
 \end{tabular}
 }
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Bilan technique}
+\begin{itemize}[label=$\bullet$]
+\item Besoins fonctionnels
+	\begin{itemize}[label=$\checkmark$]
+	\item Manipulation de la scène
+	\item Manipulation des objets
+	\item Sauvegarde et chargement
+	\item Anaglyphes, autostéréogrammes, folioscopes
+% * <thomas.marcelin.07@gmail.com> 2015-04-06T20:44:16.430Z:
+%
+% 
+%
+	\end{itemize}
+\item Besoins non fonctionnels
+	\begin{itemize}[label=$\checkmark$]
+	\item Extensibilité
+	\item Portabilité  
+	\item Fluidité
+	\end{itemize}
+\end{itemize}
 
 \end{frame}
 
@@ -769,10 +786,6 @@ NVidia GeForce GTX 770 & 25 &
 \\
 \hline
 \\
-Recherche et implémentation \\des algorithmes &
-4 semaines & 13 semaines \\
-\hline
-\\
 Génération des flipbooks & 2semaines & 2 semaines \\
 \hline
 \\
@@ -787,6 +800,10 @@ Sauvegarde et chargement & 2 semaines puis 3 semaines &
 \hline
 \\
 Prise de décision pour les shaders & X & 3 semaines\\
+Recherche et implémentation \\des algorithmes &
+4 semaines & 13 semaines \\
+\hline
+\\
 
 \end{tabular}
 }
@@ -835,4 +852,4 @@ Prise de décision pour les shaders & X & 3 semaines\\
 
 %----------------------------------------------------------------------------------------
 
-\end{document} 
+\end{document}
