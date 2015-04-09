@@ -147,15 +147,23 @@
 
 \begin{itemize}[label=$\bullet$]
 \item Projet proposé par des enseignants chercheurs de l'équipe Image et Son du LaBRI
-\item Objectif : visualisation et impression en 2D des objets 3D \footnotemark
-\begin{figure}[b!]
-\includegraphics[scale=0.2]{logolabri.jpg} % de même                    
-\hspace{2cm}
-\includegraphics[scale=0.3]{scene.jpg}
-
-\end{figure}
-%\item Tromper le cerveau sur la perception d'une image                 
+\item Objectif : visualisation et impression en 2D des objets 3D
 \end{itemize}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[scale=0.3]{scene.jpg}
+  \caption{Exemple d'objet 3D représenté en 2D \footnotemark}
+\end{subfigure}
+\hspace*{1cm}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[scale=0.3]{logolabri.jpg}
+\end{subfigure}
+\end{figure}
+
 \footnotetext{\url{http://uploads.siteduzero.com/files/239001_240000/239759.jpg}}
 \end{frame}
 
@@ -209,9 +217,11 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{anaglyphe-cratere-puy.jpg} % pas obligé de mettre des donuts
+\includegraphics[scale=0.2]{lunettes.png}
 \caption{Anaglyphe d'un paysage \footnotemark}
 \end{figure}
-\footnotetext{\url{http://www.photo-stereo.com/images/anaglyphe-cratere-puy.jpg}}
+\footnotetext{\url{http://www.photo-stereo.com/images/anaglyphe-cratere-puy.jpg}
+\url{http://fr.wikipedia.org/wiki/Lunettes_stéréoscopiques}}
 
 \end{frame}
 
@@ -228,10 +238,23 @@
 \end{itemize}
 \begin{figure}
 \centering
-\animategraphics[autoplay,loop,height=5cm]{18}{gifimages/ex_gif_}{00}{29}
-\caption{Animation gif\footnotemark}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[scale=0.5]{flipbook.png}
+	\caption{Exemple de flipbook\footnotemark}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \animategraphics[autoplay,loop,height=2cm]{18}{gifimages/ex_gif_}{00}{29}
+  \caption{Animation gif\footnotemark}
+  \vspace*{-1.5cm}
+ \end{subfigure}
 \end{figure}
+
+\footnotetext[4]{\url{http://tracieliu.blogspot.fr/2010/08/flipbook-storyboard.html}}
+
 \footnotetext{\url{http://shyrobotics.com/wp-content/uploads/2012/09/Mouvement-precession.gif}}
+  
 \end{frame}
 
 %------------------------------------------------
@@ -374,6 +397,7 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{renduanaglyphe.png}
+\includegraphics[scale=0.2]{lunettes.png}
 \caption{Anaglyphe obtenu à partir du logiciel}
 \end{figure}
 \end{frame}
@@ -387,18 +411,18 @@
 \begin{itemize}[label=$\bullet$]
 	\item Utilisation du C++11
 	\begin{itemize}[label=$\circ$]
-		\item lambda expressions
-                \item unique\_ptr 
+		\item Lambda expressions
+        \item unique\_ptr 
 	\end{itemize}
 	\item Interface graphique avec Qt5
 	\begin{itemize}[label=$\circ$]
-		\item création de fenêtres
-                \item module pour le XML
+		\item Création de fenêtres
+        \item Module pour le XML
 	\end{itemize}
 	\item Rendu avec OpenGL
           \begin{itemize}[label=$\circ$]
-		\item portable
-                \item s'interface facilement avec Qt
+		\item Portable
+        \item S'interface facilement avec Qt
 	\end{itemize}
 \end{itemize}
 
@@ -583,6 +607,7 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{donuts_photoshop.png}
+\includegraphics[scale=0.2]{lunettes.png}
 \caption{Anaglyphe avec la méthode Photoshop d'un objet simple ayant peu de détails }
 \end{figure}
 
@@ -604,6 +629,7 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.3]{happy_photoshop.png}
+\includegraphics[scale=0.2]{lunettes.png}
 \caption{Anaglyphe avec la méthode Photoshop d'un objet complexe ayant beaucoup de détails }
 \end{figure}
 	
@@ -628,6 +654,7 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.3]{happy_dubois.png}
+\includegraphics[scale=0.2]{lunettes.png}
 \caption{Anaglyphe avec l'algorithme de Dubois d'un objet complexe ayant beaucoup de détails}
 \end{figure}
 
@@ -647,32 +674,34 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.35]{donuts_dubois.png}
+\includegraphics[scale=0.2]{lunettes.png}
 \caption{Anaglyphe avec l'algorithme de Dubois d'un objet simple avec peu de détails}
 \end{figure}
 \end{frame}
 %------------------------------------------------
 % 
 \begin{frame}
-	\frametitle{Anaglyphe (7/8)}
-	\begin{itemize}[label=$\bullet$]
-		\item Comparaison des résultats 
-		\item Pour un objet complexe : la méthode de Dubois est plus efficace
-	\end{itemize}
-	\begin{figure}
+\frametitle{Anaglyphe (7/8)}
+\begin{itemize}[label=$\bullet$]
+	\item Comparaison des résultats 
+	\item Pour un objet complexe : la méthode de Dubois est plus efficace
+\end{itemize}
+\begin{figure}
+	\centering
+	\caption{Comparaison des deux résultats avec un objet complexe très détaillé}
+	\begin{subfigure}{0.5\textwidth}
 		\centering
-		\caption{Comparaison des deux résultats avec un objet complexe très détaillé}
-		\begin{subfigure}{.5\textwidth}
-			\centering
-			\includegraphics[width=.8\linewidth]{happy_photoshop.png}
-			\caption{Anaglyphe obtenu avec la méthode Photoshop}
-		\end{subfigure}%
-		\begin{subfigure}{.5\textwidth}
-			\centering
-			\includegraphics[width=.8\linewidth]{happy_dubois.png}
-			\caption{Anaglyphe obtenu avec la méthode Dubois}
-		\end{subfigure}
-		
-	\end{figure}
+		\includegraphics[width=0.9\linewidth]{happy_photoshop.png}
+		\caption{Anaglyphe obtenu avec la méthode Photoshop}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{happy_dubois.png}
+		\caption{Anaglyphe obtenu avec la méthode Dubois}
+	\end{subfigure}
+	\includegraphics[scale=0.2]{lunettes.png}
+	
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -681,22 +710,22 @@
 	\frametitle{Anaglyphe (8/8)}
 	\begin{itemize}[label=$\bullet$]
 		\item Comparaison des résultats 
-		\item Pour un objet complexe : la méthode Photoshop est plus efficace
+		\item Pour un objet simple : la méthode Photoshop est plus efficace
 	\end{itemize}
 	\begin{figure}
 		\centering
 		\caption{Comparaison des deux résultats avec un objet simple peu détaillé}
 		\begin{subfigure}{.5\textwidth}
 			\centering
-			\includegraphics[width=.8\linewidth]{donuts_photoshop.png}
+			\includegraphics[width=.9\linewidth]{donuts_photoshop.png}
 			\caption{Anaglyphe obtenu avec la méthode Photoshop}
 		\end{subfigure}%
 		\begin{subfigure}{.5\textwidth}
 			\centering
-			\includegraphics[width=.8\linewidth]{donuts_dubois.png}
+			\includegraphics[width=.9\linewidth]{donuts_dubois.png}
 			\caption{Anaglyphe obtenu avec la méthode Dubois}
 		\end{subfigure}
-		
+		\includegraphics[scale=0.2]{lunettes.png}
 	\end{figure}
 \end{frame}
 %------------------------------------------------
