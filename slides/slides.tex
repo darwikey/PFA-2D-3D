@@ -119,6 +119,7 @@
 %------------------------------------------------
 
 
+% TODO GENERAL : modifier les caption & rajouter image lunettes anaglyphes
 
 \begin{frame}
 \titlepage % Print the title page as the first slide
@@ -139,25 +140,23 @@
 %gestion des projets
 
 \section{Introduction}
-% TODO : INTRO a remplir : THOMAS
-% TODO : remplir la slide du contexte
+
+% TODO : remplir/corriger la slide du contexte
+% TODO : rajouter logo du LaBRI & image d'une scène 3D
+
 \begin{frame}
 \frametitle{Contexte}
 
 \begin{itemize}[label=$\bullet$]
-\item Projet proposé par des chercheurs du LaBRI
-\item Objectif : visualisation et manipulation d'une scène 3D
-\item Tromper le cerveau sur la perception d'une image
+\item Projet proposé par des enseignants chercheurs de l'équipe Image et Son du LaBRI
+\item Objectif : visualisation et impression en 2D des objets 3D
+%\item Tromper le cerveau sur la perception d'une image
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-% %TODO : remplacer par un schéma, les points 
-% TODO objectif: représentation d'une scène
-%parler des anaglyphes, autostéreogrammes, flipbooks 
-%slide 1:  schéma 
-% slide d'après : anaglyphes/autostereogrammes/gif/scene
+% TODO : dans le schéma mettre flipbooks (folioscopes)
 
 \begin{frame}
 \frametitle{Présentation du sujet (1/4)}
@@ -192,7 +191,7 @@
 \end{frame}
 
 %------------------------------------------------
-
+% TODO: rajouter une image de lunettes
 \begin{frame}
 
 \frametitle{Présentation du sujet (3/4)}
@@ -211,16 +210,14 @@
 
 %------------------------------------------------
 
-% % TODO changer par un gif ici, pas obligé de mettre les donuts
-% % TODO : faire apparaître le mot "folioscope"
-
+% % TODO : mettre une image de flipbooks (en laissant l'animation à côté)
 
 \begin{frame}
 
 \frametitle{Présentation du sujet (4/4)}
 
 \begin{itemize}[label=$\bullet$]
-\item Flipbook (folioscope)
+\item Flipbook
 \end{itemize}
 \begin{figure}
 \centering
@@ -237,14 +234,14 @@
 
 
 \begin{frame}
-\frametitle{Besoins non fonctionnels et contraintes}
+\frametitle{Définition des besoins}
 \begin{itemize}[label=$\bullet$]
 \item Besoins fonctionnels
 	\begin{itemize}[label=$\circ$]
 	\item Manipulation de la caméra
 	\item Manipulation des objets
 	\item Sauvegardes et chargement
-	\item Anaglyphes, autostéréogrammes, folioscopes
+	\item Anaglyphes, autostéréogrammes, flipbooks
 	\end{itemize}
 \item Besoins non fonctionnels
 	\begin{itemize}[label=$\circ$]
@@ -280,10 +277,10 @@
 %------------------------------------------------
 % 
 % ensuite présenter archi  
-% ATTENTION pas de capture d'écran ici
-% TODO PHILIPPI : présenter l'architecture qui remplie les besoins du cahier de charge
+% présenter l'architecture qui remplie les besoins du cahier de charge
 % du genre classes virtuelles pour l'extensibilité par ex
 
+% TODO : mettre des couleurs sur les classes virtuelles
 \begin{frame}
 \frametitle{Architecture (3/3)}
 \begin{itemize}[label=$\bullet$]
@@ -297,7 +294,7 @@
 \end{frame}
 
 %%------------------------------------------------
-% TODO : au début présentation du logiciel, faire une scène 2 tores, en rendu, flipbook, anaglyphes, autostereogrammes, 
+% OK : au début présentation du logiciel, faire une scène 2 tores, en rendu, flipbook, anaglyphes, autostereogrammes, 
 % que le résultat
 
 \section{Implémentation}
@@ -333,7 +330,7 @@
 \begin{frame}
 \frametitle{Présentation du logiciel (3/5)}
 \begin{itemize}[label=$\bullet$]
-\item Flipbook (folioscope)
+\item Flipbook 
 \end{itemize}
 \begin{figure}
 \centering
@@ -376,13 +373,19 @@
 
 %%------------------------------------------------
 
-% % XAVIER :
+% % TODO : remplir les sous points
 
 \begin{frame}
 \frametitle{Choix techniques}
 \begin{itemize}[label=$\bullet$]
 	\item Utilisation du C++11
+	\begin{itemize}[label=$\circ$]
+		\item blabla lambda expressions blabla
+	\end{itemize}
 	\item Interface graphique avec Qt5
+	\begin{itemize}[label=$\circ$]
+		\item blabla tructruc blabla
+	\end{itemize}
 	\item Rendu avec OpenGL
 \end{itemize}
 
@@ -395,7 +398,7 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.15]{rendu_specular.png}
-\caption{Rendu avec et sans spécularité}
+\caption{Rendu sans  et avec spécularité}
 \end{figure}
 
 \end{frame}
@@ -407,14 +410,14 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.8]{antialiasing.png}
-\caption{Rendu avec et sans antialiasing}
+\caption{Rendu sans et avec antialiasing}
 \end{figure}
 
 \end{frame}
 
 %------------------------------------------------
 
-%
+% TODO : mettre une photo de la scène à côté
 \begin{frame}
 \frametitle{Autostéréogramme (1/3) : principe}
 
@@ -445,6 +448,8 @@
 \end{itemize}
 \begin{figure}
 \centering
+\caption{Résultat obtenu avec l'algorithme de Thimbelby, Inglis, Witten}
+
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{donutdepth.png}
@@ -455,7 +460,6 @@
   \includegraphics[width=1\linewidth]{donut1.png}
   \caption{Autostéréogramme réalisé}
 \end{subfigure}
-\caption{Résultat obtenu avec l'algorithme de Thimbelby, Inglis, Witten}
 \end{figure}
 
 
@@ -467,7 +471,7 @@
 \begin{frame}
 \frametitle{Autostéréogramme (3/3)}
 \begin{itemize}[label=$\bullet$]
-	\item Algorithme de W.A Steer \cite{wasteer}
+	\item Algorithme de W. A Steer \cite{wasteer}
 	\begin{itemize}[label=$\circ$]
 	\item Algorithme plus élaboré
 	\item Amélioration 3D : suréchantillonage
@@ -477,6 +481,7 @@
 \end{itemize}
 \begin{figure}
 \centering
+\caption{Résultat obtenu avec l'algorithme de W. A Steer}
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{donutdepth.png}
@@ -487,13 +492,7 @@
   \includegraphics[width=1\linewidth]{donut2.png}
   \caption{Autostéréogramme réalisé}
 \end{subfigure}
-\caption{Résultat obtenu avec l'algorithme de W.A Steer}
 \end{figure}
-%\begin{tabular}{l|r}
-%\includegraphics[scale=0.22]{donutdepth.png}
-%&
-%\includegraphics[scale=0.22]{donut2.png}
-%\end{tabular}
 
 \end{frame}
 %%------------------------------------------------
@@ -502,7 +501,7 @@
 
 % % ORAL : on avait deux images de base on les a pas généré ! 
 \begin{frame}
-\frametitle{Anaglyphe (1/6)}
+\frametitle{Anaglyphe (1/8)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -513,6 +512,7 @@
 
 \begin{figure}
 \centering
+\caption{Les deux prises de vue obtenues avec translation}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{gauche.png}
@@ -523,14 +523,13 @@
   \includegraphics[width=.8\linewidth]{droite.png}
   \caption{Prise de vue correspondant à la vue droite}
 \end{subfigure}
-\caption{Les deux prises de vue obtenues avec translation}
 \end{figure}
 
 	\end{frame}
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe (2/6)}
+\frametitle{Anaglyphe (2/8)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph} : 
 	\begin{itemize}[label=$\circ$] 
@@ -541,6 +540,7 @@
 \end{itemize}
 \begin{figure}
 \centering
+\caption{Les deux vues rouge et cyan}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{gauche_rouge.png}
@@ -551,7 +551,6 @@
   \includegraphics[width=.8\linewidth]{droite_cyan.png}
   \caption{Vue droite avec extraction des canaux bleu et vert}
 \end{subfigure}
-\caption{Les deux vues rouge et cyan}
 \end{figure}
 
 
@@ -560,7 +559,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe (3/6)}
+\frametitle{Anaglyphe (3/8)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -581,7 +580,7 @@
 %%------------------------------------------------
 %
 \begin{frame}
-\frametitle{Anaglyphe (4/6)}
+\frametitle{Anaglyphe (4/8)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Photoshop \cite{stereoAnaglyph}
 	\begin{itemize}[label=$\circ$]
@@ -598,18 +597,18 @@
 \end{itemize}
 
 \end{frame}
-% TODO : rajouter slide : mettre pour happy avec photoshop : marche moins bien 
+% OK : rajouter slide : mettre pour happy avec photoshop : marche moins bien 
 
 %%------------------------------------------------
 %
 % ORAL : on a continué notre recherche
 % les vraies deux images décalées
 \begin{frame}
-\frametitle{Anaglyphe (5/6)}
+\frametitle{Anaglyphe (5/8)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
-	\item Combinaison de couleurs plus élaborée
+	\item Combinaison des canaux de couleurs plus élaborée
 	\item Conservation des détails de l'objet dans l'anaglyphe 
 	\end{itemize}
 \end{itemize}
@@ -625,7 +624,7 @@
 %
 % 
 \begin{frame}
-\frametitle{Anaglyphe (6/6)}
+\frametitle{Anaglyphe (6/8)}
 \begin{itemize}[label=$\bullet$]
 \item Méthode Dubois \cite{algoDubois}
 	\begin{itemize}[label=$\circ$]
@@ -639,20 +638,69 @@
 \end{figure}
 \end{frame}
 %------------------------------------------------
+% 
+\begin{frame}
+	\frametitle{Anaglyphe (7/8)}
+	\begin{itemize}[label=$\bullet$]
+		\item Comparaison des résultats 
+		\item Pour un objet complexe : la méthode de Dubois est plus efficace
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\caption{Comparaison des deux résultats avec un objet complexe très détaillé}
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{happy_photoshop.png}
+			\caption{Anaglyphe obtenu avec la méthode Photoshop}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{happy_dubois.png}
+			\caption{Anaglyphe obtenu avec la méthode Dubois}
+		\end{subfigure}
+		
+	\end{figure}
+\end{frame}
+
+%------------------------------------------------
+% 
+\begin{frame}
+	\frametitle{Anaglyphe (8/8)}
+	\begin{itemize}[label=$\bullet$]
+		\item Comparaison des résultats 
+		\item Pour un objet complexe : la méthode Photoshop est plus efficace
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\caption{Comparaison des deux résultats avec un objet simple peu détaillé}
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{donuts_photoshop.png}
+			\caption{Anaglyphe obtenu avec la méthode Photoshop}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{donuts_dubois.png}
+			\caption{Anaglyphe obtenu avec la méthode Dubois}
+		\end{subfigure}
+		
+	\end{figure}
+\end{frame}
+%------------------------------------------------
 
 \begin{frame}
 \frametitle{Besoins non fonctionnels - Portabilité}
 \begin{itemize}[label=$\bullet$]
- 	\item Linux
+ 	\item Linux (64bits)
  	\begin{itemize}[label=$\checkmark$]
-	\item Debian Jessie (64bits)
-	\item Fedora 21 (64bits)
-	\item ArchLinux (64bits)
+	\item Debian Jessie 
+	\item Fedora 21
+	\item ArchLinux
 	\end{itemize}
-	\item Windows
+	\item Windows (64bits)
 	\begin{itemize}[label=$\checkmark$]
-	\item Windows 7 (64bits)
-	\item Windows 8 (64bits)
+	\item Windows 7
+	\item Windows 8 
 	\end{itemize}
 \end{itemize}
 
@@ -702,12 +750,9 @@ NVidia GeForce GTX 770 & 25 &
 	\begin{itemize}[label=$\checkmark$]
 	\item Manipulation de la scène
 	\item Manipulation des objets
-	\item Sauvegarde et chargement
+	\item Sauvegardes et chargement
 	\item Anaglyphes, autostéréogrammes, folioscopes
-% * <thomas.marcelin.07@gmail.com> 2015-04-06T20:44:16.430Z:
-%
-% 
-%
+
 	\end{itemize}
 \item Besoins non fonctionnels
 	\begin{itemize}[label=$\checkmark$]
@@ -738,17 +783,17 @@ NVidia GeForce GTX 770 & 25 &
 
 \begin{figure}
 \centering
+\caption{Comparaison de rendu avec et sans shaders}
+\begin{subfigure}{.4\textwidth}
+	\centering
+	\includegraphics[width=1\linewidth]{singe_shaders.png}
+	\caption{Rendu avec shaders}
+\end{subfigure}
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{rendu_sans_shader.png}
   \caption{Rendu sans shaders}
 \end{subfigure}
-\begin{subfigure}{.4\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{singe_shaders.png}
-  \caption{Rendu avec shaders}
-\end{subfigure}
-\caption{Comparaison de rendu avec ou sans shaders}
 \end{figure}
 
 
@@ -780,7 +825,7 @@ NVidia GeForce GTX 770 & 25 &
 \arrayrulecolor{black}
 \begin{tabular}{lcr}
 
-\textbf{Tâche} & \textbf{Durée Prévisionnelle} & \textbf{Durée réelle} \\
+\textbf{Tâche exemples} & \textbf{Durée Prévisionnelle} & \textbf{Durée réelle} \\
 \\
 \hline
 \\
@@ -813,7 +858,7 @@ Sélection et implémentation \\des algorithmes &
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Apports et difficultés}
+\frametitle{Apports de ce projet}
 \begin{itemize}[label=$\bullet$]
 \item Apports de ce projet
 	\begin{itemize}[label=$\circ$]
@@ -832,7 +877,7 @@ Sélection et implémentation \\des algorithmes &
 %%------------------------------------------------
 %
 % faire une transition pour la bliblioraphie
-\frame[allowframebreaks]{\frametitle{Bibliographie}
+\frame[allowframebreaks]{\frametitle*{Bibliographie}
 	\bibliographystyle{unsrtnat}
 	\bibliography{bibli}
 		
